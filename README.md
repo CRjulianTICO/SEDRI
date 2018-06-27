@@ -2,7 +2,7 @@
 SEDRI es un sistema academico para profesores, directores y cuerpo administrativo.
 
 
-#DESCRIPCION DEL PROYECTO:
+# DESCRIPCION DEL PROYECTO:
 
 SEDRI por sus siglas Sistema Educativo De Rendimiento Institucional es un sistema web, 
 así las personas que necesiten utilizar el sistema ingresen desde su computadora con solo tener acceso a internet, 
