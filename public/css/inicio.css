@@ -1,0 +1,38 @@
+.body
+{
+	background-size: cover;
+
+}
+.login
+{
+	margin-top: 100px;
+
+}
+.login .card
+{
+background:white;
+}
+.login label
+{
+	font-size: 20px;
+	color:teal;
+	font-weight: bold;
+}
+.login input
+{
+font-size: 22px !important;
+color:teal;
+
+}
+/*
+.login button:hover{
+	padding: 0px 40px;
+}*/
+button{
+font-weight: bold;
+width: 100%;
+}
+::placeholder{
+    color: teal;
+     
+}
