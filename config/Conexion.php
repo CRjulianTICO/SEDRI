@@ -28,14 +28,14 @@ if (!function_exists('ejecutarConsulta'))
 		$row = $query->fetch_assoc();
 		return $row;
 	}
-
+	/*
 	function consultaID($sql)
 	{
 		global $conexion;
 		$query = $conexion->query($sql);		
 		return $conexion->insert_id;			
 	}
-
+	*/
 	function limpiarCadena($str)
 	{
 		global $conexion;
