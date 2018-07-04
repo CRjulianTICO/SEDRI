@@ -17,6 +17,6 @@
     <script src="../public/js/bootstrap-select.min.js"></script>
       <!--Materialize -->
        <script src="../public/materialize/js/materialize.js"></script>
-       <script src="js/alumno.js"></script>
+       <script src="js/alumno.js?newversion"></script>
   </body>
 </html>

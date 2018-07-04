@@ -79,16 +79,19 @@ switch ($_GET["opcion"]){
 		break;
 
 	case 'cargarPais':
-	$respuestaPais = $alumno->cargarPais();
-	while ($registro=$respuestaPais->fetch_object()){
-		$data[]= array(
-			'idNacionalidad' => $registro['idNacionalidad'],
-			'pais' => $registro['pais']
+
+	$rspta=$alumno->cargarPais();
+ 		$data= Array();
+ 		while ($reg=$rspta->fetch_object()){
+ 			$data[]=array(
+ 		
+ 				'idNacionalidad' => $reg->idNacionalidad,
+			    'pais' => $reg->pais
 		
 		);
 	}
 	echo json_encode($data);
-
+	break;
 
 
 }

@@ -94,26 +94,24 @@ function mostrar(cedula)
     $("#cedula").val(data.cedula);
     $("#direccion").val(data.direccion);
     $("#sexo").val(data.sexo);
-    $("#nacionalidad").val(data.pais);
+    $("#nacionalidad").text(data.pais);
 
 
   })
 }
 function cargarPais(){
-    $('#nacionalidad').empty();
-    $('#nacionalidad').append("<option>Cargando</option>");
     $.ajax({
         url: "../controlador/alumno.php?opcion=cargarPais",
         method: "POST",
-        contentType ="application/json; chartset=utf-8",
-        dataType = "json",
-        success: function(datos)
+        dataType : "json",
+        contentType: "application/json; charset=utf-8",
+        success: function(data)
         {
             $('#nacionalidad').empty();
             $('#nacionalidad').append("<option>Seleccionar Pais</option>");
             $.each(data,function(i,item){
 
-                $('#nacionalidad').append('<option value="'+data[i].idPais+'">'+data[i].pais+'</option>');
+                $('#nacionalidad').append('<option value="'+data[i].idNacionalidad+'">'+data[i].pais+'</option>');
 
             });
         }
