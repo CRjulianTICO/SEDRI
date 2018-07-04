@@ -25,7 +25,7 @@ if ($resultado->num_rows > 0) {
     echo "</tbody>
           </table>";
 }else{
-    echo"<h1>Error al cargar la tabla</h1>
+    echo"<h1>Error al cargar la tabla. No se encontraron datos</h1>
         <br>
         <table>
         <thead>
