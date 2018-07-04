@@ -14,6 +14,12 @@ $alumno=new Alumno();
 	$nacionalidad=isset($_POST["nacionalidad"])? limpiarCadena($_POST["nacionalidad"]):"";
 
 
+
+
+
+
+
+
 switch ($_GET["opcion"]){
 	case 'guardar':
 			echo "Valores que llegan a controlador".$cedula.$nombre.$apellido1.$apellido2.$sexo.$direccion.$nacionalidad;
@@ -71,6 +77,18 @@ switch ($_GET["opcion"]){
  		//Se cofifica para que quede en json
  		echo json_encode($rspta);
 		break;
+
+	case 'cargarPais':
+	$respuestaPais = $alumno->cargarPais();
+	while ($registro=$respuestaPais->fetch_object()){
+		$data[]= array(
+			'idNacionalidad' => $registro['idNacionalidad'],
+			'pais' => $registro['pais']
+		
+		);
+	}
+	echo json_encode($data);
+
 
 
 }

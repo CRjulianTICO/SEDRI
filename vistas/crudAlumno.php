@@ -7,8 +7,9 @@
     <input type="text" name="apellido2" id="apellido2" placeholder="apellido2" style="display:block;">
     <input type="text" name="sexo" id="sexo" placeholder="sexo" style="display:block;">
     <textarea name="direccion" id="direccion" rows="8" cols="80" placeholder="direccion" style="display:block;"></textarea>
-    <input type="text" name="nacionalidad" id="nacionalidad" placeholder="nacionalidad" style="display:block;">
-  
+    
+    <select name="nacionalidad" id="nacionalidad">
+    </select>
     <button type="submit" name="Guardar">Guardar</button>
 
 

@@ -15,7 +15,11 @@ Class Alumno
     		VALUES (NULL, '$cedula', '$nombre', '$apellido1', '$apellido2', '$sexo', '$direccion', NULL, NULL, NULL, '$nacionalidad', '1');";
 		return consulta($sql);
 	}
-
+	public function cargarPais()
+	{
+		$sql= "SELECT * FROM `nacionalidad`";
+		return consulta($sql);
+	}
 	public function actualizar($cedula,$nombre,$apellido1,$apellido2,$sexo,$direccion,$nacionalidad)
 	{
 		$sql="UPDATE `persona` SET `cedula` = '".$cedula."', `nombre` = '".$nombre."', `apellido1` = '".$apellido1."', `apellido2` = '".$apellido2."', `sexo` = '".$sexo."', `direccion` = '".$direccion."'where cedula='".$cedula."';";

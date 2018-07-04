@@ -8,6 +8,7 @@
       {
       editar(e);
       }
+      cargarPais();
 
      $("#formAlumno").on("submit",function(e)
   	 {
@@ -98,6 +99,29 @@ function mostrar(cedula)
 
   })
 }
+function cargarPais(){
+    $('#nacionalidad').empty();
+    $('#nacionalidad').append("<option>Cargando</option>");
+    $.ajax({
+        url: "../controlador/alumno.php?opcion=cargarPais",
+        method: "POST",
+        contentType ="application/json; chartset=utf-8",
+        dataType = "json",
+        success: function(datos)
+        {
+            $('#nacionalidad').empty();
+            $('#nacionalidad').append("<option>Seleccionar Pais</option>");
+            $.each(data,function(i,item){
+
+                $('#nacionalidad').append('<option value="'+data[i].idPais+'">'+data[i].pais+'</option>');
+
+            });
+        }
+
+    });
+
+}
+
 function editar()
   {
      //No se activará la acción predeterminada del evento
