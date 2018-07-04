@@ -2,7 +2,7 @@
 
   //Función que se ejecuta al inicio
   function init(){
-  	//mostrarform(false);
+  	mostrarform(false);
   	listar();
      $("#editar").click,function(e)
       {
@@ -14,9 +14,22 @@
   	 {
   		guardar(e);
   	 })
+
     }
 
-
+function mostrarform(bool)
+{
+  if (bool)
+  {
+    $("#tabla").hide();
+    $("#formulario").show();
+  }
+  else
+  {
+    $("#tabla").show();
+    $("#formulario").hide();
+  }
+}
   //Función cancelarform
   function cancelarform()
   {
