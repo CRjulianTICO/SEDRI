@@ -17,25 +17,25 @@ if (!function_exists('ejecutarConsulta'))
 	function consulta($sql)
 	{
 		global $conexion;
-		$query = $conexion->query($sql);
+		$query = $conexion->query(mysqli_real_escape_string($sql));
 		return $query;
 	}
 
 	function consultaSimple($sql)
 	{
 		global $conexion;
-		$query = $conexion->query($sql);		
+		$query = $conexion->query(mysqli_real_escape_string($sql));		
 		$row = $query->fetch_assoc();
 		return $row;
 	}
-
+	/*
 	function consultaID($sql)
 	{
 		global $conexion;
 		$query = $conexion->query($sql);		
 		return $conexion->insert_id;			
 	}
-
+	*/
 	function limpiarCadena($str)
 	{
 		global $conexion;
