@@ -1,6 +1,6 @@
 
-function mostrarTablaEstudiantes(){
-	var division = document.getElementById("divTablaEstudiante");
+function cargarTabla(){
+	var division = document.getElementById("divTablaAsistencia");
     division.innerHTML='';
 
     //Se usa Ajax para enviar los valores

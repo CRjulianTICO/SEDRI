@@ -17,7 +17,7 @@ if (!function_exists('ejecutarConsulta'))
 	function consulta($sql)
 	{
 		global $conexion;
-		$query = $conexion->query(mysqli_real_escape_string($sql));
+		$query = $conexion->query($sql);
 		return $query;
 	}
 
