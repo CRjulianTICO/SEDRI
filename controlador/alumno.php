@@ -38,19 +38,20 @@ switch ($_GET["opcion"]){
  		$data= Array();
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
- 				"0"=>($reg->disponible)?'<button  onclick="mostrar('.$reg->cedula.')"><i class="fa fa-pencil"></i></button>'.
- 					' <button  onclick="desactivar('.$reg->cedula.')"><i class="fa fa-close"></i></button>':
- 					'<button  onclick="mostrar('.$reg->cedula.')"><i class="fa fa-pencil"></i></button>'.
- 					' <button  onclick="activar('.$reg->cedula.')"><i class="fa fa-check"></i></button>',
- 				"1"=>$reg->cedula,
- 				"2"=>$reg->nombre,
-        "3"=>$reg->apellido1,
-        "4"=>$reg->apellido2,
-        "5"=>$reg->sexo,
-        "6"=>$reg->direccion,
-        "7"=>$reg->pais,
- 				"8"=>($reg->disponible)?'<span class="label bg-green">Activado</span>':
- 				'<span class="label bg-red">Desactivado</span>'
+ 				
+ 				"0"=>$reg->cedula,
+ 				"1"=>$reg->nombre,
+        "2"=>$reg->apellido1,
+        "3"=>$reg->apellido2,
+        "4"=>$reg->sexo,
+        "5"=>$reg->direccion,
+        "6"=>$reg->pais,
+ 				"7"=>($reg->disponible)?'<span class="label bg-green">Activado</span>':
+ 				'<span class="label bg-red">Desactivado</span>',
+ 				"8"=>($reg->disponible)?'<button class="mostrarEditar" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center blue-text ">edit</i></button>'.
+ 					' <button class="mostrarBlock" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center red-text ">block</i></button>':
+ 					'<button class="mostrarEditar" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center blue-text ">edit</i></button>'.
+ 					' <button class="mostrarCheck" onclick="activar('.$reg->cedula.')"><i class="material-icons center green-text">check</i></button>',
  				);
  		}
  		$results = array(
@@ -64,12 +65,12 @@ switch ($_GET["opcion"]){
 	case 'desactivar':
 		 $respuesta = $alumno->desactivar($cedula);
 		 echo "string".$cedula;
-		 echo $rspta ? "Categoría activada" : "Categoría no se puede activar";
+		 echo $rspta ? "Alumno activada" : "Alumno no se puede activar";
 		break;
 
 	case 'activar':
 		 $respuesta = $alumno->activar($cedula);
-		 echo $rspta ? "Categoría activada" : "Categoría no se puede activar";
+		 echo $rspta ? "Alumno activada" : "Alumno no se puede activar";
 		break;
 
 	case 'mostrar':

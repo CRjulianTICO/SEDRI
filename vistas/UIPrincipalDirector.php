@@ -37,7 +37,7 @@
   <div id="menu">
 
     <ul id="slide-out" class="side-nav fixed show-on-large-only">
-      <li><a href="#" class="waves-effect">Nombre Profesor <i class="material-icons left blue-grey-text">account_circle</i>  </a></li>
+      <li><a href="#" class="waves-effect">Nombre Director <i class="material-icons left blue-grey-text">account_circle</i>  </a></li>
       <li> <div class="divider"></div></li>
       <li class="no-padding">
         <ul class="collapsible collapsible-accordion">
@@ -45,16 +45,37 @@
             <a class="collapsible-header waves-effect">Alumnos<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left orange-text">face</i></a>
             <div class="collapsible-body">
               <ul>
-                <a onclick="mostrarform(false)" class="waves-effect">Registro de Alumnos<i class="material-icons left pink-text registroIcono">folder_shared</i></a>
+                <a onclick="mostrarform(false)" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_shared</i></a>
                 <li>
-                <a onclick="mostrarform(true)" class="waves-effect">Agregar Alumno(s)<i class="material-icons left green-text agregarIcono">add_circle</i></a></li>
+                <a onclick="mostrarform(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a></li>
+              </ul>
+            </div>
+          </li>
+
+           <li>
+            <a class="collapsible-header waves-effect">Docentes<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left orange-text">group</i></a>
+            <div class="collapsible-body">
+              <ul>
+                <a onclick="mostrarform(false)" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_shared</i></a>
+                <li>
+                <a onclick="mostrarform(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a></li>
+              </ul>
+            </div>
+          </li>
+
+           <li>
+            <a class="collapsible-header waves-effect">Becas<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left orange-text">description</i></a>
+            <div class="collapsible-body">
+              <ul>
+                <a onclick="mostrarform(false)" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_special</i></a>
+                <li>
+                <a onclick="mostrarform(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a></li>
               </ul>
             </div>
           </li>
         </ul>
       </li>
-      <li><a href="#!" class="waves-effect">Notas<i class="material-icons left blue-text ">description</i></a></li>
-      <li><a href="#!" class="waves-effect">Cuotas <i class="material-icons left green-text">attach_money</i></a></li>
+      
 
     </ul>
     <!--menu frontal-->

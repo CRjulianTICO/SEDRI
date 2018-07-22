@@ -24,7 +24,7 @@ if (!function_exists('ejecutarConsulta'))
 	function consultaSimple($sql)
 	{
 		global $conexion;
-		$query = $conexion->query(mysqli_real_escape_string($sql));		
+		$query = $conexion->query($sql);		
 		$row = $query->fetch_assoc();
 		return $row;
 	}

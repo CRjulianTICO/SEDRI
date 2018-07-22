@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 18, 2018 at 04:00 AM
+-- Generation Time: Jul 02, 2018 at 05:21 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -45,13 +45,6 @@ CREATE TABLE `alumno` (
   `Persona_idPersona` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `alumno`
---
-
-INSERT INTO `alumno` (`idalumno`, `Persona_idPersona`) VALUES
-(1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -76,20 +69,6 @@ CREATE TABLE `alumno_materia` (
   `trimestre_2` decimal(10,0) DEFAULT NULL,
   `trimestre_3` decimal(10,0) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `asistencia`
---
-
-CREATE TABLE `asistencia` (
-  `IDASISTENCIA` int(11) NOT NULL,
-  `ESTADO` tinyint(1) DEFAULT NULL,
-  `NOTA` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `IDALUMNO` int(11) DEFAULT NULL,
-  `FECHA` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -157,8 +136,7 @@ CREATE TABLE `grado_alumno` (
 
 CREATE TABLE `materia` (
   `idmateria` int(11) NOT NULL,
-  `nombre` varchar(45) NOT NULL,
-  `IDGRADO` int(11) DEFAULT NULL
+  `nombre` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -177,7 +155,7 @@ CREATE TABLE `nacionalidad` (
 --
 
 INSERT INTO `nacionalidad` (`idNacionalidad`, `pais`) VALUES
-(1, 'Costa Rica');
+(0, 'Costa Rica');
 
 -- --------------------------------------------------------
 
@@ -237,7 +215,7 @@ CREATE TABLE `persona` (
 --
 
 INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`, `sexo`, `direccion`, `telefono`, `telefono_secundario`, `email`, `idNacionalidad`, `disponible`) VALUES
-(1, '305080238', 'Julian', 'Perez', 'Fernandez', 'Masculino', 'Santo Tomas, Santo Domingo de Heredia', NULL, NULL, NULL, 1, 1);
+(0, '305080238', 'Alfonso', 'Zarate', 'Rodriguez', 'Masculino', 'basilica de sto domingo 5000 este', '546464656', '2165454', 'adqwdgdc@gmail.com', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -249,6 +227,13 @@ CREATE TABLE `profesor` (
   `idprofesor` int(11) NOT NULL,
   `Persona_idPersona` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `profesor`
+--
+
+INSERT INTO `profesor` (`idprofesor`, `Persona_idPersona`) VALUES
+(0, 0);
 
 -- --------------------------------------------------------
 
@@ -274,6 +259,13 @@ CREATE TABLE `rol` (
   `tiporol` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `rol`
+--
+
+INSERT INTO `rol` (`IDROL`, `tiporol`) VALUES
+(1, 'ProfesorGeneral');
+
 -- --------------------------------------------------------
 
 --
@@ -286,6 +278,13 @@ CREATE TABLE `usuario` (
   `idRol` int(11) DEFAULT NULL,
   `password` varchar(75) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `usuario`
+--
+
+INSERT INTO `usuario` (`idUsuario`, `idPersona`, `idRol`, `password`) VALUES
+(2, 0, 1, '123');
 
 -- --------------------------------------------------------
 
@@ -395,13 +394,6 @@ ALTER TABLE `alumno_materia`
   ADD KEY `fk_alumno_has_materia_alumno1_idx` (`alumno_idalumno`);
 
 --
--- Indexes for table `asistencia`
---
-ALTER TABLE `asistencia`
-  ADD PRIMARY KEY (`IDASISTENCIA`),
-  ADD KEY `FK_ASISTENCIA_ALUMNO` (`IDALUMNO`);
-
---
 -- Indexes for table `beca`
 --
 ALTER TABLE `beca`
@@ -442,8 +434,7 @@ ALTER TABLE `grado_alumno`
 -- Indexes for table `materia`
 --
 ALTER TABLE `materia`
-  ADD PRIMARY KEY (`idmateria`),
-  ADD KEY `FK_MATERIA_GRADO` (`IDGRADO`);
+  ADD PRIMARY KEY (`idmateria`);
 
 --
 -- Indexes for table `nacionalidad`
@@ -513,82 +504,22 @@ ALTER TABLE `usuario`
 --
 
 --
--- AUTO_INCREMENT for table `alumno`
---
-ALTER TABLE `alumno`
-  MODIFY `idalumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `beca`
---
-ALTER TABLE `beca`
-  MODIFY `idbeca` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `director`
---
-ALTER TABLE `director`
-  MODIFY `idDirector` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `encargado`
---
-ALTER TABLE `encargado`
-  MODIFY `idencargado` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `grado`
---
-ALTER TABLE `grado`
-  MODIFY `idgrado` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `materia`
---
-ALTER TABLE `materia`
-  MODIFY `idmateria` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `nacionalidad`
---
-ALTER TABLE `nacionalidad`
-  MODIFY `idNacionalidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `notas`
 --
 ALTER TABLE `notas`
   MODIFY `idNotas` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `nota_constante`
---
-ALTER TABLE `nota_constante`
-  MODIFY `idnota_constante` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `persona`
---
-ALTER TABLE `persona`
-  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `profesor`
---
-ALTER TABLE `profesor`
-  MODIFY `idprofesor` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `IDROL` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IDROL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -615,12 +546,6 @@ ALTER TABLE `alumno_materia`
   ADD CONSTRAINT `fk_alumno_has_materia_materia1` FOREIGN KEY (`materia_idmateria`) REFERENCES `materia` (`idmateria`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `asistencia`
---
-ALTER TABLE `asistencia`
-  ADD CONSTRAINT `FK_ASISTENCIA_ALUMNO` FOREIGN KEY (`IDALUMNO`) REFERENCES `alumno` (`idalumno`);
-
---
 -- Constraints for table `beca`
 --
 ALTER TABLE `beca`
@@ -644,12 +569,6 @@ ALTER TABLE `encargado`
 ALTER TABLE `grado_alumno`
   ADD CONSTRAINT `fk_grado_has_alumno_alumno1` FOREIGN KEY (`alumno_idalumno`) REFERENCES `alumno` (`idalumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_grado_has_alumno_grado1` FOREIGN KEY (`grado_idgrado`) REFERENCES `grado` (`idgrado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `materia`
---
-ALTER TABLE `materia`
-  ADD CONSTRAINT `FK_MATERIA_GRADO` FOREIGN KEY (`IDGRADO`) REFERENCES `grado` (`idgrado`);
 
 --
 -- Constraints for table `notas`
