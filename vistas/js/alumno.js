@@ -2,6 +2,7 @@
 
   //Función que se ejecuta al inicio
   function init(){
+   $('select').formSelect();
     limpiar();
   	mostrarform(false);
     mostrarbotones(false);
