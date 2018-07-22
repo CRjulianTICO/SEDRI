@@ -58,11 +58,7 @@
               <ul>
                 <a onclick="mostrarform(false)" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_shared</i></a>
                 <li>
-                <a onclick="mostrarform(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
-                </li>
-                <li>
-                <a onclick="mostrarform(false)" class="waves-effect">Asignar Grupos<i class="material-icons left blue-text agregarIcono">assignment</i></a>
-                </li>
+                <a onclick="mostrarform(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a></li>
               </ul>
             </div>
           </li>
@@ -127,35 +123,30 @@
     <div class="container">
 
 
-      <!--Inicia Formulario-->
-      <div id="formulario">
 
+      <div id="formulario">
         <form method="POST" id="formAlumno" name="formAlumno">
 
-      <div class='row'>
-      <div class='input-field col s6'>
+      <div class='row'><div class='input-field col s12'>
         <input placeholder="" class='validate' type='text' name='cedula' id='cedula' min="1000000" max="9999999" required />
                 <label for='cedula'>Ingresa la Cédula</label>
-      </div>
+              </div></div>
 
-        <div class='input-field col s6'>
-        <input placeholder="Nombre" class='validate' type='text' name='nombre' id='nombre' maxlength="30" required />
+
+              <div class='row'><div class='input-field col s12'>
+        <input placeholder="" class='validate' type='text' name='nombre' id='nombre' maxlength="30" required />
                 <label for='nombre'>Ingresa el Nombre</label>
-      </div>
-      </div>
+              </div></div>
 
+              <div class='row'><div class='input-field col s12'>
+        <input placeholder="" class='validate' type='text' name='apellido1' id='apellido1' maxlength="30" required />
+                <label for='apellido1'>Ingresa el Apellido #1</label>
+              </div></div>
 
-      <div class='row'>
-      <div class='input-field col s6'>
-        <input  placeholder="Primer Apeliido" class='validate' type='text' name='apellido1' id='apellido1' maxlength="30" required />
-                <label for='apellido1'>Ingresar Primer Apellido</label>
-             </div>
-
-       <div class='row'><div class='input-field col s6'>
-        <input placeholder="Segundo Apellido" class='validate' type='text' name='apellido2' id='apellido2' maxlength="30" required />
-                <label for='apellido2'>Ingresar Segundo Apellido</label>
-              </div>
-              </div>
+       <div class='row'><div class='input-field col s12'>
+        <input placeholder="" class='validate' type='text' name='apellido2' id='apellido2' maxlength="30" required />
+                <label for='apellido2'>Ingresa el Apellido #2</label>
+              </div></div>
 
 
       <select  name="sexo" id="sexo" class="browser-default " required>
@@ -168,7 +159,7 @@
     <div class="row">
 
           <div class="input-field col s12">
-            <textarea placeholder="Direccion" id="direccion" class="materialize-textarea validate" name="direccion" data-length="100" required></textarea>
+            <textarea placeholder="" id="direccion" class="materialize-textarea validate" name="direccion" data-length="100" required></textarea>
             <label for="direccion">Ingresa la Dirección</label>
           </div>
         </div>
@@ -183,7 +174,6 @@
 
 
     </div>
-    <!--Termina formulario-->
 
 
 
@@ -218,22 +208,13 @@
 <!--EL SCRIPT PARA EL MENU RESPONSIVE-->
 	<script type="text/javascript">
 	$('.button-collapse').sideNav({
-  menuWidth: 300, 
-  edge: 'left', 
-  closeOnClick: false, 
-  draggable: true 
+  menuWidth: 300, // Default is 300
+  edge: 'left', // Choose the horizontal origin
+  closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+  draggable: true // Choose whether you can drag to open on touch screens
 });
 
-
-  $(document).ready(function() {
-    M.updateTextFields();
-  });
-        
-
 </script>
-
-
-
 
 <script type="text/javascript">
  $(document).ready(function() {
