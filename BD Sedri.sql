@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.1
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 22-07-2018 a las 05:58:47
--- Versión del servidor: 10.1.33-MariaDB
--- Versión de PHP: 7.2.6
+-- Host: 127.0.0.1
+-- Generation Time: Jul 24, 2018 at 09:13 AM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,21 +19,23 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `escuela`
+-- Database: `escuela`
 --
 CREATE DATABASE IF NOT EXISTS `escuela` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
 USE `escuela`;
 
 DELIMITER $$
 --
--- Procedimientos
+-- Procedures
 --
+DROP PROCEDURE IF EXISTS `login`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `login` (IN `pass` CHAR(20), IN `ced` VARCHAR(25))  BEGIN
 select p.idPersona, r.tiporol 
 from usuario u, persona p , rol r 
 where u.password=pass and p.cedula=ced ;
 END$$
 
+DROP PROCEDURE IF EXISTS `sp_InsertaAlumno`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaAlumno` (IN `CEDULA` VARCHAR(45), IN `NOMBRE` VARCHAR(45), IN `APELLIDO1` VARCHAR(45), IN `APELLIDO2` VARCHAR(45), IN `SEXO` VARCHAR(20), IN `DIRECCION` VARCHAR(100), IN `NACIONALIDAD` INT, IN `DISPONIBILIDAD` BOOLEAN)  BEGIN
 DECLARE VID INT;
 
@@ -43,6 +45,7 @@ DECLARE VID INT;
     INSERT INTO alumno(Persona_idPersona)VALUES(VID);
 END$$
 
+DROP PROCEDURE IF EXISTS `sp_InsertaProfesor`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaProfesor` (IN `CEDULA` VARCHAR(45), IN `NOMBRE` VARCHAR(45), IN `APELLIDO1` VARCHAR(45), IN `APELLIDO2` VARCHAR(45), IN `SEXO` VARCHAR(20), IN `DIRECCION` VARCHAR(100), IN `TELEFONO` VARCHAR(45), IN `EMAIL` VARCHAR(45), IN `NACIONALIDAD` INT, IN `DISPONIBILIDAD` BOOLEAN)  BEGIN
 DECLARE VID INT;
 
@@ -57,9 +60,12 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `alumno`
+-- Table structure for table `alumno`
+--
+-- Creation: Jul 24, 2018 at 07:04 AM
 --
 
+DROP TABLE IF EXISTS `alumno`;
 CREATE TABLE IF NOT EXISTS `alumno` (
   `idalumno` int(11) NOT NULL AUTO_INCREMENT,
   `Persona_idPersona` int(11) NOT NULL,
@@ -68,12 +74,21 @@ CREATE TABLE IF NOT EXISTS `alumno` (
   KEY `fk_alumno_Persona1_idx` (`Persona_idPersona`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONSHIPS FOR TABLE `alumno`:
+--   `Persona_idPersona`
+--       `persona` -> `idPersona`
+--
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `alumno_encargado`
+-- Table structure for table `alumno_encargado`
+--
+-- Creation: Jul 24, 2018 at 07:04 AM
 --
 
+DROP TABLE IF EXISTS `alumno_encargado`;
 CREATE TABLE IF NOT EXISTS `alumno_encargado` (
   `ID_ALUMNO` int(11) NOT NULL,
   `ID_ENCARGADO` int(11) NOT NULL,
@@ -81,12 +96,23 @@ CREATE TABLE IF NOT EXISTS `alumno_encargado` (
   KEY `ID_ENCARGADO` (`ID_ENCARGADO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONSHIPS FOR TABLE `alumno_encargado`:
+--   `ID_ALUMNO`
+--       `alumno` -> `idalumno`
+--   `ID_ENCARGADO`
+--       `encargado` -> `idencargado`
+--
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `alumno_materia`
+-- Table structure for table `alumno_materia`
+--
+-- Creation: Jul 24, 2018 at 07:04 AM
 --
 
+DROP TABLE IF EXISTS `alumno_materia`;
 CREATE TABLE IF NOT EXISTS `alumno_materia` (
   `alumno_idalumno` int(11) NOT NULL,
   `materia_idmateria` int(11) NOT NULL,
@@ -98,12 +124,23 @@ CREATE TABLE IF NOT EXISTS `alumno_materia` (
   KEY `fk_alumno_has_materia_alumno1_idx` (`alumno_idalumno`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONSHIPS FOR TABLE `alumno_materia`:
+--   `alumno_idalumno`
+--       `alumno` -> `idalumno`
+--   `materia_idmateria`
+--       `materia` -> `idmateria`
+--
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `asistencia`
+-- Table structure for table `asistencia`
+--
+-- Creation: Jul 24, 2018 at 07:04 AM
 --
 
+DROP TABLE IF EXISTS `asistencia`;
 CREATE TABLE IF NOT EXISTS `asistencia` (
   `IDASISTENCIA` int(11) NOT NULL AUTO_INCREMENT,
   `ESTADO` tinyint(1) DEFAULT NULL,
@@ -114,28 +151,46 @@ CREATE TABLE IF NOT EXISTS `asistencia` (
   KEY `FK_ASISTENCIA_ALUMNO` (`IDALUMNO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- RELATIONSHIPS FOR TABLE `asistencia`:
+--   `IDALUMNO`
+--       `alumno` -> `idalumno`
+--
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `beca`
+-- Table structure for table `beca`
+--
+-- Creation: Jul 24, 2018 at 07:04 AM
 --
 
+DROP TABLE IF EXISTS `beca`;
 CREATE TABLE IF NOT EXISTS `beca` (
   `idbeca` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion_beca` varchar(45) NOT NULL,
   `monto_beca` varchar(45) NOT NULL,
   `idAlumno` int(11) NOT NULL,
-  `estado` boolean default true,
+  `estado` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`idbeca`),
   KEY `fk_beca_alumno_idx` (`idAlumno`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONSHIPS FOR TABLE `beca`:
+--   `idAlumno`
+--       `alumno` -> `idalumno`
+--
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `director`
+-- Table structure for table `director`
+--
+-- Creation: Jul 24, 2018 at 07:04 AM
 --
 
+DROP TABLE IF EXISTS `director`;
 CREATE TABLE IF NOT EXISTS `director` (
   `idDirector` int(11) NOT NULL AUTO_INCREMENT,
   `Persona_idPersona` int(11) NOT NULL,
@@ -144,12 +199,47 @@ CREATE TABLE IF NOT EXISTS `director` (
   KEY `fk_director_Persona1_idx` (`Persona_idPersona`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONSHIPS FOR TABLE `director`:
+--   `Persona_idPersona`
+--       `persona` -> `idPersona`
+--
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `encargado`
+-- Table structure for table `empleado`
+--
+-- Creation: Jul 24, 2018 at 07:10 AM
 --
 
+DROP TABLE IF EXISTS `empleado`;
+CREATE TABLE IF NOT EXISTS `empleado` (
+  `idEmpleado` int(11) NOT NULL AUTO_INCREMENT,
+  `idPersona` int(11) NOT NULL,
+  `idPuesto` int(11) NOT NULL,
+  PRIMARY KEY (`idEmpleado`),
+  KEY `FK_EMPLEADO_PUESTO` (`idPuesto`),
+  KEY `FK_EMPLEADO_PERSONA` (`idPersona`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `empleado`:
+--   `idPersona`
+--       `persona` -> `idPersona`
+--   `idPuesto`
+--       `puesto` -> `idPuesto`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `encargado`
+--
+-- Creation: Jul 24, 2018 at 07:04 AM
+--
+
+DROP TABLE IF EXISTS `encargado`;
 CREATE TABLE IF NOT EXISTS `encargado` (
   `idencargado` int(11) NOT NULL AUTO_INCREMENT,
   `Persona_idPersona` int(11) NOT NULL,
@@ -158,53 +248,40 @@ CREATE TABLE IF NOT EXISTS `encargado` (
   KEY `fk_encargado_Persona1_idx` (`Persona_idPersona`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 --
--- Estructura de tabla para la tabla `puesto`
+-- RELATIONSHIPS FOR TABLE `encargado`:
+--   `Persona_idPersona`
+--       `persona` -> `idPersona`
 --
-
-CREATE TABLE IF NOT EXISTS `puesto` (
-  `idpuesto` int(11) NOT NULL AUTO_INCREMENT,
-  `nombrePuesto` varchar(45) NOT NULL,
-  `descripcionPuesto` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`idpuesto`),
-  UNIQUE KEY `idpuesto_UNIQUE` (`idpuesto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Empleado`
+-- Table structure for table `grado`
+--
+-- Creation: Jul 24, 2018 at 07:04 AM
 --
 
-CREATE TABLE IF NOT EXISTS `empleado` (
-  `idempleado` int(11) NOT NULL AUTO_INCREMENT,
-  `Persona_idPersona` int(11) NOT NULL,
-  `idpuesto` int(11) NOT NULL,
-  PRIMARY KEY (`idencargado`,`Persona_idPersona`,`idpuesto`),
-  UNIQUE KEY `idencargado_UNIQUE` (`idempleado`),
-  KEY `fk_empleado_Persona1_idx` (`Persona_idPersona`),
-  KEY `fk_empleado_puesto_idx` (`idpuesto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `grado`
---
-
+DROP TABLE IF EXISTS `grado`;
 CREATE TABLE IF NOT EXISTS `grado` (
   `idgrado` int(11) NOT NULL AUTO_INCREMENT,
   `nombreGrado` varchar(45) NOT NULL,
   PRIMARY KEY (`idgrado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONSHIPS FOR TABLE `grado`:
+--
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `grado_alumno`
+-- Table structure for table `grado_alumno`
+--
+-- Creation: Jul 24, 2018 at 07:04 AM
 --
 
+DROP TABLE IF EXISTS `grado_alumno`;
 CREATE TABLE IF NOT EXISTS `grado_alumno` (
   `grado_idgrado` int(11) NOT NULL,
   `alumno_idalumno` int(11) NOT NULL,
@@ -214,12 +291,23 @@ CREATE TABLE IF NOT EXISTS `grado_alumno` (
   KEY `fk_grado_has_alumno_grado1_idx` (`grado_idgrado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONSHIPS FOR TABLE `grado_alumno`:
+--   `alumno_idalumno`
+--       `alumno` -> `idalumno`
+--   `grado_idgrado`
+--       `grado` -> `idgrado`
+--
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `grado_estudiante_nota`
+-- Table structure for table `grado_estudiante_nota`
+--
+-- Creation: Jul 24, 2018 at 07:04 AM
 --
 
+DROP TABLE IF EXISTS `grado_estudiante_nota`;
 CREATE TABLE IF NOT EXISTS `grado_estudiante_nota` (
   `idGrado` int(11) NOT NULL,
   `idMateria` int(11) NOT NULL,
@@ -232,24 +320,46 @@ CREATE TABLE IF NOT EXISTS `grado_estudiante_nota` (
   KEY `fk_materia_idx1` (`idMateria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- RELATIONSHIPS FOR TABLE `grado_estudiante_nota`:
+--   `idEstudiante`
+--       `alumno` -> `idalumno`
+--   `idGrado`
+--       `grado` -> `idgrado`
+--   `idMateria`
+--       `materia` -> `idmateria`
+--   `idNota`
+--       `nota` -> `idnota`
+--
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `materia`
+-- Table structure for table `materia`
+--
+-- Creation: Jul 24, 2018 at 07:04 AM
 --
 
+DROP TABLE IF EXISTS `materia`;
 CREATE TABLE IF NOT EXISTS `materia` (
   `idmateria` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   PRIMARY KEY (`idmateria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- RELATIONSHIPS FOR TABLE `materia`:
+--
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `nacionalidad`
+-- Table structure for table `nacionalidad`
+--
+-- Creation: Jul 24, 2018 at 07:04 AM
 --
 
+DROP TABLE IF EXISTS `nacionalidad`;
 CREATE TABLE IF NOT EXISTS `nacionalidad` (
   `idNacionalidad` int(11) NOT NULL AUTO_INCREMENT,
   `pais` varchar(45) NOT NULL,
@@ -259,7 +369,11 @@ CREATE TABLE IF NOT EXISTS `nacionalidad` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `nacionalidad`
+-- RELATIONSHIPS FOR TABLE `nacionalidad`:
+--
+
+--
+-- Dumping data for table `nacionalidad`
 --
 
 INSERT INTO `nacionalidad` (`idNacionalidad`, `pais`) VALUES
@@ -269,9 +383,12 @@ INSERT INTO `nacionalidad` (`idNacionalidad`, `pais`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `nota`
+-- Table structure for table `nota`
+--
+-- Creation: Jul 24, 2018 at 07:04 AM
 --
 
+DROP TABLE IF EXISTS `nota`;
 CREATE TABLE IF NOT EXISTS `nota` (
   `idnota` int(11) NOT NULL AUTO_INCREMENT,
   `trabajo_cotidiano` decimal(8,2) DEFAULT NULL,
@@ -281,12 +398,19 @@ CREATE TABLE IF NOT EXISTS `nota` (
   PRIMARY KEY (`idnota`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- RELATIONSHIPS FOR TABLE `nota`:
+--
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `nota_constante`
+-- Table structure for table `nota_constante`
+--
+-- Creation: Jul 24, 2018 at 07:04 AM
 --
 
+DROP TABLE IF EXISTS `nota_constante`;
 CREATE TABLE IF NOT EXISTS `nota_constante` (
   `idnota_constante` int(11) NOT NULL AUTO_INCREMENT,
   `grado` int(11) NOT NULL,
@@ -298,12 +422,21 @@ CREATE TABLE IF NOT EXISTS `nota_constante` (
   KEY `fk_grado_idx` (`grado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONSHIPS FOR TABLE `nota_constante`:
+--   `grado`
+--       `grado` -> `idgrado`
+--
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `persona`
+-- Table structure for table `persona`
+--
+-- Creation: Jul 24, 2018 at 07:04 AM
 --
 
+DROP TABLE IF EXISTS `persona`;
 CREATE TABLE IF NOT EXISTS `persona` (
   `idPersona` int(11) NOT NULL AUTO_INCREMENT,
   `cedula` varchar(45) NOT NULL,
@@ -324,7 +457,13 @@ CREATE TABLE IF NOT EXISTS `persona` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `persona`
+-- RELATIONSHIPS FOR TABLE `persona`:
+--   `idNacionalidad`
+--       `nacionalidad` -> `idNacionalidad`
+--
+
+--
+-- Dumping data for table `persona`
 --
 
 INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`, `sexo`, `direccion`, `telefono`, `telefono_secundario`, `email`, `idNacionalidad`, `disponible`) VALUES
@@ -333,9 +472,12 @@ INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `profesor`
+-- Table structure for table `profesor`
+--
+-- Creation: Jul 24, 2018 at 07:04 AM
 --
 
+DROP TABLE IF EXISTS `profesor`;
 CREATE TABLE IF NOT EXISTS `profesor` (
   `idprofesor` int(11) NOT NULL AUTO_INCREMENT,
   `Persona_idPersona` int(11) NOT NULL,
@@ -345,7 +487,13 @@ CREATE TABLE IF NOT EXISTS `profesor` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `profesor`
+-- RELATIONSHIPS FOR TABLE `profesor`:
+--   `Persona_idPersona`
+--       `persona` -> `idPersona`
+--
+
+--
+-- Dumping data for table `profesor`
 --
 
 INSERT INTO `profesor` (`idprofesor`, `Persona_idPersona`) VALUES
@@ -354,9 +502,12 @@ INSERT INTO `profesor` (`idprofesor`, `Persona_idPersona`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `profesor_materia_grado`
+-- Table structure for table `profesor_materia_grado`
+--
+-- Creation: Jul 24, 2018 at 07:04 AM
 --
 
+DROP TABLE IF EXISTS `profesor_materia_grado`;
 CREATE TABLE IF NOT EXISTS `profesor_materia_grado` (
   `profesor_idprofesor` int(11) NOT NULL,
   `materia_idmateria` int(11) NOT NULL,
@@ -367,24 +518,64 @@ CREATE TABLE IF NOT EXISTS `profesor_materia_grado` (
   KEY `fk_profesor_materiagrado_idx` (`id_grado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONSHIPS FOR TABLE `profesor_materia_grado`:
+--   `materia_idmateria`
+--       `materia` -> `idmateria`
+--   `profesor_idprofesor`
+--       `profesor` -> `idprofesor`
+--   `id_grado`
+--       `grado` -> `idgrado`
+--
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `rol`
+-- Table structure for table `puesto`
+--
+-- Creation: Jul 24, 2018 at 07:07 AM
 --
 
+DROP TABLE IF EXISTS `puesto`;
+CREATE TABLE IF NOT EXISTS `puesto` (
+  `idPuesto` int(11) NOT NULL AUTO_INCREMENT,
+  `nombrePuesto` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `descrpcionPuesto` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`idPuesto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `puesto`:
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rol`
+--
+-- Creation: Jul 24, 2018 at 07:04 AM
+--
+
+DROP TABLE IF EXISTS `rol`;
 CREATE TABLE IF NOT EXISTS `rol` (
   `IDROL` int(11) NOT NULL AUTO_INCREMENT,
   `tiporol` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`IDROL`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONSHIPS FOR TABLE `rol`:
+--
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Table structure for table `usuario`
+--
+-- Creation: Jul 24, 2018 at 07:04 AM
 --
 
+DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE IF NOT EXISTS `usuario` (
   `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
   `idPersona` int(11) DEFAULT NULL,
@@ -395,12 +586,21 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   KEY `fk_rol_usuario` (`idRol`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONSHIPS FOR TABLE `usuario`:
+--   `idPersona`
+--       `persona` -> `idPersona`
+--   `idRol`
+--       `rol` -> `IDROL`
+--
+
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `vdirector`
--- (Véase abajo para la vista actual)
+-- Stand-in structure for view `vdirector`
+-- (See below for the actual view)
 --
+DROP VIEW IF EXISTS `vdirector`;
 CREATE TABLE IF NOT EXISTS `vdirector` (
 `CEDULA` varchar(45)
 ,`NOMBRE` varchar(45)
@@ -416,9 +616,10 @@ CREATE TABLE IF NOT EXISTS `vdirector` (
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `vista_alumno`
--- (Véase abajo para la vista actual)
+-- Stand-in structure for view `vista_alumno`
+-- (See below for the actual view)
 --
+DROP VIEW IF EXISTS `vista_alumno`;
 CREATE TABLE IF NOT EXISTS `vista_alumno` (
 `cedula` varchar(45)
 ,`nombre` varchar(45)
@@ -433,9 +634,10 @@ CREATE TABLE IF NOT EXISTS `vista_alumno` (
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `vprofesor`
--- (Véase abajo para la vista actual)
+-- Stand-in structure for view `vprofesor`
+-- (See below for the actual view)
 --
+DROP VIEW IF EXISTS `vprofesor`;
 CREATE TABLE IF NOT EXISTS `vprofesor` (
 `CEDULA` varchar(45)
 ,`NOMBRE` varchar(45)
@@ -451,7 +653,7 @@ CREATE TABLE IF NOT EXISTS `vprofesor` (
 -- --------------------------------------------------------
 
 --
--- Estructura para la vista `vdirector`
+-- Structure for view `vdirector`
 --
 DROP TABLE IF EXISTS `vdirector`;
 
@@ -460,7 +662,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Estructura para la vista `vista_alumno`
+-- Structure for view `vista_alumno`
 --
 DROP TABLE IF EXISTS `vista_alumno`;
 
@@ -469,69 +671,76 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Estructura para la vista `vprofesor`
+-- Structure for view `vprofesor`
 --
 DROP TABLE IF EXISTS `vprofesor`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vprofesor`  AS  select `pe`.`cedula` AS `CEDULA`,`pe`.`nombre` AS `NOMBRE`,concat(`pe`.`apellido1`,' ',`pe`.`apellido2`) AS `APELLIDOS`,`pe`.`sexo` AS `SEXO`,`pe`.`direccion` AS `DIRECCION`,`pe`.`telefono` AS `TELEFONO`,`pe`.`email` AS `EMAIL`,`n`.`pais` AS `PAIS`,`pe`.`disponible` AS `DISPONIBLE` from ((`profesor` `pr` join `persona` `pe`) join `nacionalidad` `n`) where ((`pe`.`idPersona` = `pr`.`idprofesor`) and (`n`.`idNacionalidad` = `pe`.`idNacionalidad`)) ;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `alumno`
+-- Constraints for table `alumno`
 --
 ALTER TABLE `alumno`
   ADD CONSTRAINT `fk_alumno_Persona1` FOREIGN KEY (`Persona_idPersona`) REFERENCES `persona` (`idPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `alumno_encargado`
+-- Constraints for table `alumno_encargado`
 --
 ALTER TABLE `alumno_encargado`
   ADD CONSTRAINT `alumno_encargado_ibfk_1` FOREIGN KEY (`ID_ALUMNO`) REFERENCES `alumno` (`idalumno`),
   ADD CONSTRAINT `alumno_encargado_ibfk_2` FOREIGN KEY (`ID_ENCARGADO`) REFERENCES `encargado` (`idencargado`);
 
 --
--- Filtros para la tabla `alumno_materia`
+-- Constraints for table `alumno_materia`
 --
 ALTER TABLE `alumno_materia`
   ADD CONSTRAINT `fk_alumno_has_materia_alumno1` FOREIGN KEY (`alumno_idalumno`) REFERENCES `alumno` (`idalumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_alumno_has_materia_materia1` FOREIGN KEY (`materia_idmateria`) REFERENCES `materia` (`idmateria`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `asistencia`
+-- Constraints for table `asistencia`
 --
 ALTER TABLE `asistencia`
   ADD CONSTRAINT `FK_ASISTENCIA_ALUMNO` FOREIGN KEY (`IDALUMNO`) REFERENCES `alumno` (`idalumno`);
 
 --
--- Filtros para la tabla `beca`
+-- Constraints for table `beca`
 --
 ALTER TABLE `beca`
   ADD CONSTRAINT `fk_beca_alumno` FOREIGN KEY (`idAlumno`) REFERENCES `alumno` (`idalumno`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `director`
+-- Constraints for table `director`
 --
 ALTER TABLE `director`
   ADD CONSTRAINT `fk_director_Persona1` FOREIGN KEY (`Persona_idPersona`) REFERENCES `persona` (`idPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `encargado`
+-- Constraints for table `empleado`
+--
+ALTER TABLE `empleado`
+  ADD CONSTRAINT `FK_EMPLEADO_PERSONA` FOREIGN KEY (`idPersona`) REFERENCES `persona` (`idPersona`),
+  ADD CONSTRAINT `FK_EMPLEADO_PUESTO` FOREIGN KEY (`idPuesto`) REFERENCES `puesto` (`idPuesto`);
+
+--
+-- Constraints for table `encargado`
 --
 ALTER TABLE `encargado`
   ADD CONSTRAINT `fk_encargado_Persona1` FOREIGN KEY (`Persona_idPersona`) REFERENCES `persona` (`idPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `grado_alumno`
+-- Constraints for table `grado_alumno`
 --
 ALTER TABLE `grado_alumno`
   ADD CONSTRAINT `fk_grado_has_alumno_alumno1` FOREIGN KEY (`alumno_idalumno`) REFERENCES `alumno` (`idalumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_grado_has_alumno_grado1` FOREIGN KEY (`grado_idgrado`) REFERENCES `grado` (`idgrado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `grado_estudiante_nota`
+-- Constraints for table `grado_estudiante_nota`
 --
 ALTER TABLE `grado_estudiante_nota`
   ADD CONSTRAINT `fk_alumno_materia_grado_nota` FOREIGN KEY (`idEstudiante`) REFERENCES `alumno` (`idalumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -540,25 +749,25 @@ ALTER TABLE `grado_estudiante_nota`
   ADD CONSTRAINT `fk_nota_estudiante_materia_grado` FOREIGN KEY (`idNota`) REFERENCES `nota` (`idnota`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `nota_constante`
+-- Constraints for table `nota_constante`
 --
 ALTER TABLE `nota_constante`
   ADD CONSTRAINT `fk_grado` FOREIGN KEY (`grado`) REFERENCES `grado` (`idgrado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `persona`
+-- Constraints for table `persona`
 --
 ALTER TABLE `persona`
   ADD CONSTRAINT `idNacionalidad` FOREIGN KEY (`idNacionalidad`) REFERENCES `nacionalidad` (`idNacionalidad`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `profesor`
+-- Constraints for table `profesor`
 --
 ALTER TABLE `profesor`
   ADD CONSTRAINT `fk_profesor_Persona1` FOREIGN KEY (`Persona_idPersona`) REFERENCES `persona` (`idPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `profesor_materia_grado`
+-- Constraints for table `profesor_materia_grado`
 --
 ALTER TABLE `profesor_materia_grado`
   ADD CONSTRAINT `fk_profesor_has_materia_materia1` FOREIGN KEY (`materia_idmateria`) REFERENCES `materia` (`idmateria`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -566,7 +775,7 @@ ALTER TABLE `profesor_materia_grado`
   ADD CONSTRAINT `fk_profesor_materiagrado` FOREIGN KEY (`id_grado`) REFERENCES `grado` (`idgrado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `usuario`
+-- Constraints for table `usuario`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `fk_persona_usuario` FOREIGN KEY (`idPersona`) REFERENCES `persona` (`idPersona`),
