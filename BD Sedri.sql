@@ -159,6 +159,35 @@ CREATE TABLE IF NOT EXISTS `encargado` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
+--
+-- Estructura de tabla para la tabla `puesto`
+--
+
+CREATE TABLE IF NOT EXISTS `puesto` (
+  `idpuesto` int(11) NOT NULL AUTO_INCREMENT,
+  `nombrePuesto` varchar(45) NOT NULL,
+  `descripcionPuesto` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`idpuesto`),
+  UNIQUE KEY `idpuesto_UNIQUE` (`idpuesto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Empleado`
+--
+
+CREATE TABLE IF NOT EXISTS `empleado` (
+  `idempleado` int(11) NOT NULL AUTO_INCREMENT,
+  `Persona_idPersona` int(11) NOT NULL,
+  `idpuesto` int(11) NOT NULL,
+  PRIMARY KEY (`idencargado`,`Persona_idPersona`,`idpuesto`),
+  UNIQUE KEY `idencargado_UNIQUE` (`idempleado`),
+  KEY `fk_empleado_Persona1_idx` (`Persona_idPersona`),
+  KEY `fk_empleado_puesto_idx` (`idpuesto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `grado`

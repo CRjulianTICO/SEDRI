@@ -42,40 +42,107 @@
       <li class="no-padding">
         <ul class="collapsible collapsible-accordion">
           <li>
-            <a class="collapsible-header waves-effect">Alumnos<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left orange-text">face</i></a>
+            <a class="collapsible-header waves-effect">Alumnos<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">face</i></a>
             <div class="collapsible-body">
               <ul>
                 <a onclick="mostrarform(false)" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_shared</i></a>
+                <!--
                 <li>
-                <a onclick="mostrarform(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a></li>
+                <a onclick="mostrarform(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
+                </li>
+                 -->
               </ul>
             </div>
           </li>
 
            <li>
-            <a class="collapsible-header waves-effect">Docentes<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left orange-text">group</i></a>
+            <a class="collapsible-header waves-effect">Docentes<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">group</i></a>
             <div class="collapsible-body">
               <ul>
                 <a onclick="mostrarform(false)" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_shared</i></a>
                 <li>
-                <a onclick="mostrarform(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a></li>
+                <a onclick="mostrarform(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
+                </li>
+                <li>
+                <a onclick="mostrarform(false)" class="waves-effect">Asignar Grupos<i class="material-icons left indigo-text agregarIcono">assignment</i></a>
+                </li>
+                <li>
+                <a onclick="mostrarform(true)" class="waves-effect">Profesor Especial<i class="material-icons left teal-text agregarIcono">portrait</i></a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li>
+            <a class="collapsible-header waves-effect">Personal<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">assignment_ind</i></a>
+            <div class="collapsible-body">
+              <ul>
+                <a onclick="mostrarform(false)" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_shared</i></a>
+                <li>
+                <a onclick="mostrarform(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
+                </li>
               </ul>
             </div>
           </li>
 
            <li>
-            <a class="collapsible-header waves-effect">Becas<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left orange-text">description</i></a>
+            <a class="collapsible-header waves-effect">Becas<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">description</i></a>
             <div class="collapsible-body">
               <ul>
                 <a onclick="mostrarform(false)" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_special</i></a>
                 <li>
-                <a onclick="mostrarform(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a></li>
+                <a onclick="mostrarform(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
+                </li>
               </ul>
             </div>
           </li>
-        </ul>
       </li>
+
       
+          <li>
+            <a class="collapsible-header waves-effect">Materias<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">import_contacts</i></a>
+            <div class="collapsible-body">
+              <ul>
+                <a onclick="mostrarform(false)" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_shared</i></a>
+                <li>
+                <a onclick="mostrarform(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+
+      <li>
+         <a class="collapsible-header waves-effect">Puestos<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">business_center</i></a>
+            <div class="collapsible-body">
+              <ul>
+                <a onclick="mostrarform(false)" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_shared</i></a>
+                <li>
+                <a onclick="mostrarform(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
+                </li>
+              </ul>
+            </div>
+         </li>
+
+
+
+        <li>
+            <a class="collapsible-header waves-effect">Grados<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">filter_1</i></a>
+            <div class="collapsible-body">
+              <ul>
+                <a onclick="mostrarform(false)" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_shared</i></a>
+                <li>
+                <a onclick="mostrarform(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+
+
+
+      
+        </ul>
 
     </ul>
     <!--menu frontal-->
@@ -152,6 +219,17 @@
               </div>
               </div>
 
+               <div class='row'>
+              <div class='input-field col s6'>
+        <input placeholder="Numero de Telefono" class='validate' type='text' name='apellido1' id='apellido1' maxlength="30" required />
+                <label for='apellido1'>Ingresar Numero de Telefono</label>
+              </div>
+
+       <div class='row'><div class='input-field col s6'>
+        <input placeholder="Email" class='validate' type='text' name='apellido2' id='apellido2' maxlength="30" required />
+                <label for='apellido2'>Ingresar Correo Electronico</label>
+              </div>
+              </div>
 
       <select  name="sexo" id="sexo" class="browser-default " required>
       <option value="" disabled selected hidden>Seleccionar el Género</option>
