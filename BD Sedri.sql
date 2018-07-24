@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `beca` (
   `descripcion_beca` varchar(45) NOT NULL,
   `monto_beca` varchar(45) NOT NULL,
   `idAlumno` int(11) NOT NULL,
-  `idAlumno` boolean default true,
+  `estado` boolean default true,
   PRIMARY KEY (`idbeca`),
   KEY `fk_beca_alumno_idx` (`idAlumno`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
