@@ -36,7 +36,7 @@ Class Alumno
 	    $sql2 = "INSERT INTO `alumno` (`idalumno`, `Persona_idPersona`) VALUES (NULL, '".$id."');";
 	    return consulta($sql2);
 	  }
- 
+
 
 	//Usando la vista creada
 	public function listar()

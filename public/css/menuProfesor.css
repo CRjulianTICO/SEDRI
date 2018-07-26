@@ -1,0 +1,22 @@
+#container {
+  padding-left: 300px;
+}
+
+#content {
+  padding: 20px;
+ margin-left: 22%;
+}
+
+@media only screen and (max-width : 992px) {
+  #container {
+    padding-left: 0px;
+  }
+  #content{
+  	margin-left: 0;
+  }
+  }
+  .divider{
+	border-color:dodgerblue;
+	border-style:solid;
+	border-width: thin ;
+}

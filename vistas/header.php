@@ -11,6 +11,7 @@
     <!-- DATATABLES -->
     <link rel="stylesheet" type="text/css" href="../public/datatables/jquery.dataTables.min.css">
     <link href="../public/datatables/responsive.dataTables.min.css" rel="stylesheet"/>
+  
 
 
   </head>
