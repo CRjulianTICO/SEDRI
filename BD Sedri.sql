@@ -540,7 +540,7 @@ DROP TABLE IF EXISTS `puesto`;
 CREATE TABLE IF NOT EXISTS `puesto` (
   `idPuesto` int(11) NOT NULL AUTO_INCREMENT,
   `nombrePuesto` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `descrpcionPuesto` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `descrpcionPuesto` varchar(300) COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`idPuesto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
