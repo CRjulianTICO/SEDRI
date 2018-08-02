@@ -19,6 +19,7 @@
 
     }
 
+
 function mostrarform(bool)
 {
   if (bool)
@@ -83,6 +84,7 @@ function mostrarbotones(bool)
   	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
   	}).DataTable();
   }
+  
   //Función para guardar o editar
 
   function guardar(e)
