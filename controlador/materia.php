@@ -22,4 +22,9 @@ case 'listar':
  		$data= Array();
                 while ($reg=$rspta->fetch_object()){
  			$data[]=array(
+
+                                      "0"=>$reg->idmateria,
+ 				"1"=>$reg->nombre,
+ 				"2"=>($reg->estado)?'<span class="label bg-green">Activado</span>':
+ 				'<span class="label bg-red">Desactivado</span>',
 ?>
