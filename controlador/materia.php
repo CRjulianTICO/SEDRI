@@ -51,4 +51,12 @@ case 'listar':
 		 $rspta = $$instaMateria->activar($id);
 		 echo $rspta ? "Materia activada" : "Materia no se puede activar";
 		break;
+
+case 'mostrar':
+		$rspta=$instaMateria->consultaEspecifica($id);
+ 		
+ 		echo json_encode($rspta);
+		break;
+
+}
 ?>
