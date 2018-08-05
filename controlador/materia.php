@@ -40,5 +40,10 @@ case 'listar':
  			"aaData"=>$data);
  		echo json_encode($results);
 	break;
-
+         
+        case 'desactivar':
+		 $rspta = $instaMateria->desactivar($id);
+		 echo "string".$cedula;
+		 echo $rspta ? "Materia activada" : "Materia no se puede activar";
+		break;
 ?>
