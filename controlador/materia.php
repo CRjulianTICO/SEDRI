@@ -27,4 +27,9 @@ case 'listar':
  				"1"=>$reg->nombre,
  				"2"=>($reg->estado)?'<span class="label bg-green">Activado</span>':
  				'<span class="label bg-red">Desactivado</span>',
+                                "3"=>($reg->estado)?'<button class="mostrarEditar" onclick="mostrar('.$reg->idmateria.')"><i class="material-icons center blue-text ">edit</i></button>'.
+ 					' <button class="mostrarBlock" onclick="desactivar('.$reg->idmateria.')"><i class="material-icons center red-text ">block</i></button>':
+ 					'<button class="mostrarEditar" onclick="mostrar('.$reg->idmateria.')"><i class="material-icons center blue-text ">edit</i></button>'.
+ 					' <button class="mostrarCheck" onclick="activar('.$reg->idmateria.')"><i class="material-icons center green-text">check</i></button>',
+ 				);
 ?>
