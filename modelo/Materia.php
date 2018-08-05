@@ -24,3 +24,4 @@ Class Materia{
  $sql = "update materia set estado = 1 where idmateria = ".$id."";
         return consulta($sql);
     }
+ public function consultaEspecifica($id){
