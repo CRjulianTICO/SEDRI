@@ -8,4 +8,5 @@ Class Materia{
    return consulta($sql);
     }     
  public function listar(){
-   
+    $sql = "select * from materia where estado = 1";
+       
