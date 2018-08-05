@@ -26,3 +26,6 @@ Class Materia{
     }
  public function consultaEspecifica($id){
  $sql ="select idmateria,nombre from materia where idmateria =".$id."";
+
+       return consultaSimple($sql);
+    }
