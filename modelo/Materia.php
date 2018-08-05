@@ -15,3 +15,4 @@ Class Materia{
  $sql = "update materia set nombre = '$nombre' where idmateria =".$id."";
          return consulta($sql);
     }  
+ public function desactivar($id){
