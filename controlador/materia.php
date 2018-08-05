@@ -46,4 +46,9 @@ case 'listar':
 		 echo "string".$cedula;
 		 echo $rspta ? "Materia activada" : "Materia no se puede activar";
 		break;
+
+       case 'activar':
+		 $rspta = $$instaMateria->activar($id);
+		 echo $rspta ? "Materia activada" : "Materia no se puede activar";
+		break;
 ?>
