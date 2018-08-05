@@ -7,3 +7,5 @@ Class Materia{
  $sql = "insert into materia(nombre)values('$nombre')";
    return consulta($sql);
     }     
+ public function listar(){
+   
