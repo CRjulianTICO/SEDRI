@@ -4,3 +4,5 @@ Class Materia{
   public function _constructor(){
  }
  public function insertar($nombre){
+ $sql = "insert into materia(nombre)values('$nombre')";
+       
