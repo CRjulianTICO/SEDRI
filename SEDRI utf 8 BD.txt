@@ -1,0 +1,3 @@
+
+
+ALTER DATABASE escuela DEFAULT CHARACTER SET=utf8 DEFAULT COLLATE=utf8_spanish_ci; 
