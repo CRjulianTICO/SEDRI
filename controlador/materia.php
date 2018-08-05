@@ -32,4 +32,7 @@ case 'listar':
  					'<button class="mostrarEditar" onclick="mostrar('.$reg->idmateria.')"><i class="material-icons center blue-text ">edit</i></button>'.
  					' <button class="mostrarCheck" onclick="activar('.$reg->idmateria.')"><i class="material-icons center green-text">check</i></button>',
  				);
+                }
+ 		$results = array(
+ 			"sEcho"=>1, //Información para el datatables
 ?>
