@@ -21,3 +21,4 @@ Class Materia{
     return consulta($sql);
     }
     public function activar(){
+ $sql = "update materia set estado = 1 where idmateria = ".$id."";
