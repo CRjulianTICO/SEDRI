@@ -25,3 +25,4 @@ Class Materia{
         return consulta($sql);
     }
  public function consultaEspecifica($id){
+ $sql ="select idmateria,nombre from materia where idmateria =".$id."";
