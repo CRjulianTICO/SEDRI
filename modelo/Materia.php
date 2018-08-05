@@ -20,3 +20,4 @@ Class Materia{
        
     return consulta($sql);
     }
+    public function activar(){
