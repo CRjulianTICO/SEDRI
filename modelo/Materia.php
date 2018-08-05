@@ -5,4 +5,5 @@ Class Materia{
  }
  public function insertar($nombre){
  $sql = "insert into materia(nombre)values('$nombre')";
-       
+   return consulta($sql);
+    }     
