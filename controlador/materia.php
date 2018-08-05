@@ -17,4 +17,7 @@ case 'editar':
 			echo $rspta ? "Registrado" : "Error".$id."/".$nombre;
 	break;
 
+case 'listar':
+		$rspta=$instaMateria->listar();
+ 		$data= Array();
 ?>
