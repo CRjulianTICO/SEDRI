@@ -12,3 +12,5 @@ Class Materia{
            return consulta($sql);
     }
  public function actualizar($id,$nombre){
+ $sql = "update materia set nombre = '$nombre' where idmateria =".$id."";
+       
