@@ -18,3 +18,5 @@ Class Materia{
  public function desactivar($id){
  $sql = "update materia set estado = 0 where idmateria = ".$id."";
        
+    return consulta($sql);
+    }
