@@ -29,3 +29,7 @@ Class Materia{
 
        return consultaSimple($sql);
     }
+
+}
+
+?>
