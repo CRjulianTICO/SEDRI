@@ -20,4 +20,6 @@ case 'editar':
 case 'listar':
 		$rspta=$instaMateria->listar();
  		$data= Array();
+                while ($reg=$rspta->fetch_object()){
+ 			$data[]=array(
 ?>
