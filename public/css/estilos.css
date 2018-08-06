@@ -1,9 +1,79 @@
 .bg-red{
-	background-color: red;
+	color: red;
+	font-weight: bold;
 
 
 }
 .bg-green{
 
-	background-color: green;
+	color: green;
+	font-weight: bold;
+}
+.btn-edita{
+color: yellow;
+background-color: white;
+}
+.btn-guarda{
+	color: green;
+	background-color: white;
+
+}
+label{/*Label de buscar en el registro de estudiantes*/
+	font-size:18px;
+	font-weight: bold;
+	color: teal;
+	
+
+}
+.tabla th{/* cambiar color a los atributos de la tabla*/
+	font-weight: bold;
+	color:dodgerblue;
+}
+.side-nav{/* al menu lateral*/
+	border-style:solid;
+    border-width:3px;  
+    border-color:dodgerblue;
+}
+.dataTables_info, .dataTables_paginate{/*Paginación de la tabla*/
+	font-weight: bold;
+	font-size: 16px;
+	
+}
+/*Opciones de registro de alumnos*/
+.mostrarEditar{/* Bóton de Editar*/
+	border: 2px solid dodgerblue;
+	background-color: white; 
+}
+.mostrarBlock{/*Bóton de desactivar*/
+	border: 2px solid red;
+	background-color: white; 
+}
+.mostrarCheck{/*Bóton de activar*/
+	border: 2px solid green;
+	background-color: white; 
+}
+.mostrarEditar:hover, .mostrarBlock:hover 
+, .mostrarCheck:hover{
+	background-color: white;
+}
+.guardaEst, .editaEst
+, .cancelEst{
+	font-weight: bold;
+	font-size: 16px;
+}
+.registroIcono{
+	margin-top:-10px;
+}
+@media only screen and (max-width: 600px) {
+	.registroIcono{
+		margin-top:-7px;
+	}
+}
+.agregarIcono{
+	margin-top:-8px;
+}
+@media only screen and (max-width: 600px) {
+	.agregarIcono{
+		margin-top:-4px;
+	}
 }

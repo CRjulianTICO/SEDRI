@@ -1,4 +1,5 @@
 <?php require 'header.php'?>
+
 <div class="">
   <form method="POST" id="formAlumno" name="formAlumno">
     <input type="text" name="cedula" id="cedula"  placeholder="cedula" style="display:block;">
@@ -14,20 +15,20 @@
     
     <select name="nacionalidad" id="nacionalidad">
     </select>
-    <button type="submit" name="Guardar">Guardar</button>
+    <button type="submit" name="Guardar" class="btn-guarda">Guardar</button>
 
 
   </form>
- <button name="#editar"  onclick="editar();">Modificar</button>
+ <button name="#editar"  onclick="editar();" class="btn-edita">Modificar</button>
 
 </div>
 
-<table id="tbAlumno">
+<table id="tbAlumno" class="display responsive nowrap" style="width: 100%">
   <thead>
     <th>Opciones</th>
     <th>Cedula</th>
-    <th>Nombre</th>
-    <th>Primer Apellido</th>
+    <th data-priority="1">Nombre</th>
+    <th data-priority="2">Primer Apellido</th>
     <th>Segundo Apellido</th>
     <th>Sexo</th>
     <th>Direccion</th>

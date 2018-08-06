@@ -2,7 +2,9 @@
 
   //Función que se ejecuta al inicio
   function init(){
+    limpiar();
   	mostrarform(false);
+    mostrarbotones(false);
   	listar();
      $("#editar").click,function(e)
       {
@@ -17,17 +19,35 @@
 
     }
 
+
 function mostrarform(bool)
 {
   if (bool)
   {
+    cargarPais();
     $("#tabla").hide();
     $("#formulario").show();
   }
   else
   {
+    limpiar();
+    mostrarbotones(false);
     $("#tabla").show();
     $("#formulario").hide();
+  }
+}
+
+function mostrarbotones(bool)
+{
+  if (bool)
+  {
+    $('#botones').show();
+    $('#btnguardar').hide();
+  }
+  else
+  {
+    $('#btnguardar').show();
+    $('#botones').hide();
   }
 }
   //Función cancelarform
@@ -40,6 +60,7 @@ function mostrarform(bool)
   //Función Listar
   function listar()
   {
+    limpiar();
   	tabla=$('#tbAlumno').dataTable(
   	{
   		"aProcessing": true,//Activamos el procesamiento del datatables
@@ -63,6 +84,7 @@ function mostrarform(bool)
   	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
   	}).DataTable();
   }
+  
   //Función para guardar o editar
 
   function guardar(e)
@@ -96,10 +118,27 @@ function activar(cedula)
               tabla.ajax.reload();
           });
 }
+
+function limpiar(){
+
+    $("#nombre").val("");
+    $("#apellido1").val("");
+    $("#apellido2").val("");
+    $("#cedula").val("");
+    $("#direccion").val("");
+    $("#sexo").val("");
+    $("#nacionalidad").text("");
+
+
+}
 function mostrar(cedula)
 {
   $.post("../controlador/alumno.php?opcion=mostrar",{cedula : cedula}, function(data, status)
   {
+    limpiar();
+    cargarPais();
+    mostrarform(true);
+    mostrarbotones(true);
     data = JSON.parse(data);
     $("#nombre").val(data.nombre);
     $("#apellido1").val(data.apellido1);
@@ -107,7 +146,7 @@ function mostrar(cedula)
     $("#cedula").val(data.cedula);
     $("#direccion").val(data.direccion);
     $("#sexo").val(data.sexo);
-    $("#nacionalidad").text(data.pais);
+    $("#nacionalidad").val(data.pais);/* arreglar que salga nacionalidad al editar*/
 
 
   })
@@ -146,10 +185,15 @@ function editar()
         success: function(datos)
         {
               tabla.ajax.reload();
+              limpiar();
+              mostrarform(false);
+
         }
+
 
     });
     //limpiar
+
   }
 
   init();
