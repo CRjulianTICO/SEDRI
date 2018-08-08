@@ -780,6 +780,9 @@ ALTER TABLE `profesor_materia_grado`
 ALTER TABLE `usuario`
   ADD CONSTRAINT `fk_persona_usuario` FOREIGN KEY (`idPersona`) REFERENCES `persona` (`idPersona`),
   ADD CONSTRAINT `fk_rol_usuario` FOREIGN KEY (`idRol`) REFERENCES `rol` (`IDROL`);
+
+ALTER TABLE `materia`
+  ADD estado tinyint(1) NOT NULL DEFAULT '1';
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -100,9 +100,9 @@
             <a class="collapsible-header waves-effect">Materias<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">import_contacts</i></a>
             <div class="collapsible-body">
               <ul>
-                <a onclick="mostrarform(false)" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_shared</i></a>
+                <a onclick="mostrarFormularioMateria(false)" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_shared</i></a>
                 <li>
-                <a onclick="mostrarform(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
+                <a onclick="mostrarFormularioMateria(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
                 </li>
               </ul>
             </div>
