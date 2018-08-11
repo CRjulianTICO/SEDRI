@@ -215,4 +215,194 @@ CREATE TABLE IF NOT EXISTS `grado` (
   PRIMARY KEY (`idgrado`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `grado_alumno`
+--
+
+CREATE TABLE IF NOT EXISTS `grado_alumno` (
+  `grado_idgrado` int(11) NOT NULL,
+  `alumno_idalumno` int(11) NOT NULL,
+  `annio` date DEFAULT NULL,
+  PRIMARY KEY (`grado_idgrado`,`alumno_idalumno`),
+  KEY `fk_grado_has_alumno_alumno1_idx` (`alumno_idalumno`),
+  KEY `fk_grado_has_alumno_grado1_idx` (`grado_idgrado`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `grado_estudiante_nota`
+--
+
+CREATE TABLE IF NOT EXISTS `grado_estudiante_nota` (
+  `idGrado` int(11) NOT NULL,
+  `idMateria` int(11) NOT NULL,
+  `idNota` int(11) NOT NULL,
+  `idEstudiante` int(11) NOT NULL,
+  `trimestre` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idGrado`,`idMateria`,`idNota`,`idEstudiante`),
+  KEY `fk_nota_idx1` (`idNota`),
+  KEY `fk_alumno_idx1` (`idEstudiante`),
+  KEY `fk_materia_idx1` (`idMateria`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `materia`
+--
+
+CREATE TABLE IF NOT EXISTS `materia` (
+  `idmateria` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) NOT NULL,
+  `idGrado` int(11) NOT NULL,
+  PRIMARY KEY (`idmateria`),
+  KEY `fk_grado_materia` (`idGrado`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `nacionalidad`
+--
+
+CREATE TABLE IF NOT EXISTS `nacionalidad` (
+  `idNacionalidad` int(11) NOT NULL AUTO_INCREMENT,
+  `pais` varchar(45) NOT NULL,
+  PRIMARY KEY (`idNacionalidad`),
+  UNIQUE KEY `idNacionalidad_UNIQUE` (`idNacionalidad`),
+  UNIQUE KEY `pais_UNIQUE` (`pais`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `nota`
+--
+
+CREATE TABLE IF NOT EXISTS `nota` (
+  `idnota` int(11) NOT NULL AUTO_INCREMENT,
+  `trabajo_cotidiano` decimal(8,2) DEFAULT NULL,
+  `asistencia` decimal(8,2) DEFAULT NULL,
+  `tareas` decimal(8,2) DEFAULT NULL,
+  `pruebas` decimal(8,2) DEFAULT NULL,
+  PRIMARY KEY (`idnota`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `nota_constante`
+--
+
+CREATE TABLE IF NOT EXISTS `nota_constante` (
+  `idnota_constante` int(11) NOT NULL AUTO_INCREMENT,
+  `grado` int(11) NOT NULL,
+  `trabajo_cotidiano` decimal(8,2) DEFAULT NULL,
+  `pruebas` decimal(8,2) DEFAULT NULL,
+  `tareas` decimal(8,2) DEFAULT NULL,
+  `asistencia` decimal(8,2) DEFAULT NULL,
+  PRIMARY KEY (`idnota_constante`),
+  KEY `fk_grado_idx` (`grado`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `persona`
+--
+
+CREATE TABLE IF NOT EXISTS `persona` (
+  `idPersona` int(11) NOT NULL AUTO_INCREMENT,
+  `cedula` varchar(45) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  `apellido1` varchar(45) NOT NULL,
+  `apellido2` varchar(45) NOT NULL,
+  `sexo` varchar(20) NOT NULL,
+  `direccion` varchar(100) NOT NULL,
+  `telefono` varchar(45) DEFAULT NULL,
+  `telefono_secundario` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `idNacionalidad` int(11) NOT NULL,
+  `disponible` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idPersona`),
+  UNIQUE KEY `idPersona_UNIQUE` (`idPersona`),
+  UNIQUE KEY `email_UNIQUE` (`email`),
+  KEY `idNacionalidad_idx` (`idNacionalidad`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `profesor`
+--
+
+CREATE TABLE IF NOT EXISTS `profesor` (
+  `idprofesor` int(11) NOT NULL AUTO_INCREMENT,
+  `Persona_idPersona` int(11) NOT NULL,
+  PRIMARY KEY (`idprofesor`,`Persona_idPersona`),
+  UNIQUE KEY `idprofesor_UNIQUE` (`idprofesor`),
+  KEY `fk_profesor_Persona1_idx` (`Persona_idPersona`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `profesor_materia_grado`
+--
+
+CREATE TABLE IF NOT EXISTS `profesor_materia_grado` (
+  `profesor_idprofesor` int(11) NOT NULL,
+  `materia_idmateria` int(11) NOT NULL,
+  `id_grado` int(11) NOT NULL,
+  PRIMARY KEY (`profesor_idprofesor`,`materia_idmateria`,`id_grado`),
+  KEY `fk_profesor_has_materia_materia1_idx` (`materia_idmateria`),
+  KEY `fk_profesor_has_materia_profesor1_idx` (`profesor_idprofesor`),
+  KEY `fk_profesor_materiagrado_idx` (`id_grado`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `puesto`
+--
+
+CREATE TABLE IF NOT EXISTS `puesto` (
+  `idPuesto` int(11) NOT NULL AUTO_INCREMENT,
+  `nombrePuesto` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `descrpcionPuesto` varchar(300) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`idPuesto`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `rol`
+--
+
+CREATE TABLE IF NOT EXISTS `rol` (
+  `IDROL` int(11) NOT NULL AUTO_INCREMENT,
+  `tiporol` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`IDROL`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario`
+--
+
+CREATE TABLE IF NOT EXISTS `usuario` (
+  `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
+  `idPersona` int(11) DEFAULT NULL,
+  `idRol` int(11) DEFAULT NULL,
+  `password` varchar(75) DEFAULT NULL,
+  PRIMARY KEY (`idUsuario`),
+  KEY `fk_persona_usuario` (`idPersona`),
+  KEY `fk_rol_usuario` (`idRol`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- --------------------------------------------------------
