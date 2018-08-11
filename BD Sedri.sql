@@ -406,3 +406,141 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
+
+
+
+--
+-- Estructura Stand-in para la vista `vdirector`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE IF NOT EXISTS `vdirector` (
+`CEDULA` varchar(45)
+,`NOMBRE` varchar(45)
+,`APELLIDOS` varchar(91)
+,`SEXO` varchar(20)
+,`DIRECCION` varchar(100)
+,`TELEFONO` varchar(45)
+,`EMAIL` varchar(45)
+,`PAIS` varchar(45)
+,`DISPONIBLE` tinyint(1)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `vista_alumno`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE IF NOT EXISTS `vista_alumno` (
+`cedula` varchar(45)
+,`nombre` varchar(45)
+,`apellido1` varchar(45)
+,`apellido2` varchar(45)
+,`sexo` varchar(20)
+,`direccion` varchar(100)
+,`pais` varchar(45)
+,`disponible` tinyint(1)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `vista_empleado`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE IF NOT EXISTS `vista_empleado` (
+`cedula` varchar(45)
+,`nombre` varchar(45)
+,`apellido1` varchar(45)
+,`apellido2` varchar(45)
+,`sexo` varchar(20)
+,`direccion` varchar(100)
+,`telefono` varchar(45)
+,`pais` varchar(45)
+,`nombrePuesto` varchar(45)
+,`disponible` tinyint(1)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `vista_profesor`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE IF NOT EXISTS `vista_profesor` (
+`cedula` varchar(45)
+,`nombre` varchar(45)
+,`apellido1` varchar(45)
+,`apellido2` varchar(45)
+,`sexo` varchar(20)
+,`direccion` varchar(100)
+,`telefono` varchar(45)
+,`email` varchar(45)
+,`pais` varchar(45)
+,`disponible` tinyint(1)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `vprofesor`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE IF NOT EXISTS `vprofesor` (
+`CEDULA` varchar(45)
+,`NOMBRE` varchar(45)
+,`APELLIDOS` varchar(91)
+,`SEXO` varchar(20)
+,`DIRECCION` varchar(100)
+,`TELEFONO` varchar(45)
+,`EMAIL` varchar(45)
+,`PAIS` varchar(45)
+,`DISPONIBLE` tinyint(1)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vdirector`
+--
+DROP TABLE IF EXISTS `vdirector`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vdirector`  AS  select `pe`.`cedula` AS `CEDULA`,`pe`.`nombre` AS `NOMBRE`,concat(`pe`.`apellido1`,' ',`pe`.`apellido2`) AS `APELLIDOS`,`pe`.`sexo` AS `SEXO`,`pe`.`direccion` AS `DIRECCION`,`pe`.`telefono` AS `TELEFONO`,`pe`.`email` AS `EMAIL`,`n`.`pais` AS `PAIS`,`pe`.`disponible` AS `DISPONIBLE` from ((`director` `pr` join `persona` `pe`) join `nacionalidad` `n`) where ((`pe`.`idPersona` = `pr`.`idDirector`) and (`n`.`idNacionalidad` = `pe`.`idNacionalidad`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vista_alumno`
+--
+DROP TABLE IF EXISTS `vista_alumno`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_alumno`  AS  select `p`.`cedula` AS `cedula`,`p`.`nombre` AS `nombre`,`p`.`apellido1` AS `apellido1`,`p`.`apellido2` AS `apellido2`,`p`.`sexo` AS `sexo`,`p`.`direccion` AS `direccion`,`n`.`pais` AS `pais`,`p`.`disponible` AS `disponible` from ((`persona` `p` join `alumno` `a`) join `nacionalidad` `n`) where ((`p`.`idPersona` = `a`.`Persona_idPersona`) and (`n`.`idNacionalidad` = `p`.`idNacionalidad`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vista_empleado`
+--
+DROP TABLE IF EXISTS `vista_empleado`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_empleado`  AS  select `p`.`cedula` AS `cedula`,`p`.`nombre` AS `nombre`,`p`.`apellido1` AS `apellido1`,`p`.`apellido2` AS `apellido2`,`p`.`sexo` AS `sexo`,`p`.`direccion` AS `direccion`,`p`.`telefono` AS `telefono`,`n`.`pais` AS `pais`,`f`.`nombrePuesto` AS `nombrePuesto`,`p`.`disponible` AS `disponible` from (((`persona` `p` join `empleado` `e`) join `puesto` `f`) join `nacionalidad` `n`) where ((`p`.`idPersona` = `e`.`idPersona`) and (`f`.`idPuesto` = `e`.`idPuesto`) and (`n`.`idNacionalidad` = `p`.`idNacionalidad`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vista_profesor`
+--
+DROP TABLE IF EXISTS `vista_profesor`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_profesor`  AS  select `p`.`cedula` AS `cedula`,`p`.`nombre` AS `nombre`,`p`.`apellido1` AS `apellido1`,`p`.`apellido2` AS `apellido2`,`p`.`sexo` AS `sexo`,`p`.`direccion` AS `direccion`,`p`.`telefono` AS `telefono`,`p`.`email` AS `email`,`n`.`pais` AS `pais`,`p`.`disponible` AS `disponible` from ((`persona` `p` join `profesor` `e`) join `nacionalidad` `n`) where ((`p`.`idPersona` = `e`.`Persona_idPersona`) and (`n`.`idNacionalidad` = `p`.`idNacionalidad`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vprofesor`
+--
+DROP TABLE IF EXISTS `vprofesor`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vprofesor`  AS  select `pe`.`cedula` AS `CEDULA`,`pe`.`nombre` AS `NOMBRE`,concat(`pe`.`apellido1`,' ',`pe`.`apellido2`) AS `APELLIDOS`,`pe`.`sexo` AS `SEXO`,`pe`.`direccion` AS `DIRECCION`,`pe`.`telefono` AS `TELEFONO`,`pe`.`email` AS `EMAIL`,`n`.`pais` AS `PAIS`,`pe`.`disponible` AS `DISPONIBLE` from ((`profesor` `pr` join `persona` `pe`) join `nacionalidad` `n`) where ((`pe`.`idPersona` = `pr`.`idprofesor`) and (`n`.`idNacionalidad` = `pe`.`idNacionalidad`)) ;
+
+--
