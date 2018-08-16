@@ -41,8 +41,13 @@ Materialize - A modern responsive front-end framework based on Material Design
 Jquery- jQuery is a fast, small, and feature-rich JavaScript library.
 Datatables- DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool, build upon the foundations of progressive enhancement, that adds all of these advanced features to any HTML table.
 
-Para el Despliegue:
-Se necesitaria un servicio de hosting y un dominio o, bien si cuenta con su propio servidor nada mas ocuparia un dominio.
+Para el Despligue:
+
+Si desea ejecutar el proyecto en su computadora, se debe ejecutar el programa mencionado anteriormente que es XAMPP y ejecutar los servicios de PHP y MySQL.
+Posteriormente debe de abrir el navegador de su preferencia y despues escribir en la URL http://localhost/htdocs/SEDRI/'La carpeta que necesite'/'Y el archivo que desee ver con su respectiva extension' .
+Esto siempre y cuando no haya cambiado los puertos por defecto de XAMPP sino debe ser la siguiente manera http://localhost:#PUERTO/htdocs/SEDRI/'La carpeta que necesite'/'Y el archivo que desee ver con su respectiva extension' .
+
+Y en produccion se necesitaria un servicio de hosting y un dominio o, bien si cuenta con su propio servidor nada mas ocuparia un dominio.
 
 
 #Autores:
