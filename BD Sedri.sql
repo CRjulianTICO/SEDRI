@@ -52,14 +52,22 @@ WHERE idPersona = @id;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaAlumno` (IN `CEDULA` VARCHAR(45), IN `NOMBRE` VARCHAR(45), IN `APELLIDO1` VARCHAR(45), IN `APELLIDO2` VARCHAR(45), IN `SEXO` VARCHAR(20), IN `DIRECCION` VARCHAR(100), IN `NACIONALIDAD` INT, IN `DISPONIBILIDAD` BOOLEAN)  BEGIN
-DECLARE VID INT;
 
- INSERT INTO persona( cedula, nombre, apellido1, apellido2, sexo, direccion,idNacionalidad, disponible) 
-    VALUES (CEDULA,NOMBRE,APELLIDO1,APELLIDO2,SEXO,DIRECCION,NACIONALIDAD,DISPONIBILIDAD);
-    SELECT idPersona INTO VID FROM persona where cedula = CEDULA;
-    INSERT INTO alumno(Persona_idPersona)VALUES(VID);
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaAlumno`(IN VCED VARCHAR(20),IN VNOM VARCHAR(40),IN VAPE1 VARCHAR(40),IN VAPE2 VARCHAR(40),IN VSEX VARCHAR(20),IN VDIR VARCHAR(50),IN VNAC int)
+BEGIN
+ INSERT INTO persona( cedula, nombre, apellido1, apellido2, sexo, direccion,idNacionalidad)
+ VALUES(VCED,VNOM,VAPE1,VAPE2,VSEX,VDIR,VNAC);
+ 
+ SELECT idPersona
+ FROM persona
+ WHERE cedula = VCED
+ INTO @id;
+ 
+ INSERT INTO alumno(Persona_idPersona)VALUES(@id);
 END$$
+DELIMITER ;
+
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertarEmpleado` (IN `CED` VARCHAR(20), IN `NOM` VARCHAR(35), IN `APE1` VARCHAR(35), IN `APE2` VARCHAR(35), IN `SEX` VARCHAR(20), IN `DIRECC` VARCHAR(50), IN `TEL` VARCHAR(25), IN `NAC` INT, IN `PUE` INT)  BEGIN
 
@@ -81,6 +89,76 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertarProfesor` (IN `CED` VARC
 
 END$$
 
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActualizaBeca`(IN VDESC VARCHAR(500),IN VMON VARCHAR(40),IN VCED VARCHAR(20))
+BEGIN
+	SELECT idPersona
+    FROM persona
+    WHERE cedula = VCED
+    INTO @idP;
+    SELECT idAlumno
+    FROM alumno
+    WHERE Persona_idPersona = @idP
+    INTO @idA;
+    UPDATE beca
+    SET descripcion_beca = VDESC,
+    monto_beca = VMON
+    WHERE idAlumno = @idA;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_DesactivaBeca`(IN VCED VARCHAR(20))
+BEGIN
+	SELECT idPersona
+    FROM persona
+    WHERE cedula = VCED
+    INTO @idP;
+    SELECT idAlumno
+    FROM alumno
+    WHERE Persona_idPersona = @idP
+    INTO @idA;
+    UPDATE beca
+    SET estado = 0
+    WHERE idAlumno = @idA;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActivaBeca`(IN VCED VARCHAR(20))
+BEGIN
+	SELECT idPersona
+    FROM persona
+    WHERE cedula = VCED
+    INTO @idP;
+    SELECT idAlumno
+    FROM alumno
+    WHERE Persona_idPersona = @idP
+    INTO @idA;
+    UPDATE beca
+    SET estado = 1
+    WHERE idAlumno = @idA;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaBeca`(IN VCED VARCHAR(50)  COLLATE utf8mb4_unicode_ci,IN VDES VARCHAR(500) COLLATE utf8mb4_unicode_ci,IN VMON VARCHAR(45) COLLATE utf8mb4_unicode_ci)
+BEGIN
+    SELECT idPersona
+    FROM persona
+    WHERE cedula = VCED  COLLATE utf8mb4_unicode_ci
+    INTO @id;
+    SELECT idAlumno
+    FROM alumno
+    WHERE Persona_idPersona = @id  COLLATE utf8mb4_unicode_ci
+    INTO @idA;
+    INSERT INTO BECA(descripcion_beca,monto_beca,idAlumno)
+    VALUES(VDES,VMON,@idA);
+END$$
 DELIMITER ;
 
 
@@ -152,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `asistencia` (
 
 CREATE TABLE IF NOT EXISTS `beca` (
   `idbeca` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion_beca` varchar(45) NOT NULL,
+  `descripcion_beca` varchar(500) NOT NULL,
   `monto_beca` varchar(45) NOT NULL,
   `idAlumno` int(11) NOT NULL,
   `estado` tinyint(1) DEFAULT '1',
