@@ -22,6 +22,15 @@ ALTER TABLE puesto DEFAULT CHARACTER SET= utf8mb4 DEFAULT COLLATE= utf8mb4_unico
 ALTER TABLE rol DEFAULT CHARACTER SET= utf8mb4 DEFAULT COLLATE= utf8mb4_unicode_ci
 
 
+https://mathiasbynens.be/notes/mysql-utf8mb4#utf8-to-utf8mb4
+
+
+
+
+
+
+
+
 
 
 
