@@ -45,7 +45,8 @@ switch ($_GET["opcion"]){
  				"9"=>($reg->DISPONIBLE)?'<span class="label bg-green">Activado</span>':
  				'<span class="label bg-red">Desactivado</span>',
  				"10"=>'<button class="mostrarEditar" onclick="mostrar('.$reg->CEDULA.')"><i class="material-icons center blue-text ">edit</i></button>
- 					<button class="mostrarBlock" onclick="desactivar('.$reg->CEDULA.')"><i class="material-icons center red-text ">block</i></button>',
+					 <button class="mostrarBlock" onclick="desactivar('.$reg->CEDULA.')"><i class="material-icons center red-text ">block</i></button>',
+				"11"=>$reg->nombreGrado." ".$reg->annio,
  				);
  		}
  		$results = array(
