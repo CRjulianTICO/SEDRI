@@ -75,6 +75,11 @@
           </select>
         </div>
 
+         <div class="col s6">
+          <select  name="grado" id="grado" class="browser-default" required>
+          </select>
+        </div>
+
       </div>
 
     <br>

@@ -196,24 +196,27 @@ function editar()
 
 }
 
-
-function cargarSubtemaTema(id) {
-  console.log(id.value);
-  $('#subtemasCargados').empty();
+function cargarGrado(){
   $.ajax({
-    type: "POST",
-    dataType: "json",
-    data: {"ID_TEMA" : id.value},
-    url: 'controlador/editor.php?opcion=mostrarSubtemas',
-    success: function(data) {
-      $.each(data,function(i,item){
-              $('#subtemasCargados').append('<div class="form-check"><input type="checkbox" class="form-check-input" name="ID_SUBTEMA" value="'+data[i].ID_SUBTEMA+'">'+data[i].NOMBRE_SUBTEMA+'</div>');
-               console.log(data[i].ID_SUBTEMA + data[i].NOMBRE_SUBTEMA);
+      url: "../controlador/grado.php?opcion=listaSimple",
+      method: "POST",
+      dataType : "json",
+      contentType: "application/json; charset=utf-8",
+      success: function(data)
+      {
+          $('#grado').empty();
+          $('#grado').append("<option>Seleccionar Grado</option>");
+          $.each(data,function(i,item){
 
-           });
-    }
+              $('#grado').append('<option value="'+data[i].idGrado+'">'+data[i].nombreGrado+'</option>');
+
+          });
+      }
+
   });
+
 }
+
 
 
 init();
