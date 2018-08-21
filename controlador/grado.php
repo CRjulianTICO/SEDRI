@@ -42,7 +42,8 @@ switch ($_GET["opcion"]){
  			$data[]=array(
  				"ID_GRADO"=>$reg->idgrado,
  				"NOMBRE_GRADO"=>$reg->nombreGrado,
- 				);
+				 );
+				 echo json_encode($data);
  		}
 	break;
 
