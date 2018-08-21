@@ -33,16 +33,16 @@ switch ($_GET["opcion"]){
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
 
- 				"0"=>$reg->cedula,
- 				"1"=>$reg->nombre,
-        "2"=>$reg->apellido1,
-				"3"=>$reg->apellido2,
-        "4"=>$reg->sexo,
-        "5"=>$reg->direccion,
-				"6"=>$reg->telefono,
-				"7"=>$reg->email,
-        "8"=>$reg->pais,
- 				"9"=>($reg->disponible)?'<span class="label bg-green">Activado</span>':
+ 				"0"=>$reg->CEDULA,
+ 				"1"=>$reg->NOMBRE,
+        		"2"=>$reg->APELLIDO1,
+				"3"=>$reg->APELLIDO2,
+        		"4"=>$reg->SEXO,
+        		"5"=>$reg->DIRECCION,
+				"6"=>$reg->TELEFONO,
+				"7"=>$reg->EMAIL,
+        		"8"=>$reg->PAIS,
+ 				"9"=>($reg->DISPONIBLE)?'<span class="label bg-green">Activado</span>':
  				'<span class="label bg-red">Desactivado</span>',
  				"10"=>'<button class="mostrarEditar" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center blue-text ">edit</i></button>
  					<button class="mostrarBlock" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center red-text ">block</i></button>',
