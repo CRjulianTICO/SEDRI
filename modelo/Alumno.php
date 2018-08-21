@@ -37,8 +37,6 @@ Class Alumno
 	    return consulta($sql2);
 	  }
  
-
-	//Usando la vista creada
 	public function listar()
 	{
 		$sql="SELECT * FROM vista_alumno";
