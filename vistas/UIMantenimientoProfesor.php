@@ -15,6 +15,7 @@
           <th>Nacionalidad</th>
           <th>Disponible</th>
           <th>Opciones</th>
+          <th>Grado</th>
         </thead>
         <tbody>
         </tbody>

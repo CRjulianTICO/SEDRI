@@ -14,6 +14,7 @@ function init(){
   $( "#btnEditar" ).on( "click", editar );
   listar();
     cargarPais();
+    cargarGrado();
    $("#formProfesor").on("submit",function(e)
    {
     guardar(e);
