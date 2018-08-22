@@ -205,11 +205,11 @@ function cargarGrado(){
       contentType: "application/json; charset=utf-8",
       success: function(data)
       {
-          $('#grado').empty();
-          $('#grado').append("<option>Seleccionar Grado</option>");
+          $('#idgrado').empty();
+          $('#idgrado').append("<option>Seleccionar Grado</option>");
           $.each(data,function(i,item){
 
-              $('#grado').append('<option value="'+data[i].ID_GRADO+'">'+data[i].NOMBRE_GRADO+'</option>');
+              $('#idgrado').append('<option value="'+data[i].ID_GRADO+'">'+data[i].NOMBRE_GRADO+'</option>');
 
           });
       }

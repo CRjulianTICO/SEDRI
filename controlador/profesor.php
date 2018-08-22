@@ -15,10 +15,12 @@ $pais = new Pais();
 	$telefono=isset($_POST["telefono"])? limpiarCadena($_POST["telefono"]):"";
 	$email=isset($_POST["email"])? limpiarCadena($_POST["email"]):"";
 	$nacionalidad=isset($_POST["nacionalidad"])? limpiarCadena($_POST["nacionalidad"]):"";
+	$idgrado=isset($_POST["idgrado"])? limpiarCadena($_POST["idgrado"]):"";
+	$annio=isset($_POST["annio"])? limpiarCadena($_POST["annio"]):"";
 
 switch ($_GET["opcion"]){
 	case 'guardar':
-			$rspta=$profesor->insertar($cedula, $nombre, $apellido1, $apellido2, $sexo, $direccion,$telefono,$email,$nacionalidad);
+			$rspta=$profesor->insertar($cedula, $nombre, $apellido1, $apellido2, $sexo, $direccion,$telefono,$email,$nacionalidad,$annio,$idgrado);
 			echo $rspta ? "Registrado" : "Error";
 	break;
 
