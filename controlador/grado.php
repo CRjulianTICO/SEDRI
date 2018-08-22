@@ -43,8 +43,9 @@ switch ($_GET["opcion"]){
  				"ID_GRADO"=>$reg->idgrado,
  				"NOMBRE_GRADO"=>$reg->nombreGrado,
 				 );
-				 echo json_encode($data);
- 		}
+				
+		 }
+		 echo json_encode($data);
 	break;
 
 	case 'mostrar':

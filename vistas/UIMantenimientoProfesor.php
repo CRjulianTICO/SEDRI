@@ -76,13 +76,23 @@
           </select>
         </div>
 
-         <div class="col s6">
+  </div>
+    <br>
+
+    <div class="row">
+    
+    <div class="col s6">
           <select  name="grado" id="grado" class="browser-default" required>
           </select>
         </div>
-
-      </div>
-
+      <div class="col s6">
+          <select  name="annio" id="annio" class="browser-default " required>
+          <option value="" disabled selected hidden>Seleccionar el Año del grado</option>
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
+          </select>
+        </div>
+    </div>
     <br>
     <div class="row">
 
