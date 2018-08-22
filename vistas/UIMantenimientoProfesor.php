@@ -15,6 +15,7 @@
           <th>Nacionalidad</th>
           <th>Disponible</th>
           <th>Opciones</th>
+          <th>Grado</th>
         </thead>
         <tbody>
         </tbody>
@@ -59,7 +60,7 @@
 
        <div class='row'><div class='input-field col s6'>
         <input placeholder="Email" class='validate' type='text' name='email' id='email' maxlength="30" required />
-                <label for='correo'>Ingresar Correo Electronico</label>
+                <label for='email'>Ingresar Correo Electronico</label>
               </div>
               </div>
       <div class="row">
@@ -75,8 +76,23 @@
           </select>
         </div>
 
-      </div>
+  </div>
+    <br>
 
+    <div class="row">
+    
+    <div class="col s6">
+          <select  name="idgrado" id="idgrado" class="browser-default" required>
+          </select>
+        </div>
+      <div class="col s6">
+          <select  name="annio" id="annio" class="browser-default " required>
+          <option value="" disabled selected hidden>Seleccionar el Año del grado</option>
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
+          </select>
+        </div>
+    </div>
     <br>
     <div class="row">
 
@@ -112,6 +128,6 @@
  </div>
 <!-- FINALIZA EL CONTENIDO-->
 <?php require 'footerDirector.php' ?>
-<script src="js/profesor.js"></script>
+<script src="js/profesor.js?new"></script>
 </body>
 </html>

@@ -179,6 +179,10 @@ document.getElementById('btnEditar').onclick = function(){
     editar();
 };
 
+$(document).ready(function (){
+    if (window.location.hash === '#mostrarFormulario') {mostrarFormulario(true);}
+})
+
 function INIT(){
     limpiar();
   	mostrarFormulario(false);
