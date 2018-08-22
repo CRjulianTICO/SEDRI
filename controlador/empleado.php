@@ -21,7 +21,7 @@ switch ($_GET["opcion"]){
 
 	case 'editar':
 			$rspta=$instEmpleado->actualizar($cedula,$nombre,$apellido1,$apellido2,$sexo,$direccion,$telefono,$idNacionalidad,$idPuesto);
-			echo $rspta ? "Registrado" : "Error";
+			echo $rspta ? "Registrado" : "Error" ;
 	break;
 
 	case 'listar':

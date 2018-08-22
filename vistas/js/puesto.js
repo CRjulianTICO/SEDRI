@@ -70,6 +70,8 @@ function guardar(e){
   	    {
                 tabla.ajax.reload();
                 alert("SE GUARDO SATISFACTORIAMENTE");
+                limpiar();
+                mostrarFormulario(false);
   	    }
 
       });
@@ -100,7 +102,7 @@ function editar(){
         {
               tabla.ajax.reload();
               limpiar();
-              mostrarFormulario(true);
+              mostrarFormulario(false);
 
         }
 

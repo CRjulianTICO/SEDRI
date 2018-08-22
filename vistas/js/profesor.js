@@ -102,6 +102,8 @@ function guardar(e)
       success: function(datos)
       {
             tabla.ajax.reload();
+            limpiar();
+            mostrarform(false);
       }
 
   });

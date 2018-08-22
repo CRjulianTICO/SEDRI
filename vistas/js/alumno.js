@@ -99,7 +99,9 @@ function mostrarbotones(bool)
 
   	    success: function(datos)
   	    {
-  	          tabla.ajax.reload();
+              tabla.ajax.reload();
+              limpiar();
+              mostrarform(false);
   	    }
 
   	});
