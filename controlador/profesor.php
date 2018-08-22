@@ -84,8 +84,9 @@ switch ($_GET["opcion"]){
 			    'pais' => $reg->pais
 
 		);
+		echo json_encode($data);
 	}
-	echo json_encode($data);
+	
 	break;
 
 

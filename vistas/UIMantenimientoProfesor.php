@@ -118,6 +118,6 @@
  </div>
 <!-- FINALIZA EL CONTENIDO-->
 <?php require 'footerDirector.php' ?>
-<script src="js/profesor.js"></script>
+<script src="js/profesor.js?new"></script>
 </body>
 </html>
