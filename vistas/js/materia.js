@@ -98,7 +98,7 @@ function editar(){
         {
               tabla.ajax.reload();
               limpiar();
-              mostrarFormularioMateria(true);
+              mostrarFormularioMateria(false);
               alert("SE ACTUALIZO SATISFACTORIAMENTE");
 
         }
@@ -117,7 +117,9 @@ document.getElementById('btnEditar').onclick = function(){
     editar();
 };
 
-
+$(document).ready(function (){
+    if (window.location.hash === '#mostrarFormularioMateria') {mostrarFormularioMateria(true);}
+})
 
 function INIT(){
     limpiar();

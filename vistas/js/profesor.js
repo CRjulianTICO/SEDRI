@@ -22,6 +22,11 @@ function init(){
 
   }
 
+  $(document).ready(function (){
+    if (window.location.hash === '#mostrarform') {mostrarform(true);}
+})
+
+
 function mostrarform(bool)
 {
 if (bool)
@@ -97,6 +102,8 @@ function guardar(e)
       success: function(datos)
       {
             tabla.ajax.reload();
+            limpiar();
+            mostrarform(false);
       }
 
   });

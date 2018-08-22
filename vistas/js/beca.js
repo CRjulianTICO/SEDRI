@@ -70,6 +70,10 @@ function guardar(e){
   	    {
                 tabla.ajax.reload();
                 alert("SE GUARDO SATISFACTORIAMENTE");
+
+                limpiar();
+                mostrarFormularioBeca(false);
+
   	    }
 
       });
@@ -102,6 +106,7 @@ function editar(){
         {
               tabla.ajax.reload();
               limpiar();
+
               mostrarFormularioBeca(true);
               $('#cedula').attr("readonly","readonly");
 
@@ -129,6 +134,9 @@ function activar(cedula)
           });
 }
 
+$(document).ready(function (){
+    if (window.location.hash === '#mostrarFormularioBeca') {mostrarFormularioBeca(true);}
+})
 
 function INIT(){
     limpiar();

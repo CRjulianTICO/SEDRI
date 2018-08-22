@@ -67,6 +67,8 @@ function guardar(e){
   	    {
                 tabla.ajax.reload();
                 alert("SE GUARDO SATISFACTORIAMENTE");
+                limpiar();
+              mostrarFormulario(false);
   	    }
 
       });
@@ -97,7 +99,7 @@ function editar(){
         {
               tabla.ajax.reload();
               limpiar();
-              mostrarFormulario(true);
+              mostrarFormulario(false);
 
         }
 
@@ -108,6 +110,10 @@ function editar(){
 document.getElementById('btnEditar').onclick = function(){
     editar();
 };
+
+$(document).ready(function (){
+    if (window.location.hash === '#mostrarFormulario') {mostrarFormulario(true);}
+})
 
 function INIT(){
     limpiar();

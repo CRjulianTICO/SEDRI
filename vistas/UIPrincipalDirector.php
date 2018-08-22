@@ -63,9 +63,7 @@
                 <li>
                 <a onclick="mostrarform(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
                 </li>
-                <li>
-                <a onclick="mostrarform(false)" class="waves-effect">Asignar Grupos<i class="material-icons left indigo-text agregarIcono">assignment</i></a>
-                </li>
+               
                 <li>
                 <a onclick="mostrarform(true)" class="waves-effect">Profesor Especial<i class="material-icons left teal-text agregarIcono">portrait</i></a>
                 </li>
@@ -126,13 +124,13 @@
 
 
 
-        <li>
-            <a class="collapsible-header waves-effect">Grados<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">filter_1</i></a>
+         <li>
+            <a class="collapsible-header waves-effect" >Grados<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">filter_1</i></a>
             <div class="collapsible-body">
               <ul>
-                <a onclick="mostrarform(false)" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_shared</i></a>
+                <a href="../vistas/UIMantenimientoGrado.php" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_shared</i></a>
                 <li>
-                <a onclick="mostrarform(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
+                <a  onclick="redireccionarGrado(); mostrarFormulario(true);" class="waves-effect formulario">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
                 </li>
               </ul>
             </div>
