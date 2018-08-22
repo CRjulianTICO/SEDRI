@@ -1,10 +1,9 @@
 var tabla;
-
-
-function mostrarFormularioMateria(estado){
+function mostrarFormularioBeca(estado){
     if(estado){
         $('#tabla').hide();
         $('#formulario').show();
+        mostrarBotones(false);
     }else{
         $('#tabla').show();
         $('#formulario').hide();
@@ -20,30 +19,32 @@ function mostrarBotones(estado){
     }else{
         $('#btnGuardar').show();
         $('#btnEditar').hide();
-        $('#btnCancelar').hide(); 
+        $('#btnCancelar').hide();
+        $('#cedula').removeAttr("readonly");
     }
 }
 
-function cancelarFormulario(){
-    mostrarFormularioMateria(false);
+function cancelarForm(){
+    mostrarFormularioBeca(false);
     mostrarBotones(false);
 }
 
 
 function limpiar(){
-    $('#idmateria').val('');
-    $('#nombreMateria').val('');
+    $('#cedula').val('');
+    $('#descripcionBeca').val('');
+    $('#monto').val('');
 }
 
 
 function listar(){
-    tabla = $('#tblMateria').dataTable({
+    tabla = $('#tblBeca').dataTable({
         "aProcessing": true,//Activamos el procesamiento del datatables
   	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
   	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
   		"ajax":
   				{
-  					url: '../controlador/materia.php?opcion=listar',
+  					url: '../controlador/beca.php?opcion=listar',
   					type : "get",
   					dataType : "json",
   					error: function(e){
@@ -52,16 +53,16 @@ function listar(){
   				},
   		"bDestroy": true,
   		"iDisplayLength": 10,
-  	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+  	    "order": [[ 0, "asc" ]]//Ordenar (columna,orden)
     }).DataTable();
 }
 
 function guardar(e){
-    e.preventDefault(); 
-    var DATOS = ($("#formMateria").serialize());
+    e.preventDefault();
+    var DATOS = ($("#formBeca").serialize());
     console.log(DATOS);
   	$.ajax({
-  		url: "../controlador/materia.php?opcion=guardar",
+  		url: "../controlador/beca.php?opcion=guardar",
   	    method: "POST",
   	    data: DATOS,
 
@@ -69,6 +70,10 @@ function guardar(e){
   	    {
                 tabla.ajax.reload();
                 alert("SE GUARDO SATISFACTORIAMENTE");
+
+                limpiar();
+                mostrarFormularioBeca(false);
+
   	    }
 
       });
@@ -76,21 +81,24 @@ function guardar(e){
 }
 
 function mostrar(id){
-    $.post("../controlador/materia.php?opcion=mostrar",{idmateria : id}, function(data, status){
+  console.log('Variable recibida'+id);
+    $.post("../controlador/beca.php?opcion=mostrar",{cedula : id}, function(data, status){
         limpiar();
-        mostrarFormularioMateria(true);
+        mostrarFormularioBeca(true);
         mostrarBotones(true);
         data = JSON.parse(data);
         console.log(data);
-        $('#idmateria').val(data.idmateria);
-        $('#nombreMateria').val(data.nombre);
+        $('#cedula').val(data.cedula);
+        $('#descripcionBeca').val(data.descripcion_beca);
+        $('#monto').val(data.monto_beca);
+        $('#cedula').attr("readonly","readonly");
     })
 }
 
 function editar(){
-    var DATOS = ($("#formMateria").serialize());
+    var DATOS = ($("#formBeca").serialize());
     $.ajax({
-        url: "../controlador/materia.php?opcion=editar",
+        url: "../controlador/beca.php?opcion=editar",
         method: "POST",
         data: DATOS,
 
@@ -98,36 +106,45 @@ function editar(){
         {
               tabla.ajax.reload();
               limpiar();
-              mostrarFormularioMateria(false);
-              alert("SE ACTUALIZO SATISFACTORIAMENTE");
+
+              mostrarFormularioBeca(true);
+              $('#cedula').attr("readonly","readonly");
 
         }
 
     });
-    
-}
 
- function desactivar(id){
-          $.post("../controlador/materia.php?opcion=desactivar", {idmateria : id}, function(e){
-              tabla.ajax.reload();
-          });
 }
 
 document.getElementById('btnEditar').onclick = function(){
     editar();
 };
 
+
+function desactivar(cedula)
+{
+          $.post("../controlador/beca.php?opcion=desactivar", {cedula : cedula}, function(e){
+              tabla.ajax.reload();
+          });
+}
+function activar(cedula)
+{
+          $.post("../controlador/beca.php?opcion=activar", {cedula : cedula}, function(e){
+              tabla.ajax.reload();
+          });
+}
+
 $(document).ready(function (){
-    if (window.location.hash === '#mostrarFormularioMateria') {mostrarFormularioMateria(true);}
+    if (window.location.hash === '#mostrarFormularioBeca') {mostrarFormularioBeca(true);}
 })
 
 function INIT(){
     limpiar();
-  	mostrarFormularioMateria(false);
+  	mostrarFormularioBeca(false);
     mostrarBotones(false);
     listar();
 
-     $("#formMateria").on("submit",function(e){
+     $("#formBeca").on("submit",function(e){
   		guardar(e);
   	 })
 }

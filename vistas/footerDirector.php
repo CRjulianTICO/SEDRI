@@ -15,6 +15,32 @@
 });
 </script>
 
+
+<script type = "text/javascript"> 
+  function redireccionarGrado(){
+    window.location.href = "../vistas/UIMantenimientoGrado.php#mostrarFormulario";
+} 
+  function redireccionarMateria(){
+    window.location.href = "../vistas/UIMantenimientoMateria.php#mostrarFormularioMateria";
+} 
+  function redireccionarPuesto(){
+    window.location.href = "../vistas/UIMantenimientoPuesto.php#mostrarFormulario";
+}
+
+ function redireccionarBeca(){
+    window.location.href = "../vistas/UIMantenimientoBeca.php#mostrarFormularioBeca";
+}
+
+ function redireccionarEmpleado(){
+    window.location.href = "../vistas/UIMantenimientoEmpleado.php#mostrarFormulario";
+}
+ function redireccionarProfesor(){
+    window.location.href = "../vistas/UIMantenimientoProfesor.php#mostrarform";
+}
+
+
+</script>
+
 <script type="text/javascript">
  $(document).ready(function() {
     $('#descripcionPuesto').characterCounter();
