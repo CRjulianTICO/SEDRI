@@ -39,20 +39,15 @@ switch ($_GET["opcion"]){
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
  				
- 				"0"=>$reg->cedula,
- 				"1"=>$reg->nombre,
+ 		"0"=>$reg->cedula,
+ 		"1"=>$reg->nombre,
         "2"=>$reg->apellido1,
         "3"=>$reg->apellido2,
         "4"=>$reg->sexo,
-        "5"=>$reg->direccion,
-        "6"=>$reg->pais,
- 				"7"=>($reg->disponible)?'<span class="label bg-green">Activado</span>':
- 				'<span class="label bg-red">Desactivado</span>',
- 				"8"=>($reg->disponible)?'<button class="mostrarEditar" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center blue-text ">edit</i></button>'.
- 					' <button class="mostrarBlock" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center red-text ">block</i></button>':
- 					'<button class="mostrarEditar" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center blue-text ">edit</i></button>'.
- 					' <button class="mostrarCheck" onclick="activar('.$reg->cedula.')"><i class="material-icons center green-text">check</i></button>',
- 				);
+        "5"=>$reg->pais,
+		"6"=>$reg->nombreGrado." ".$reg->annio,
+		"7"=>$reg->direccion,
+  				);
  		}
  		$results = array(
  			"sEcho"=>1, //Información para el datatables

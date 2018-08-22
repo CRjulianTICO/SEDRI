@@ -34,6 +34,19 @@ switch ($_GET["opcion"]){
  			"aaData"=>$data);
  		echo json_encode($results);
 	break;
+	
+	case 'listaSimple':
+		$rspta=$grado->listar();
+ 		$data= Array();
+ 		while ($reg=$rspta->fetch_object()){
+ 			$data[]=array(
+ 				"ID_GRADO"=>$reg->idgrado,
+ 				"NOMBRE_GRADO"=>$reg->nombreGrado,
+				 );
+				
+		 }
+		 echo json_encode($data);
+	break;
 
 	case 'mostrar':
 		$rspta=$grado->cargar($idgrado);

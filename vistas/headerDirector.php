@@ -86,9 +86,9 @@
             <a class="collapsible-header waves-effect">Becas<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">description</i></a>
             <div class="collapsible-body">
               <ul>
-                <a onclick="mostrarform(false)" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_special</i></a>
+                <a onclick="mostrarFormularioBeca(false)" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_special</i></a>
                 <li>
-                <a onclick="mostrarform(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
+                <a onclick="mostrarFormularioBeca(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
                 </li>
               </ul>
             </div>

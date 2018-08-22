@@ -14,6 +14,7 @@ function init(){
   $( "#btnEditar" ).on( "click", editar );
   listar();
     cargarPais();
+    cargarGrado();
    $("#formProfesor").on("submit",function(e)
    {
     guardar(e);
@@ -135,20 +136,19 @@ $.post("../controlador/profesor.php?opcion=mostrar",{cedula : cedula}, function(
 {
   limpiar();
   cargarPais();
+  console.log(data);
   mostrarform(true);
   mostrarbotones(true);
   data = JSON.parse(data);
-  $("#nombre").val(data.nombre);
-  $("#apellido1").val(data.apellido1);
-  $("#apellido2").val(data.apellido2);
-  $("#cedula").val(data.cedula);
-  $("#telefono").val(data.telefono);
-  $("#correo").val(data.email);
-  $("#direccion").val(data.direccion);
-  $("#sexo").val(data.sexo);
-  $("#nacionalidad").val(data.pais);/* arreglar que salga nacionalidad al editar*/
-
-
+  $("#nombre").val(data.NOMBRE);
+  $("#apellido1").val(data.APELLIDO1);
+  $("#apellido2").val(data.APELLIDO2);
+  $("#cedula").val(data.CEDULA);
+  $("#telefono").val(data.TELEFONO);
+  $("#email").val(data.EMAIL);
+  $("#direccion").val(data.DIRECCION);
+  $("#sexo").val(data.SEXO);
+  $("#nacionalidad").val(data.PAIS);/*SE PUEDE ARREGLAR CON UN APPEND TAL VEZ UNA VISTA NUEVA O CURSOR */
 })
 }
 function cargarPais(){
@@ -196,24 +196,27 @@ function editar()
 
 }
 
-
-function cargarSubtemaTema(id) {
-  console.log(id.value);
-  $('#subtemasCargados').empty();
+function cargarGrado(){
   $.ajax({
-    type: "POST",
-    dataType: "json",
-    data: {"ID_TEMA" : id.value},
-    url: 'controlador/editor.php?opcion=mostrarSubtemas',
-    success: function(data) {
-      $.each(data,function(i,item){
-              $('#subtemasCargados').append('<div class="form-check"><input type="checkbox" class="form-check-input" name="ID_SUBTEMA" value="'+data[i].ID_SUBTEMA+'">'+data[i].NOMBRE_SUBTEMA+'</div>');
-               console.log(data[i].ID_SUBTEMA + data[i].NOMBRE_SUBTEMA);
+      url: "../controlador/grado.php?opcion=listaSimple",
+      method: "POST",
+      dataType : "json",
+      contentType: "application/json; charset=utf-8",
+      success: function(data)
+      {
+          $('#idgrado').empty();
+          $('#idgrado').append("<option>Seleccionar Grado</option>");
+          $.each(data,function(i,item){
 
-           });
-    }
+              $('#idgrado').append('<option value="'+data[i].ID_GRADO+'">'+data[i].NOMBRE_GRADO+'</option>');
+
+          });
+      }
+
   });
+
 }
+
 
 
 init();
