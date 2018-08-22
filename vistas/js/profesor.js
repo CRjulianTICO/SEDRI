@@ -136,20 +136,19 @@ $.post("../controlador/profesor.php?opcion=mostrar",{cedula : cedula}, function(
 {
   limpiar();
   cargarPais();
+  console.log(data);
   mostrarform(true);
   mostrarbotones(true);
   data = JSON.parse(data);
-  $("#nombre").val(data.nombre);
-  $("#apellido1").val(data.apellido1);
-  $("#apellido2").val(data.apellido2);
-  $("#cedula").val(data.cedula);
-  $("#telefono").val(data.telefono);
-  $("#correo").val(data.email);
-  $("#direccion").val(data.direccion);
-  $("#sexo").val(data.sexo);
-  $("#nacionalidad").val(data.pais);/* arreglar que salga nacionalidad al editar*/
-
-
+  $("#nombre").val(data.NOMBRE);
+  $("#apellido1").val(data.APELLIDO1);
+  $("#apellido2").val(data.APELLIDO2);
+  $("#cedula").val(data.CEDULA);
+  $("#telefono").val(data.TELEFONO);
+  $("#email").val(data.EMAIL);
+  $("#direccion").val(data.DIRECCION);
+  $("#sexo").val(data.SEXO);
+  $("#nacionalidad").val(data.PAIS);/*SE PUEDE ARREGLAR CON UN APPEND TAL VEZ UNA VISTA NUEVA O CURSOR */
 })
 }
 function cargarPais(){

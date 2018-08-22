@@ -42,7 +42,9 @@ Class Profesor
 	}
 
 	public function cargar($cedula){
-		$sql = "SELECT * FROM vista_Profesor WHERE cedula='".$cedula."'";
+		$sql = "SELECT CEDULA,NOMBRE,APELLIDO1,APELLIDO2, SEXO,DIRECCION,TELEFONO,EMAIL,PAIS,n.idNacionalidad,DISPONIBLE,g.idGrado,g.nombreGrado,pg.annio 
+		FROM PERSONA P, PROFESOR PE, NACIONALIDAD N,grado g,profesor_grado pg 
+		WHERE CEDULA = '".$cedula."' AND P.idPersona = PE.Persona_idPersona AND pe.idprofesor = pg.idProfesor AND g.idgrado = pg.idGrado AND P.idNacionalidad = N.idNacionalidad;";
 	    return consultaSimple($sql);
 	}
 }

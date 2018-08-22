@@ -60,7 +60,7 @@
 
        <div class='row'><div class='input-field col s6'>
         <input placeholder="Email" class='validate' type='text' name='email' id='email' maxlength="30" required />
-                <label for='correo'>Ingresar Correo Electronico</label>
+                <label for='email'>Ingresar Correo Electronico</label>
               </div>
               </div>
       <div class="row">
