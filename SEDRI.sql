@@ -28,9 +28,11 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-DROP PROCEDURE IF EXISTS `login`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `login` (IN `pass` CHAR(20), IN `ced` VARCHAR(25))  BEGIN
-select p.idPersona, r.tiporol 
+DROP PROCEDURE IF EXISTS `sp_Login`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Login` (IN `pass` VARCHAR(20), IN `ced` VARCHAR(25), OUT `id` INT,OUT `rol` VARCHAR(50),OUT `nombre` VARCHAR(50)  )
+BEGIN
+select p.idPersona, r.tiporol ,p.nombre
+into id,rol,nombre
 from usuario u, persona p , rol r 
 where u.password=pass and p.cedula=ced ;
 END$$
