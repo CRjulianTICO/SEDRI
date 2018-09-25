@@ -1,4 +1,4 @@
-<?php require 'headerDirector.php' ?>
+<?php require 'header.php' ?>
 <!--AQUI DEBERIA IR TODO EL CONTENIDO DE LA PAGINA-->
  <div id="content">
    <div class="tabla" id="tabla">
@@ -72,7 +72,7 @@
           </select>
         </div>
         <div class="col s6">
-          <select  name="nacionalidad" id="nacionalidad"  required>
+          <select  name="nacionalidad" id="nacionalidad" class="browser-default" required>
           </select>
         </div>
 
@@ -127,20 +127,16 @@
     </div>
  </div>
 <!-- FINALIZA EL CONTENIDO-->
-<?php require 'footerDirector.php' ?>
+
+
+<?php require 'footer.php' ?>
 <script>
   $(document).ready(function(){
-    $('nacionalidad').formSelect();
+    $('select').formSelect();
   });
-  $(document).ready(function() {
-    $('select').material_select();
- });
- $(document).ready(function() {
-    $('nacionalidad').material_select();
- });
- 
- 
 </script>
-<script src="js/profesor.js?new"></script>
+
+<script src="js/alumno.js"></script>
 </body>
+
 </html>
