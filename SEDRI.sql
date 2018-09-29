@@ -29,13 +29,15 @@ DELIMITER $$
 -- Procedimientos
 --
 DROP PROCEDURE IF EXISTS `sp_Login`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Login` (IN `pass` VARCHAR(20), IN `ced` VARCHAR(25), OUT `id` INT,OUT `rol` VARCHAR(50),OUT `nombre` VARCHAR(50)  )
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Login`(OUT `pass` VARCHAR(150), IN `ced` VARCHAR(25), OUT `id` INT, OUT `rol` VARCHAR(50), OUT `nombre` VARCHAR(50))
 BEGIN
-select p.idPersona, r.tiporol ,p.nombre
-into id,rol,nombre
+select u.password,p.idPersona, r.tiporol ,CONCAT(p.nombre,' ',CONCAT(p.apellido1,' ',p.apellido2)) as nombre
+into pass,id,rol,nombre
 from usuario u, persona p , rol r 
-where u.password=pass and p.cedula=ced ;
+where p.cedula=ced and p.disponible != 0 ;
 END$$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS `sp_ActivaBeca`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActivaBeca` (IN `VCED` VARCHAR(20))  BEGIN
