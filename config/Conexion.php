@@ -28,6 +28,20 @@ if (!function_exists('ejecutarConsulta'))
 		$row = $query->fetch_assoc();
 		return $row;
 	}
+
+	function consultaSalida($ced){
+		global $conexion;
+		$call = mysqli_prepare($conexion, 'CALL sp_Login(@pass, ?, @id, @rol, @nombre)');
+				mysqli_stmt_bind_param($call, 'i', $ced);
+				mysqli_stmt_execute($call);
+
+		$select = mysqli_query($conexion, 'select @pass,@id, @rol, @nombre');
+		$result = mysqli_fetch_assoc($select);
+
+		//echo ("<br>--".$result["@nombre"]."<br>".$result["@rol"]."<br>".$result["@id"]."<br>".$result["@pass"]."--<br>");
+
+		return $result;
+	}
 	/*
 	function consultaID($sql)
 	{
@@ -43,4 +57,6 @@ if (!function_exists('ejecutarConsulta'))
 		return htmlspecialchars($str);
 	}
 }
+
+print_r(consultaSalida('307680159'));
 ?>
