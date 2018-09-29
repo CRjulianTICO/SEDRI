@@ -1,12 +1,40 @@
 <?php   
 
+require_once 'jwt/vendor/autoload.php';
+
 use Firebase\JWT\JWT;
+
+/*
+$time = time();
+$key = 'my_secret_key';
+
+$token = array(
+    'iat' => $time, // Tiempo que inició el token
+    'exp' => $time + (60*60), // Tiempo que expirará el token (+1 hora)
+    'data' => [ // información del usuario
+        'id' => 1,
+        'name' => 'Eduardo'
+    ]
+);
+
+$jwt = JWT::encode($token, $key);
+
+$data = JWT::decode($jwt, $key, array('HS256'));
+print_r($jwt);
+echo "<br><br>";
+var_dump($data);
+*/
+
 
 class Auth
 {
     private static $secret_key = 'Sdw1s9x8@';
     private static $encrypt = ['HS256'];
     private static $aud = null;
+
+    public function __constructor(){
+
+    }
     
     public static function SignIn($data)
     {
@@ -26,6 +54,7 @@ class Auth
         if(empty($token))
         {
             throw new Exception("Invalid token supplied.");
+            echo "<br>nop. Token dado invalido<br>";
         }
         
         $decode = JWT::decode(
@@ -37,8 +66,9 @@ class Auth
         if($decode->aud !== self::Aud())
         {
             throw new Exception("Invalid user logged in.");
+            echo "<br>Usuario invalido en la sesion<be>";
         }
-        return $decode;
+        //return $decode;
     }
     
     public static function GetData($token)
