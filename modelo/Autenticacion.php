@@ -1,5 +1,5 @@
 <?php 
-    require "../config/Conexion.php";
+    require_once "../config/Conexion.php";
  Class Autenticacion{
 
     public function __constructor(){
@@ -16,18 +16,17 @@
 
     public function verifyPassword($ced,$pass){
         $result = consultaSalida($ced);
-       // print_r ("**********************************************".$result."<br>");
         $valores;
         $password = $result["@pass"];
         $id = $result["@id"];
         $rol = $result["@rol"];
         $nombre = $result["@nombre"];
 
-        echo "<br>--".$password."--<br>";
 
         if(password_verify($pass,$password)){
             $valores = array($id,$rol,$nombre);
-            echo'<br>SE CAPTURARON LOS DATOS EN EL MODELO<br>';
+          
+
         }else{
          $valores = null;   
         }

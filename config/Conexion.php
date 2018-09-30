@@ -38,18 +38,9 @@ if (!function_exists('ejecutarConsulta'))
 		$select = mysqli_query($conexion, 'select @pass,@id, @rol, @nombre');
 		$result = mysqli_fetch_assoc($select);
 
-		//echo ("<br>--".$result["@nombre"]."<br>".$result["@rol"]."<br>".$result["@id"]."<br>".$result["@pass"]."--<br>");
-
 		return $result;
 	}
-	/*
-	function consultaID($sql)
-	{
-		global $conexion;
-		$query = $conexion->query($sql);		
-		return $conexion->insert_id;			
-	}
-	*/
+
 	function limpiarCadena($str)
 	{
 		global $conexion;
@@ -58,5 +49,5 @@ if (!function_exists('ejecutarConsulta'))
 	}
 }
 
-print_r(consultaSalida('307680159'));
+
 ?>
