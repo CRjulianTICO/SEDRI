@@ -72,7 +72,7 @@
           </select>
         </div>
         <div class="col s6">
-          <select  name="nacionalidad" id="nacionalidad" class="browser-default" required>
+          <select  name="nacionalidad" id="nacionalidad"  required>
           </select>
         </div>
 
@@ -128,6 +128,19 @@
  </div>
 <!-- FINALIZA EL CONTENIDO-->
 <?php require 'footerDirector.php' ?>
+<script>
+  $(document).ready(function(){
+    $('nacionalidad').formSelect();
+  });
+  $(document).ready(function() {
+    $('select').material_select();
+ });
+ $(document).ready(function() {
+    $('nacionalidad').material_select();
+ });
+ 
+ 
+</script>
 <script src="js/profesor.js?new"></script>
 </body>
 </html>
