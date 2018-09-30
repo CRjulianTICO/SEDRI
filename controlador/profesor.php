@@ -1,11 +1,9 @@
 <?php
 require_once "../modelo/Profesor.php";
 require_once "../modelo/Pais.php";
-require_once "mail.php";
 
 $profesor=new Profesor();
 $pais = new Pais();
-$mail = new Mailer();
 
 //$idalumno=isset($_POST["idalumno"])? limpiarCadena($_POST["idalumno"]):"";
 	$cedula=isset($_POST['cedula'])? limpiarCadena($_POST['cedula']):"";
@@ -22,17 +20,8 @@ $mail = new Mailer();
 
 switch ($_GET["opcion"]){
 	case 'guardar':
-				
-   //Carácteres para la contraseña
-   $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
-   $password = "";
-   for($i=0;$i<8;$i++) {
-	   $password .= substr($str,rand(0,62),1);
-	   }
-	   echo 'Paswword generada '.$password;
-			$rspta=$profesor->insertar($cedula, $nombre, $apellido1, $apellido2, $sexo, $direccion,$telefono,$email,$nacionalidad,$annio,$idgrado,$password);
-
-			echo $rspta ? $mail->enviarCorreo(1,$email,$password): "Error";
+			$rspta=$profesor->insertar($cedula, $nombre, $apellido1, $apellido2, $sexo, $direccion,$telefono,$email,$nacionalidad,$annio,$idgrado);
+			echo $rspta ? "Registrado" : "Error";
 	break;
 
 	case 'editar':

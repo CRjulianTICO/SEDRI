@@ -60,6 +60,9 @@
                 <li>
                 <a onclick="redireccionarProfesor(); mostrarform(true);" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
                 </li>
+                <li>
+                <a onclick="mostrarformProfesor()" class="waves-effect">Profesor Especial<i class="material-icons left teal-text agregarIcono">portrait</i></a>
+                </li>
               </ul>
             </div>
           </li>

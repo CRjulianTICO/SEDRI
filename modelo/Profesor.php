@@ -10,12 +10,11 @@ Class Profesor
 	}
 	//Guardar  solo parametros necesarios para un estudiante
 
-		public function insertar($cedula,$nombre,$apellido1,$apellido2,$sexo,$direccion,$telefono,$email,$nacionalidad,$annio,$idgrado,$pass)
+		public function insertar($cedula,$nombre,$apellido1,$apellido2,$sexo,$direccion,$telefono,$email,$nacionalidad,$annio,$idgrado)
 		{
-
 			$sql="
 					CALL `sp_InsertaProfesor`('$cedula','$nombre','$apellido1','$apellido2','$sexo','$direccion'
-					,'$telefono','$email','$nacionalidad',$annio,$idgrado,'$pass')";
+					,'$telefono','$email','$nacionalidad',$annio,$idgrado)";
 			return consulta($sql);
 		}
 
