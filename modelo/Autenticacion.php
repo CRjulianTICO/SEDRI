@@ -24,7 +24,7 @@
 
 
         if(password_verify($pass,$password)){
-            $valores = array($id,$rol,$nombre);
+            $valores = array("id"=>$id,"rol"=>$rol,"nombre"=>$nombre);
           
 
         }else{
@@ -61,5 +61,6 @@
     verif();
 
 */
+
    
 ?>
