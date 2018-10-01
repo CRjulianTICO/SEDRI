@@ -11,7 +11,7 @@ $inst = new Auth();
 //Se verifica el token, si algo esta mal por parte de la clase tira un error
 $inst->Check($token);
 
-//Se declara un arreglo para despues usarlo para almacenar el los datos del token
+//Se declara un arreglo para despues usarlo para almacenar en los datos del token
 $dataToken=[];
 
 //Recibe los datos del usuario del token pero en un tipo de arreglo asociativo;

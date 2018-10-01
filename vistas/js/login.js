@@ -23,7 +23,8 @@ function guardar(e){
             }else if(datos == "2"){
                 $(location).attr('href','../vistas/UIListaAlumno.php');
             }else{
-                document.getElementById('resp').innerHTML="Credenciales incorrectas!";
+                $('#resp').show();
+                document.getElementById('resp').innerHTML="<h5>Credenciales incorrectas! <br> Intente de nuevo.</h5>";
             }
         }
           
@@ -66,6 +67,8 @@ function INIT(){
      $("#formLogin").on("submit",function(e){
   		guardar(e);
        })
+
+       $('#resp').hide();
 }
 
 INIT();
