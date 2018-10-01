@@ -28,12 +28,16 @@ switch ($_GET["opcion"]){
                 $rol = $value["rol"];
                 if($rol == "Profesor"){
                     echo "1";
+                    $token = $instToken->SignIn($value);
+                    session_start();
+                    $_SESSION["token"] = $token;
                 }else{
                     echo "2";
+                    $token = $instToken->SignIn($value);
+                    session_start();
+                    $_SESSION["token"] = $token;
                 }
-                $token = $instToken->SignIn($value);
-                session_start();
-                $_SESSION["token"] = $token;
+                
                 // echo '<script language="javascript">window.location.href ="'.$url.'"</script>'; 
                 // echo '<script type="text/javascript"> 
                 //         document.getElementById("contenido").innerHTML="";

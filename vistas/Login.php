@@ -1,7 +1,9 @@
 <?php 
   session_start();
-  if(!isset($_SESSION["token"])){
+  if(isset($_SESSION["token"])){
+
     header("Location: http://localhost:8888/SEDRI/controlador/autenticacionTokens.php");
+    exit();
   }
 ?>
 <!DOCTYPE html>

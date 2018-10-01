@@ -1,22 +1,37 @@
 <?php 
+session_start();
 require_once "../modelo/AutenticacionTokens.php";
 
-$inst = new Auth();
-session_start();
+//Se recibe el token por medio de la sesion
 $token=$_SESSION["token"];
-print_r($token);
 
+//Se instancia la clase Auth donde se tienen todos los metodos sobre el token
+$inst = new Auth();
+
+//Se verifica el token, si algo esta mal por parte de la clase tira un error
 $inst->Check($token);
 
-$datatoken=$inst->GetData($token);
+//Se declara un arreglo para despues usarlo para almacenar el los datos del token
+$dataToken=[];
 
-if($datatoken["rol"]=="Profesor"){
+//Recibe los datos del usuario del token pero en un tipo de arreglo asociativo;
+$dataTokenEncrip=$inst->GetData($token);
+
+
+//Se recorre el token enviado para almacenar los datos en otro arreglo
+foreach ($dataTokenEncrip as $key => $value) {
+        $dataToken += ["".$key."" => $value];
+}
+
+//Se verifica si el rol es de Profesor en caso que no pasa al lado de director
+if($dataToken["rol"]=="Profesor"){
     header("HTTP/1.1 301 Moved Permanently"); 
     header("Location: http://localhost:8888/SEDRI/vistas/UIMantenimientoAlumno.php"); 
     exit();
 }else{
     header("HTTP/1.1 301 Moved Permanently"); 
     header("Location: http://localhost:8888/SEDRI/vistas/UIListaAlumno.php"); 
+    exit();
 }
 
 
