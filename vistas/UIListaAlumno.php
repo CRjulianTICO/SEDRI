@@ -1,4 +1,10 @@
-<?php require 'headerDirector.php' ?>
+<?php 
+require 'headerDirector.php';
+ session_start();
+  if(isset($_SESSION["token"])){
+    header("Location: http://localhost:8888/SEDRI/controlador/autenticacionTokens.php");
+  }
+?>
 
 <div id="content">
 
