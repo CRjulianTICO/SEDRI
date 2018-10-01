@@ -94,10 +94,6 @@ switch ($_GET["opcion"]){
 	echo json_encode($data);
 	break;
 
-
-
-
-
 	}
 
 

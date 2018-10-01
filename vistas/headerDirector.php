@@ -144,7 +144,7 @@
     <!--menu frontal-->
       <ul id="nav-mobile" class="right ">
 
-        <li><a href="#">Cerrar Sesion<i class="material-icons left">exit_to_app</i></a></li>
+        <li><a href="../controlador/Logout.php">Cerrar Sesion<i class="material-icons left">exit_to_app</i></a></li>
       </ul>
 <!--fin del menu frontal-->
   </div>

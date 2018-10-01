@@ -1,4 +1,6 @@
-<?php require 'headerDirector.php' ?>
+<?php 
+require 'headerDirector.php';
+?>
 
 <div id="content">
 
