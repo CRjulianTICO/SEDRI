@@ -11,9 +11,9 @@ Class Alumno
 	//Guardar  solo parametros necesarios para un estudiante
 	public function insertar($cedula,$nombre,$apellido1,$apellido2,$sexo,$direccion,$nacionalidad)
 	{
-		$sql="CALL `sp_InsertaAlumno`('$cedula','$nombre','$apellido1','$apellido2','$sexo','$direccion'
-					,'$telefono',$nacionalidad,$nota)";
-			return consulta($sql);
+		$sql="INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`, `sexo`, `direccion`, `telefono`, `telefono_secundario`, `email`, `idNacionalidad`, `disponible`)
+    		VALUES (NULL, '$cedula', '$nombre', '$apellido1', '$apellido2', '$sexo', '$direccion', NULL, NULL, NULL, '$nacionalidad', '1');";
+		return consulta($sql);
 	}
 	public function cargarPais()
 	{
@@ -26,6 +26,16 @@ Class Alumno
 
 		return consulta($sql);
 	}
+
+	public function getIdPersona($cedula){
+			echo "cedula".$cedula;
+	    $sql = "SELECT idPersona FROM persona WHERE cedula='".$cedula."'";
+	    $id=consultaSimple($sql);
+	    $id = $id['idPersona'];
+	    echo "id".$id;
+	    $sql2 = "INSERT INTO `alumno` (`idalumno`, `Persona_idPersona`) VALUES (NULL, '".$id."');";
+	    return consulta($sql2);
+	  }
  
 	public function listar()
 	{
