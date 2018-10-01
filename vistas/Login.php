@@ -1,3 +1,11 @@
+<?php 
+  session_start();
+  if(isset($_SESSION["token"])){
+
+    header("Location: http://localhost:8888/SEDRI/controlador/autenticacionTokens.php");
+    exit();
+  }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +14,7 @@
 </head>
 
 <body>
+<div id="contenido">
   <div class="section"></div>
   <main>
     <center>
@@ -45,10 +54,10 @@
 							</label>
             </div>
 
-            <br />
+            <br/>
             <center>
               <div class='row'>
-                <button name='btn_login' id="btn_login" class='col s12 btn btn-large waves-effect blue'>Iniciar sesión <i class="material-icons prefix   center ">input</i></button>
+                <button name='btn_login' id="btn_login" class='col s12 btn btn-large waves-effect blue' >Iniciar Sesión <i class="material-icons prefix   center ">input</i></button>
               </div>
             </center>
           </form>
@@ -56,10 +65,10 @@
       </div>
     </center>
 
-    <div class="section"></div>
+    <div class="section" id="resp"></div>
     <div class="section"></div>
   </main>
-
+</div>
   
  <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
