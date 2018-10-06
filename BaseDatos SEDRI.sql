@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generaciÃ³n: 06-10-2018 a las 06:49:16
+-- Tiempo de generaciÃ³n: 06-10-2018 a las 08:31:31
 -- VersiÃ³n del servidor: 10.1.31-MariaDB
 -- VersiÃ³n de PHP: 7.2.4
 
@@ -460,7 +460,8 @@ INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`
 (44, '305080238', 'Francisco', 'Flores', 'Chacon', 'Masculino', 'De la escuela publica de Aserri 150 mts al sur', '60439934', NULL, 'julian4nite@gmail.com', 1, 1, NULL),
 (69, '207680159', 'Oscar', 'Eduardo', 'Soto', 'Masculino', 'Alajuela, Atenas, Costa Rica', '63103970', NULL, 'oscarsoto0407ss97@gmail.com', 1, 1, NULL),
 (75, '5', 'Ileana Patricia', 'Soto', 'Leon', 'Femenino', 'Alajuela , Atenas', '12', NULL, 'oscarsosato0407sa97@gmail.com', 1, 1, NULL),
-(78, '1704', 'Prueba', 'Pruebs', 'Test', 'Masculino', 'ASD', '54544323', NULL, 'oscarsoto040797@gmail.com', 1, 1, NULL);
+(78, '1704', 'Prueba', 'Pruebs', 'Test', 'Masculino', 'ASD', '54544323', NULL, 'oscasasasrsoto0407sa97@gmail.com', 1, 1, NULL),
+(79, '9904', 'Prueba', 'Prueba', 'Prueba', 'Femenino', 'Atenas\r\nCosta Rica', '63103970', NULL, 'oscarsoto040797@gmail.com', 1, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -485,7 +486,8 @@ INSERT INTO `profesor` (`idprofesor`, `Persona_idPersona`) VALUES
 (9, 44),
 (20, 69),
 (23, 75),
-(25, 78);
+(25, 78),
+(26, 79);
 
 -- --------------------------------------------------------
 
@@ -511,7 +513,8 @@ INSERT INTO `profesor_grado` (`idProfesor`, `idGrado`, `annio`) VALUES
 (9, 3, 2018),
 (20, 1, 2018),
 (23, 2, 2018),
-(25, 1, 2018);
+(25, 1, 2018),
+(26, 1, 2019);
 
 -- --------------------------------------------------------
 
@@ -585,7 +588,8 @@ INSERT INTO `usuario` (`idUsuario`, `idPersona`, `idRol`, `password`, `cambio`) 
 (1, 38, 1, '$2y$09$MmyH9eXuU0kyGbfmlNV6ze4d7pBJr.cK0brq4P0R/rBMOG0pFQkh.', 0),
 (3, 69, 1, '$2y$09$VO0k5.zgyQILsqJfrRZy4eSRIm.LCRH/wRh5ZXi1ee/INLX/DgTcW', 1),
 (7, 75, 1, '$2y$09$9TL7z6JBchfWwnnp1afXEOFOTW.NeHNBMNXZ2khiIFMY/ItUVkrY2', 0),
-(9, 78, 1, '$2y$09$nept5jO7rr.E9PuKkLmPSeHrOjHKv1ZOSAlxA2ndCshVo7HCFK/um', 0);
+(9, 78, 1, '$2y$09$nept5jO7rr.E9PuKkLmPSeHrOjHKv1ZOSAlxA2ndCshVo7HCFK/um', 0),
+(10, 79, 1, '$2y$09$wM2ozn/.RC9QoWiEDLmZ5.SzbjLC4xfD2j0uiROP5zZKQIwJLnkMa', 0);
 
 -- --------------------------------------------------------
 
@@ -993,13 +997,13 @@ ALTER TABLE `nota_constante`
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT de la tabla `profesor`
 --
 ALTER TABLE `profesor`
-  MODIFY `idprofesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `idprofesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `puesto`
@@ -1017,7 +1021,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas
