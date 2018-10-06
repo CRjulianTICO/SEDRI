@@ -7,6 +7,7 @@
     $token = $_SESSION["token"];
     $instAuth = new Auth();
     $instAuth->Check($token);
+    $dataToken = [];
     $dataTokenEncrip = $instAuth->GetData($token);
     foreach ($dataTokenEncrip as $key => $value) {
         $dataToken += ["".$key."" => $value];
