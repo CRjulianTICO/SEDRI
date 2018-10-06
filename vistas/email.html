@@ -1,74 +1,4 @@
-<?php
-// Import PHPMailer classes into the global namespace
-// These must be at the top of your script, not inside a function
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-
-require 'PHPMailer/src/Exception.php';
-require 'PHPMailer/src/PHPMailer.php';
-require 'PHPMailer/src/SMTP.php';
-require_once "../modelo/Autenticacion.php";
-
-
-
-
- //Load composer's autoloader
-
-
-
- Class Mailer
- {
-     //Implementamos nuestro constructor
-     public function __construct()
-     {
- 
-     }
-
-     public function generarPassword(){
-        $auth = new Autenticacion();
-        $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
-        $password = "";
-        for($i=0;$i<8;$i++) {
-            $password .= substr($str,rand(0,62),1);
-            }
-            return $password;   
-     }
-
-     public function recuperarPassword(){
-
-
-
-     }
-
-    // Passing `true` enables exceptions
-    public function enviarCorreo($tipoemail,$destinatario,$pass){
-                $mail = new PHPMailer(true); 
-
-                try {
-                //Server settings
-                $mail->SMTPDebug = 2;                                 // Enable verbose debug output
-                $mail->isSMTP();                                      // Set mailer to use SMTP
-                $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-                $mail->SMTPAuth = true;                               // Enable SMTP authentication
-                $mail->Username = 'escuelasedri@gmail.com';                 // SMTP username
-                $mail->Password = 'sedri123';                           // SMTP password
-                $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-                $mail->Port = 587;                                    // TCP port to connect to
-
-                //Recipients
-                $mail->setFrom('escuelasedri@gmail.com', 'SEDRI');
-                $mail->addAddress($destinatario);     // Add a recipient
-                // Name is optional
-
-                //Attachments
-                    // Optional name
-
-                //Content
-                $mail->isHTML(true);                                  // Set email format to HTML
-                $mail->Subject = 'Bienvenido a SEDRI';
-                $mail->Body    = '
-                <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -100,7 +30,7 @@ require_once "../modelo/Autenticacion.php";
     }
     
     a {
-      color: white;
+      color: #3869D4;
     }
     
     a img {
@@ -465,12 +395,26 @@ require_once "../modelo/Autenticacion.php";
                   <tr>
                     <td class="content-cell">
                       <h1>Bienvenido a SEDRI</h1>
-                      <p>Se le ha registrado una cuenta para que acceda a SEDRI.<br><strong> Use este código como contraseña de inicio temporal : '.$pass.'</strong></p>
+                      <p>Se le ha registrado una cuenta para que acceda a SEDRI.<br><strong> Use este código como contraseña de inicio temporal</strong></p>
                       
                       <!-- Action -->
                       <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">
                         <tr>
-                         
+                            <td align="center">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                  <tr>
+                                    <td align="center">
+                                      <table border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                          <td>
+                                            <h5>CODIGO<br></h5>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                
+                              </td>
                           <td align="center">
                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                               <tr>
@@ -478,7 +422,7 @@ require_once "../modelo/Autenticacion.php";
                                   <table border="0" cellspacing="0" cellpadding="0">
                                     <tr>
                                       <td>
-                                        <a href="{{route}}" class="button button--green" target="_blank">Ingresar</a>
+                                        <a href="{{action_url}}" class="button button--green" target="_blank">Ingresar</a>
                                       </td>
                                     </tr>
                                   </table>
@@ -490,17 +434,4 @@ require_once "../modelo/Autenticacion.php";
                       </table>                    
   </body>
 </html>
-                
-                ';
-
-                $mail->send();
-                echo 'Message has been sent';
-            } catch (Exception $e) {
-                echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
-            }
-
-
-    }
-
-
- }
+               

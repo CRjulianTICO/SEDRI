@@ -21,11 +21,14 @@
         $id = $result["@id"];
         $rol = $result["@rol"];
         $nombre = $result["@nombre"];
-
+        $cambio = $result["@ocambio"];
+        $grupo = $result["@ogrupo"];
+        $email = $result["@oemail"];
 
         if(password_verify($pass,$password)){
-            $valores = array("id"=>$id,"rol"=>$rol,"nombre"=>$nombre);
-          
+
+            $valores = array("id"=>$id,"rol"=>$rol,"nombre"=>$nombre,"cambio"=>$cambio,"grupo"=>$grupo,"email"=>$email);
+
 
         }else{
          $valores = null;   
@@ -34,8 +37,33 @@
         return $valores;
     }
 
+    public function recuperar($cedula){
+		$sql = "SELECT email,idUsuario
+        from persona p,usuario u
+		WHERE p.idPersona = u.idPersona and CEDULA = '".$cedula."'";
+	    return consultaSimple($sql);
+    }
     
+    public function actualizar($id,$password,$cambio){
+        $sql="UPDATE `usuario` SET `password` = '$password', `cambio` = '$cambio' where idUsuario='$id';";
+		return consulta($sql);
+    }
  }
+
+//  function verificar($pas1){
+
+    
+//     if(password_verify($pas1,'$2y$09$ftvdXgf9JdIUWzzRt9KeC.k/6TJcV67ADhq3cxLPONxKTnchR7Aky')){
+//         echo('si');
+      
+
+//     }else{
+//      echo('no');  
+//     }
+
+//  }
+//  verificar('12345678');
+
 /*
  function hashPassword($pass){
         $opciones = [   'cost' => 9,
