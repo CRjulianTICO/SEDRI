@@ -1,5 +1,22 @@
 <?php 
-  
+  session_start();
+  if(isset($_SESSION["token"])){
+    
+    require_once "../modelo/AutenticacionTokens.php";
+
+    $token = $_SESSION["token"];
+    $instAuth = new Auth();
+    $instAuth->Check($token);
+    $dataToken = $instAuth->GetData($token);
+
+    $nombre = $dataToken["nombre"];
+    
+
+
+
+  }else{
+    header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
+  }
 ?>
 
 
@@ -41,7 +58,7 @@
   <div id="menu">
 
     <ul id="slide-out" class="side-nav fixed show-on-large-only">
-      <li><a href="#" class="waves-effect">Nombre Profesor <i class="material-icons left blue-grey-text">account_circle</i>  </a></li>
+      <li><a href="#" class="waves-effect"><?php echo $nombre; ?><i class="material-icons left blue-grey-text">account_circle</i>  </a></li>
       <li> <div class="divider"></div></li>
       <li class="no-padding">
         <ul class="collapsible collapsible-accordion">

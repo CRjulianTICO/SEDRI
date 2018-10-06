@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-10-2018 a las 06:05:40
--- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.2.4
+-- Tiempo de generaciÃ³n: 06-10-2018 a las 06:49:16
+-- VersiÃ³n del servidor: 10.1.31-MariaDB
+-- VersiÃ³n de PHP: 7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `escuela`
 --
+CREATE DATABASE IF NOT EXISTS `escuela` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `escuela`;
 
 DELIMITER $$
 --
@@ -589,7 +591,7 @@ INSERT INTO `usuario` (`idUsuario`, `idPersona`, `idRol`, `password`, `cambio`) 
 
 --
 -- Estructura Stand-in para la vista `vbeca`
--- (Véase abajo para la vista actual)
+-- (VÃ©ase abajo para la vista actual)
 --
 CREATE TABLE `vbeca` (
 `cedula` varchar(45)
@@ -604,7 +606,7 @@ CREATE TABLE `vbeca` (
 
 --
 -- Estructura Stand-in para la vista `vdirector`
--- (Véase abajo para la vista actual)
+-- (VÃ©ase abajo para la vista actual)
 --
 CREATE TABLE `vdirector` (
 `CEDULA` varchar(45)
@@ -622,7 +624,7 @@ CREATE TABLE `vdirector` (
 
 --
 -- Estructura Stand-in para la vista `vista_alumno`
--- (Véase abajo para la vista actual)
+-- (VÃ©ase abajo para la vista actual)
 --
 CREATE TABLE `vista_alumno` (
 `cedula` varchar(45)
@@ -641,7 +643,7 @@ CREATE TABLE `vista_alumno` (
 
 --
 -- Estructura Stand-in para la vista `vista_empleado`
--- (Véase abajo para la vista actual)
+-- (VÃ©ase abajo para la vista actual)
 --
 CREATE TABLE `vista_empleado` (
 `cedula` varchar(45)
@@ -660,7 +662,7 @@ CREATE TABLE `vista_empleado` (
 
 --
 -- Estructura Stand-in para la vista `vista_profesor`
--- (Véase abajo para la vista actual)
+-- (VÃ©ase abajo para la vista actual)
 --
 CREATE TABLE `vista_profesor` (
 `CEDULA` varchar(45)
@@ -681,7 +683,7 @@ CREATE TABLE `vista_profesor` (
 
 --
 -- Estructura Stand-in para la vista `vprofesor`
--- (Véase abajo para la vista actual)
+-- (VÃ©ase abajo para la vista actual)
 --
 CREATE TABLE `vprofesor` (
 `CEDULA` varchar(45)
@@ -750,7 +752,7 @@ DROP TABLE IF EXISTS `vprofesor`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vprofesor`  AS  select `pe`.`cedula` AS `CEDULA`,`pe`.`nombre` AS `NOMBRE`,concat(`pe`.`apellido1`,' ',`pe`.`apellido2`) AS `APELLIDOS`,`pe`.`sexo` AS `SEXO`,`pe`.`direccion` AS `DIRECCION`,`pe`.`telefono` AS `TELEFONO`,`pe`.`email` AS `EMAIL`,`n`.`pais` AS `PAIS`,`pe`.`disponible` AS `DISPONIBLE` from ((`profesor` `pr` join `persona` `pe`) join `nacionalidad` `n`) where ((`pe`.`idPersona` = `pr`.`idprofesor`) and (`n`.`idNacionalidad` = `pe`.`idNacionalidad`)) ;
 
 --
--- Índices para tablas volcadas
+-- Ãndices para tablas volcadas
 --
 
 --
