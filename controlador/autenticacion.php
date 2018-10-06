@@ -5,12 +5,15 @@
  require_once "../modelo/Autenticacion.php";
  require_once "../modelo/AutenticacionTokens.php";
  require_once "mail.php";
+
 // require_once "header.php";
 
 
 $instLogin = new Autenticacion();
 $instToken = new Auth();
+
 $mail = new Mailer();
+
 $user= isset($_POST["user"])?limpiarCadena($_POST["user"]):"";
 $pass = isset($_POST["pass"])?limpiarCadena($_POST["pass"]):"";
 $cedula = isset($_POST["cedula"])?limpiarCadena($_POST["cedula"]):"";
@@ -18,13 +21,16 @@ $cedula = isset($_POST["cedula"])?limpiarCadena($_POST["cedula"]):"";
 
 switch ($_GET["opcion"]){
     case 'login':
-    $value = $instLogin->verifyPassword($user,$pass);  
+
+    $value = $instLogin->verifyPassword($user,$pass);
+
             if($value == null){
                  echo '0'; 
                 /* echo '<script type="text/javascript">';
                 echo 'document.write("Hello World!")';
                 echo '</script>'; */
             }else{
+
 
                 $rol = $value["rol"];
                 $cambio = $value["cambio"];
@@ -54,6 +60,7 @@ switch ($_GET["opcion"]){
                             $_SESSION["token"] = $token;
                             break;
                     }   
+
                 }
                 
                 // echo '<script language="javascript">window.location.href ="'.$url.'"</script>'; 
@@ -104,8 +111,9 @@ switch ($_GET["opcion"]){
     break;
 
 	
+
     }
     
-    
+
 
 ?>

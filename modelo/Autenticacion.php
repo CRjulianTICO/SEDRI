@@ -26,8 +26,9 @@
         $email = $result["@oemail"];
 
         if(password_verify($pass,$password)){
+
             $valores = array("id"=>$id,"rol"=>$rol,"nombre"=>$nombre,"cambio"=>$cambio,"grupo"=>$grupo,"email"=>$email);
-          
+
 
         }else{
          $valores = null;   

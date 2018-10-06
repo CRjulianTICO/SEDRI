@@ -70,7 +70,9 @@
               <div class='row'>
                 <button name='btn_login' id="btn_login" class='col s12 btn btn-large waves-effect blue' >Iniciar Sesión <i class="material-icons prefix   center ">input</i></button>
               </div>
+
               <div class="card-panel red darken-2 white-text lighten-2" data-error="credeciales malas"id="resp"></div>
+
             </center>
           </form>
         </div>

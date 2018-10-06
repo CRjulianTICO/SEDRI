@@ -19,6 +19,7 @@ function guardar(e){
             document.getElementById('resp').innerHTML="";
             $('#btn_login').val("Iniciar Sesión");
             if(datos=="1"){
+
                 console.log('Datos recibidos es 1');
                 $(location).attr('href','../vistas/UIMantenimientoAlumno.php');
            
@@ -38,6 +39,15 @@ function guardar(e){
       });
       
 }
+/* 
+function enviar(){
+    passs = document.getElementById("pass");
+    users = document.getElementById("user");
+    
+    var xhttp = new XMLHttpRequest();
+    
+    xhttp.open("POST", "../controlador/autenticacion.php?opcion=login", true);
+    xhttp.onreadystatechange = function() {
 
 function recupera(e){
     e.preventDefault();
@@ -133,6 +143,7 @@ function enviar(){
     xhttp.open("POST", "../controlador/autenticacion.php?opcion=login", true);
     xhttp.onreadystatechange = function() {
 
+
     xhttp.onprogress = function () {
         console.log('LOADING', xhttp.status);
     };
@@ -168,6 +179,7 @@ function INIT(){
      $("#formCambio").on("submit",function(e){
         cambio(e);
      })
+
 }
 
 INIT();
