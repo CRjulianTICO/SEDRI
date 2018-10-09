@@ -5,24 +5,30 @@
     require_once "../modelo/AutenticacionTokens.php";
 
     $token = $_SESSION["token"];
+
     $instAuth = new Auth();
-    $instAuth->Check($token);
+
     $dataToken = [];
+
     $dataTokenEncrip = $instAuth->GetData($token);
+
     foreach ($dataTokenEncrip as $key => $value) {
         $dataToken += ["".$key."" => $value];
-}
-	$rol = $dataToken["rol"];
+    }
+
+    $rol = $dataToken["rol"];
+    
 	if ($rol == 'Profesor'){
+
 		$idgrado = $dataToken["idgrado"];
 	}else{
+
 		$idgrado = 0;
 	}
    
 
 
-  }else
-  {
+  }else{
     header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
   }
 
@@ -36,15 +42,7 @@ $alumno=new Alumno();
 	$nombre=isset($_POST["nombre"])? limpiarCadena($_POST["nombre"]):"";
 	$apellido1=isset($_POST["apellido1"])? limpiarCadena($_POST["apellido1"]):"";
 	$apellido2=isset($_POST["apellido2"])? limpiarCadena($_POST["apellido2"]):"";
-	$sexo=isset($_POST["sexo"])? limpiarCadena($_POST["sexo"]):"";
-	$direccion=isset($_POST["direccion"])? limpiarCadena($_POST["direccion"]):"";
-	$nacionalidad=isset($_POST["nacionalidad"])? limpiarCadena($_POST["nacionalidad"]):"";
-	$nota=isset($_POST["nota"])? limpiarCadena($_POST["nota"]):"";
 	$grado=isset($_POST["grado"])? limpiarCadena($_POST["grado"]):"";
-
-
-
-
 
 
 
@@ -72,17 +70,9 @@ switch ($_GET["opcion"]){
  		"1"=>$reg->nombre,
         "2"=>$reg->apellido1,
         "3"=>$reg->apellido2,
-        "4"=>$reg->sexo,
-		"5"=>$reg->pais,
-		"6"=>$reg->nombreGrado,
-		"7"=>$reg->annio,
-		"8"=>$reg->direccion,
-		"9"=>$reg->nota_medica,
- 				"10"=>'<button class="mostrarEditar" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center blue-text ">edit</i></button>
-					 <button class="mostrarBlock" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center red-text ">block</i></button>',
- 				);
-  				
- 		}
+		"4"=>$reg->nombreGrado);
+        }
+         
  		$results = array(
  			"sEcho"=>1, //Información para el datatables
  			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
@@ -90,17 +80,6 @@ switch ($_GET["opcion"]){
  			"aaData"=>$data);
  		echo json_encode($results);
 	break;
-
-	case 'desactivar':
-		 $respuesta = $alumno->desactivar($cedula);
-		 echo "string".$cedula;
-		 echo $rspta ? "Alumno activada" : "Alumno no se puede activar";
-		break;
-
-	case 'activar':
-		 $respuesta = $alumno->activar($cedula);
-		 echo $rspta ? "Alumno activada" : "Alumno no se puede activar";
-		break;
 
 	case 'mostrar':
 		$rspta=$alumno->cargar($cedula);
