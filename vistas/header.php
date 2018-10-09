@@ -37,8 +37,8 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="../public/datatables/jquery.dataTables.min.css">
-<link href="../public/datatables/responsive.dataTables.min.css" rel="stylesheet"/>
+<!-- <link rel="stylesheet" type="text/css" href="../public/datatables/jquery.dataTables.min.css">
+<link href="../public/datatables/responsive.dataTables.min.css" rel="stylesheet"/> -->
 <link href="../public/css/estilos.css?hi" rel="stylesheet"/>
 <link href="../public/css/menuProfesor.css?ki" rel="stylesheet"/>
 

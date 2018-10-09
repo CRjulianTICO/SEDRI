@@ -23,6 +23,7 @@
         $nombre = $result["@nombre"];
         $cambio = $result["@ocambio"];
         $grupo = $result["@ogrupo"];
+        $idgrado = $result["@idgrado"];
         $email = $result["@oemail"];
 
         if(password_verify($pass,$password)){
