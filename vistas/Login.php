@@ -35,7 +35,7 @@
       <div class="section"></div>
 
       <div class="container">
-        <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+        <div class="z-depth-1 white lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
 
           <form class="col s12" method="POST" id="formLogin">
             <div class='row'>
@@ -61,7 +61,7 @@
               </div>
 
               <label style='float: right;'>
-								<a class='blue-text' href='recupera.html'><b>Olvido su contraseña </b> <i class="material-icons prefix bot">help_outline</i></a>
+								<a class='blue-text' href='RecuperarPassword.php'><b>Olvido su contraseña </b> <i class="material-icons prefix bot">help_outline</i></a>
 							</label>
             </div>
 
@@ -70,7 +70,9 @@
               <div class='row'>
                 <button name='btn_login' id="btn_login" class='col s12 btn btn-large waves-effect blue' >Iniciar Sesión <i class="material-icons prefix   center ">input</i></button>
               </div>
-              <div class="card-panel red white-text" data-error="credeciales malas"id="resp"></div>
+
+              <div class="card-panel red darken-2 white-text lighten-2" data-error="credeciales malas"id="resp"></div>
+
             </center>
           </form>
         </div>

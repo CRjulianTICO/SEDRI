@@ -4,6 +4,8 @@ require_once "../modelo/Pais.php";
 require_once "mail.php";
 require_once "../modelo/Autenticacion.php";
 
+
+
 $profesor=new Profesor();
 $pais = new Pais();
 $mail = new Mailer();
@@ -24,11 +26,12 @@ $auth = new Autenticacion();
 
 switch ($_GET["opcion"]){
 	case 'guardar':
-	   $pass = $mail->generarPassword();
-	   $hpass = $auth->hashPassword($pass);
+				
+   //Carácteres para la contraseña
+
 			$rspta=$profesor->insertar($cedula, $nombre, $apellido1, $apellido2, $sexo, $direccion,$telefono,$email,$nacionalidad,$annio,$idgrado,$hpass);
 
-			echo $rspta ? $mail->enviarCorreo(1,$email,$pass): "Error";
+			echo $rspta ? $mail->enviarCorreo(1,$email,$password): "Error";
 	break;
 
 	case 'editar':

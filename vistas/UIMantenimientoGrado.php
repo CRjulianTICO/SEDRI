@@ -6,7 +6,8 @@
         <thead>
           <th data-priority="1">Codigo</th>
           <th data-priority="2">Grado</th>
-          <th data-priority="3">Opciones</th>
+          <th data-priority="3">Año</th>
+          <th data-priority="4">Opciones</th>
         </thead>
         <tbody>
         </tbody>
@@ -23,15 +24,23 @@
    <input placeholder="Codigo" class='validate' type='text' name='idgrado' id='idgrado' min="1000000" max="9999999"  readonly="true"/>
            <label for='idgrado'>Codigo del Grado</label>
          </div>
+</div> 
 
 <div class='row'>
   <div class='input-field col s6'>
     <input placeholder="Nombre" class='validate' type='text' name='nombreGrado' id='nombreGrado' maxlength="30" required/>
     <label for='nombreGrado'>Ingresa el Nombre</label>
-  </div>
+    </div>
+    <div class="input-field col s6">
+     <select  name="annio" id="annio" class="browser-default " required>
+          <option value="" disabled selected hidden>Seleccionar el Año del grado</option>
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
+          </select>
+    </div>
+    </div>
 
 
-</div>
 <br>
 
 <br>

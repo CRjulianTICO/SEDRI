@@ -1,4 +1,6 @@
-
+<?php
+$user=isset($_GET['cedula'])?($_GET['cedula']):0;
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,19 +31,19 @@
       <div class="container">
         <div class="z-depth-1 white lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
 
-          <form class="col s12" id="formRecupera" method="post">
+          <form class="col s12" id="formCambio" method="post">
             <div class='row'>
               <div class='col s12'>
-              	<h6 class="blue-text">Recuperar contraseña</h6>
+              	<h6 class="blue-text">Cambio de contraseña</h6>
               </div>
             </div>
 
             <div class='row'>
               <div class='input-field col s12'>
                 	
-<i class="material-icons prefix ">person</i>
-                <input class='validate' type='text' name='cedula' id='cedula' required maxlength="20"  />
-                <label for='cedula'>Ingrese su número de cédula</label>
+              <i class="material-icons prefix">lock</i>
+                <input class='validate' type='password' name='pass' id='pass' required maxlength="20"  />
+                <label for='pass'>Por favor ingrese su nueva contraseña</label>
               </div>
              
               <label style='float: left;'>
@@ -56,7 +58,7 @@
             <center>
               <div class='row'>
 
-                <button type='submit' name='btn_recupera' class='col s12 btn btn-large waves-effect blue'> Solicitar recuperación </button>
+                <button type='submit' name='btn_recupera' class='col s12 btn btn-large waves-effect blue'>Guardar</button>
               </div>
               <div id="aviso" style="display:none">
                 <img src="../public/images/loading.gif" alt="Por favor espere">
@@ -80,7 +82,7 @@
 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 
-   
+   <script> var user = <?php echo $user ?></script>
    <script src="js/login.js?new"></script>
 
 </body>
