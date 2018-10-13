@@ -78,8 +78,10 @@ switch ($_GET["opcion"]){
 		"7"=>$reg->annio,
 		"8"=>$reg->direccion,
 		"9"=>$reg->nota_medica,
- 				"10"=>'<button class="mostrarEditar" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center blue-text ">edit</i></button>
-					 <button class="mostrarBlock" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center red-text ">block</i></button>',
+ 				"10"=>'<button class="btn  btn-small bg-yellow" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center white-text ">edit</i></button>
+					 <button class="btn btn-small bg-red" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center white-text ">block</i></button>
+					 ',
+		"11"=>'<button class="btn btn-small bg-blue" type="button" onclick="modal(\''.$reg->cedula.'\',\''.$reg->nombre.'\',\''.$reg->apellido1.'\',\''.$reg->apellido2.'\');"><i class="material-icons right white-text ">assignment_ind</i></button>'			 
  				);
   				
  		}

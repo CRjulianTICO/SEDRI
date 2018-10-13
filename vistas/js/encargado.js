@@ -6,7 +6,7 @@ $(document).ready(function() {
 
 
 function init(){
-    $('.modal').modal();
+    
   limpiar();
   mostrarform(false);
   mostrarbotones(false);
@@ -15,7 +15,7 @@ function init(){
   listar();
     cargarPais();
     cargarGrado();
-   $("#formAlumno").on("submit",function(e)
+   $("#formEncargado").on("submit",function(e)
    {
     guardarEncarda(e);
    })
@@ -33,7 +33,6 @@ function init(){
   $(document).ready(function (){
     if (window.location.hash === '#mostrarform') {mostrarform(true);}
 })
-
 
 
 
@@ -79,14 +78,14 @@ function cancelarform()
 function listar()
 {
   limpiar();
-  tabla=$('#tbAlumno').dataTable(
+  tabla=$('#tbEncargado').dataTable(
   {
     "aProcessing": true,//Activamos el procesamiento del datatables
       "aServerSide": true,//Paginación y filtrado realizados por el servidor
       dom: 'Bfrtip',//Definimos los elementos del control de tabla
        "ajax":
         {
-          url: '../controlador/alumno.php?opcion=listar',
+          url: '../controlador/encargado.php?opcion=listar',
           type : "get",
           dataType : "json",
           error: function(e){
@@ -104,10 +103,10 @@ function guardar(e)
 {
   console.log('ENTRANDO 2...');
   e.preventDefault(); //No se activará la acción predeterminada del evento
-  var DATOS = ($("#formAlumno").serialize());
+  var DATOS = ($("#formEncargado").serialize());
   console.log('Datos de formulario'+DATOS);
   $.ajax({
-    url: "../controlador/alumno.php?opcion=guardar",
+    url: "../controlador/encargado.php?opcion=guardar",
       method: "POST",
       data: DATOS,
 
@@ -154,7 +153,7 @@ function limpiar(){
 }
 function mostrar(cedula)
 {
-$.post("../controlador/alumno.php?opcion=mostrar",{cedula : cedula}, function(data, status)
+$.post("../controlador/encargado.php?opcion=mostrar",{cedula : cedula}, function(data, status)
 {
   limpiar();
   cargarPais();
@@ -197,10 +196,10 @@ function cargarPais(){
 function editar()
 {
    //No se activará la acción predeterminada del evento
-  var DATOS = ($("#formAlumno").serialize());
+  var DATOS = ($("#formEncargado").serialize());
   console.log('DATOS ENVIADOS CON JS'+DATOS);
   $.ajax({
-      url: "../controlador/alumno.php?opcion=editar",
+      url: "../controlador/encargado.php?opcion=editar",
       method: "POST",
       data: DATOS,
 
@@ -221,7 +220,7 @@ function editar()
 
 function cargarGrupo(){
   $.ajax({
-      url: "../controlador/alumno.php?opcion=cargarGrupo",
+      url: "../controlador/encargado.php?opcion=cargarGrupo",
       method: "POST",
       dataType : "json",
       contentType: "application/json; charset=utf-8",

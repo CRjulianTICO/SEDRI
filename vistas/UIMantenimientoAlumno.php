@@ -3,6 +3,8 @@
  <div id="content">
  <h5 class="center-align"><?php echo( $grupo);?></h5>
  <hr>
+
+
    <div class="tabla" id="tabla">
         <table id="tbAlumno" class="display responsive nowrap tabla" style="width: 100%">
         <thead>
@@ -17,6 +19,7 @@
           <th>Dirección</th>
           <th>Nota Medica</th>
           <th>Opciones</th>
+          <th>Encargados</th>
         </thead>
         <tbody>
         </tbody>
