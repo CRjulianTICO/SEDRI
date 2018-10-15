@@ -182,6 +182,23 @@ END$$
 
 DELIMITER ;
 
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaAsistencia`(IN VESTADO tinyint,IN VNOTA VARCHAR(100),IN VCED VARCHAR(25),IN VFECHA DATE, IN VIDGR INT)
+BEGIN
+    SELECT idPersona
+    FROM persona
+    WHERE cedula = VCED  COLLATE utf8mb4_unicode_ci
+    INTO @id;
+    SELECT idAlumno
+    FROM alumno
+    WHERE Persona_idPersona = @id  COLLATE utf8mb4_unicode_ci
+    INTO @idA;
+    INSERT INTO asistencia(ESTADO,NOTA,IDALUMNO,FECHA,IDGRADO) 
+	VALUES(VESTADO,VNOTA,@idA,VFECHA,VIDGR);
+END$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --

@@ -5,7 +5,7 @@ require 'header.php';
 <div id="content">
 
 <div id="tabla">
-    <table id="tbAlumno" class="display responsive nowrap tabla responsive-table highlight" style="width: 100%">
+    <table id="" class="responsive-table highlight" style="width: 100%">
         <thead>
           <th data-priority="1">Cedula</th>
           <th data-priority="2">Nombre</th>
