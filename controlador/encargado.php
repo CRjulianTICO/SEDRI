@@ -1,4 +1,33 @@
 <?php
+
+session_start();
+if(isset($_SESSION["token"])){
+  
+  require_once "../modelo/AutenticacionTokens.php";
+
+  $token = $_SESSION["token"];
+  $instAuth = new Auth();
+  $instAuth->Check($token);
+  $dataToken = [];
+  $dataTokenEncrip = $instAuth->GetData($token);
+  foreach ($dataTokenEncrip as $key => $value) {
+	  $dataToken += ["".$key."" => $value];
+}
+  $rol = $dataToken["rol"];
+  if ($rol == 'Profesor'){
+	  $idgrado = $dataToken["idgrado"];
+  }else{
+	  $idgrado = 0;
+  }
+ 
+
+
+}else
+{
+  header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
+}
+
+require_once "../modelo/Alumno.php";
 require_once "../modelo/Encargado.php";
 require_once "../modelo/Pais.php";
 require_once "../modelo/Alumno.php";
@@ -127,7 +156,7 @@ switch ($_GET["opcion"]){
 	break;
 
 	case 'cargarEstudiante' : 
-	$rspta=$alumno->listarAlumnos(1);
+	$rspta=$alumno->listarAlumnos($idgrado);
 	$data= Array();
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
@@ -144,7 +173,7 @@ switch ($_GET["opcion"]){
 
 	 case 'cargarEstudianteEncargado' : 
 	 $id = $_GET['post'];
-	$rspta=$alumno->listarAlumnosEncargado($id,1);
+	$rspta=$alumno->listarAlumnosEncargado($id,$idgrado);
 	$data= Array();
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(

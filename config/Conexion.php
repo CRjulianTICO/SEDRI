@@ -43,8 +43,6 @@ if (!function_exists('ejecutarConsulta'))
 	
 
 	
-	
-
 	function limpiarCadena($str)
 	{
 		global $conexion;

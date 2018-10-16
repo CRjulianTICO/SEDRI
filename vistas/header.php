@@ -1,25 +1,25 @@
 <?php 
-//   session_start();
-//   if(isset($_SESSION["token"])){
+  session_start();
+  if(isset($_SESSION["token"])){
     
-//     require_once "../modelo/AutenticacionTokens.php";
+    require_once "../modelo/AutenticacionTokens.php";
 
-//     $token = $_SESSION["token"];
-//     $instAuth = new Auth();
-//     $instAuth->Check($token);
-//     $dataToken = [];
-//     $dataTokenEncrip = $instAuth->GetData($token);
-//     foreach ($dataTokenEncrip as $key => $value) {
-//         $dataToken += ["".$key."" => $value];
-// }
-//     $nombre = $dataToken["nombre"];
-//     $grupo = $dataToken["grupo"];
+    $token = $_SESSION["token"];
+    $instAuth = new Auth();
+    $instAuth->Check($token);
+    $dataToken = [];
+    $dataTokenEncrip = $instAuth->GetData($token);
+    foreach ($dataTokenEncrip as $key => $value) {
+        $dataToken += ["".$key."" => $value];
+}
+    $nombre = $dataToken["nombre"];
+    $grupo = $dataToken["grupo"];
 
 
-//   }else
-//   {
-//     header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
-//   }
+  }else
+  {
+    header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
+  }
 ?>
 
 
@@ -61,7 +61,7 @@
   <div id="menu">
 
     <ul id="slide-out" class="side-nav fixed show-on-large-only">
-      <li><a href="#" class="waves-effect"><?php echo $nombre; ?><i class="material-icons left grey-text">account_circle</i>  </a></li>
+      <li><a href="#" class="waves-effect"><?php echo $nombre; ?><i class="material-icons left black-text">account_circle</i>  </a></li>
      
       <li> <div class="border-grey"></div></li>
       <li class="no-padding">

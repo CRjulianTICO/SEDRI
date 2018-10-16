@@ -1,30 +1,30 @@
 <?php 
-//   session_start();
-//   if(isset($_SESSION["token"])){
+  session_start();
+  if(isset($_SESSION["token"])){
     
-//     require_once "../modelo/AutenticacionTokens.php";
+    require_once "../modelo/AutenticacionTokens.php";
 
-//     $token = $_SESSION["token"];
-//     $instAuth = new Auth();
-//     $instAuth->Check($token);
-//     $dataToken = [];
-//     $dataTokenEncrip = $instAuth->GetData($token);
-//     foreach ($dataTokenEncrip as $key => $value) {
-//         $dataToken += ["".$key."" => $value];
-// }
-// 	$rol = $dataToken["rol"];
-// 	if ($rol == 'Profesor'){
-// 		$idgrado = $dataToken["idgrado"];
-// 	}else{
-// 		$idgrado = 0;
-// 	}
+    $token = $_SESSION["token"];
+    $instAuth = new Auth();
+    $instAuth->Check($token);
+    $dataToken = [];
+    $dataTokenEncrip = $instAuth->GetData($token);
+    foreach ($dataTokenEncrip as $key => $value) {
+        $dataToken += ["".$key."" => $value];
+}
+	$rol = $dataToken["rol"];
+	if ($rol == 'Profesor'){
+		$idgrado = $dataToken["idgrado"];
+	}else{
+		$idgrado = 0;
+	}
    
 
 
-//   }else
-//   {
-//     header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
-//   }
+  }else
+  {
+    header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
+  }
 
 require_once "../modelo/Alumno.php";
 
@@ -63,7 +63,7 @@ switch ($_GET["opcion"]){
 
 	case 'listar':
 	
-		$rspta=$alumno->listar(1);//AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+		$rspta=$alumno->listar($idgrado);
  		$data= Array();
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
