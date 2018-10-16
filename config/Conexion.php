@@ -40,6 +40,11 @@ if (!function_exists('ejecutarConsulta'))
 		return $result;
 	}
 
+	
+
+	
+	
+
 	function limpiarCadena($str)
 	{
 		global $conexion;

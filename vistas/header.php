@@ -96,7 +96,7 @@
               <ul>
                 <a href="UiMantenimientoEncargado.php" class="waves-effect">Registro<i class="material-icons left red-text registroIcono">folder_shared</i></a>
                 <li>
-                <a onclick=""  class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
+                <a onclick="redireccionarEncargado();"  class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
                 </li>
               </ul>
             </div>

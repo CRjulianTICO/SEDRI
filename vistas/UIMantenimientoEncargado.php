@@ -1,8 +1,9 @@
 <?php require 'header.php' ?>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <!--AQUI DEBERIA IR TODO EL CONTENIDO DE LA PAGINA-->
  <div id="content">
  <h5 class="center-align"><?php echo( $grupo);?></h5>
- <hr>
+
 
    <div class="tabla" id="tabla">
         <table id="tbEncargado" class="display responsive nowrap tabla" style="width: 100%">
@@ -16,9 +17,6 @@
           <th>Direccion</th>
           <th>Sexo</th>
           <th>Nacionalidad</th>
-          <th>Estudiante</th>
-          <th data-priority="7">Estudiante</th>
-          <th>Parentezco</th>
           <th>Opciones</th>
         </thead>
         <tbody>
@@ -26,30 +24,13 @@
       </table>
       </div>
 
-    <h6>Datos del alumno</h6>
-    <hr>
-    <br>
-    <form method="POST" id="formEncargado" name="formEncargado">
-<div class="row">
-
-<div class='input-field col s6'>
-  <input placeholder="Cédula" class='validate' type='text' name='cedulaE' id='cedulaE' min="1000000" max="9999999" disabled />
-          <label for='cedulaE'>Cédula estudiante</label>
-        </div>
-
-
-        <div class='row'><div class='input-field col s6'>
-  <input placeholder="Nombre" class='validate' type='text' name='nombreE' id='nombreE' maxlength="30" disabled />
-          <label for='nombreE'>Nombre</label>
-        </div>
-<br> 
-
+<div id="formulario">
 
 <h6>Agregar un encargado</h6>
-    <hr>
-    <br>
 
-</div>
+<div class="divider"></div>
+<br>
+<form method="post" id="formEncargado">
 <div class='row'>
 <div class='input-field col s6'>
   <input placeholder="Cédula" class='validate' type='text' name='cedula' id='cedula' min="1000000" max="9999999" required />
@@ -82,7 +63,7 @@
         </div>
 
  <div class='row'><div class='input-field col s6'>
-  <input placeholder="Numero de telefono secundario" class='validate' type='text' name='tel_secundario' id='tel_secundario' maxlength="30" required />
+  <input placeholder="Numero de telefono secundario" class='validate' type='text' name='telefono_secundario' id='tel_secundario' maxlength="30" required />
           <label for='tel_secundario'>Secundario</label>
         </div>
         </div>
@@ -99,11 +80,24 @@
     </select>
   </div>
 
-</div>
-<br>
+   <div class="col s12">
+   <br>
+   <label for="estudiante"> Por favor seleccione los estudiantes a cargo</label> 
+    <select  name="estudiante[]" id="estudiante" class="js-example-responsive" multiple="multiple" style="width: 100%"></select>
+    </select>
+  </div>
+  
 <div class="row">
+<div class="col s12">
+<button class="btn btn_success botones" type="button" onclick="activarSelect();">Modificar</button>
+</div>
+</div>
 
+<div class="row">
+<br>
+</div>
     <div class="input-field col s12">
+    
       <textarea placeholder="" id="direccion" class="materialize-textarea validate" name="direccion" data-length="100" required></textarea>
       <label for="direccion">Ingresa la Dirección</label>
     </div>
@@ -111,21 +105,34 @@
   <br>
 </div>
 <div class="row">
-<div class="col s6">
+<div class="col s12">
 <button class="btn waves-effect waves-light green full-with" type="submit" name="Guardar" id="btnguardar">Guardar
 <i class="material-icons right">done</i><br></button>
 </div>
-<div class="col s6">
-<a class="btn waves-effect waves-light red full-with modal-close"  name="cancelar" href="#!" id="btncancelar">Cancelar
-<i class="material-icons right" >cancel</i><br></a>
-</div>
+
+ <div class="col s6">
+                        <button name="editar" type="button" id="btnEditar" class="btn waves-effect waves-light blue full-with botones">Editar
+                            <i class="material-icons right">edit</i>
+                        </button>
+                    </div>
+                    <div class="col s6">
+                        <button class="btn waves-effect waves-light red full-with botones" name="eliminar" id="btnCancelar" type="button" onclick="mostrarform(false);">Cancelar
+                            <i class="material-icons right">clear</i>
+                        </button>
+                    </div>
+
 </div>
 <br>
 </form>
 
 
+</div>
+  
+</div>
+
 <?php require 'footer.php' ?>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script src="js/encargado.js"></script>
 
 </body>

@@ -19,7 +19,6 @@
           <th>Dirección</th>
           <th>Nota Medica</th>
           <th>Opciones</th>
-          <th>Encargados</th>
         </thead>
         <tbody>
         </tbody>
