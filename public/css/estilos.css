@@ -1,3 +1,4 @@
+
 .btn-small {
     border: none;
     border-radius: 2px;
@@ -16,8 +17,10 @@
 
 
 }
+
 .bg-red .bg-green .bg-blue .bg-yellow:hover{
 	opacity: 0.5;
+
 
 }
 .bg-green{

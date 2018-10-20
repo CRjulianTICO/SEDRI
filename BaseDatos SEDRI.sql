@@ -3,9 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
+
 -- Tiempo de generación: 11-10-2018 a las 20:29:33
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.2.4
+
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -91,7 +93,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_DesactivaBeca` (IN `VCED` VARCHA
     WHERE idAlumno = @idA;
 END$$
 
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaAlumno` (IN `VCED` VARCHAR(20), IN `VNOM` VARCHAR(40), IN `VAPE1` VARCHAR(40), IN `VAPE2` VARCHAR(40), IN `VSEX` VARCHAR(20), IN `VDIR` VARCHAR(50), IN `VNAC` INT, IN `VNOT` VARCHAR(650), IN `VGRA` INT)  BEGIN
+
  INSERT INTO persona( cedula, nombre, apellido1, apellido2, sexo, direccion,idNacionalidad,nota_medica)
  VALUES(VCED,VNOM,VAPE1,VAPE2,VSEX,VDIR,VNAC,VNOT);
  
@@ -126,7 +130,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaBeca` (IN `VCED` VARCHAR(
     VALUES(VDES,VMON,@idA);
 END$$
 
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaProfesor` (IN `VCED` VARCHAR(45), IN `VNOM` VARCHAR(45), IN `VAP1` VARCHAR(45), IN `VAP2` VARCHAR(45), IN `VSEXO` VARCHAR(20), IN `VDIR` VARCHAR(100), IN `VTEL` VARCHAR(45), IN `VEMAIL` VARCHAR(45), IN `VNAC` INT, IN `VGRADO` INT, IN `VPASS` VARCHAR(80))  BEGIN
+
  INSERT INTO persona( cedula, nombre, apellido1, apellido2, sexo, direccion,telefono,email,idNacionalidad)
  VALUES(VCED,VNOM,VAP1,VAP2,VSEXO,VDIR,VTEL,VEMAIL,VNAC);
  
@@ -145,7 +151,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaProfesor` (IN `VCED` VARC
  INSERT INTO usuario(idPersona,idRol,password,cambio)
  VALUES (@id,1,VPASS,1);
  
+
  INSERT INTO profesor_grado(idGrado,idProfesor)VALUES(VGRADO,@idP);
+
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertarEmpleado` (IN `CED` VARCHAR(20), IN `NOM` VARCHAR(35), IN `APE1` VARCHAR(35), IN `APE2` VARCHAR(35), IN `SEX` VARCHAR(20), IN `DIRECC` VARCHAR(50), IN `TEL` VARCHAR(25), IN `NAC` INT, IN `PUE` INT)  BEGIN
@@ -158,11 +166,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertarEmpleado` (IN `CED` VARC
 
 END$$
 
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Login` (OUT `pass` VARCHAR(150), IN `ced` VARCHAR(25), OUT `id` INT, OUT `rol` VARCHAR(50), OUT `nombre` VARCHAR(50), OUT `ocambio` INT, OUT `ogrupo` VARCHAR(80), OUT `idgrado` INT, OUT `oemail` VARCHAR(60))  BEGIN
 select u.password,p.idPersona, r.tiporol ,CONCAT(p.nombre,' ',CONCAT(p.apellido1,' ',p.apellido2)) as nombre,u.cambio ,concat(gr.nombreGrado,' ',gr.annio) as grado,gr.idGrado,p.email
 into pass,id,rol,nombre,ocambio,ogrupo,idgrado,oemail
 from usuario u, persona p , rol r ,profesor_grado pg,profesor pro,grado gr
 where gr.idGrado = pg.idGrado and pro.idProfesor = pg.idProfesor and  u.idRol = r.IDROL and p.idPersona = u.idPersona and pro.Persona_idPersona = p.idPersona and pg.idProfesor = pro.idProfesor and p.cedula=ced;
+
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ModificarProfesor` (IN `VCED` VARCHAR(40), IN `VNOM` VARCHAR(40), IN `VAP1` VARCHAR(40), IN `VAP2` VARCHAR(40), IN `VEXO` VARCHAR(24), IN `VDIR` VARCHAR(100), IN `VTEL` VARCHAR(50), IN `VEMAIL` VARCHAR(50), IN `VNAC` INT, IN `VANNIO` INT, IN `VGRADO` INT)  NO SQL
@@ -319,17 +329,20 @@ CREATE TABLE `grado` (
   `idgrado` int(11) NOT NULL,
   `nombreGrado` varchar(45) CHARACTER SET utf8 NOT NULL,
   `annio` int(11) NOT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `grado`
 --
 
+
 INSERT INTO `grado` (`idgrado`, `nombreGrado`, `annio`) VALUES
 (1, 'Primeros', 2018),
 (2, 'Segundo', 2018),
 (3, 'Quinto', 2018),
 (4, 'Sexto', 2018);
+
 
 -- --------------------------------------------------------
 
@@ -346,6 +359,7 @@ CREATE TABLE `grado_alumno` (
 -- Volcado de datos para la tabla `grado_alumno`
 --
 
+
 INSERT INTO `grado_alumno` (`grado_idgrado`, `alumno_idalumno`) VALUES
 (1, 1),
 (1, 3),
@@ -355,6 +369,7 @@ INSERT INTO `grado_alumno` (`grado_idgrado`, `alumno_idalumno`) VALUES
 (1, 8),
 (2, 2),
 (2, 4);
+
 
 -- --------------------------------------------------------
 
@@ -514,9 +529,11 @@ INSERT INTO `profesor` (`idprofesor`, `Persona_idPersona`) VALUES
 (25, 78),
 (26, 79);
 
+
 -- --------------------------------------------------------
 
 --
+
 -- Estructura de tabla para la tabla `profesor_grado`
 --
 
@@ -540,10 +557,9 @@ INSERT INTO `profesor_grado` (`idProfesor`, `idGrado`) VALUES
 (25, 1),
 (26, 1);
 
+
 -- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `profesor_materia_grado`
 --
 
 CREATE TABLE `profesor_materia_grado` (
@@ -591,6 +607,7 @@ INSERT INTO `rol` (`IDROL`, `tiporol`) VALUES
 (1, 'Profesor'),
 (2, 'Director');
 
+
 -- --------------------------------------------------------
 
 --
@@ -620,7 +637,7 @@ INSERT INTO `usuario` (`idUsuario`, `idPersona`, `idRol`, `password`, `cambio`) 
 
 --
 -- Estructura Stand-in para la vista `vbeca`
--- (Véase abajo para la vista actual)
+
 --
 CREATE TABLE `vbeca` (
 `cedula` varchar(45)
@@ -635,7 +652,7 @@ CREATE TABLE `vbeca` (
 
 --
 -- Estructura Stand-in para la vista `vdirector`
--- (Véase abajo para la vista actual)
+
 --
 CREATE TABLE `vdirector` (
 `CEDULA` varchar(45)
@@ -653,7 +670,7 @@ CREATE TABLE `vdirector` (
 
 --
 -- Estructura Stand-in para la vista `vista_alumno`
--- (Véase abajo para la vista actual)
+
 --
 CREATE TABLE `vista_alumno` (
 `cedula` varchar(45)
@@ -673,8 +690,7 @@ CREATE TABLE `vista_alumno` (
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `vista_empleado`
--- (Véase abajo para la vista actual)
+
 --
 CREATE TABLE `vista_empleado` (
 `cedula` varchar(45)
@@ -693,6 +709,7 @@ CREATE TABLE `vista_empleado` (
 
 --
 -- Estructura Stand-in para la vista `vista_profesor`
+
 -- (Véase abajo para la vista actual)
 --
 CREATE TABLE `vista_profesor` (
@@ -735,12 +752,16 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vista_alumno`;
 
+
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_alumno`  AS  select `p`.`cedula` AS `cedula`,`p`.`nombre` AS `nombre`,`p`.`apellido1` AS `apellido1`,`p`.`apellido2` AS `apellido2`,`p`.`sexo` AS `sexo`,`n`.`pais` AS `pais`,`g`.`nombreGrado` AS `nombreGrado`,`g`.`annio` AS `annio`,`g`.`idgrado` AS `idGrado`,`p`.`direccion` AS `direccion`,`p`.`nota_medica` AS `nota_medica`,`p`.`disponible` AS `disponible` from ((((`alumno` `a` join `persona` `p`) join `nacionalidad` `n`) join `grado` `g`) join `grado_alumno` `ga`) where ((`a`.`Persona_idPersona` = `p`.`idPersona`) and (`p`.`idNacionalidad` = `n`.`idNacionalidad`) and (`a`.`idalumno` = `ga`.`alumno_idalumno`) and (`ga`.`grado_idgrado` = `g`.`idgrado`)) ;
+
 
 -- --------------------------------------------------------
 
 --
 -- Estructura para la vista `vista_empleado`
+<
+=======
 --
 DROP TABLE IF EXISTS `vista_empleado`;
 
@@ -753,13 +774,29 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vista_profesor`;
 
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_profesor`  AS  select `p`.`cedula` AS `CEDULA`,`p`.`nombre` AS `NOMBRE`,`p`.`apellido1` AS `APELLIDO1`,`p`.`apellido2` AS `APELLIDO2`,`p`.`sexo` AS `SEXO`,`p`.`direccion` AS `DIRECCION`,`p`.`telefono` AS `TELEFONO`,`p`.`email` AS `EMAIL`,`n`.`pais` AS `PAIS`,`p`.`disponible` AS `DISPONIBLE`,`g`.`nombreGrado` AS `nombreGrado`,`pg`.`annio` AS `annio` from ((((`persona` `p` join `profesor` `pe`) join `nacionalidad` `n`) join `grado` `g`) join `profesor_grado` `pg`) where ((`p`.`idPersona` = `pe`.`Persona_idPersona`) and (`pe`.`idprofesor` = `pg`.`idProfesor`) and (`g`.`idgrado` = `pg`.`idGrado`) and (`p`.`idNacionalidad` = `n`.`idNacionalidad`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vprofesor`
+
+--
+DROP TABLE IF EXISTS `vista_empleado`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_empleado`  AS  select `p`.`cedula` AS `cedula`,`p`.`nombre` AS `nombre`,`p`.`apellido1` AS `apellido1`,`p`.`apellido2` AS `apellido2`,`p`.`sexo` AS `sexo`,`p`.`direccion` AS `direccion`,`p`.`telefono` AS `telefono`,`n`.`pais` AS `pais`,`f`.`nombrePuesto` AS `nombrePuesto`,`p`.`disponible` AS `disponible` from (((`persona` `p` join `empleado` `e`) join `puesto` `f`) join `nacionalidad` `n`) where ((`p`.`idPersona` = `e`.`idPersona`) and (`f`.`idPuesto` = `e`.`idPuesto`) and (`n`.`idNacionalidad` = `p`.`idNacionalidad`)) ;
+
+-- --------------------------------------------------------
+
+--
+
+--
+DROP TABLE IF EXISTS `vista_profesor`;
+
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_profesor`  AS  select `p`.`cedula` AS `CEDULA`,`p`.`nombre` AS `NOMBRE`,`p`.`apellido1` AS `APELLIDO1`,`p`.`apellido2` AS `APELLIDO2`,`p`.`sexo` AS `SEXO`,`p`.`direccion` AS `DIRECCION`,`p`.`telefono` AS `TELEFONO`,`p`.`email` AS `EMAIL`,`n`.`pais` AS `PAIS`,`p`.`disponible` AS `DISPONIBLE`,`g`.`nombreGrado` AS `nombreGrado`,`g`.`annio` AS `annio` from ((((`persona` `p` join `profesor` `pe`) join `nacionalidad` `n`) join `grado` `g`) join `profesor_grado` `pg`) where ((`p`.`idPersona` = `pe`.`Persona_idPersona`) and (`pe`.`idprofesor` = `pg`.`idProfesor`) and (`g`.`idgrado` = `pg`.`idGrado`) and (`p`.`idNacionalidad` = `n`.`idNacionalidad`)) ;
 
 --
--- Índices para tablas volcadas
---
 
---
 -- Indices de la tabla `alumno`
 --
 ALTER TABLE `alumno`
@@ -969,6 +1006,7 @@ ALTER TABLE `encargado`
 ALTER TABLE `grado`
   MODIFY `idgrado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
+
 --
 -- AUTO_INCREMENT de la tabla `materia`
 --
@@ -997,7 +1035,9 @@ ALTER TABLE `nota_constante`
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
+
   MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+
 
 --
 -- AUTO_INCREMENT de la tabla `profesor`
@@ -1016,6 +1056,7 @@ ALTER TABLE `puesto`
 --
 ALTER TABLE `rol`
   MODIFY `IDROL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`

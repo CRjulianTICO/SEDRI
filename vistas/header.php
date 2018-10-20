@@ -13,11 +13,13 @@
         $dataToken += ["".$key."" => $value];
 }
     $nombre = $dataToken["nombre"];
+
     $grupo = $dataToken["grupo"];
 
 
   }else
   {
+
     header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
   }
 ?>
@@ -61,9 +63,11 @@
   <div id="menu">
 
     <ul id="slide-out" class="side-nav fixed show-on-large-only">
+
       <li><a href="#" class="waves-effect"><?php echo $nombre; ?><i class="material-icons left black-text">account_circle</i>  </a></li>
      
       <li> <div class="border-grey"></div></li>
+
       <li class="no-padding">
         <ul class="collapsible collapsible-accordion">
           <li>

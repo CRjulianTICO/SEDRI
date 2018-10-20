@@ -28,6 +28,7 @@
 
         if(password_verify($pass,$password)){
 
+
             $valores = array("id"=>$id,"rol"=>$rol,"nombre"=>$nombre,"cambio"=>$cambio,"grupo"=>$grupo,"idgrado"=>$idgrado,"email"=>$email);
 
 
