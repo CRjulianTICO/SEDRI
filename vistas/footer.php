@@ -15,7 +15,17 @@
 });
 </script>
 
+<script>
+ function redireccionarAlumno(){
+    window.location.href = "../vistas/UIMantenimientoAlumno.php#mostrarform";
+}
+function redireccionarEncargado(){
+    window.location.href = "../vistas/UIMantenimientoEncargado.php#mostrarform";
+}
 
+
+
+</script>
 <script type="text/javascript">
  $(document).ready(function() {
     $('#descripcionPuesto').characterCounter();

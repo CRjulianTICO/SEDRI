@@ -1,29 +1,58 @@
-.bg-pattern{
-	background-image: url("../images/pw_pattern_@2X.png");
+
+.btn-small {
+    border: none;
+    border-radius: 2px;
+    display: inline-block;
+    height: 36px;
+	line-height: 36px;
+	width: 10px;
+    padding: 0 2rem;
+    text-transform: uppercase;
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
 }
 .bg-red{
-	color: red;
+	background-color:#F44336;
 	font-weight: bold;
 
 
 }
-form{
 
-	background-color: white;
-}
-i{
+.bg-red .bg-green .bg-blue .bg-yellow:hover{
+	opacity: 0.5;
 
-	display: inline-flex;
-    vertical-align: middle;
+
 }
 .bg-green{
 
-	color: green;
+	background-color:#4CAF50;
 	font-weight: bold;
+}
+.bg-blue{
+	background-color:#1565c0;
+	font-weight: bold;
+}
+
+.bg-yellow{
+	background-color:#FFC107;
+	font-weight: bold;
+
 }
 .btn-edita{
 color: yellow;
 background-color: white;
+}
+.border-grey{
+    border-color:#616161;
+    border-style: solid;
+    border-width: thin;
+
+}
+.border-nav{
+    border-style: solid;
+    border-width: 3px;
+    border-color: #1565c0;
+
 }
 .btn-guarda{
 	color: green;
@@ -33,24 +62,39 @@ background-color: white;
 label{/*Label de buscar en el registro de estudiantes*/
 	font-size:18px;
 	font-weight: bold;
-	color: teal;
+	color:black;
 	
 
 }
 .tabla th{/* cambiar color a los atributos de la tabla*/
 	font-weight: bold;
-	color:dodgerblue;
+	color:black;
 }
 .side-nav{/* al menu lateral*/
-	border-style:solid;
-    border-width:3px;  
-    border-color:dodgerblue;
+	border-style: solid;
+    border-width: 3px;
+    border-color: #1565c0;
 }
 .dataTables_info, .dataTables_paginate{/*Paginación de la tabla*/
 	font-weight: bold;
 	font-size: 16px;
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*Opciones de registro de alumnos*/
 .mostrarEditar{/* Bóton de Editar*/
 	border: 2px solid dodgerblue;
@@ -89,3 +133,12 @@ label{/*Label de buscar en el registro de estudiantes*/
 		margin-top:-4px;
 	}
 }
+
+.border{
+	border : 2px solid black;
+	
+	}
+	.full-with{
+	
+		width : 100%;
+	}
