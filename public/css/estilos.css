@@ -1,8 +1,20 @@
+.bg-pattern{
+	background-image: url("../images/pw_pattern_@2X.png");
+}
 .bg-red{
 	color: red;
 	font-weight: bold;
 
 
+}
+form{
+
+	background-color: white;
+}
+i{
+
+	display: inline-flex;
+    vertical-align: middle;
 }
 .bg-green{
 
