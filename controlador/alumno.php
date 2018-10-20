@@ -1,4 +1,31 @@
-<?php
+<?php 
+  session_start();
+  if(isset($_SESSION["token"])){
+    
+    require_once "../modelo/AutenticacionTokens.php";
+
+    $token = $_SESSION["token"];
+    $instAuth = new Auth();
+    $instAuth->Check($token);
+    $dataToken = [];
+    $dataTokenEncrip = $instAuth->GetData($token);
+    foreach ($dataTokenEncrip as $key => $value) {
+        $dataToken += ["".$key."" => $value];
+}
+	$rol = $dataToken["rol"];
+	if ($rol == 'Profesor'){
+		$idgrado = $dataToken["idgrado"];
+	}else{
+		$idgrado = 0;
+	}
+   
+
+
+  }else
+  {
+    header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
+  }
+
 require_once "../modelo/Alumno.php";
 
 $alumno=new Alumno();
@@ -12,6 +39,8 @@ $alumno=new Alumno();
 	$sexo=isset($_POST["sexo"])? limpiarCadena($_POST["sexo"]):"";
 	$direccion=isset($_POST["direccion"])? limpiarCadena($_POST["direccion"]):"";
 	$nacionalidad=isset($_POST["nacionalidad"])? limpiarCadena($_POST["nacionalidad"]):"";
+	$nota=isset($_POST["nota"])? limpiarCadena($_POST["nota"]):"";
+	$grado=isset($_POST["grado"])? limpiarCadena($_POST["grado"]):"";
 
 
 
@@ -22,19 +51,19 @@ $alumno=new Alumno();
 
 switch ($_GET["opcion"]){
 	case 'guardar':
-			echo "Valores que llegan a controlador".$cedula.$nombre.$apellido1.$apellido2.$sexo.$direccion.$nacionalidad;
-			$rspta=$alumno->insertar($cedula, $nombre, $apellido1, $apellido2, $sexo, $direccion, $nacionalidad);
-			$alumno->getIdPersona($cedula);//SOLUCIONAR
-			echo $rspta ? "Registrado" : "Error".$nombre;
+
+			$rspta=$alumno->insertar($cedula, $nombre, $apellido1, $apellido2, $sexo, $direccion, $nacionalidad,$nota,$idgrado);
+			echo $rspta ? "Registrado" : "Error".$cedula. $nombre. $apellido1. $apellido2. $sexo. $direccion. $nacionalidad.$nota.$idgrado;
 	break;
 
 	case 'editar':
-			$rspta=$alumno->actualizar($cedula, $nombre, $apellido1, $apellido2, $sexo, $direccion, $nacionalidad);
+			$rspta=$alumno->actualizar($cedula, $nombre, $apellido1, $apellido2, $sexo, $direccion, $nacionalidad,$nota);
 			echo $rspta ? "Registrado" : "Error";
 	break;
 
 	case 'listar':
-		$rspta=$alumno->listar();
+	
+		$rspta=$alumno->listar($idgrado);
  		$data= Array();
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
@@ -44,10 +73,15 @@ switch ($_GET["opcion"]){
         "2"=>$reg->apellido1,
         "3"=>$reg->apellido2,
         "4"=>$reg->sexo,
-        "5"=>$reg->pais,
-		"6"=>$reg->nombreGrado." ".$reg->annio,
-		"7"=>$reg->direccion,
-  				);
+		"5"=>$reg->pais,
+		"6"=>$reg->nombreGrado,
+		"7"=>$reg->annio,
+		"8"=>$reg->direccion,
+		"9"=>$reg->nota_medica,
+ 				"10"=>'<button class="mostrarEditar" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center blue-text ">edit</i></button>
+					 <button class="mostrarBlock" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center red-text ">block</i></button>',
+ 				);
+  				
  		}
  		$results = array(
  			"sEcho"=>1, //Información para el datatables

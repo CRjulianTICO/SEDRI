@@ -1,21 +1,22 @@
 <?php require 'header.php' ?>
 <!--AQUI DEBERIA IR TODO EL CONTENIDO DE LA PAGINA-->
  <div id="content">
+ <h5 class="center-align"><?php echo( $grupo);?></h5>
+ <hr>
    <div class="tabla" id="tabla">
-        <table id="tbProfesor" class="display responsive nowrap tabla" style="width: 100%">
+        <table id="tbAlumno" class="display responsive nowrap tabla" style="width: 100%">
         <thead>
           <th data-priority="1">Cedula</th>
           <th data-priority="2">Nombre</th>
           <th data-priority="3">Primer Apellido</th>
           <th data-priority="4">Segundo Apellido</th>
-          <th>Sexo</th>
-          <th>Direccion</th>
-          <th>Telefono</th>
-          <th>Correo</th>
           <th>Nacionalidad</th>
-          <th>Disponible</th>
-          <th>Opciones</th>
+          <th>Sexo</th>
           <th>Grado</th>
+          <th>Año</th>
+          <th>Dirección</th>
+          <th>Nota Medica</th>
+          <th>Opciones</th>
         </thead>
         <tbody>
         </tbody>
@@ -25,7 +26,7 @@
     <div class="container">
 
       <div id="formulario">
-        <form method="POST" id="formProfesor" name="formProfesor">
+        <form method="POST" id="formAlumno" name="formAlumno">
 
       <div class='row'>
       <div class='input-field col s6'>
@@ -52,18 +53,7 @@
               </div>
               </div>
 
-               <div class='row'>
-              <div class='input-field col s6'>
-        <input placeholder="Numero de Telefono" class='validate' type='text' name='telefono' id='telefono' maxlength="30" required />
-                <label for='telefono'>Ingresar Numero de Telefono</label>
-              </div>
-
-       <div class='row'><div class='input-field col s6'>
-        <input placeholder="Email" class='validate' type='text' name='email' id='email' maxlength="30" required />
-                <label for='email'>Ingresar Correo Electronico</label>
-              </div>
-              </div>
-      <div class="row">
+              
         <div class="col s6">
           <select  name="sexo" id="sexo" class="browser-default " required>
           <option value="" disabled selected hidden>Seleccionar el Género</option>
@@ -80,18 +70,8 @@
     <br>
 
     <div class="row">
-    
-    <div class="col s6">
-          <select  name="idgrado" id="idgrado" class="browser-default" required>
-          </select>
-        </div>
-      <div class="col s6">
-          <select  name="annio" id="annio" class="browser-default " required>
-          <option value="" disabled selected hidden>Seleccionar el Año del grado</option>
-          <option value="2018">2018</option>
-          <option value="2019">2019</option>
-          </select>
-        </div>
+   
+
     </div>
     <br>
     <div class="row">
@@ -101,6 +81,15 @@
             <label for="direccion">Ingresa la Dirección</label>
           </div>
         </div>
+
+
+         <div class="row">
+
+<div class="input-field col s12">
+  <textarea placeholder="Ingresa datos medicos que pueden ser relevantes" id="nota" class="materialize-textarea validate" name="nota" data-length="100" required></textarea>
+  <label for="direccion">Nota médica</label>
+</div>
+</div>
         <br>
 
     <br><br>
@@ -130,13 +119,9 @@
 
 
 <?php require 'footer.php' ?>
-<script>
-  $(document).ready(function(){
-    $('select').formSelect();
-  });
-</script>
 
 <script src="js/alumno.js"></script>
+
 </body>
 
 </html>

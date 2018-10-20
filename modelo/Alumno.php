@@ -1,6 +1,8 @@
 <?php
 require "../config/Conexion.php";
 
+
+
 Class Alumno
 {
 	//Implementamos nuestro constructor
@@ -9,10 +11,10 @@ Class Alumno
 
 	}
 	//Guardar  solo parametros necesarios para un estudiante
-	public function insertar($cedula,$nombre,$apellido1,$apellido2,$sexo,$direccion,$nacionalidad)
+	public function insertar($cedula,$nombre,$apellido1,$apellido2,$sexo,$direccion,$nacionalidad,$nota,$grado)
 	{
 		$sql="CALL `sp_InsertaAlumno`('$cedula','$nombre','$apellido1','$apellido2','$sexo','$direccion'
-					,'$telefono',$nacionalidad,$nota)";
+					,$nacionalidad,'$nota',$grado)";
 			return consulta($sql);
 	}
 	public function cargarPais()
@@ -20,16 +22,32 @@ Class Alumno
 		$sql= "SELECT * FROM `nacionalidad`";
 		return consulta($sql);
 	}
-	public function actualizar($cedula,$nombre,$apellido1,$apellido2,$sexo,$direccion,$nacionalidad)
+	public function actualizar($cedula,$nombre,$apellido1,$apellido2,$sexo,$direccion,$nacionalidad,$nota)
 	{
-		$sql="UPDATE `persona` SET `cedula` = '".$cedula."', `nombre` = '".$nombre."', `apellido1` = '".$apellido1."', `apellido2` = '".$apellido2."', `sexo` = '".$sexo."', `direccion` = '".$direccion."'where cedula='".$cedula."';";
+		$sql="UPDATE `persona` SET 
+		`cedula` = '".$cedula."',
+		 `nombre` = '".$nombre."',
+		  `apellido1` = '".$apellido1."',
+		   `apellido2` = '".$apellido2."',
+			`sexo` = '".$sexo."', 
+			`direccion` = '".$direccion."',
+			`nota_medica` = '".$nota."'
+			
+			where cedula='".$cedula."';";
 
 		return consulta($sql);
 	}
  
-	public function listar()
+	public function listar($idgrado)
 	{
-		$sql="SELECT * FROM vista_alumno";
+		if($idgrado==0){
+			$sql="SELECT * FROM vista_alumno";
+		}else{
+			$sql="SELECT * FROM vista_alumno where idGrado='$idgrado'";
+		}
+			
+		
+
 		return consulta($sql);
 	}
 
