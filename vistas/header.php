@@ -80,11 +80,13 @@
           </li>
 
            <li>
-            <a class="collapsible-header waves-effect">Asistencia<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">group</i></a>
+            <a class="collapsible-header waves-effect">Asistencias<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">group</i></a>
             <div class="collapsible-body">
               <ul>
-                <a href="#" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">content_paste</i></a>
-                
+                <a href="#" class="waves-effect">Asistencia<i class="material-icons left pink-text registroIcono">content_paste</i></a>
+                 <li>
+                <a onclick=""  class="waves-effect">Registro<i class="material-icons left green-text agregarIcono">add_circle</i></a>
+                </li>
               </ul>
             </div>
           </li>

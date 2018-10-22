@@ -112,6 +112,20 @@
 </div>
 
 
+<script>
+  $(document).ready(function(){
+    $('estado').formSelect();
+  });
+  $(document).ready(function() {
+    $('select').material_select();
+ });
+ $(document).ready(function() {
+    $('estado').material_select();
+ });
+ 
+ 
+</script>
+
 
 <?php require 'footerDirector.php' ?>
 <script src="js/empleado.js"></script>

@@ -42,6 +42,24 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActivaBeca` (IN `VCED` VARCHAR(2
     WHERE idAlumno = @idA;
 END$$
 
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActualizaAsistencia`(IN `VJUST` TINYINT, IN `VNOTA` VARCHAR(100), IN `VCED` VARCHAR(20), IN `VFECHA` DATE)
+BEGIN
+	SELECT idPersona
+    FROM persona
+    WHERE cedula = VCED
+    INTO @idP;
+    SELECT idAlumno
+    FROM alumno
+    WHERE Persona_idPersona = @idP
+    INTO @idA;
+   	UPDATE asistencia SET
+	AUSENCIA = VJUST,
+	NOTA = VNOTA
+	WHERE IDALUMNO = @idA and FECHA = VFECHA;
+END$$
+DELIMITER ;
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActualizaBeca` (IN `VDESC` VARCHAR(500), IN `VMON` VARCHAR(40), IN `VCED` VARCHAR(20))  BEGIN
 	SELECT idPersona
     FROM persona
@@ -257,6 +275,7 @@ CREATE TABLE `alumno_materia` (
 CREATE TABLE `asistencia` (
   `IDASISTENCIA` int(11) NOT NULL,
   `ESTADO` tinyint(1) DEFAULT NULL,
+  `AUSENCIA` tinyint(1) DEFAULT NULL,
   `NOTA` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `IDALUMNO` int(11) DEFAULT NULL,
   `FECHA` date DEFAULT NULL,
@@ -727,6 +746,16 @@ CREATE TABLE `vista_profesor` (
 
 -- --------------------------------------------------------
 
+--
+-- Structure for view `vista_asistencia`
+--
+
+ALTER ALGORITHM = UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_asistencia` AS select `p`.`cedula` AS `cedula`,`p`.`nombre` AS `nombre`,`p`.`apellido1` AS `apellido1`,`p`.`apellido2` AS `apellido2`,`g`.`nombreGrado` AS `nombreGrado`,`ai`.`ESTADO` AS `ESTADO`,`ai`.`NOTA` AS `NOTA`,`ai`.`FECHA` AS `FECHA` ,`ai`.`AUSENCIA` AS `AUSENCIA` from `escuela`.`persona` `p` join `escuela`.`alumno` `a` join `escuela`.`nacionalidad` `n` join `escuela`.`grado` `g` join `escuela`.`grado_alumno` `ga` join `escuela`.`asistencia` `ai` where ((`a`.`Persona_idPersona` = `p`.`idPersona`) and (`p`.`idNacionalidad` = `n`.`idNacionalidad`) and (`a`.`idalumno` = `ga`.`alumno_idalumno`) and (`ga`.`grado_idgrado` = `g`.`idgrado`) and (`a`.`idalumno` = `ai`.`IDALUMNO`) and (`g`.`idgrado` = `ai`.`IDGRADO`));
+--
+-- VIEW  `vista_asistencia`
+-- Data: None
+--
+-- -------------------------------------------------------------
 --
 -- Estructura para la vista `vbeca`
 --
