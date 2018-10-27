@@ -89,7 +89,7 @@
 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
   
-   <script src="js/login.js?new"></script>
+   <script src="/vistas/js/login.js?new"></script>
 
 </body>
 
