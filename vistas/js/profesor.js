@@ -215,7 +215,7 @@ function cargarGrado(){
           $('#idgrado').append("<option>Seleccionar Grado</option>");
           $.each(data,function(i,item){
 
-              $('#idgrado').append('<option value="'+data[i].ID_GRADO+'">'+data[i].NOMBRE_GRADO+'</option>');
+              $('#idgrado').append('<option value="'+data[i].ID_GRADO+'">'+data[i].NOMBRE_GRADO+' '+data[i].ANNIO+'</option>');
 
           });
       }

@@ -42,12 +42,14 @@ if (!function_exists('ejecutarConsulta'))
 		$call = mysqli_prepare($conexion, 'CALL sp_Login(@pass, ?, @id, @rol, @nombre,@ocambio,@ogrupo,@idgrado,@oemail,@ogrado)');
 				mysqli_stmt_bind_param($call, 'i', $ced);
 				mysqli_stmt_execute($call);
-
 		$select = mysqli_query($conexion, 'select @pass,@id, @rol, @nombre,@ocambio,@ogrupo,@idgrado,@oemail,@ogrado');
 		$result = mysqli_fetch_assoc($select);
 		return $result;
 	}
 
+	
+
+	
 	function limpiarCadena($str)
 	{
 		global $conexion;
