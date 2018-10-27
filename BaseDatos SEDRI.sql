@@ -4,7 +4,9 @@
 --
 -- Servidor: 127.0.0.1
 
+
 -- Tiempo de generación: 11-10-2018 a las 20:29:33
+
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.2.4
 
@@ -43,6 +45,24 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActivaBeca` (IN `VCED` VARCHAR(2
     SET estado = 1
     WHERE idAlumno = @idA;
 END$$
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActualizaAsistencia`(IN `VJUST` TINYINT, IN `VNOTA` VARCHAR(100), IN `VCED` VARCHAR(20), IN `VFECHA` DATE)
+BEGIN
+	SELECT idPersona
+    FROM persona
+    WHERE cedula = VCED
+    INTO @idP;
+    SELECT idAlumno
+    FROM alumno
+    WHERE Persona_idPersona = @idP
+    INTO @idA;
+   	UPDATE asistencia SET
+	AUSENCIA = VJUST,
+	NOTA = VNOTA
+	WHERE IDALUMNO = @idA and FECHA = VFECHA;
+END$$
+DELIMITER ;
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActualizaBeca` (IN `VDESC` VARCHAR(500), IN `VMON` VARCHAR(40), IN `VCED` VARCHAR(20))  BEGIN
 	SELECT idPersona
@@ -96,6 +116,8 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaAlumno` (IN `VCED` VARCHAR(20), IN `VNOM` VARCHAR(40), IN `VAPE1` VARCHAR(40), IN `VAPE2` VARCHAR(40), IN `VSEX` VARCHAR(20), IN `VDIR` VARCHAR(50), IN `VNAC` INT, IN `VNOT` VARCHAR(650), IN `VGRA` INT)  BEGIN
 
+
+
  INSERT INTO persona( cedula, nombre, apellido1, apellido2, sexo, direccion,idNacionalidad,nota_medica)
  VALUES(VCED,VNOM,VAPE1,VAPE2,VSEX,VDIR,VNAC,VNOT);
  
@@ -130,8 +152,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaBeca` (IN `VCED` VARCHAR(
     VALUES(VDES,VMON,@idA);
 END$$
 
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaProfesor` (IN `VCED` VARCHAR(45), IN `VNOM` VARCHAR(45), IN `VAP1` VARCHAR(45), IN `VAP2` VARCHAR(45), IN `VSEXO` VARCHAR(20), IN `VDIR` VARCHAR(100), IN `VTEL` VARCHAR(45), IN `VEMAIL` VARCHAR(45), IN `VNAC` INT, IN `VGRADO` INT, IN `VPASS` VARCHAR(80))  BEGIN
+
+
 
  INSERT INTO persona( cedula, nombre, apellido1, apellido2, sexo, direccion,telefono,email,idNacionalidad)
  VALUES(VCED,VNOM,VAP1,VAP2,VSEXO,VDIR,VTEL,VEMAIL,VNAC);
@@ -151,8 +174,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaProfesor` (IN `VCED` VARC
  INSERT INTO usuario(idPersona,idRol,password,cambio)
  VALUES (@id,1,VPASS,1);
  
-
  INSERT INTO profesor_grado(idGrado,idProfesor)VALUES(VGRADO,@idP);
+
+
 
 END$$
 
@@ -166,14 +190,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertarEmpleado` (IN `CED` VARC
 
 END$$
 
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Login` (OUT `pass` VARCHAR(150), IN `ced` VARCHAR(25), OUT `id` INT, OUT `rol` VARCHAR(50), OUT `nombre` VARCHAR(50), OUT `ocambio` INT, OUT `ogrupo` VARCHAR(80), OUT `idgrado` INT, OUT `oemail` VARCHAR(60))  BEGIN
-select u.password,p.idPersona, r.tiporol ,CONCAT(p.nombre,' ',CONCAT(p.apellido1,' ',p.apellido2)) as nombre,u.cambio ,concat(gr.nombreGrado,' ',gr.annio) as grado,gr.idGrado,p.email
-into pass,id,rol,nombre,ocambio,ogrupo,idgrado,oemail
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Login`(OUT `pass` VARCHAR(150), IN `ced` VARCHAR(25), OUT `id` INT, OUT `rol` VARCHAR(50), OUT `nombre` VARCHAR(50), OUT `ocambio` INT, OUT `ogrupo` VARCHAR(80), OUT `idgrado` INT, OUT `oemail` VARCHAR(60), OUT `ogrado` VARCHAR(50))
+BEGIN
+select u.password,p.idPersona, r.tiporol ,CONCAT(p.nombre,' ',CONCAT(p.apellido1,' ',p.apellido2)) as nombre,u.cambio ,concat(gr.nombreGrado,' ',gr.annio) as grado,gr.idGrado,p.email,gr.nombreGrado
+into pass,id,rol,nombre,ocambio,ogrupo,idgrado,oemail,ogrado
 from usuario u, persona p , rol r ,profesor_grado pg,profesor pro,grado gr
 where gr.idGrado = pg.idGrado and pro.idProfesor = pg.idProfesor and  u.idRol = r.IDROL and p.idPersona = u.idPersona and pro.Persona_idPersona = p.idPersona and pg.idProfesor = pro.idProfesor and p.cedula=ced;
 
 END$$
+DELIMITER ;
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ModificarProfesor` (IN `VCED` VARCHAR(40), IN `VNOM` VARCHAR(40), IN `VAP1` VARCHAR(40), IN `VAP2` VARCHAR(40), IN `VEXO` VARCHAR(24), IN `VDIR` VARCHAR(100), IN `VTEL` VARCHAR(50), IN `VEMAIL` VARCHAR(50), IN `VNAC` INT, IN `VANNIO` INT, IN `VGRADO` INT)  NO SQL
 BEGIN
@@ -190,6 +216,33 @@ WHERE cedula = VCED;
  
 END$$
 
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaAsistencia`(IN VESTADO tinyint,IN VNOTA VARCHAR(100),IN VCED VARCHAR(25),IN VFECHA DATE, IN VIDGR INT)
+BEGIN
+    SELECT idPersona
+    FROM persona
+    WHERE cedula = VCED  COLLATE utf8mb4_unicode_ci
+    INTO @id;
+    SELECT idAlumno
+    FROM alumno
+    WHERE Persona_idPersona = @id  COLLATE utf8mb4_unicode_ci
+    INTO @idA;
+    INSERT INTO asistencia(ESTADO,NOTA,IDALUMNO,FECHA,IDGRADO) 
+	VALUES(VESTADO,VNOTA,@idA,VFECHA,VIDGR);
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE TRIGGER `trgg_ausencia` BEFORE INSERT ON `asistencia`
+ FOR EACH ROW BEGIN
+           IF NEW.ESTADO = 0 THEN
+               SET NEW.AUSENCIA = 0;
+           END IF;
+END$$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -251,10 +304,13 @@ CREATE TABLE `alumno_materia` (
 CREATE TABLE `asistencia` (
   `IDASISTENCIA` int(11) NOT NULL,
   `ESTADO` tinyint(1) DEFAULT NULL,
+  `AUSENCIA` tinyint(1) DEFAULT NULL,
   `NOTA` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `IDALUMNO` int(11) DEFAULT NULL,
-  `FECHA` date DEFAULT NULL
+  `FECHA` date DEFAULT NULL,
+  `IDGRADO` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 -- --------------------------------------------------------
 
@@ -330,6 +386,8 @@ CREATE TABLE `grado` (
   `nombreGrado` varchar(45) CHARACTER SET utf8 NOT NULL,
   `annio` int(11) NOT NULL
 
+
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -359,7 +417,6 @@ CREATE TABLE `grado_alumno` (
 -- Volcado de datos para la tabla `grado_alumno`
 --
 
-
 INSERT INTO `grado_alumno` (`grado_idgrado`, `alumno_idalumno`) VALUES
 (1, 1),
 (1, 3),
@@ -369,8 +426,6 @@ INSERT INTO `grado_alumno` (`grado_idgrado`, `alumno_idalumno`) VALUES
 (1, 8),
 (2, 2),
 (2, 4);
-
-
 -- --------------------------------------------------------
 
 --
@@ -502,6 +557,7 @@ INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`
 (83, '6765', 'Nombre', 'Ap1', 'Ap2', 'Masculino', 'Alajuela', NULL, NULL, NULL, 1, 1, 'Nota'),
 (84, '1408', 'Estudiante 1409', 'Primero A2', 'Segundo A2', 'Masculino', 'San Jose', NULL, NULL, NULL, 1, 1, 'Azucar'),
 (85, '1408', 'Estudiante 1409', 'Primero A2', 'Segundo A2', 'Masculino', 'San Jose', NULL, NULL, NULL, 1, 1, 'Azucar');
+
 
 -- --------------------------------------------------------
 
@@ -730,6 +786,18 @@ CREATE TABLE `vista_profesor` (
 -- --------------------------------------------------------
 
 --
+
+-- Structure for view `vista_asistencia`
+--
+
+ALTER ALGORITHM = UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_asistencia` AS select `p`.`cedula` AS `cedula`,`p`.`nombre` AS `nombre`,`p`.`apellido1` AS `apellido1`,`p`.`apellido2` AS `apellido2`,`g`.`nombreGrado` AS `nombreGrado`,`ai`.`ESTADO` AS `ESTADO`,`ai`.`NOTA` AS `NOTA`,`ai`.`FECHA` AS `FECHA` ,`ai`.`AUSENCIA` AS `AUSENCIA` from `escuela`.`persona` `p` join `escuela`.`alumno` `a` join `escuela`.`nacionalidad` `n` join `escuela`.`grado` `g` join `escuela`.`grado_alumno` `ga` join `escuela`.`asistencia` `ai` where ((`a`.`Persona_idPersona` = `p`.`idPersona`) and (`p`.`idNacionalidad` = `n`.`idNacionalidad`) and (`a`.`idalumno` = `ga`.`alumno_idalumno`) and (`ga`.`grado_idgrado` = `g`.`idgrado`) and (`a`.`idalumno` = `ai`.`IDALUMNO`) and (`g`.`idgrado` = `ai`.`IDGRADO`));
+--
+-- VIEW  `vista_asistencia`
+-- Data: None
+--
+-- -------------------------------------------------------------
+--
+
 -- Estructura para la vista `vbeca`
 --
 DROP TABLE IF EXISTS `vbeca`;
@@ -752,16 +820,12 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vista_alumno`;
 
-
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_alumno`  AS  select `p`.`cedula` AS `cedula`,`p`.`nombre` AS `nombre`,`p`.`apellido1` AS `apellido1`,`p`.`apellido2` AS `apellido2`,`p`.`sexo` AS `sexo`,`n`.`pais` AS `pais`,`g`.`nombreGrado` AS `nombreGrado`,`g`.`annio` AS `annio`,`g`.`idgrado` AS `idGrado`,`p`.`direccion` AS `direccion`,`p`.`nota_medica` AS `nota_medica`,`p`.`disponible` AS `disponible` from ((((`alumno` `a` join `persona` `p`) join `nacionalidad` `n`) join `grado` `g`) join `grado_alumno` `ga`) where ((`a`.`Persona_idPersona` = `p`.`idPersona`) and (`p`.`idNacionalidad` = `n`.`idNacionalidad`) and (`a`.`idalumno` = `ga`.`alumno_idalumno`) and (`ga`.`grado_idgrado` = `g`.`idgrado`)) ;
-
 
 -- --------------------------------------------------------
 
 --
 -- Estructura para la vista `vista_empleado`
-<
-=======
 --
 DROP TABLE IF EXISTS `vista_empleado`;
 
@@ -773,6 +837,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Estructura para la vista `vista_profesor`
 --
 DROP TABLE IF EXISTS `vista_profesor`;
+
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_profesor`  AS  select `p`.`cedula` AS `CEDULA`,`p`.`nombre` AS `NOMBRE`,`p`.`apellido1` AS `APELLIDO1`,`p`.`apellido2` AS `APELLIDO2`,`p`.`sexo` AS `SEXO`,`p`.`direccion` AS `DIRECCION`,`p`.`telefono` AS `TELEFONO`,`p`.`email` AS `EMAIL`,`n`.`pais` AS `PAIS`,`p`.`disponible` AS `DISPONIBLE`,`g`.`nombreGrado` AS `nombreGrado`,`pg`.`annio` AS `annio` from ((((`persona` `p` join `profesor` `pe`) join `nacionalidad` `n`) join `grado` `g`) join `profesor_grado` `pg`) where ((`p`.`idPersona` = `pe`.`Persona_idPersona`) and (`pe`.`idprofesor` = `pg`.`idProfesor`) and (`g`.`idgrado` = `pg`.`idGrado`) and (`p`.`idNacionalidad` = `n`.`idNacionalidad`)) ;
 
@@ -787,6 +852,7 @@ DROP TABLE IF EXISTS `vista_empleado`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_empleado`  AS  select `p`.`cedula` AS `cedula`,`p`.`nombre` AS `nombre`,`p`.`apellido1` AS `apellido1`,`p`.`apellido2` AS `apellido2`,`p`.`sexo` AS `sexo`,`p`.`direccion` AS `direccion`,`p`.`telefono` AS `telefono`,`n`.`pais` AS `pais`,`f`.`nombrePuesto` AS `nombrePuesto`,`p`.`disponible` AS `disponible` from (((`persona` `p` join `empleado` `e`) join `puesto` `f`) join `nacionalidad` `n`) where ((`p`.`idPersona` = `e`.`idPersona`) and (`f`.`idPuesto` = `e`.`idPuesto`) and (`n`.`idNacionalidad` = `p`.`idNacionalidad`)) ;
 
 -- --------------------------------------------------------
+
 
 --
 
@@ -968,7 +1034,9 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `alumno`
 --
 ALTER TABLE `alumno`
+
   MODIFY `idalumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 
 --
 -- AUTO_INCREMENT de la tabla `asistencia`
@@ -1006,7 +1074,6 @@ ALTER TABLE `encargado`
 ALTER TABLE `grado`
   MODIFY `idgrado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
-
 --
 -- AUTO_INCREMENT de la tabla `materia`
 --
@@ -1036,7 +1103,9 @@ ALTER TABLE `nota_constante`
 --
 ALTER TABLE `persona`
 
+
   MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+
 
 
 --
@@ -1092,7 +1161,8 @@ ALTER TABLE `alumno_materia`
 -- Filtros para la tabla `asistencia`
 --
 ALTER TABLE `asistencia`
-  ADD CONSTRAINT `FK_ASISTENCIA_ALUMNO` FOREIGN KEY (`IDALUMNO`) REFERENCES `alumno` (`idalumno`);
+  ADD CONSTRAINT `FK_ASISTENCIA_ALUMNO` FOREIGN KEY (`IDALUMNO`) REFERENCES `alumno` (`idalumno`),
+  ADD CONSTRAINT `FK_ASISTENCIA_GRADO` FOREIGN KEY (`IDGRADO`) REFERENCES `grado` (`idgrado`);
 
 --
 -- Filtros para la tabla `beca`

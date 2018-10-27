@@ -1,5 +1,7 @@
 <?php 
+
   session_start();
+
   if(isset($_SESSION["token"])){
     
     require_once "../modelo/AutenticacionTokens.php";
@@ -19,7 +21,6 @@
 
   }else
   {
-
     header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
   }
 ?>
@@ -39,7 +40,7 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="../public/datatables/jquery.dataTables.min.css">
+ <link rel="stylesheet" type="text/css" href="../public/datatables/jquery.dataTables.min.css">
 <link href="../public/datatables/responsive.dataTables.min.css" rel="stylesheet"/>
 <link href="../public/css/menuProfesor.css?ki" rel="stylesheet"/>
 <link href="../public/css/estilos.css" rel="stylesheet"/>
@@ -85,11 +86,14 @@
           </li>
 
            <li>
-            <a class="collapsible-header waves-effect">Asistencia<i class="material-icons right grey-text">arrow_drop_down</i><i class="material-icons left grey-text">group</i></a>
+            <a class="collapsible-header waves-effect">Asistencias<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">group</i></a>
             <div class="collapsible-body">
               <ul>
-                <a href="#" class="waves-effect">Registro<i class="material-icons left red-text registroIcono">content_paste</i></a>
-                
+                <a href="#" class="waves-effect">Asistencia<i class="material-icons left pink-text registroIcono">content_paste</i></a>
+                 <li>
+                <a onclick=""  class="waves-effect">Registro<i class="material-icons left green-text agregarIcono">add_circle</i></a>
+                </li>
+
               </ul>
             </div>
           </li>

@@ -1,7 +1,7 @@
 <?php   
 
 require_once 'jwt/vendor/autoload.php';
-
+require 'jwt/vendor/firebase/php-jwt/src/ExpiredException.php';
 use Firebase\JWT\JWT;
 
 /*
@@ -51,8 +51,16 @@ class Auth
     
     public static function Check($token)
     {
+
+        try {
+            $decoded = JWT::decode($token, self::$secret_key,self::$encrypt);
+        } catch (Exception $e) {
+           // header("Location: http://localhost:8888/SEDRI/controlador/Logout.php");
+            echo 'Exception catched: ',  $e->getMessage(), "\n";  
+        }
         if(empty($token))
         {
+           // header("Location: http://localhost:8888/SEDRI/controlador/Logout.php");
             throw new Exception("Invalid token supplied.");
             echo "<br>nop. Token dado invalido<br>";
         }
@@ -65,8 +73,9 @@ class Auth
         
         if($decode->aud !== self::Aud())
         {
+            //header("Location: http://localhost:8888/SEDRI/controlador/Logout.php");
             throw new Exception("Invalid user logged in.");
-            echo "<br>Usuario invalido en la sesion<be>";
+           print_r('Usuario Invalido Porfavor vuelva a Iniciar Sesion');
         }
         //return $decode;
     }

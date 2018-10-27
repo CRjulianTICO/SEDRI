@@ -13,7 +13,6 @@
         $dataToken += ["".$key."" => $value];
 }
     $nombre = $dataToken["nombre"];
-    
   }else{
     header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
   }

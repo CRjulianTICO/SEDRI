@@ -26,9 +26,6 @@ switch ($_GET["opcion"]){
 
             if($value == null){
                  echo '0'; 
-                /* echo '<script type="text/javascript">';
-                echo 'document.write("Hello World!")';
-                echo '</script>'; */
             }else{
 
 

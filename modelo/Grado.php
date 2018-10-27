@@ -29,6 +29,11 @@ Class Grado
 		return consulta($sql);
 	}
 
+	public function listarNombre($id){
+		$sql = "SELECT nombreGrado FROM grado WHERE idgrado='".$id."'";
+	    return consultaSimple($sql);
+	}
+
 
 	public function cargar($id){
 		$sql = "SELECT * FROM grado WHERE idgrado='".$id."'";

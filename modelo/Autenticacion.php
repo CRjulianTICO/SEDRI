@@ -25,11 +25,13 @@
         $grupo = $result["@ogrupo"];
         $idgrado = $result["@idgrado"];
         $email = $result["@oemail"];
+        $grado = $result["@ogrado"];
 
         if(password_verify($pass,$password)){
 
 
-            $valores = array("id"=>$id,"rol"=>$rol,"nombre"=>$nombre,"cambio"=>$cambio,"grupo"=>$grupo,"idgrado"=>$idgrado,"email"=>$email);
+            $valores = array("id"=>$id,"rol"=>$rol,"nombre"=>$nombre,"cambio"=>$cambio,"grupo"=>$grupo,"email"=>$email,"idgrado"=>$idgrado,"grado"=>$grado);
+
 
 
         }else{
