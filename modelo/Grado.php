@@ -9,16 +9,16 @@ Class Grado
 
 	}
 	//Guardar  solo parametros necesarios para un estudiante
-	public function insertar($nombreGrado)
+	public function insertar($nombreGrado,$annio)
 	{
-		$sql="INSERT INTO `grado` (`idgrado`, `nombreGrado`)
-    		VALUES (NULL, '$nombreGrado');";
+		$sql="INSERT INTO `grado` (`idgrado`, `nombreGrado`,`annio`)
+    		VALUES (NULL, '$nombreGrado',$annio);";
 		return consulta($sql);
 	}
 
-	public function actualizar($idgrado,$nombreGrado)
+	public function actualizar($idgrado,$nombreGrado,$annio)
 	{
-		$sql="UPDATE `grado` SET `nombreGrado` = '".$nombreGrado."'where idgrado='".$idgrado."';";
+		$sql="UPDATE `grado` SET `nombreGrado` = '".$nombreGrado."',  `annio` = '".$annio."' where idgrado='".$idgrado."';";
 
 		return consulta($sql);
 	}
@@ -27,6 +27,11 @@ Class Grado
 	{
 		$sql="SELECT * FROM grado";
 		return consulta($sql);
+	}
+
+	public function listarNombre($id){
+		$sql = "SELECT nombreGrado FROM grado WHERE idgrado='".$id."'";
+	    return consultaSimple($sql);
 	}
 
 

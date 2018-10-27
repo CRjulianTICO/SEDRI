@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-08-2018 a las 07:05:14
+-- Tiempo de generación: 16-10-2018 a las 06:39:27
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.2.4
 
@@ -28,18 +28,6 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-DROP PROCEDURE IF EXISTS `sp_Login`$$
-DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Login`(OUT `pass` VARCHAR(150), IN `ced` VARCHAR(25), OUT `id` INT, OUT `rol` VARCHAR(50), OUT `nombre` VARCHAR(50))
-BEGIN
-select u.password,p.idPersona, r.tiporol ,CONCAT(p.nombre,' ',CONCAT(p.apellido1,' ',p.apellido2)) as nombre
-into pass,id,rol,nombre
-from usuario u, persona p , rol r 
-where p.cedula=ced and p.disponible != 0 ;
-END$$
-DELIMITER ;
-
-DROP PROCEDURE IF EXISTS `sp_ActivaBeca`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActivaBeca` (IN `VCED` VARCHAR(20))  BEGIN
 	SELECT idPersona
     FROM persona
@@ -54,7 +42,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActivaBeca` (IN `VCED` VARCHAR(2
     WHERE idAlumno = @idA;
 END$$
 
-DROP PROCEDURE IF EXISTS `sp_ActualizaBeca`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActualizaBeca` (IN `VDESC` VARCHAR(500), IN `VMON` VARCHAR(40), IN `VCED` VARCHAR(20))  BEGIN
 	SELECT idPersona
     FROM persona
@@ -70,7 +57,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActualizaBeca` (IN `VDESC` VARCH
     WHERE idAlumno = @idA;
 END$$
 
-DROP PROCEDURE IF EXISTS `sp_ActualizarEmpleado`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActualizarEmpleado` (IN `CED` VARCHAR(20), IN `NOM` VARCHAR(35), IN `APE1` VARCHAR(35), IN `APE2` VARCHAR(35), IN `SEX` VARCHAR(20), IN `DIRECC` VARCHAR(50), IN `TEL` VARCHAR(25), IN `NAC` INT, IN `PUE` INT)  BEGIN
 
  UPDATE persona SET
@@ -91,7 +77,6 @@ WHERE idPersona = @id;
 
 END$$
 
-DROP PROCEDURE IF EXISTS `sp_DesactivaBeca`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_DesactivaBeca` (IN `VCED` VARCHAR(20))  BEGIN
 	SELECT idPersona
     FROM persona
@@ -106,8 +91,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_DesactivaBeca` (IN `VCED` VARCHA
     WHERE idAlumno = @idA;
 END$$
 
-DROP PROCEDURE IF EXISTS `sp_InsertaAlumno`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaAlumno` (IN `VCED` VARCHAR(20), IN `VNOM` VARCHAR(40), IN `VAPE1` VARCHAR(40), IN `VAPE2` VARCHAR(40), IN `VSEX` VARCHAR(20), IN `VDIR` VARCHAR(50), IN `VNAC` INT,IN `VNOT` VARCHAR(650))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaAlumno` (IN `VCED` VARCHAR(20), IN `VNOM` VARCHAR(40), IN `VAPE1` VARCHAR(40), IN `VAPE2` VARCHAR(40), IN `VSEX` VARCHAR(20), IN `VDIR` VARCHAR(50), IN `VNAC` INT, IN `VNOT` VARCHAR(650), IN `VGRA` INT)  BEGIN
  INSERT INTO persona( cedula, nombre, apellido1, apellido2, sexo, direccion,idNacionalidad,nota_medica)
  VALUES(VCED,VNOM,VAPE1,VAPE2,VSEX,VDIR,VNAC,VNOT);
  
@@ -117,9 +101,18 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaAlumno` (IN `VCED` VARCHA
  INTO @id;
  
  INSERT INTO alumno(Persona_idPersona)VALUES(@id);
+ 
+  SELECT idalumno
+ FROM alumno
+ WHERE persona_idPersona = @id
+ INTO @id_alumno;
+ 
+ 
+ 
+ INSERT INTO grado_alumno(grado_idgrado,alumno_idalumno)
+ values (VGRA,@id_alumno);
 END$$
 
-DROP PROCEDURE IF EXISTS `sp_InsertaBeca`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaBeca` (IN `VCED` VARCHAR(50) COLLATE utf8mb4_unicode_ci, IN `VDES` VARCHAR(500) COLLATE utf8mb4_unicode_ci, IN `VMON` VARCHAR(45) COLLATE utf8mb4_unicode_ci)  BEGIN
     SELECT idPersona
     FROM persona
@@ -133,8 +126,22 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaBeca` (IN `VCED` VARCHAR(
     VALUES(VDES,VMON,@idA);
 END$$
 
-DROP PROCEDURE IF EXISTS `sp_InsertaProfesor`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaProfesor` (IN `VCED` VARCHAR(45), IN `VNOM` VARCHAR(45), IN `VAP1` VARCHAR(45), IN `VAP2` VARCHAR(45), IN `VSEXO` VARCHAR(20), IN `VDIR` VARCHAR(100), IN `VTEL` VARCHAR(45), IN `VEMAIL` VARCHAR(45), IN `VNAC` INT, IN `VANNIO` INT, IN `VGRADO` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaEncargado` (IN `VCED` VARCHAR(45), IN `VNOM` VARCHAR(45), IN `VAP1` VARCHAR(45), IN `VAP2` VARCHAR(45), IN `VSEXO` VARCHAR(45), IN `VDIR` VARCHAR(100), IN `VTEL` VARCHAR(45), IN `VTEL2` VARCHAR(45), IN `VNAC` VARCHAR(45))  NO SQL
+BEGIN
+ INSERT INTO persona( cedula, nombre, apellido1, apellido2, sexo, direccion,telefono,telefono_secundario,idNacionalidad)
+ VALUES(VCED,VNOM,VAP1,VAP2,VSEXO,VDIR,VTEL,VTEL2,VNAC);
+ 
+ SELECT idPersona
+ FROM persona
+ WHERE cedula = VCED
+ into @id;
+ 
+ 
+ INSERT INTO encargado(Persona_idPersona)VALUES(@id);
+ 
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaProfesor` (IN `VCED` VARCHAR(45), IN `VNOM` VARCHAR(45), IN `VAP1` VARCHAR(45), IN `VAP2` VARCHAR(45), IN `VSEXO` VARCHAR(20), IN `VDIR` VARCHAR(100), IN `VTEL` VARCHAR(45), IN `VEMAIL` VARCHAR(45), IN `VNAC` INT, IN `VGRADO` INT, IN `VPASS` VARCHAR(80))  BEGIN
  INSERT INTO persona( cedula, nombre, apellido1, apellido2, sexo, direccion,telefono,email,idNacionalidad)
  VALUES(VCED,VNOM,VAP1,VAP2,VSEXO,VDIR,VTEL,VEMAIL,VNAC);
  
@@ -150,11 +157,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaProfesor` (IN `VCED` VARC
  WHERE Persona_idPersona = @id
  INTO @idP;
  
+ INSERT INTO usuario(idPersona,idRol,password,cambio)
+ VALUES (@id,1,VPASS,1);
  
- INSERT INTO profesor_grado(annio,idGrado,idProfesor)VALUES(VANNIO,VGRADO,@idP);
+ INSERT INTO profesor_grado(idGrado,idProfesor)VALUES(VGRADO,@idP);
 END$$
 
-DROP PROCEDURE IF EXISTS `sp_InsertarEmpleado`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertarEmpleado` (IN `CED` VARCHAR(20), IN `NOM` VARCHAR(35), IN `APE1` VARCHAR(35), IN `APE2` VARCHAR(35), IN `SEX` VARCHAR(20), IN `DIRECC` VARCHAR(50), IN `TEL` VARCHAR(25), IN `NAC` INT, IN `PUE` INT)  BEGIN
 
  INSERT INTO persona (CEDULA,NOMBRE,APELLIDO1,APELLIDO2,SEXO,DIRECCION,TELEFONO,idNacionalidad) VALUES(CED,NOM,APE1,APE2,SEX,DIRECC,TEL,NAC);
@@ -165,7 +173,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertarEmpleado` (IN `CED` VARC
 
 END$$
 
-DROP PROCEDURE IF EXISTS `sp_ModificarProfesor`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Login` (OUT `pass` VARCHAR(150), IN `ced` VARCHAR(25), OUT `id` INT, OUT `rol` VARCHAR(50), OUT `nombre` VARCHAR(50), OUT `ocambio` INT, OUT `ogrupo` VARCHAR(80), OUT `idgrado` INT, OUT `oemail` VARCHAR(60))  BEGIN
+select u.password,p.idPersona, r.tiporol ,CONCAT(p.nombre,' ',CONCAT(p.apellido1,' ',p.apellido2)) as nombre,u.cambio ,concat(gr.nombreGrado,' ',gr.annio) as grado,gr.idGrado,p.email
+into pass,id,rol,nombre,ocambio,ogrupo,idgrado,oemail
+from usuario u, persona p , rol r ,profesor_grado pg,profesor pro,grado gr
+where gr.idGrado = pg.idGrado and pro.idProfesor = pg.idProfesor and  u.idRol = r.IDROL and p.idPersona = u.idPersona and pro.Persona_idPersona = p.idPersona and pg.idProfesor = pro.idProfesor and p.cedula=ced;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ModificarProfesor` (IN `VCED` VARCHAR(40), IN `VNOM` VARCHAR(40), IN `VAP1` VARCHAR(40), IN `VAP2` VARCHAR(40), IN `VEXO` VARCHAR(24), IN `VDIR` VARCHAR(100), IN `VTEL` VARCHAR(50), IN `VEMAIL` VARCHAR(50), IN `VNAC` INT, IN `VANNIO` INT, IN `VGRADO` INT)  NO SQL
 BEGIN
 UPDATE persona SET 
@@ -189,7 +203,6 @@ DELIMITER ;
 -- Estructura de tabla para la tabla `alumno`
 --
 
-DROP TABLE IF EXISTS `alumno`;
 CREATE TABLE `alumno` (
   `idalumno` int(11) NOT NULL,
   `Persona_idPersona` int(11) NOT NULL
@@ -199,10 +212,15 @@ CREATE TABLE `alumno` (
 -- Volcado de datos para la tabla `alumno`
 --
 
-INSERT INTO `alumno` (`idalumno`, `Persona_idPersona`) VALUES(1, 11);
-INSERT INTO `alumno` (`idalumno`, `Persona_idPersona`) VALUES(2, 12);
-INSERT INTO `alumno` (`idalumno`, `Persona_idPersona`) VALUES(3, 13);
-INSERT INTO `alumno` (`idalumno`, `Persona_idPersona`) VALUES(4, 15);
+INSERT INTO `alumno` (`idalumno`, `Persona_idPersona`) VALUES
+(1, 11),
+(2, 12),
+(3, 13),
+(4, 15),
+(5, 80),
+(6, 81),
+(7, 82),
+(8, 84);
 
 -- --------------------------------------------------------
 
@@ -210,11 +228,19 @@ INSERT INTO `alumno` (`idalumno`, `Persona_idPersona`) VALUES(4, 15);
 -- Estructura de tabla para la tabla `alumno_encargado`
 --
 
-DROP TABLE IF EXISTS `alumno_encargado`;
 CREATE TABLE `alumno_encargado` (
   `ID_ALUMNO` int(11) NOT NULL,
   `ID_ENCARGADO` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `alumno_encargado`
+--
+
+INSERT INTO `alumno_encargado` (`ID_ALUMNO`, `ID_ENCARGADO`) VALUES
+(3, 36),
+(6, 36),
+(6, 37);
 
 -- --------------------------------------------------------
 
@@ -222,7 +248,6 @@ CREATE TABLE `alumno_encargado` (
 -- Estructura de tabla para la tabla `alumno_materia`
 --
 
-DROP TABLE IF EXISTS `alumno_materia`;
 CREATE TABLE `alumno_materia` (
   `alumno_idalumno` int(11) NOT NULL,
   `materia_idmateria` int(11) NOT NULL,
@@ -237,7 +262,6 @@ CREATE TABLE `alumno_materia` (
 -- Estructura de tabla para la tabla `asistencia`
 --
 
-DROP TABLE IF EXISTS `asistencia`;
 CREATE TABLE `asistencia` (
   `IDASISTENCIA` int(11) NOT NULL,
   `ESTADO` tinyint(1) DEFAULT NULL,
@@ -252,7 +276,6 @@ CREATE TABLE `asistencia` (
 -- Estructura de tabla para la tabla `beca`
 --
 
-DROP TABLE IF EXISTS `beca`;
 CREATE TABLE `beca` (
   `idbeca` int(11) NOT NULL,
   `descripcion_beca` varchar(500) CHARACTER SET utf8 NOT NULL,
@@ -265,8 +288,9 @@ CREATE TABLE `beca` (
 -- Volcado de datos para la tabla `beca`
 --
 
-INSERT INTO `beca` (`idbeca`, `descripcion_beca`, `monto_beca`, `idAlumno`, `estado`) VALUES(1, 'Motivo de la beca es privado y no puede ser revelado', '55000', 2, 1);
-INSERT INTO `beca` (`idbeca`, `descripcion_beca`, `monto_beca`, `idAlumno`, `estado`) VALUES(2, 'Motivo personal', '35000', 3, 1);
+INSERT INTO `beca` (`idbeca`, `descripcion_beca`, `monto_beca`, `idAlumno`, `estado`) VALUES
+(1, 'Motivo de la beca es privado y no puede ser revelado', '55000', 2, 1),
+(2, 'Motivo personal', '35000', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -274,7 +298,6 @@ INSERT INTO `beca` (`idbeca`, `descripcion_beca`, `monto_beca`, `idAlumno`, `est
 -- Estructura de tabla para la tabla `director`
 --
 
-DROP TABLE IF EXISTS `director`;
 CREATE TABLE `director` (
   `idDirector` int(11) NOT NULL,
   `Persona_idPersona` int(11) NOT NULL
@@ -286,7 +309,6 @@ CREATE TABLE `director` (
 -- Estructura de tabla para la tabla `empleado`
 --
 
-DROP TABLE IF EXISTS `empleado`;
 CREATE TABLE `empleado` (
   `idEmpleado` int(11) NOT NULL,
   `idPersona` int(11) NOT NULL,
@@ -297,7 +319,8 @@ CREATE TABLE `empleado` (
 -- Volcado de datos para la tabla `empleado`
 --
 
-INSERT INTO `empleado` (`idEmpleado`, `idPersona`, `idPuesto`) VALUES(1, 10, 1);
+INSERT INTO `empleado` (`idEmpleado`, `idPersona`, `idPuesto`) VALUES
+(1, 10, 1);
 
 -- --------------------------------------------------------
 
@@ -305,11 +328,22 @@ INSERT INTO `empleado` (`idEmpleado`, `idPersona`, `idPuesto`) VALUES(1, 10, 1);
 -- Estructura de tabla para la tabla `encargado`
 --
 
-DROP TABLE IF EXISTS `encargado`;
 CREATE TABLE `encargado` (
   `idencargado` int(11) NOT NULL,
   `Persona_idPersona` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `encargado`
+--
+
+INSERT INTO `encargado` (`idencargado`, `Persona_idPersona`) VALUES
+(1, 87),
+(2, 88),
+(3, 90),
+(4, 94),
+(36, 170),
+(37, 176);
 
 -- --------------------------------------------------------
 
@@ -317,18 +351,21 @@ CREATE TABLE `encargado` (
 -- Estructura de tabla para la tabla `grado`
 --
 
-DROP TABLE IF EXISTS `grado`;
 CREATE TABLE `grado` (
   `idgrado` int(11) NOT NULL,
-  `nombreGrado` varchar(45) CHARACTER SET utf8 NOT NULL
+  `nombreGrado` varchar(45) CHARACTER SET utf8 NOT NULL,
+  `annio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `grado`
 --
 
-INSERT INTO `grado` (`idgrado`, `nombreGrado`) VALUES(1, 'Primeros');
-INSERT INTO `grado` (`idgrado`, `nombreGrado`) VALUES(2, 'Segundo');
+INSERT INTO `grado` (`idgrado`, `nombreGrado`, `annio`) VALUES
+(1, 'Primeros', 2018),
+(2, 'Segundo', 2018),
+(3, 'Quinto', 2018),
+(4, 'Sexto', 2018);
 
 -- --------------------------------------------------------
 
@@ -336,21 +373,24 @@ INSERT INTO `grado` (`idgrado`, `nombreGrado`) VALUES(2, 'Segundo');
 -- Estructura de tabla para la tabla `grado_alumno`
 --
 
-DROP TABLE IF EXISTS `grado_alumno`;
 CREATE TABLE `grado_alumno` (
   `grado_idgrado` int(11) NOT NULL,
-  `alumno_idalumno` int(11) NOT NULL,
-  `annio` int(11) DEFAULT NULL
+  `alumno_idalumno` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `grado_alumno`
 --
 
-INSERT INTO `grado_alumno` (`grado_idgrado`, `alumno_idalumno`, `annio`) VALUES(1, 1, 2018);
-INSERT INTO `grado_alumno` (`grado_idgrado`, `alumno_idalumno`, `annio`) VALUES(1, 3, 2018);
-INSERT INTO `grado_alumno` (`grado_idgrado`, `alumno_idalumno`, `annio`) VALUES(2, 2, 2018);
-INSERT INTO `grado_alumno` (`grado_idgrado`, `alumno_idalumno`, `annio`) VALUES(2, 4, 2018);
+INSERT INTO `grado_alumno` (`grado_idgrado`, `alumno_idalumno`) VALUES
+(1, 1),
+(1, 3),
+(1, 5),
+(1, 6),
+(1, 7),
+(1, 8),
+(2, 2),
+(2, 4);
 
 -- --------------------------------------------------------
 
@@ -358,7 +398,6 @@ INSERT INTO `grado_alumno` (`grado_idgrado`, `alumno_idalumno`, `annio`) VALUES(
 -- Estructura de tabla para la tabla `grado_estudiante_nota`
 --
 
-DROP TABLE IF EXISTS `grado_estudiante_nota`;
 CREATE TABLE `grado_estudiante_nota` (
   `idGrado` int(11) NOT NULL,
   `idMateria` int(11) NOT NULL,
@@ -373,7 +412,6 @@ CREATE TABLE `grado_estudiante_nota` (
 -- Estructura de tabla para la tabla `materia`
 --
 
-DROP TABLE IF EXISTS `materia`;
 CREATE TABLE `materia` (
   `idmateria` int(11) NOT NULL,
   `nombre` varchar(45) CHARACTER SET latin1 NOT NULL,
@@ -384,9 +422,10 @@ CREATE TABLE `materia` (
 -- Volcado de datos para la tabla `materia`
 --
 
-INSERT INTO `materia` (`idmateria`, `nombre`, `estado`) VALUES(1, 'Ingles', 0);
-INSERT INTO `materia` (`idmateria`, `nombre`, `estado`) VALUES(3, 'Fisica II', 1);
-INSERT INTO `materia` (`idmateria`, `nombre`, `estado`) VALUES(4, 'Matematica', 1);
+INSERT INTO `materia` (`idmateria`, `nombre`, `estado`) VALUES
+(1, 'Ingles', 0),
+(3, 'Fisica II', 1),
+(4, 'Matematica', 1);
 
 -- --------------------------------------------------------
 
@@ -394,7 +433,6 @@ INSERT INTO `materia` (`idmateria`, `nombre`, `estado`) VALUES(4, 'Matematica', 
 -- Estructura de tabla para la tabla `nacionalidad`
 --
 
-DROP TABLE IF EXISTS `nacionalidad`;
 CREATE TABLE `nacionalidad` (
   `idNacionalidad` int(11) NOT NULL,
   `pais` varchar(45) CHARACTER SET utf8 NOT NULL
@@ -404,8 +442,9 @@ CREATE TABLE `nacionalidad` (
 -- Volcado de datos para la tabla `nacionalidad`
 --
 
-INSERT INTO `nacionalidad` (`idNacionalidad`, `pais`) VALUES(1, 'Costa Rica');
-INSERT INTO `nacionalidad` (`idNacionalidad`, `pais`) VALUES(2, 'Nicaragua');
+INSERT INTO `nacionalidad` (`idNacionalidad`, `pais`) VALUES
+(1, 'Costa Rica'),
+(2, 'Nicaragua');
 
 -- --------------------------------------------------------
 
@@ -413,7 +452,6 @@ INSERT INTO `nacionalidad` (`idNacionalidad`, `pais`) VALUES(2, 'Nicaragua');
 -- Estructura de tabla para la tabla `nota`
 --
 
-DROP TABLE IF EXISTS `nota`;
 CREATE TABLE `nota` (
   `idnota` int(11) NOT NULL,
   `trabajo_cotidiano` decimal(8,2) DEFAULT NULL,
@@ -428,7 +466,6 @@ CREATE TABLE `nota` (
 -- Estructura de tabla para la tabla `nota_constante`
 --
 
-DROP TABLE IF EXISTS `nota_constante`;
 CREATE TABLE `nota_constante` (
   `idnota_constante` int(11) NOT NULL,
   `grado` int(11) NOT NULL,
@@ -444,7 +481,6 @@ CREATE TABLE `nota_constante` (
 -- Estructura de tabla para la tabla `persona`
 --
 
-DROP TABLE IF EXISTS `persona`;
 CREATE TABLE `persona` (
   `idPersona` int(11) NOT NULL,
   `cedula` varchar(45) CHARACTER SET utf8 NOT NULL,
@@ -456,25 +492,54 @@ CREATE TABLE `persona` (
   `telefono` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
   `telefono_secundario` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
   `email` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
-  `nota_medica` varchar(650) CHARACTER SET utf8 DEFAULT NULL,
   `idNacionalidad` int(11) NOT NULL,
-  `disponible` tinyint(1) NOT NULL DEFAULT '1'
+  `disponible` tinyint(1) NOT NULL DEFAULT '1',
+  `nota_medica` varchar(650) COLLATE utf8mb4_unicode_ci DEFAULT 'Ninguno'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `persona`
 --
 
-INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`, `sexo`, `direccion`, `telefono`, `telefono_secundario`, `email`, `idNacionalidad`, `disponible`) VALUES(1, '1', 'Julian', 'Perez', 'Fernandez', 'Masculino', 'Heredia', '8', NULL, '@vegeto', 1, 1);
-INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`, `sexo`, `direccion`, `telefono`, `telefono_secundario`, `email`, `idNacionalidad`, `disponible`) VALUES(10, '3085254', 'JUAN JOSE', 'AVALOS', 'PORA', 'masculino', 'ALSJUELA', '1', NULL, NULL, 1, 1);
-INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`, `sexo`, `direccion`, `telefono`, `telefono_secundario`, `email`, `idNacionalidad`, `disponible`) VALUES(11, '12059826', 'Luisa', 'Montero', 'Chacon', 'Femenino', 'Aserri', NULL, NULL, NULL, 1, 1);
-INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`, `sexo`, `direccion`, `telefono`, `telefono_secundario`, `email`, `idNacionalidad`, `disponible`) VALUES(12, '5649111', 'Miguel', 'Orozco', 'Sanchez', 'Masculino', 'Tarbaca', NULL, NULL, NULL, 1, 1);
-INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`, `sexo`, `direccion`, `telefono`, `telefono_secundario`, `email`, `idNacionalidad`, `disponible`) VALUES(13, '45524685', 'Fernanda', 'Rodriguez', 'Morera', 'Femenino', 'Desamparados', NULL, NULL, NULL, 1, 1);
-INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`, `sexo`, `direccion`, `telefono`, `telefono_secundario`, `email`, `idNacionalidad`, `disponible`) VALUES(14, '305454685', 'Esteban', 'Jimenez', 'Ferrer', 'Masculino', 'Aserri', NULL, NULL, NULL, 2, 1);
-INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`, `sexo`, `direccion`, `telefono`, `telefono_secundario`, `email`, `idNacionalidad`, `disponible`) VALUES(15, '638268557', 'Pablo', 'Hernandez', 'Flores', 'Masculino', 'Aserri', NULL, NULL, NULL, 1, 1);
-INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`, `sexo`, `direccion`, `telefono`, `telefono_secundario`, `email`, `idNacionalidad`, `disponible`) VALUES(38, '307680159', 'Marco', 'Chinchila', 'Brenes ', 'Masculino', 'Desamparados', '5465657', NULL, 'mchinchilla@mail.com', 1, 1);
-INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`, `sexo`, `direccion`, `telefono`, `telefono_secundario`, `email`, `idNacionalidad`, `disponible`) VALUES(39, '107680159', 'Carlos', 'Alfaro', 'Gonzales', 'Masculino', 'Heredia', '1111', NULL, 'asd@gmail.com', 1, 1);
-INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`, `sexo`, `direccion`, `telefono`, `telefono_secundario`, `email`, `idNacionalidad`, `disponible`) VALUES(41, '507680129', 'Marta As', 'Chinchilla', '.Saborio', 'Femenino', 'Moravia', '24456767', NULL, 'mSaborio@gmail.com', 1, 1);
+INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`, `sexo`, `direccion`, `telefono`, `telefono_secundario`, `email`, `idNacionalidad`, `disponible`, `nota_medica`) VALUES
+(1, '1', 'Julian', 'Perez', 'Fernandez', 'Masculino', 'Heredia', '8', NULL, '@vegeto', 1, 0, 'Ninguno'),
+(10, '3085254', 'JUAN JOSE', 'AVALOS', 'PORA', 'masculino', 'ALSJUELA', '1', NULL, NULL, 1, 1, 'Ninguno'),
+(11, '12059826', 'Luisa', 'Montero', 'Chacon', 'Femenino', 'Aserri', NULL, NULL, NULL, 1, 1, 'Ninguno'),
+(12, '5649111', 'Miguel', 'Orozco', 'Sanchez', 'Masculino', 'Tarbaca', NULL, NULL, NULL, 1, 1, 'Ninguno'),
+(13, '45524685', 'Fernanda', 'Rodriguez', 'Morera', 'Femenino', 'Desamparados', NULL, NULL, NULL, 1, 1, 'Ninguno'),
+(14, '305454685', 'Esteban', 'Jimenez', 'Ferrer', 'Masculino', 'Aserri', NULL, NULL, NULL, 2, 1, 'Ninguno'),
+(15, '638268557', 'Pablo', 'Hernandez', 'Flores', 'Masculino', 'Aserri', NULL, NULL, NULL, 1, 1, 'Ninguno'),
+(38, '307680159', 'Marco', 'Chinchila', 'Brenes ', 'Masculino', 'Desamparados', '5465657', NULL, 'mchinchilla@mail.com', 1, 1, 'Ninguno'),
+(39, '107680159', 'Carlos', 'Alfaro', 'Gonzales', 'Masculino', 'Heredia', '1111', NULL, 'asd@gmail.com', 1, 1, 'Ninguno'),
+(41, '507680129', 'Marta Francisco', 'Chinchilla', '.Saborio', 'Femenino', 'San Antonio de Desamparados', '24456767', NULL, 'mSaborio@gmail.com', 1, 1, 'Ninguno'),
+(44, '305080238', 'Francisco', 'Flores', 'Chacon', 'Masculino', 'De la escuela publica de Aserri 150 mts al sur', '60439934', NULL, 'julian4nite@gmail.com', 1, 1, 'Ninguno'),
+(69, '207680159', 'Oscar', 'Eduardo', 'Soto', 'Masculino', 'Alajuela, Atenas, Costa Rica', '63103970', NULL, 'oscarsoto0407ss97@gmail.com', 1, 1, 'Ninguno'),
+(75, '5', 'Ileana Patricia', 'Soto', 'Leon', 'Femenino', 'Alajuela , Atenas', '12', NULL, 'oscarsosato0407sa97@gmail.com', 1, 1, 'Ninguno'),
+(78, '1704', 'Prueba', 'Pruebs', 'Test', 'Masculino', 'ASD', '54544323', NULL, 'oscasasasrsoto0407sa97@gmail.com', 1, 1, 'Ninguno'),
+(79, '9904', 'Prueba', 'Prueba', 'Prueba', 'Femenino', 'Atenas\r\nCosta Rica', '63103970', NULL, 'oscarsoto040797@gmail.com', 1, 1, 'Ninguno'),
+(80, '208040404', 'Martin', 'Soto', 'Saborio', 'Masculino', 'Alajuela', NULL, NULL, NULL, 1, 1, 'Ninguno'),
+(81, '777', 'Julian', 'Perez ', 'Fernandez', 'Masculino', 'Heredia', NULL, NULL, NULL, 1, 1, 'Ninguna'),
+(82, '6765', 'Nombre', 'Ap1', 'Ap2', 'Masculino', 'Alajuela', NULL, NULL, NULL, 1, 1, 'Nota'),
+(83, '6765', 'Nombre', 'Ap1', 'Ap2', 'Masculino', 'Alajuela', NULL, NULL, NULL, 1, 1, 'Nota'),
+(84, '1408', 'Estudiante 1409', 'Primero A2', 'Segundo A2', 'Masculino', 'San Jose', NULL, NULL, NULL, 1, 1, 'Azucar'),
+(85, '1408', 'Estudiante 1409', 'Primero A2', 'Segundo A2', 'Masculino', 'San Jose', NULL, NULL, NULL, 1, 1, 'Azucar'),
+(86, '9905', 'Director', '9905', '9905', 'Masculino', 'Desamparados', '9905', NULL, 'ileana1sl30@gmail.com', 1, 1, 'Ninguno'),
+(87, '9906', 'Marcos', 'Jimenez', '..Arguedas', 'Masculino', 'Alajuela', '28890998', '', NULL, 1, 1, 'Ninguno'),
+(88, '9999', 'Encargado', 'Ap1', 'Ap2', 'Masculino', 'Alajuela', '25466778', '88888888', NULL, 1, 1, 'Ninguno'),
+(89, '9999', 'Encargado', 'Ap1', 'Ap2', 'Masculino', 'Alajuela', '25466778', '88888888', NULL, 1, 1, 'Ninguno'),
+(90, '9910', '9910', 'Ap1', 'Ap2', 'Masculino', 'Heredia', 'Tel1', 'Tel2', NULL, 1, 1, 'Ninguno'),
+(91, '9910', '9910', 'Ap1', 'Ap2', 'Masculino', 'Heredia', 'Tel1', 'Tel2', NULL, 1, 1, 'Ninguno'),
+(92, '9911', 'Nombre', 'Ap1', 'Ap2', 'Masculino', 'Atenas', 'tel1', 'tel2', NULL, 1, 1, 'Ninguno'),
+(93, '9911', 'Nombre', 'Ap1', 'Ap2', 'Masculino', 'Atenas', 'tel1', 'tel2', NULL, 1, 1, 'Ninguno'),
+(94, '1213', '2132', '1212', '1212', 'Masculino', '1212', '1212', '1212', NULL, 1, 1, 'Ninguno'),
+(170, '871704', '1', '1', '..1', 'Masculino', '1', '1', '', NULL, 1, 1, 'Ninguno'),
+(171, '871704', '1', '1', '..1', 'Masculino', '1', '1', '', NULL, 1, 1, 'Ninguno'),
+(172, '9139', '9139', 'Ap', 'Ap', 'Masculino', 'Dire', '2', '2', NULL, 1, 1, 'Ninguno'),
+(173, '9139', '9139', 'Ap', 'Ap', 'Masculino', 'Dire', '2', '2', NULL, 1, 1, 'Ninguno'),
+(174, '1256', '1', '1', '1', 'Masculino', '1', '1', '1', NULL, 1, 1, 'Ninguno'),
+(175, '1256', '1', '1', '1', 'Masculino', '1', '1', '1', NULL, 1, 1, 'Ninguno'),
+(176, '4573', '2', '2', '.....2', 'Masculino', '2', '2', '', NULL, 1, 1, 'Ninguno'),
+(177, '4573', '2', '2', '.....2', 'Masculino', '2', '2', '', NULL, 1, 1, 'Ninguno');
 
 -- --------------------------------------------------------
 
@@ -482,7 +547,6 @@ INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`
 -- Estructura de tabla para la tabla `profesor`
 --
 
-DROP TABLE IF EXISTS `profesor`;
 CREATE TABLE `profesor` (
   `idprofesor` int(11) NOT NULL,
   `Persona_idPersona` int(11) NOT NULL
@@ -492,10 +556,17 @@ CREATE TABLE `profesor` (
 -- Volcado de datos para la tabla `profesor`
 --
 
-INSERT INTO `profesor` (`idprofesor`, `Persona_idPersona`) VALUES(1, 1);
-INSERT INTO `profesor` (`idprofesor`, `Persona_idPersona`) VALUES(6, 38);
-INSERT INTO `profesor` (`idprofesor`, `Persona_idPersona`) VALUES(7, 39);
-INSERT INTO `profesor` (`idprofesor`, `Persona_idPersona`) VALUES(8, 41);
+INSERT INTO `profesor` (`idprofesor`, `Persona_idPersona`) VALUES
+(1, 1),
+(6, 38),
+(7, 39),
+(8, 41),
+(9, 44),
+(20, 69),
+(23, 75),
+(25, 78),
+(26, 79),
+(27, 86);
 
 -- --------------------------------------------------------
 
@@ -503,21 +574,26 @@ INSERT INTO `profesor` (`idprofesor`, `Persona_idPersona`) VALUES(8, 41);
 -- Estructura de tabla para la tabla `profesor_grado`
 --
 
-DROP TABLE IF EXISTS `profesor_grado`;
 CREATE TABLE `profesor_grado` (
   `idProfesor` int(11) NOT NULL,
-  `idGrado` int(11) NOT NULL,
-  `annio` int(11) NOT NULL
+  `idGrado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `profesor_grado`
 --
 
-INSERT INTO `profesor_grado` (`idProfesor`, `idGrado`, `annio`) VALUES(1, 1, 2018);
-INSERT INTO `profesor_grado` (`idProfesor`, `idGrado`, `annio`) VALUES(6, 1, 2018);
-INSERT INTO `profesor_grado` (`idProfesor`, `idGrado`, `annio`) VALUES(7, 2, 2018);
-INSERT INTO `profesor_grado` (`idProfesor`, `idGrado`, `annio`) VALUES(8, 1, 2019);
+INSERT INTO `profesor_grado` (`idProfesor`, `idGrado`) VALUES
+(1, 1),
+(6, 1),
+(7, 2),
+(8, 1),
+(9, 3),
+(20, 1),
+(23, 2),
+(25, 1),
+(26, 1),
+(27, 1);
 
 -- --------------------------------------------------------
 
@@ -525,7 +601,6 @@ INSERT INTO `profesor_grado` (`idProfesor`, `idGrado`, `annio`) VALUES(8, 1, 201
 -- Estructura de tabla para la tabla `profesor_materia_grado`
 --
 
-DROP TABLE IF EXISTS `profesor_materia_grado`;
 CREATE TABLE `profesor_materia_grado` (
   `profesor_idprofesor` int(11) NOT NULL,
   `materia_idmateria` int(11) NOT NULL,
@@ -538,7 +613,6 @@ CREATE TABLE `profesor_materia_grado` (
 -- Estructura de tabla para la tabla `puesto`
 --
 
-DROP TABLE IF EXISTS `puesto`;
 CREATE TABLE `puesto` (
   `idPuesto` int(11) NOT NULL,
   `nombrePuesto` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
@@ -549,8 +623,9 @@ CREATE TABLE `puesto` (
 -- Volcado de datos para la tabla `puesto`
 --
 
-INSERT INTO `puesto` (`idPuesto`, `nombrePuesto`, `descrpcionPuesto`) VALUES(1, 'Conserje', 'Encargado de la limpieza de la institucion y mucho mas');
-INSERT INTO `puesto` (`idPuesto`, `nombrePuesto`, `descrpcionPuesto`) VALUES(2, 'Guardia', 'Seguridad II');
+INSERT INTO `puesto` (`idPuesto`, `nombrePuesto`, `descrpcionPuesto`) VALUES
+(1, 'Conserje', 'Encargado de la limpieza de la institucion y mucho mas'),
+(2, 'Guardia', 'Seguridad II');
 
 -- --------------------------------------------------------
 
@@ -558,11 +633,18 @@ INSERT INTO `puesto` (`idPuesto`, `nombrePuesto`, `descrpcionPuesto`) VALUES(2, 
 -- Estructura de tabla para la tabla `rol`
 --
 
-DROP TABLE IF EXISTS `rol`;
 CREATE TABLE `rol` (
   `IDROL` int(11) NOT NULL,
   `tiporol` varchar(45) CHARACTER SET utf8 DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `rol`
+--
+
+INSERT INTO `rol` (`IDROL`, `tiporol`) VALUES
+(1, 'Profesor'),
+(2, 'Director');
 
 -- --------------------------------------------------------
 
@@ -570,13 +652,25 @@ CREATE TABLE `rol` (
 -- Estructura de tabla para la tabla `usuario`
 --
 
-DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
   `idUsuario` int(11) NOT NULL,
   `idPersona` int(11) DEFAULT NULL,
   `idRol` int(11) DEFAULT NULL,
-  `password` varchar(75) CHARACTER SET utf8 DEFAULT NULL
+  `password` varchar(150) CHARACTER SET utf8 DEFAULT NULL,
+  `cambio` tinyint(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`idUsuario`, `idPersona`, `idRol`, `password`, `cambio`) VALUES
+(1, 38, 1, '$2y$09$MmyH9eXuU0kyGbfmlNV6ze4d7pBJr.cK0brq4P0R/rBMOG0pFQkh.', 0),
+(3, 69, 1, '$2y$09$VO0k5.zgyQILsqJfrRZy4eSRIm.LCRH/wRh5ZXi1ee/INLX/DgTcW', 1),
+(7, 75, 1, '$2y$09$9TL7z6JBchfWwnnp1afXEOFOTW.NeHNBMNXZ2khiIFMY/ItUVkrY2', 0),
+(9, 78, 1, '$2y$09$nept5jO7rr.E9PuKkLmPSeHrOjHKv1ZOSAlxA2ndCshVo7HCFK/um', 0),
+(10, 79, 1, '$2y$09$wM2ozn/.RC9QoWiEDLmZ5.SzbjLC4xfD2j0uiROP5zZKQIwJLnkMa', 0),
+(11, 86, 2, '$2y$09$wM2ozn/.RC9QoWiEDLmZ5.SzbjLC4xfD2j0uiROP5zZKQIwJLnkMa', 1);
 
 -- --------------------------------------------------------
 
@@ -584,7 +678,6 @@ CREATE TABLE `usuario` (
 -- Estructura Stand-in para la vista `vbeca`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vbeca`;
 CREATE TABLE `vbeca` (
 `cedula` varchar(45)
 ,`nombre` varchar(45)
@@ -600,7 +693,6 @@ CREATE TABLE `vbeca` (
 -- Estructura Stand-in para la vista `vdirector`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vdirector`;
 CREATE TABLE `vdirector` (
 `CEDULA` varchar(45)
 ,`NOMBRE` varchar(45)
@@ -619,7 +711,6 @@ CREATE TABLE `vdirector` (
 -- Estructura Stand-in para la vista `vista_alumno`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vista_alumno`;
 CREATE TABLE `vista_alumno` (
 `cedula` varchar(45)
 ,`nombre` varchar(45)
@@ -629,7 +720,10 @@ CREATE TABLE `vista_alumno` (
 ,`pais` varchar(45)
 ,`nombreGrado` varchar(45)
 ,`annio` int(11)
+,`idGrado` int(11)
 ,`direccion` varchar(100)
+,`nota_medica` varchar(650)
+,`disponible` tinyint(1)
 );
 
 -- --------------------------------------------------------
@@ -638,7 +732,6 @@ CREATE TABLE `vista_alumno` (
 -- Estructura Stand-in para la vista `vista_empleado`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vista_empleado`;
 CREATE TABLE `vista_empleado` (
 `cedula` varchar(45)
 ,`nombre` varchar(45)
@@ -655,10 +748,28 @@ CREATE TABLE `vista_empleado` (
 -- --------------------------------------------------------
 
 --
+-- Estructura Stand-in para la vista `vista_encargado`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `vista_encargado` (
+`cedula` varchar(45)
+,`nombre` varchar(45)
+,`apellido1` varchar(45)
+,`apellido2` varchar(45)
+,`telefono` varchar(45)
+,`telefono_secundario` varchar(45)
+,`direccion` varchar(100)
+,`sexo` varchar(20)
+,`pais` varchar(45)
+,`disponible` tinyint(1)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura Stand-in para la vista `vista_profesor`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vista_profesor`;
 CREATE TABLE `vista_profesor` (
 `CEDULA` varchar(45)
 ,`NOMBRE` varchar(45)
@@ -672,25 +783,6 @@ CREATE TABLE `vista_profesor` (
 ,`DISPONIBLE` tinyint(1)
 ,`nombreGrado` varchar(45)
 ,`annio` int(11)
-);
-
--- --------------------------------------------------------
-
---
--- Estructura Stand-in para la vista `vprofesor`
--- (Véase abajo para la vista actual)
---
-DROP VIEW IF EXISTS `vprofesor`;
-CREATE TABLE `vprofesor` (
-`CEDULA` varchar(45)
-,`NOMBRE` varchar(45)
-,`APELLIDOS` varchar(91)
-,`SEXO` varchar(20)
-,`DIRECCION` varchar(100)
-,`TELEFONO` varchar(45)
-,`EMAIL` varchar(45)
-,`PAIS` varchar(45)
-,`DISPONIBLE` tinyint(1)
 );
 
 -- --------------------------------------------------------
@@ -718,7 +810,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vista_alumno`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_alumno`  AS  select `p`.`cedula` AS `cedula`,`p`.`nombre` AS `nombre`,`p`.`apellido1` AS `apellido1`,`p`.`apellido2` AS `apellido2`,`p`.`sexo` AS `sexo`,`n`.`pais` AS `pais`,`g`.`nombreGrado` AS `nombreGrado`,`ga`.`annio` AS `annio`,`p`.`direccion` AS `direccion`,`p`.`nota_medica` AS `nota_medica` from ((((`alumno` `a` join `persona` `p`) join `nacionalidad` `n`) join `grado` `g`) join `grado_alumno` `ga`) where ((`a`.`Persona_idPersona` = `p`.`idPersona`) and (`p`.`idNacionalidad` = `n`.`idNacionalidad`) and (`a`.`idalumno` = `ga`.`alumno_idalumno`) and (`ga`.`grado_idgrado` = `g`.`idgrado`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_alumno`  AS  select `p`.`cedula` AS `cedula`,`p`.`nombre` AS `nombre`,`p`.`apellido1` AS `apellido1`,`p`.`apellido2` AS `apellido2`,`p`.`sexo` AS `sexo`,`n`.`pais` AS `pais`,`g`.`nombreGrado` AS `nombreGrado`,`g`.`annio` AS `annio`,`g`.`idgrado` AS `idGrado`,`p`.`direccion` AS `direccion`,`p`.`nota_medica` AS `nota_medica`,`p`.`disponible` AS `disponible` from ((((`alumno` `a` join `persona` `p`) join `nacionalidad` `n`) join `grado` `g`) join `grado_alumno` `ga`) where ((`a`.`Persona_idPersona` = `p`.`idPersona`) and (`p`.`idNacionalidad` = `n`.`idNacionalidad`) and (`a`.`idalumno` = `ga`.`alumno_idalumno`) and (`ga`.`grado_idgrado` = `g`.`idgrado`)) ;
 
 -- --------------------------------------------------------
 
@@ -732,20 +824,20 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Estructura para la vista `vista_profesor`
+-- Estructura para la vista `vista_encargado`
 --
-DROP TABLE IF EXISTS `vista_profesor`;
+DROP TABLE IF EXISTS `vista_encargado`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_profesor`  AS  select `p`.`cedula` AS `CEDULA`,`p`.`nombre` AS `NOMBRE`,`p`.`apellido1` AS `APELLIDO1`,`p`.`apellido2` AS `APELLIDO2`,`p`.`sexo` AS `SEXO`,`p`.`direccion` AS `DIRECCION`,`p`.`telefono` AS `TELEFONO`,`p`.`email` AS `EMAIL`,`n`.`pais` AS `PAIS`,`p`.`disponible` AS `DISPONIBLE`,`g`.`nombreGrado` AS `nombreGrado`,`pg`.`annio` AS `annio` from ((((`persona` `p` join `profesor` `pe`) join `nacionalidad` `n`) join `grado` `g`) join `profesor_grado` `pg`) where ((`p`.`idPersona` = `pe`.`Persona_idPersona`) and (`pe`.`idprofesor` = `pg`.`idProfesor`) and (`g`.`idgrado` = `pg`.`idGrado`) and (`p`.`idNacionalidad` = `n`.`idNacionalidad`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_encargado`  AS  select `p`.`cedula` AS `cedula`,`p`.`nombre` AS `nombre`,`p`.`apellido1` AS `apellido1`,`p`.`apellido2` AS `apellido2`,`p`.`telefono` AS `telefono`,`p`.`telefono_secundario` AS `telefono_secundario`,`p`.`direccion` AS `direccion`,`p`.`sexo` AS `sexo`,`n`.`pais` AS `pais`,`p`.`disponible` AS `disponible` from ((`persona` `p` join `encargado` `e`) join `nacionalidad` `n`) where ((`p`.`idPersona` = `e`.`Persona_idPersona`) and (`p`.`idNacionalidad` = `n`.`idNacionalidad`)) ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura para la vista `vprofesor`
+-- Estructura para la vista `vista_profesor`
 --
-DROP TABLE IF EXISTS `vprofesor`;
+DROP TABLE IF EXISTS `vista_profesor`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vprofesor`  AS  select `pe`.`cedula` AS `CEDULA`,`pe`.`nombre` AS `NOMBRE`,concat(`pe`.`apellido1`,' ',`pe`.`apellido2`) AS `APELLIDOS`,`pe`.`sexo` AS `SEXO`,`pe`.`direccion` AS `DIRECCION`,`pe`.`telefono` AS `TELEFONO`,`pe`.`email` AS `EMAIL`,`n`.`pais` AS `PAIS`,`pe`.`disponible` AS `DISPONIBLE` from ((`profesor` `pr` join `persona` `pe`) join `nacionalidad` `n`) where ((`pe`.`idPersona` = `pr`.`idprofesor`) and (`n`.`idNacionalidad` = `pe`.`idNacionalidad`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_profesor`  AS  select `p`.`cedula` AS `CEDULA`,`p`.`nombre` AS `NOMBRE`,`p`.`apellido1` AS `APELLIDO1`,`p`.`apellido2` AS `APELLIDO2`,`p`.`sexo` AS `SEXO`,`p`.`direccion` AS `DIRECCION`,`p`.`telefono` AS `TELEFONO`,`p`.`email` AS `EMAIL`,`n`.`pais` AS `PAIS`,`p`.`disponible` AS `DISPONIBLE`,`g`.`nombreGrado` AS `nombreGrado`,`g`.`annio` AS `annio` from ((((`persona` `p` join `profesor` `pe`) join `nacionalidad` `n`) join `grado` `g`) join `profesor_grado` `pg`) where ((`p`.`idPersona` = `pe`.`Persona_idPersona`) and (`pe`.`idprofesor` = `pg`.`idProfesor`) and (`g`.`idgrado` = `pg`.`idGrado`) and (`p`.`idNacionalidad` = `n`.`idNacionalidad`)) ;
 
 --
 -- Índices para tablas volcadas
@@ -923,7 +1015,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `alumno`
 --
 ALTER TABLE `alumno`
-  MODIFY `idalumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idalumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `asistencia`
@@ -953,13 +1045,13 @@ ALTER TABLE `empleado`
 -- AUTO_INCREMENT de la tabla `encargado`
 --
 ALTER TABLE `encargado`
-  MODIFY `idencargado` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idencargado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT de la tabla `grado`
 --
 ALTER TABLE `grado`
-  MODIFY `idgrado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idgrado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `materia`
@@ -989,31 +1081,31 @@ ALTER TABLE `nota_constante`
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
 
 --
 -- AUTO_INCREMENT de la tabla `profesor`
 --
 ALTER TABLE `profesor`
-  MODIFY `idprofesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idprofesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `puesto`
 --
 ALTER TABLE `puesto`
-  MODIFY `idPuesto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idPuesto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `IDROL` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IDROL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restricciones para tablas volcadas

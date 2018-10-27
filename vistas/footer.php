@@ -1,7 +1,7 @@
 
 <script src="../public/js/jquery-3.1.1.min.js"></script>
 <script src="../public/datatables/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="../public/datatables/responsiveDatables.js"></script>
+<script type="text/javascript" src="../public/datatables/responsiveDatables.js"></script> 
 <script src="../public/js/materialize.min.js"></script>
 
 
@@ -15,7 +15,17 @@
 });
 </script>
 
+<script>
+ function redireccionarAlumno(){
+    window.location.href = "../vistas/UIMantenimientoAlumno.php#mostrarform";
+}
+function redireccionarEncargado(){
+    window.location.href = "../vistas/UIMantenimientoEncargado.php#mostrarform";
+}
 
+
+
+</script>
 <script type="text/javascript">
  $(document).ready(function() {
     $('#descripcionPuesto').characterCounter();

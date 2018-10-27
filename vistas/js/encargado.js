@@ -6,7 +6,9 @@ $(document).ready(function() {
 
 
 function init(){
-    $('.modal').modal();
+  cargarAlumnos(false,0);
+ 
+
   limpiar();
   mostrarform(false);
   mostrarbotones(false);
@@ -15,19 +17,10 @@ function init(){
   listar();
     cargarPais();
     cargarGrado();
-   $("#formAlumno").on("submit",function(e)
-   {
-    guardarEncarda(e);
-   })
-
    $("#formEncargado").on("submit",function(e)
    {
-    guardar(e);
+    guardarEncargado(e);
    })
-
- 
-      
-
   }
 
   $(document).ready(function (){
@@ -37,11 +30,11 @@ function init(){
 
 
 
-
 function mostrarform(bool)
 {
 if (bool)
 {
+  
   cargarPais();
   $("#tabla").hide();
   $("#formulario").show();
@@ -59,13 +52,13 @@ function mostrarbotones(bool)
 {
 if (bool)
 {
-  $('#botones').show();
+  $('.botones').show();
   $('#btnguardar').hide();
 }
 else
 {
   $('#btnguardar').show();
-  $('#botones').hide();
+  $('.botones').hide();
 }
 }
 //Función cancelarform
@@ -79,14 +72,14 @@ function cancelarform()
 function listar()
 {
   limpiar();
-  tabla=$('#tbAlumno').dataTable(
+  tabla=$('#tbEncargado').dataTable(
   {
     "aProcessing": true,//Activamos el procesamiento del datatables
       "aServerSide": true,//Paginación y filtrado realizados por el servidor
       dom: 'Bfrtip',//Definimos los elementos del control de tabla
        "ajax":
         {
-          url: '../controlador/alumno.php?opcion=listar',
+          url: '../controlador/encargado.php?opcion=listar',
           type : "get",
           dataType : "json",
           error: function(e){
@@ -100,14 +93,14 @@ function listar()
 }
 //Función para guardar o editar
 
-function guardar(e)
+function guardarEncargado(e)
 {
   console.log('ENTRANDO 2...');
   e.preventDefault(); //No se activará la acción predeterminada del evento
-  var DATOS = ($("#formAlumno").serialize());
+  var DATOS = ($("#formEncargado").serialize());
   console.log('Datos de formulario'+DATOS);
   $.ajax({
-    url: "../controlador/alumno.php?opcion=guardar",
+    url: "../controlador/encargado.php?opcion=guardar",
       method: "POST",
       data: DATOS,
 
@@ -154,25 +147,59 @@ function limpiar(){
 }
 function mostrar(cedula)
 {
-$.post("../controlador/alumno.php?opcion=mostrar",{cedula : cedula}, function(data, status)
+$.post("../controlador/encargado.php?opcion=mostrar",{cedula : cedula}, function(data, status)
 {
+
   limpiar();
   cargarPais();
   console.log(data);
   mostrarform(true);
   mostrarbotones(true);
   data = JSON.parse(data);
-  $("#nombre").val(data.nombre);
-  $("#apellido1").val(data.apellido1);
-  $("#apellido2").val(data.apellido2);
-  $("#cedula").val(data.cedula);
-  $("#direccion").val(data.direccion);
-  $("#sexo").val(data.sexo);
-  $("#nacionalidad").val(data.pais);
-  $("#nota").val(data.nota_medica);
+  $("#nombre").val(data.NOMBRE);
+  $("#apellido1").val(data.APELLIDO1);
+  $("#apellido2").val(data.APELLIDO2);
+  $("#cedula").val(data.CEDULA);
+  $("#telefono").val(data.TELEFONO);
+  $("#tel_secundario").val(data.TELEFONO_SECUNDARIO);
+  $("#direccion").val(data.DIRECCION);
+  $("#sexo").val(data.SEXO);
+  $("#nacionalidad").val(data.PAIS);
 
 })
+
+cargarAlumnos(true,cedula);
+$(".js-example-responsive").prop("disabled", true);
+
 }
+function activarSelect(){
+  
+  $("#estudiante").prop("disabled", false);
+  console.log('Aprobado1');
+  cargarAlumnos(false,0);
+  console.log('Aprobado');
+ 
+
+}
+
+function buscar()
+{
+  cedula = $('#cedulaE').val();
+  console.log('cedula'+cedula);
+$.post("../controlador/encargado.php?opcion=mostrar",{cedulaE : cedulaE}, function(data, status)
+{
+  data = JSON.parse(data);
+  $("#nombreE").val(data.nombre_estudiante);
+})
+}
+
+function mostrarEstudiante(cedula,nombre,ap1,ap2){
+  mostrarform(true);
+  var nombreCompleto = nombre+' '+ap1+' '+ap2;
+  $("#nombreE").val(nombre);
+  $('#cedulaE').val(cedula);
+}
+
 function cargarPais(){
   $.ajax({
       url: "../controlador/profesor.php?opcion=cargarPais",
@@ -197,10 +224,10 @@ function cargarPais(){
 function editar()
 {
    //No se activará la acción predeterminada del evento
-  var DATOS = ($("#formAlumno").serialize());
+  var DATOS = ($("#formEncargado").serialize());
   console.log('DATOS ENVIADOS CON JS'+DATOS);
   $.ajax({
-      url: "../controlador/alumno.php?opcion=editar",
+      url: "../controlador/encargado.php?opcion=editar",
       method: "POST",
       data: DATOS,
 
@@ -221,7 +248,7 @@ function editar()
 
 function cargarGrupo(){
   $.ajax({
-      url: "../controlador/alumno.php?opcion=cargarGrupo",
+      url: "../controlador/encargado.php?opcion=cargarGrupo",
       method: "POST",
       dataType : "json",
       contentType: "application/json; charset=utf-8",
@@ -261,6 +288,40 @@ function cargarGrado(){
 
 }
 
+function cargarAlumnos(bool,ced){
+console.log(ced+'cedula');
+  $('.js-example-responsive').select2();
+  $.ajax({
+      // url: bool? "../controlador/encargado.php?opcion=cargarEstudianteEncargado":"../controlador/encargado.php?opcion=cargarEstudiante",
+      // method: "POST",
+      type: "GET",
+    url:  bool? "../controlador/encargado.php?opcion=cargarEstudianteEncargado":"../controlador/encargado.php?opcion=cargarEstudiante",
+    data: {post: ced},
+      dataType : "json",
+      contentType: "application/json; charset=utf-8",
+      success: function(data)
+      {
+          $('#estudiante').empty();
+          $('#estudiante').append("<option>Seleccione un estudiante</option>");
+          $.each(data,function(i,item){
+              if(bool){
+                $('#estudiante').append('<option value="'+data[i].idalumno+'" selected="selected">'+data[i].nombre+'</option>');
+              }else{
+                $('#estudiante').append('<option value="'+data[i].idalumno+'">'+data[i].nombre+'</option>');
+              } 
+              
+
+          });
+      }
+
+  });
+
+}
+
 
 
 init();
+
+
+
+
