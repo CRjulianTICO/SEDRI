@@ -3,6 +3,8 @@
 require_once "../modelo/Asistencia.php";
 $instAsistencia = new Asistencia();
 
+
+
 session_start();
     
     require_once "../modelo/AutenticacionTokens.php";
@@ -12,16 +14,17 @@ session_start();
     
     $dataToken = [];
     $dataTokenEncrip = $instAuth->GetData($token);
-
+	
     foreach ($dataTokenEncrip as $key => $value) {
         $dataToken += ["".$key."" => $value];
     }
 	$rol = $dataToken["rol"];
+	$grado = $dataToken["grado"];
+	$idgrado = $dataToken["idgrado"];
+	
     
-    $idgrado = $dataToken["idgrado"];
-    
-    //print_r($dataToken);
-    //print_r($idgrado);
+   
+	
 
 
 $cedula= isset($_POST["cedula"])?limpiarCadena($_POST["cedula"]):"";
@@ -39,12 +42,19 @@ $cont = 1;
 
 switch ($_GET["opcion"]){
 	case 'guardar':
+	
 			if($nota==null || $nota == ""){
-			$nota = 'No se ingresaron comentarios.';
+				$nota = 'No se ingresaron comentarios.';
 			}
 
-			$rspta=$instAsistencia->insertaAsistencia($estado,$nota,$cedula,$dtFecha,$idgrado);
-	 		echo $rspta ? "Registrado" : "Error";
+			$res=$instAsistencia->verificarAsistenciasActual($grado,$dtFecha);
+			
+			if($res<5){
+				$rspta=$instAsistencia->insertaAsistencia($estado,$nota,$cedula,$dtFecha,$idgrado);
+				echo $rspta ? "Registrado" : "Error";
+			}else{
+				echo "0";
+			}
 			
 	break;
 
@@ -72,14 +82,7 @@ switch ($_GET["opcion"]){
 				"6"=>"<div  class='input-field inline'>
                         <input name='nota' id='txtNota' type='text' class='validate' form='frm".$cont."'>
                         <label for='txtNota'>Nota</label>
-					  </div>"/*,
-				"7"=>	  "<div class='row'>
-                		<div class='col s4'>
-                    <button form='frm".$cont."' class='btn waves-effect waves-light green guardaEst' type='submit' name='Guardar' id='btnGuardar'>Registrar
-                        <i class='material-icons right'>done</i>
-                        <br>
-                    </button>
-                </div>"*/
+					  </div>"
 						 );
 						$cont++;
  		}

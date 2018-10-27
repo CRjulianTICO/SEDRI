@@ -3,9 +3,7 @@ require 'header.php';
 ?>
 
 <div id="content">
-<div id="divResp">
-
-</div>
+<div class="card-panel blue darken-2 white-text lighten-2" data-error="credeciales malas" id="divResp"></div>
 <div id="tabla">
     <table id="tblAsistenciaActual" class="display responsive nowrap tabla highlight" style="width: 100%">
     

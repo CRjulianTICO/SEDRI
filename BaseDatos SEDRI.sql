@@ -176,12 +176,15 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertarEmpleado` (IN `CED` VARC
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Login` (OUT `pass` VARCHAR(150), IN `ced` VARCHAR(25), OUT `id` INT, OUT `rol` VARCHAR(50), OUT `nombre` VARCHAR(50), OUT `ocambio` INT, OUT `ogrupo` VARCHAR(80), OUT `idgrado` INT, OUT `oemail` VARCHAR(60))  BEGIN
-select u.password,p.idPersona, r.tiporol ,CONCAT(p.nombre,' ',CONCAT(p.apellido1,' ',p.apellido2)) as nombre,u.cambio ,concat(gr.nombreGrado,' ',gr.annio) as grado,gr.idGrado,p.email
-into pass,id,rol,nombre,ocambio,ogrupo,idgrado,oemail
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Login`(OUT `pass` VARCHAR(150), IN `ced` VARCHAR(25), OUT `id` INT, OUT `rol` VARCHAR(50), OUT `nombre` VARCHAR(50), OUT `ocambio` INT, OUT `ogrupo` VARCHAR(80), OUT `idgrado` INT, OUT `oemail` VARCHAR(60), OUT `ogrado` VARCHAR(50))
+BEGIN
+select u.password,p.idPersona, r.tiporol ,CONCAT(p.nombre,' ',CONCAT(p.apellido1,' ',p.apellido2)) as nombre,u.cambio ,concat(gr.nombreGrado,' ',gr.annio) as grado,gr.idGrado,p.email,gr.nombreGrado
+into pass,id,rol,nombre,ocambio,ogrupo,idgrado,oemail,ogrado
 from usuario u, persona p , rol r ,profesor_grado pg,profesor pro,grado gr
 where gr.idGrado = pg.idGrado and pro.idProfesor = pg.idProfesor and  u.idRol = r.IDROL and p.idPersona = u.idPersona and pro.Persona_idPersona = p.idPersona and pg.idProfesor = pro.idProfesor and p.cedula=ced;
 END$$
+DELIMITER ;
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ModificarProfesor` (IN `VCED` VARCHAR(40), IN `VNOM` VARCHAR(40), IN `VAP1` VARCHAR(40), IN `VAP2` VARCHAR(40), IN `VEXO` VARCHAR(24), IN `VDIR` VARCHAR(100), IN `VTEL` VARCHAR(50), IN `VEMAIL` VARCHAR(50), IN `VNAC` INT, IN `VANNIO` INT, IN `VGRADO` INT)  NO SQL
 BEGIN
@@ -214,6 +217,16 @@ BEGIN
     INTO @idA;
     INSERT INTO asistencia(ESTADO,NOTA,IDALUMNO,FECHA,IDGRADO) 
 	VALUES(VESTADO,VNOTA,@idA,VFECHA,VIDGR);
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE TRIGGER `trgg_ausencia` BEFORE INSERT ON `asistencia`
+ FOR EACH ROW BEGIN
+           IF NEW.ESTADO = 0 THEN
+               SET NEW.AUSENCIA = 0;
+           END IF;
 END$$
 DELIMITER ;
 

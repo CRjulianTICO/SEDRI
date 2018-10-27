@@ -18,9 +18,16 @@ require "../config/Conexion.php";
 		    return consulta($sql);
         }
 
-        public function listarAsistencia($idgrado,$fecha){
+        public function verificarAsistenciasActual($grado,$fecha){
            
-            $sql="SELECT * FROM vista_asistencia where idGrado='$idgrado' and FECHA = '$fecha'";
+			$sql="SELECT * FROM vista_asistencia where nombreGrado='$grado' and FECHA = '$fecha'";
+            
+		    return contarFilas($sql);
+        }
+
+        public function listarAsistencia($grado,$fecha){
+           
+            $sql="SELECT * FROM vista_asistencia where nombreGrado='$grado' and FECHA = '$fecha'";
             
 		    return consulta($sql);
         }

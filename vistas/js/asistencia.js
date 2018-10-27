@@ -41,14 +41,13 @@ function cancelarForm(){
 function guardar(){
     //e.preventDefault();
     count = $('#tblAsistenciaActual tbody tr').length; 
-    alert("asasd");
-alert("**"+count+"**");
+    
      $(".ced").prop("disabled", false);
-alert("awdawdawd");
-for (index = 0; index <= count; index++) {
+     
+for (index = 1; index <= count; index++) {
  var DATOS = ($("#frm"+index).serialize());
-    //alert(index);
-    //alert(DATOS);
+    
+ 
     console.log("->"+DATOS+"<-");
   	$.ajax({
   		url: "../controlador/asistencia.php?opcion=guardar",
@@ -62,19 +61,26 @@ for (index = 0; index <= count; index++) {
               mostrarFormulario(false);
               if(datos == 'Registrado'){
                   $('#divResp').show();
-                  document.getElementById('divResp').innerHTML='Se registro exitosamente, si desea modificar alguna asistencia debe ir al Registro dentro de Asistencia.';
+                  document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Se registro exitosamente!</h5><br><h6>Si desea modificar alguna asistencia debe ir al Registro dentro de Asistencia.</h6>';
                
+              }else if (datos == 'Error'){
+                  $('#divResp').show();
+                  
+                  document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Se produjo un error. Vuelva a Intentarlo.</h5>';
               }else{
                   $('#divResp').show();
-                  document.getElementById('divResp').innerHTML='Se produjo un error. Vuelva a Intentarlo.';
+                  
+                  document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Registro ya existente!</h5><br><h6>Si desea modificar alguna asistencia debe ir al Registro dentro de Asistencia.</h6>';
               }
   	    }
 
       });    
     
 }
-  
-     // limpiar();
+
          
 }
 
