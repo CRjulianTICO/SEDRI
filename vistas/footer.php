@@ -1,9 +1,17 @@
 
 <script src="../public/js/jquery-3.1.1.min.js"></script>
 <script src="../public/datatables/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="../public/datatables/responsiveDatables.js"></script> 
+<script type="text/javascript" src="../public/datatables/responsiveDatables.js"></script>
 <script src="../public/js/materialize.min.js"></script>
-
+<script src="js/menu.js"></script>
+<?php
+if ($tipoProfe == 1) {
+	echo '<script type="text/javascript">',
+ 'cargarMenu();',
+ '</script>';
+}
+?>
+<script src="js/menu.js"></script>
 
 <!--EL SCRIPT PARA EL MENU RESPONSIVE-->
 	<script type="text/javascript">
@@ -22,14 +30,9 @@
 function redireccionarEncargado(){
     window.location.href = "../vistas/UIMantenimientoEncargado.php#mostrarform";
 }
-
-
-
 </script>
 <script type="text/javascript">
  $(document).ready(function() {
     $('#descripcionPuesto').characterCounter();
   });
 </script>
-
-

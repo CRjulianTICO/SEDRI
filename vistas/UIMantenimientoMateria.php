@@ -8,6 +8,7 @@
             <thead>
             <th data-priority="1">Codigo</th>
             <th data-priority="2">Materia</th>
+            <th data-priority="2">Tipo de Materia</th>
             <th data-priority="3">Estado</th>
             <th data-priority="4">Editar</th>
             </thead>
@@ -33,6 +34,10 @@
                     <div class="input-field col s6">
                         <input placeholder="Nombre" class="validate" type="text" name="nombreMateria" id="nombreMateria" />
                         <label for ="nombreMateria">Ingresar el Nombre de la Materia</label>
+                    </div>
+                    <div class="input-field col s6">
+                    
+                        <select id="tipoMateria" name="tipoMateria" class="browser-default"> </select>
                     </div>
                 </div>
 

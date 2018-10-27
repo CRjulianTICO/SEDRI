@@ -1,7 +1,7 @@
-<?php 
+<?php
   session_start();
   if(isset($_SESSION["token"])){
-    
+
     require_once "../modelo/AutenticacionTokens.php";
 
     $token = $_SESSION["token"];
@@ -13,6 +13,11 @@
         $dataToken += ["".$key."" => $value];
 }
     $nombre = $dataToken["nombre"];
+    $rol = $dataToken["rol"];
+  
+    if($rol!="Director"){
+      header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
+    }
   }else{
     header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
   }

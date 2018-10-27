@@ -107,6 +107,27 @@ function editar(){
     
 }
 
+function cargarTipos(){
+  $.ajax({
+      url: "../controlador/materia.php?opcion=tipoMaterias",
+      method: "POST",
+      dataType : "json",
+      contentType: "application/json; charset=utf-8",
+      success: function(data)
+      {
+          $('#tipoMateria').empty();
+          $('#tipoMateria').append("<option disabled selected value='"+data[0].idTipo+"'>Seleccionar Tipo de Materia</option>");
+          $.each(data,function(i,item){
+
+              $('#tipoMateria').append('<option value="'+data[i].idTipo+'">'+data[i].tipo+'</option>');
+
+          });
+      }
+
+  });
+
+}
+
  function desactivar(id){
           $.post("../controlador/materia.php?opcion=desactivar", {idmateria : id}, function(e){
               tabla.ajax.reload();
@@ -129,7 +150,9 @@ function INIT(){
 
      $("#formMateria").on("submit",function(e){
   		guardar(e);
-  	 })
+       })
+       
+    cargarTipos();
 }
 
 INIT();

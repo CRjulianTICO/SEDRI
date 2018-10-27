@@ -6,27 +6,27 @@ $(document).ready(function() {
 
 
 function init(){
-    $('.modal').modal();
   limpiar();
   mostrarform(false);
   mostrarbotones(false);
-
+  cargarGrados();
   $( "#btnEditar" ).on( "click", editar );
-  listar();
-    cargarPais();
-    cargarGrado();
-   $("#formAlumno").on("submit",function(e)
-   {
-    guardarEncarda(e);
-   })
+  if($('.cbGrados').is(":hidden") ){
+    listar(-9);
+  }
+  $("#cbGrados").on('change', function() {
+       valor = $('#cbGrados').val();
+       listar(valor);
+       });
 
-   $("#formEncargado").on("submit",function(e)
+
+
+    cargarPais();
+    //cargarGrado();
+   $("#formAlumno").on("submit",function(e)
    {
     guardar(e);
    })
-
- 
-      
 
   }
 
@@ -35,7 +35,14 @@ function init(){
 })
 
 
+function tipoProfesor(){
+  if(tipoProfe == 1){
+    $('.cbGrados').hide();
+  }else{
+    $('.cbGrados').show();
+  }
 
+}
 
 
 function mostrarform(bool)
@@ -45,6 +52,7 @@ if (bool)
   cargarPais();
   $("#tabla").hide();
   $("#formulario").show();
+  cargarGrados();
 }
 else
 {
@@ -76,27 +84,34 @@ function cancelarform()
 }
 
 //Función Listar
-function listar()
-{
-  limpiar();
-  tabla=$('#tbAlumno').dataTable(
-  {
-    "aProcessing": true,//Activamos el procesamiento del datatables
-      "aServerSide": true,//Paginación y filtrado realizados por el servidor
-      dom: 'Bfrtip',//Definimos los elementos del control de tabla
-       "ajax":
-        {
-          url: '../controlador/alumno.php?opcion=listar',
-          type : "get",
-          dataType : "json",
-          error: function(e){
-            console.log(e.responseText);
-          }
-        },
-    "bDestroy": true,
-    "iDisplayLength": 10,
-      "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
-  }).DataTable();
+function listar(idGrado){
+    tabla = $('#tbAlumno').dataTable({
+        "aProcessing": true,//Activamos el procesamiento del datatables
+  	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
+  	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
+  		"ajax":
+  				{
+  					url: '../controlador/alumno.php?opcion=listar&grado='+idGrado,
+  					type : "get",
+  					dataType : "json",
+  					error: function(e){
+
+  						console.log(e.responseText);
+  					}
+  				},
+  		"bDestroy": true,
+  		"iDisplayLength": 10,
+          "order": [[ 1, "asc" ]],//Ordenar (columna,orden),
+          /* "createdRow": function ( row, data, index ) {
+        $('td', row).eq(0).attr('id',  index ),
+        $('td', row).eq(0).attr('name',  "cedula")
+        $('td', row).eq(5).attr('id',  index ),
+        $('td', row).eq(5).attr('name',  "estado" ),
+        $('td', row).eq(6).attr('id',  index ),
+        $('td', row).eq(6).attr('name',  "nota")
+          } */
+    }).DataTable();
+
 }
 //Función para guardar o editar
 
@@ -240,24 +255,28 @@ function cargarGrupo(){
 
 }
 
-function cargarGrado(){
+function cargarGrados(){
   $.ajax({
-      url: "../controlador/grado.php?opcion=listaSimple",
-      method: "POST",
-      dataType : "json",
-      contentType: "application/json; charset=utf-8",
-      success: function(data)
-      {
-          $('#idgrado').empty();
-          $('#idgrado').append("<option>Seleccionar Grado</option>");
-          $.each(data,function(i,item){
+         url: "../controlador/alumno.php?opcion=cargar",
+         method: "POST",
+         dataType : "json",
+         contentType: "application/json; charset=utf-8",
+         success: function(data)
+         {
+            if(data==0){
+            $(".divGrados").hide();
+             listar(-9);
+            }else{
+            $('.cbGrados').empty();
+             $('.cbGrados').append('<option value="'+data[1].id_grado+'" >Seleccionar Grado</option>');
+             $.each(data,function(i,item){
+                 $('.cbGrados').append('<option value="'+data[i].id_grado+'">'+data[i].nombreGrado+'</option>');
+             });
+             listar($(".cbGrados").val());
+            }
+         }
 
-              $('#idgrado').append('<option value="'+data[i].ID_GRADO+'">'+data[i].NOMBRE_GRADO+' '+data[i].ANNIO+'</option>');
-
-          });
-      }
-
-  });
+     });
 
 }
 
