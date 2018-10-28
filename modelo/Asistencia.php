@@ -1,7 +1,9 @@
 <?php 
 require "../config/Conexion.php";
+
     class Asistencia 
     {
+        
         public function __constructor(){
 
         }
