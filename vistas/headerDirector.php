@@ -13,6 +13,11 @@
         $dataToken += ["".$key."" => $value];
 }
     $nombre = $dataToken["nombre"];
+    $rol = $dataToken["rol"];
+
+    if($rol!="Director"){
+      header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
+    }
   }else{
     header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
   }
