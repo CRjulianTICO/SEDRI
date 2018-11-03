@@ -1,7 +1,7 @@
 <?php require 'headerDirector.php' ?>
 
 <div id="content">
-
+<div id="divResp"></div>
 <div id="tabla">
     <table id="tblEmpleado" class="display responsive nowrap tabla" style="width: 100%">
         <thead>
