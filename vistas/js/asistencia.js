@@ -1,6 +1,6 @@
 var tabla;
 var count ;
-
+/*
 function mostrarFormulario(estado){
     if(estado){
         $('#tabla').hide();
@@ -32,7 +32,7 @@ function cancelarForm(){
     listar();
 }
 
-
+*/
 
 
 
@@ -67,12 +67,12 @@ for (index = 1; index <= count; index++) {
               }else if (datos == 'Error'){
                   $('#divResp').show();
                   
-                  document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+                  document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2 flow-text";
                   document.getElementById('divResp').innerHTML='<h5>Se produjo un error. Vuelva a Intentarlo.</h5>';
               }else{
                   $('#divResp').show();
                   
-                  document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+                  document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2 flow-text";
                   document.getElementById('divResp').innerHTML='<h5>Registro ya existente!</h5><br><h6>Si desea modificar alguna asistencia debe ir al Registro dentro de Asistencia.</h6>';
               }
   	    }
@@ -84,14 +84,39 @@ for (index = 1; index <= count; index++) {
          
 }
 
-function listar(){
+function cargarGrados(){
+  $.ajax({
+         url: "../controlador/asistencia.php?opcion=cargar",
+         method: "POST",
+         dataType : "json",
+         contentType: "application/json; charset=utf-8",
+         success: function(data)
+         {
+            if(data==0){
+            $("#divGrados").hide();
+             listar(-9);
+            }else{
+            $('#cbGrados').empty();
+             $('#cbGrados').append('<option value="'+data[1].id_grado+'" >Seleccionar Grado</option>');
+             $.each(data,function(i,item){
+                 $('#cbGrados').append('<option value="'+data[i].id_grado+'">'+data[i].nombreGrado+'</option>');
+             });
+             listar($("#cbGrados".val()));
+            }
+         }
+
+     });
+
+}
+
+function listar(idGrado){
     tabla = $('#tblAsistenciaActual').dataTable({
         "aProcessing": true,//Activamos el procesamiento del datatables
   	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
   	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
   		"ajax":
   				{
-  					url: '../controlador/asistencia.php?opcion=listar',
+  					url: '../controlador/asistencia.php?opcion=listar&grado='+idGrado,
   					type : "get",
   					dataType : "json",
   					error: function(e){
@@ -112,12 +137,6 @@ function listar(){
           } */
     }).DataTable();
 
-/*
-    numRows = tabla.rows().count();
-    console.log(numRows);
-    alert(tabla.rows('.estado').count());
-
-    */
 }
 
 document.getElementById('btnGuardar').onclick = function(){
@@ -127,16 +146,21 @@ document.getElementById('btnGuardar').onclick = function(){
 
 
 function INIT(){
-     //$(".ced").prop("disabled", true);
+     
      $('#divResp').hide();
-    listar();
+     $('#divGrados').show();
+
+    $(function() {
+    $("#cbGrados").on('change', function() {
+        valor = $('#cbGrados').val();
+        listar(valor);
+        });
+    });
+     
+    cargarGrados();
     
      $(".dropdown-content>li>a").css("color", "#000000");
-/*
-     $("#btnGuardar").on("click",function(e){
-          guardar(e);
-          $(".ced").prop("disabled", true);
-     });*/
+
 }
 
 
