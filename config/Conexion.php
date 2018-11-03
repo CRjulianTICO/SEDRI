@@ -39,10 +39,10 @@ if (!function_exists('ejecutarConsulta'))
 
 	function consultaSalida($ced){
 		global $conexion;
-		$call = mysqli_prepare($conexion, 'CALL sp_Login(@pass, ?, @id, @rol, @nombre,@ocambio,@ogrupo,@idgrado,@oemail,@ogrado)');
+		$call = mysqli_prepare($conexion, 'CALL sp_Login(@pass, ?, @id, @rol, @nombre,@ocambio,@ogrupo,@idgrado,@oemail,@ogrado,@idtipo,@tipoPro)');
 				mysqli_stmt_bind_param($call, 'i', $ced);
 				mysqli_stmt_execute($call);
-		$select = mysqli_query($conexion, 'select @pass,@id, @rol, @nombre,@ocambio,@ogrupo,@idgrado,@oemail,@ogrado');
+		$select = mysqli_query($conexion, 'select @pass,@id, @rol, @nombre,@ocambio,@ogrupo,@idgrado,@oemail,@ogrado,@idtipo,@tipoPro');
 		$result = mysqli_fetch_assoc($select);
 		return $result;
 	}

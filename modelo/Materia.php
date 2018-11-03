@@ -3,12 +3,12 @@ require "../config/Conexion.php";
 Class Materia{
   public function _constructor(){
  }
- public function insertar($nombre){
- $sql = "insert into materia(nombre)values('$nombre')";
+ public function insertar($nombre,$tipo){
+ $sql = "insert into materia(nombre,idTipoMateria)values('$nombre',$tipo)";
    return consulta($sql);
     }     
  public function listar(){
-    $sql = "select * from materia where estado = 1";
+    $sql = "select * from vista_materia where estado = 1";
            return consulta($sql);
     }
  public function actualizar($id,$nombre){
@@ -20,6 +20,12 @@ Class Materia{
        
     return consulta($sql);
     }
+
+    public function tiposMaterias(){
+        $sql = "select * from tipo_materia";
+        return consulta($sql);
+    }
+
     public function activar(){
  $sql = "update materia set estado = 1 where idmateria = ".$id."";
         return consulta($sql);

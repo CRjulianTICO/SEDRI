@@ -55,6 +55,7 @@ function listar(){
   		"iDisplayLength": 10,
   	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
     }).DataTable();
+    $('#divResp').hide();
 }
 
 function guardar(e){
@@ -69,7 +70,17 @@ function guardar(e){
   	    success: function(datos)
   	    {
                 tabla.ajax.reload();
-                alert("SE GUARDO SATISFACTORIAMENTE");
+                
+                if(datos=="Registrado"){
+                  $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Se guardo exitosamente!</h5>';
+                }else{
+                  $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Ocurrio un Error!</h5>';
+                
+                }
                 limpiar();
                 mostrarFormulario(false);
   	    }
@@ -101,6 +112,16 @@ function editar(){
         success: function(datos)
         {
               tabla.ajax.reload();
+              if(datos=="Registrado"){
+                  $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Se actualizo exitosamente!</h5>';
+                }else{
+                  $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Ocurrio un Error!</h5>';
+                
+                }
               limpiar();
               mostrarFormulario(false);
 
@@ -122,6 +143,7 @@ function INIT(){
     limpiar();
   	mostrarFormulario(false);
     mostrarBotones(false);
+    $('#divResp').hide();
     listar();
 
      $("#formPuesto").on("submit",function(e){
