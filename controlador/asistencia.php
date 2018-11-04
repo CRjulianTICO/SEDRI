@@ -21,6 +21,8 @@ session_start();
 	$rol = $dataToken["rol"];
 	$grado = $dataToken["grado"];
 	$idgrado = $dataToken["idgrado"];
+	$tipoP = $dataToken["tipoProfesor"];
+	$idPe = $dataToken["id"];
 	
     
    
@@ -28,7 +30,7 @@ session_start();
 
 
 $cedula= isset($_POST["cedula"])?limpiarCadena($_POST["cedula"]):"";
-$idGrado= isset($_POST["telefono"])?limparCadena($_POST["telefono"]):"";
+$idGrado= isset($_POST["grado"])?limparCadena($_POST["grado"]):"";
 $nota = isset($_POST["nota"])?limpiarCadena($_POST["nota"]):"";
 $justificacion= isset($_POST["justificacion"])?limpiarCadena($_POST["justificacion"]):"";
 $estado= isset($_POST["estado"])?limpiarCadena($_POST["estado"]):"";
@@ -51,7 +53,7 @@ switch ($_GET["opcion"]){
 			$res=$instAsistencia->verificarAsistenciasActual($grado,$dtFecha);
 			
 			if($res<5){
-				$rspta=$instAsistencia->insertaAsistencia($estado,$nota,$cedula,$dtFecha,$idgrado);
+				$rspta=$instAsistencia->insertaAsistencia($estado,$nota,$cedula,$dtFecha,$idgrado,$idPe);
 				echo $rspta ? "Registrado" : "Error";
 			}else{
 				echo "0";
@@ -71,7 +73,8 @@ switch ($_GET["opcion"]){
 			echo $rspta ? "Registrado" : "Error" ;
 	break;
 
-    case 'listar':
+	case 'listar':
+		if($idGrado!=$idgrado){
 		$rspta=$instAsistencia->listarAsistenciasActual($idgrado);
  		$data= Array();
  		while ($reg=$rspta->fetch_object()){
@@ -82,7 +85,7 @@ switch ($_GET["opcion"]){
 				"3"=>$reg->apellido2,
 				"4"=>$reg->nombreGrado,
                 "5"=>'<div>
-                        <select id="estado" name="estado" form=frm'.$cont.'>
+                        <select id="estado" name="estado" class="browser-default" form=frm'.$cont.'>
                         <option value="1">Presente</option>
                         <option value="0">Ausente</option>
                       </select>
@@ -99,7 +102,55 @@ switch ($_GET["opcion"]){
  			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
  			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
  			"aaData"=>$data);
- 		echo json_encode($results);
+		 echo json_encode($results);
+	
+		 }else{
+			 $rspta=$instAsistencia->listarAsistenciasActual($idGrado);
+ 		$data= Array();
+ 		while ($reg=$rspta->fetch_object()){
+ 			$data[]=array(
+ 				"0"=>"<form id='frm".$cont."' method='POST'><input type='hidden' name='id' value='1' /></form> <input form='frm".$cont."' class='ced' name='cedula' value='".$reg->cedula."' disabled> </input>",
+ 				"1"=>$reg->nombre,
+                "2"=>$reg->apellido1,
+				"3"=>$reg->apellido2,
+				"4"=>$reg->nombreGrado,
+                "5"=>'<div>
+                        <select id="estado" name="estado" class="browser-default" form=frm'.$cont.'>
+                        <option value="1">Presente</option>
+                        <option value="0">Ausente</option>
+                      </select>
+                    </div>',
+				"6"=>"<div  class='input-field inline'>
+                        <input name='nota' id='txtNota' type='text' class='validate' form='frm".$cont."'>
+                        <label for='txtNota'>Nota</label>
+					  </div>"
+						 );
+						$cont++;
+ 		}
+ 		$results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+		 echo json_encode($results);
+		 }
+		 
+	break;
+
+	case 'cargar':
+		if($tipoP==0){
+				echo "0";
+			}else{
+		$rspta=$instAsistencia->listarGrados($idPe);
+ 		$data= Array();
+ 		while ($reg=$rspta->fetch_object()){
+ 			$data[]=array(
+ 				"id_grado"=>$reg->id_grado,
+ 				"nombreGrado"=>$reg->nombreGrado
+			);
+		 }
+		 echo json_encode($data);
+			}
 	break;
 
     case 'mostrar':

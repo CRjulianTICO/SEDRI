@@ -109,11 +109,11 @@ function editar(){
 
             if(datos=="Registrado"){
                   $('#divResp').show();
-                  document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
+                  document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2 flow-text";
                   document.getElementById('divResp').innerHTML='<h5>Se actualizo exitosamente!</h5>';
                 }else{
                   $('#divResp').show();
-                  document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+                  document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2 flow-text";
                   document.getElementById('divResp').innerHTML='<h5>Ocurrio un Error!</h5>';
                 
                 }
