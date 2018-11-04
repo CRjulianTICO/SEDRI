@@ -10,12 +10,12 @@ Class Profesor
 	}
 	//Guardar  solo parametros necesarios para un estudiante
 
-		public function insertar($cedula,$nombre,$apellido1,$apellido2,$sexo,$direccion,$telefono,$email,$nacionalidad,$idgrado,$pass)
+		public function insertar($cedula,$nombre,$apellido1,$apellido2,$sexo,$direccion,$telefono,$email,$nacionalidad,$idgrado,$pass, $materia,$tipo)
 		{
 
 			$sql="
 					CALL `sp_InsertaProfesor`('$cedula','$nombre','$apellido1','$apellido2','$sexo','$direccion'
-					,'$telefono','$email','$nacionalidad',$idgrado,'$pass')";
+					,'$telefono','$email',$nacionalidad,$idgrado,'$pass',$materia,$tipo)";
 			return consulta($sql);
 		}
 
@@ -28,7 +28,7 @@ Class Profesor
 	//Usando la vista creada
 	public function listar()
 	{
-		$sql="SELECT * FROM vista_profesor where disponible = 1";
+		$sql="SELECT * FROM vista_profesor where disponible = 1 GROUP BY CEDULA";
 		return consulta($sql);
 	}
 
@@ -43,8 +43,8 @@ Class Profesor
 	}
 
 	public function cargar($cedula){
-		$sql = "SELECT CEDULA,NOMBRE,APELLIDO1,APELLIDO2, SEXO,DIRECCION,TELEFONO,EMAIL,PAIS,n.idNacionalidad,DISPONIBLE,g.idGrado,g.nombreGrado,pg.annio 
-		FROM PERSONA P, PROFESOR PE, NACIONALIDAD N,grado g,profesor_grado pg 
+		$sql = "SELECT CEDULA,NOMBRE,APELLIDO1,APELLIDO2, SEXO,DIRECCION,TELEFONO,EMAIL,PAIS,n.idNacionalidad,DISPONIBLE,g.idGrado,g.nombreGrado,pg.annio
+		FROM PERSONA P, PROFESOR PE, NACIONALIDAD N,grado g,profesor_grado pg
 		WHERE CEDULA = '".$cedula."' AND P.idPersona = PE.Persona_idPersona AND pe.idprofesor = pg.idProfesor AND g.idgrado = pg.idGrado AND P.idNacionalidad = N.idNacionalidad;";
 	    return consultaSimple($sql);
 	}

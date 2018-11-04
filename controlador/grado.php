@@ -9,7 +9,7 @@ $grado=new Grado();
 switch ($_GET["opcion"]){
 	case 'guardar':
 			$rspta=$grado->insertar($nombreGrado,$annio);
-			echo $rspta ? "Registrado".$nombreGrado: "Error";
+			echo $rspta ? "Registrado": "Error";
 	break;
 	case 'editar':
 			$rspta=$grado->actualizar($idgrado,$nombreGrado,$annio);
@@ -24,7 +24,7 @@ switch ($_GET["opcion"]){
 
  				 "0"=>$reg->idgrado,
 				 "1"=>$reg->nombreGrado,
-				 "2" =>$reg->annio, 
+				 "2" =>$reg->annio,
  				"3"=>'<button class="mostrarEditar" onclick="mostrar('.$reg->idgrado.')"><i class="material-icons center blue-text ">edit</i></button>'
  				);
  		}
@@ -35,7 +35,7 @@ switch ($_GET["opcion"]){
  			"aaData"=>$data);
  		echo json_encode($results);
 	break;
-	
+
 	case 'listaSimple':
 		$rspta=$grado->listar();
  		$data= Array();
@@ -45,7 +45,7 @@ switch ($_GET["opcion"]){
 				 "NOMBRE_GRADO"=>$reg->nombreGrado,
 				 "ANNIO"=>$reg->annio
 				 );
-				
+
 		 }
 		 echo json_encode($data);
 	break;
@@ -54,5 +54,6 @@ switch ($_GET["opcion"]){
 		$rspta=$grado->cargar($idgrado);
  		echo json_encode($rspta);
 		break;
+
 }
 ?>

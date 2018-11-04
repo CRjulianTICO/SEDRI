@@ -1,6 +1,7 @@
 <?php require 'headerDirector.php' ?>
 <!--AQUI DEBERIA IR TODO EL CONTENIDO DE LA PAGINA-->
  <div id="content">
+ <div id="divResp"></div>
    <div class="tabla" id="tabla">
         <table id="tblBeca" class="display responsive nowrap tabla" style="width: 100%">
         <thead>

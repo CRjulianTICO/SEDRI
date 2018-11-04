@@ -17,6 +17,10 @@
 							,$nacionalidad,'$nota',$grado)";
 					return consulta($sql);
 			}
+			public function listarGrados($idP){
+            $sql = "SELECT pmg.id_grado,g.nombreGrado from profesor_materia_grado pmg, grado g, persona p, profesor pr WHERE p.idPersona = pr.Persona_idPersona and pr.idprofesor = pmg.profesor_idprofesor and g.idgrado = pmg.id_grado and p.idPersona = ".$idP;
+            return consulta($sql);
+      }
 			public function cargarPais()
 			{
 				$sql= "SELECT * FROM `nacionalidad`";
@@ -24,29 +28,29 @@
 			}
 			public function actualizar($cedula,$nombre,$apellido1,$apellido2,$sexo,$direccion,$nacionalidad,$nota)
 			{
-				$sql="UPDATE `persona` SET 
+				$sql="UPDATE `persona` SET
 				`cedula` = '".$cedula."',
 				`nombre` = '".$nombre."',
 				`apellido1` = '".$apellido1."',
 				`apellido2` = '".$apellido2."',
-					`sexo` = '".$sexo."', 
+					`sexo` = '".$sexo."',
 					`direccion` = '".$direccion."',
 					`nota_medica` = '".$nota."'
-					
+
 					where cedula='".$cedula."';";
 
 				return consulta($sql);
 			}
-		
+
 			public function listar($idgrado)
 			{
 				if($idgrado==0){
 					$sql="SELECT * FROM vista_alumno";
 				}else{
-					$sql="SELECT * FROM vista_alumno where idGrado='$idgrado'";
+					$sql="SELECT * FROM vista_alumno where idGrado='$idgrado';";
 				}
-					
-				
+
+
 
 				return consulta($sql);
 			}
@@ -68,25 +72,25 @@
 
 			public function listarAlumnos($grado)
 			{
-				
-					$sql="SELECT a.idalumno,concat(p.nombre,' ',p.apellido1,' ',p.apellido2) as nombre 
+
+					$sql="SELECT a.idalumno,concat(p.nombre,' ',p.apellido1,' ',p.apellido2) as nombre
 					FROM persona p,alumno a,grado_alumno ga
 					where p.idPersona = a.Persona_idPersona and a.idalumno = ga.alumno_idalumno and ga.grado_idgrado = $grado
 					;";
-			
+
 
 				return consulta($sql);
 			}
 			public function listarAlumnosEncargado($cedula,$grado){
-				$sql="SELECT a.idalumno,concat(p.nombre,' ',p.apellido1,' ',p.apellido2) as nombre 
+				$sql="SELECT a.idalumno,concat(p.nombre,' ',p.apellido1,' ',p.apellido2) as nombre
 				FROM persona p,alumno a,grado_alumno ga,alumno_encargado ae,persona p2,encargado e
-				where p.idPersona = a.Persona_idPersona and a.idalumno = ga.alumno_idalumno and ga.grado_idgrado = $grado 
-				and ae.ID_ENCARGADO = e.idencargado and ae.ID_ALUMNO = a.idalumno and e.Persona_idPersona = p2.idPersona 
+				where p.idPersona = a.Persona_idPersona and a.idalumno = ga.alumno_idalumno and ga.grado_idgrado = $grado
+				and ae.ID_ENCARGADO = e.idencargado and ae.ID_ALUMNO = a.idalumno and e.Persona_idPersona = p2.idPersona
 				and p2.cedula = '$cedula'
 				;";
 				return consulta($sql);
 			}
-			
+
 		}
 
 		?>

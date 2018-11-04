@@ -54,6 +54,7 @@ function listar(){
   		"iDisplayLength": 10,
   	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
     }).DataTable();
+    $('#divResp').hide();
 }
 
 function guardar(e){
@@ -68,7 +69,16 @@ function guardar(e){
   	    success: function(datos)
   	    {
                 tabla.ajax.reload();
-                alert("SE GUARDO SATISFACTORIAMENTE");
+                if(datos=="Registrado"){
+                    $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Se registro exitosamente!</h5>';
+                }else{
+                  $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Ocurrio un Error!</h5>';
+                
+                }
   	    }
 
       });
@@ -96,15 +106,48 @@ function editar(){
 
         success: function(datos)
         {
+
+            if(datos=="Registrado"){
+                  $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Se actualizo exitosamente!</h5>';
+                }else{
+                  $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Ocurrio un Error!</h5>';
+                
+                }
               tabla.ajax.reload();
+              
               limpiar();
               mostrarFormularioMateria(false);
-              alert("SE ACTUALIZO SATISFACTORIAMENTE");
+              
 
         }
 
     });
     
+}
+
+function cargarTipos(){
+  $.ajax({
+      url: "../controlador/materia.php?opcion=tipoMaterias",
+      method: "POST",
+      dataType : "json",
+      contentType: "application/json; charset=utf-8",
+      success: function(data)
+      {
+          $('#tipoMateria').empty();
+          $('#tipoMateria').append("<option disabled selected value='"+data[0].idTipo+"'>Seleccionar Tipo de Materia</option>");
+          $.each(data,function(i,item){
+
+              $('#tipoMateria').append('<option value="'+data[i].idTipo+'">'+data[i].tipo+'</option>');
+
+          });
+      }
+
+  });
+
 }
 
  function desactivar(id){
@@ -126,10 +169,13 @@ function INIT(){
   	mostrarFormularioMateria(false);
     mostrarBotones(false);
     listar();
+    $('#divResp').hide();
 
      $("#formMateria").on("submit",function(e){
   		guardar(e);
-  	 })
+       })
+       
+    cargarTipos();
 }
 
 INIT();

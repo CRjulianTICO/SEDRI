@@ -61,6 +61,8 @@ function listar(){
   		"iDisplayLength": 10,
   	    "order": [[ 1, "asc" ]]//Ordenar (columna,orden)
     }).DataTable();
+        $('#divResp').hide();
+
 }
 
 function guardar(e){
@@ -75,7 +77,16 @@ function guardar(e){
   	    success: function(datos)
   	    {
                 tabla.ajax.reload();
-                alert("SE GUARDO SATISFACTORIAMENTE");
+                if(datos=="Registrado"){
+                  $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Se guardo exitosamente!</h5>';
+                }else{
+                  $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Ocurrio un Error!</h5>';
+                
+                }
                 limpiar();
               mostrarFormulario(false);
   	    }
@@ -167,9 +178,19 @@ function editar(){
 
         success: function(datos)
         {
-              tabla.ajax.reload();
-              limpiar();
-              mostrarFormulario(false);
+            if(datos=="Registrado"){
+                  $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Se actualizo exitosamente!</h5>';
+                }else{
+                  $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Ocurrio un Error!</h5>';
+                
+                }
+            tabla.ajax.reload();
+            limpiar();
+            mostrarFormulario(false);
 
         }
 
@@ -190,6 +211,7 @@ function INIT(){
   	mostrarFormulario(false);
     mostrarBotones(false);
     listar();
+    $('#divResp').hide();
 
      $("#formEmpleado").on("submit",function(e){
   		guardar(e);
