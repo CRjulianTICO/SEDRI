@@ -2,7 +2,9 @@
 
 <div id="content">
 
+
   <div id="tabla">
+
     <table id="tblPuesto" class="display responsive nowrap tabla" style="width: 100%">
       <thead>
         <th data-priority="1">Codigo</th>

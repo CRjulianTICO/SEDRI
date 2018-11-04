@@ -1,4 +1,5 @@
 <?php
+
 require_once "../config/Conexion.php";
 class Materia
 {
@@ -18,6 +19,7 @@ class Materia
     public function actualizar($id, $nombre)
     {
         $sql = "update materia set nombre = '$nombre' where idmateria =".$id."";
+
         return consulta($sql);
     }
     public function desactivar($id)

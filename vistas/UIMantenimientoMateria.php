@@ -2,7 +2,7 @@
 
 <div id="content">
 
-
+<div id="divResp" class="card-panel green darken-2 white-text lighten-2"></div>
     <div id="tabla">
         <table id="tblMateria" class="display responsive nowrap tabla" style="width: 100%">
             <thead>

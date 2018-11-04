@@ -9,7 +9,7 @@ $grado=new Grado();
 switch ($_GET["opcion"]){
 	case 'guardar':
 			$rspta=$grado->insertar($nombreGrado,$annio);
-			echo $rspta ? "Registrado".$nombreGrado: "Error";
+			echo $rspta ? "Registrado": "Error";
 	break;
 	case 'editar':
 			$rspta=$grado->actualizar($idgrado,$nombreGrado,$annio);

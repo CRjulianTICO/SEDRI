@@ -10,6 +10,7 @@ $(document).ready(function() {
 function init() {
   limpiar();
   mostrarform(false);
+  $('#divResp').hide();
   mostrarbotones(false);
   $("#btnEditar").on("click", editar);
   listar();
@@ -90,6 +91,7 @@ function listar() {
       [0, "desc"]
     ] //Ordenar (columna,orden)
   }).DataTable();
+  $('#divResp').hide();
 }
 //Función para guardar o editar
 
@@ -102,11 +104,23 @@ function guardar(e) {
     data: DATOS,
 
 
-    success: function(datos) {
-      tabla.ajax.reload();
-      limpiar();
-      mostrarform(false);
-    }
+
+      success: function(datos)
+      {
+        if(datos=="Registrado"){
+                  $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Se guardo exitosamente!</h5>';
+                }else{
+                  $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Ocurrio un Error!</h5>';
+                
+                }
+            tabla.ajax.reload();
+            limpiar();
+            mostrarform(false);
+      }
 
   });
   //limpiar
@@ -194,10 +208,23 @@ function editar() {
     data: DATOS,
 
 
-    success: function(datos) {
-      tabla.ajax.reload();
-      limpiar();
-      mostrarform(false);
+
+      success: function(datos)
+      {
+        if(datos=="Registrado"){
+                  $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Se actualizo exitosamente!</h5>';
+                }else{
+                  $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Ocurrio un Error!</h5>';
+                
+                }
+            tabla.ajax.reload();
+            limpiar();
+            mostrarform(false);
+
 
     }
 

@@ -55,6 +55,7 @@ function listar(){
   		"iDisplayLength": 10,
   	    "order": [[ 0, "asc" ]]//Ordenar (columna,orden)
     }).DataTable();
+    $('#divResp').hide();
 }
 
 function guardar(e){
@@ -69,7 +70,17 @@ function guardar(e){
   	    success: function(datos)
   	    {
                 tabla.ajax.reload();
-                alert("SE GUARDO SATISFACTORIAMENTE");
+                
+                if(datos=="Registrado"){
+                  $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Se guardo exitosamente!</h5>';
+                }else{
+                  $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Ocurrio un Error!</h5>';
+                
+                }
 
                 limpiar();
                 mostrarFormularioBeca(false);
@@ -106,6 +117,16 @@ function editar(){
         {
               tabla.ajax.reload();
               limpiar();
+              if(datos=="Registrado"){
+                  $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Se actualizo exitosamente!</h5>';
+                }else{
+                  $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Ocurrio un Error!</h5>';
+                
+                }
 
               mostrarFormularioBeca(true);
               $('#cedula').attr("readonly","readonly");
@@ -143,6 +164,7 @@ function INIT(){
   	mostrarFormularioBeca(false);
     mostrarBotones(false);
     listar();
+    $('#divResp').hide();
 
      $("#formBeca").on("submit",function(e){
   		guardar(e);

@@ -1,5 +1,6 @@
 <?php require 'headerDirector.php' ?>
 <!--AQUI DEBERIA IR TODO EL CONTENIDO DE LA PAGINA-->
+
 <div id="content">
   <div class="tabla" id="tabla">
     <table id="tbProfesor" class="display responsive nowrap tabla" style="width: 100%">
@@ -22,6 +23,7 @@
       </tbody>
     </table>
   </div>
+
 
   <div class="container">
 
