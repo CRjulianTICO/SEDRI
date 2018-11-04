@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once "../modelo/Materia.php";
 
 $instaMateria = new Materia();
@@ -24,7 +24,7 @@ switch ($_GET["opcion"]){
  		$data= Array();
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
- 				
+
  				"0"=>$reg->idmateria,
 				 "1"=>$reg->nombre,
 				 "2"=>$reg->tipo,
@@ -57,7 +57,6 @@ switch ($_GET["opcion"]){
 
 	case 'mostrar':
 		$rspta=$instaMateria->consultaEspecifica($id);
- 		
  		echo json_encode($rspta);
 		break;
 
@@ -72,7 +71,24 @@ switch ($_GET["opcion"]){
 			    'tipo' => $reg->tipo
 
 		);
-		
+
+	}
+	echo json_encode($data);
+	break;
+
+	case 'listarMaterias':
+
+	$rspta=$instaMateria->listarMaterias();
+		$data= Array();
+		while ($reg=$rspta->fetch_object()){
+			$data[]=array(
+
+				'idmateria' => $reg->idmateria,
+					'nombre' => $reg->nombre
+
+		);
+
+
 	}
 	echo json_encode($data);
 	break;
