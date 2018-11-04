@@ -7,18 +7,23 @@
 -- Generation Time: Nov 04, 2018 at 03:47 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
+/*
+CREATE DATABASE IF NOT EXISTS `escuela` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `escuela`;
+
+
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
-
+*/
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-
+/*
 --
 -- Database: `escuela`
 --
@@ -182,7 +187,7 @@ IF VTIPO !=0 THEN
 SELECT MIN(idGrado), MAX(idGrado)
 INTO @min,@max
 FROM grado 
-WHERE LOWER(nombreGrado) NOT LIKE '%primero%' and NOT LIKE '%1%';
+WHERE LOWER(nombreGrado) NOT LIKE '%primero%' LOWER(nombreGrado) and NOT LIKE '%1%';
 WHILE @min <= @max DO
     INSERT INTO profesor_materia_grado(profesor_idprofesor,materia_idmateria,id_grado)VALUES(@idP,VMAT,@min);
     SET @min=@min+1;
@@ -1396,7 +1401,7 @@ ALTER TABLE `usuario`
   ADD CONSTRAINT `fk_persona_usuario` FOREIGN KEY (`idPersona`) REFERENCES `persona` (`idPersona`),
   ADD CONSTRAINT `fk_rol_usuario` FOREIGN KEY (`idRol`) REFERENCES `rol` (`IDROL`);
 COMMIT;
-
+*/
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
@@ -1643,7 +1648,7 @@ IF VTIPO !=0 THEN
 SELECT MIN(idGrado), MAX(idGrado)
 INTO @min,@max
 FROM grado 
-WHERE LOWER(nombreGrado) NOT LIKE '%primero%';
+WHERE LOWER(nombreGrado) NOT LIKE '%primero%'and LOWER(nombreGrado) NOT LIKE '%1%';
 WHILE @min <= @max DO
     INSERT INTO profesor_materia_grado(profesor_idprofesor,materia_idmateria,id_grado)VALUES(@idP,VMAT,@min);
     SET @min=@min+1;
@@ -2242,7 +2247,6 @@ INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`
 (98, '13', '13', '13', '13', '13', '13', '13', NULL, '13', 1, 1, 'Ninguno'),
 (99, '14', '14', '14', '14', '14', '14', '14', NULL, '14', 1, 1, 'Ninguno'),
 (100, '15', '15', '15', '15', '15', '15', '15', NULL, '15', 1, 1, 'Ninguno'),
-
 (101, '2000', 'AAA', 'AAA', 'AAA', 'AAA', 'AAA', 'AAA', NULL, 'AAA', 1, 1, 'Ninguno'),
 (102, '123212', 'Oscar', 'Soto', 'Leon', 'Masculino', 'Alajuela', '24432321', NULL, 'osoto@email.net', 1, 1, 'Ninguno'),
 (103, '2000', 'Nombre', 'Apellido1', 'Apellido2', 'Masculino', 'Direccion', 'Tel', NULL, 'Correo', 1, 1, 'Ninguno'),
@@ -2336,6 +2340,7 @@ INSERT INTO `profesor` (`idprofesor`, `Persona_idPersona`, `tipo`) VALUES
 (55, 129, 1),
 (56, 131, 0),
 (57, 142, 0),
+(58, 144, 1);
 
 
 -- --------------------------------------------------------
