@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 30, 2018 at 09:10 AM
+-- Generation Time: Nov 04, 2018 at 03:47 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `escuela`
 --
-CREATE DATABASE IF NOT EXISTS `escuela` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `escuela`;
 
 DELIMITER $$
 --
@@ -128,17 +126,21 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaAlumno` (IN `VCED` VARCHA
  values (VGRA,@id_alumno);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaAsistencia` (IN `VESTADO` TINYINT, IN `VNOTA` VARCHAR(100), IN `VCED` VARCHAR(25), IN `VFECHA` DATE, IN `VIDGR` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaAsistencia` (IN `VESTADO` TINYINT, IN `VNOTA` VARCHAR(100), IN `VCED` VARCHAR(25), IN `VFECHA` DATE, IN `VIDGR` INT, IN `VID` INT)  BEGIN
     SELECT idPersona
     FROM persona
     WHERE cedula = VCED  COLLATE utf8mb4_unicode_ci
     INTO @id;
+    SELECT idProfesor
+    from profesor
+    WHERE Persona_idPersona = VID
+    INTO @idPr;
     SELECT idAlumno
     FROM alumno
     WHERE Persona_idPersona = @id  COLLATE utf8mb4_unicode_ci
     INTO @idA;
-    INSERT INTO asistencia(ESTADO,NOTA,IDALUMNO,FECHA,IDGRADO) 
-	VALUES(VESTADO,VNOTA,@idA,VFECHA,VIDGR);
+    INSERT INTO asistencia(ESTADO,NOTA,IDALUMNO,FECHA,IDGRADO,idProfesor) 
+	VALUES(VESTADO,VNOTA,@idA,VFECHA,VIDGR,@idPr);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaBeca` (IN `VCED` VARCHAR(50) COLLATE utf8mb4_unicode_ci, IN `VDES` VARCHAR(500) COLLATE utf8mb4_unicode_ci, IN `VMON` VARCHAR(45) COLLATE utf8mb4_unicode_ci)  BEGIN
@@ -288,49 +290,30 @@ CREATE TABLE `asistencia` (
   `IDALUMNO` int(11) DEFAULT NULL,
   `FECHA` date DEFAULT NULL,
   `IDGRADO` int(11) NOT NULL,
-  `AUSENCIA` tinyint(1) DEFAULT NULL
+  `AUSENCIA` tinyint(1) DEFAULT NULL,
+  `idProfesor` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `asistencia`
 --
 
-INSERT INTO `asistencia` (`IDASISTENCIA`, `ESTADO`, `NOTA`, `IDALUMNO`, `FECHA`, `IDGRADO`, `AUSENCIA`) VALUES
-(48, 1, 'No se ingresaron comentarios.', 5, '2018-10-21', 1, NULL),
-(49, 0, '1', 3, '2018-10-21', 1, NULL),
-(50, 1, 'No se ingresaron comentarios.', 6, '2018-10-21', 1, NULL),
-(51, 0, '5', 7, '2018-10-21', 1, NULL),
-(52, 0, '3', 1, '2018-10-21', 1, NULL),
-(58, 1, 'No se ingresaron comentarios.', 7, '2018-10-22', 1, NULL),
-(59, 1, 'No se ingresaron comentarios.', 6, '2018-10-22', 1, NULL),
-(60, 1, 'No se ingresaron comentarios.', 5, '2018-10-22', 1, NULL),
-(61, 1, 'No se ingresaron comentarios.', 1, '2018-10-22', 1, NULL),
-(62, 1, 'No se ingresaron comentarios.', 3, '2018-10-22', 1, NULL),
-(63, 1, 'No se ingresaron comentarios.', 1, '2018-10-22', 1, NULL),
-(64, 1, 'No se ingresaron comentarios.', 3, '2018-10-22', 1, NULL),
-(65, 0, 'Porque es gay', 5, '2018-10-22', 1, NULL),
-(66, 0, 'Porque es muy guapo', 6, '2018-10-22', 1, NULL),
-(67, 1, 'No se ingresaron comentarios.', 7, '2018-10-22', 1, NULL),
-(68, 0, 'No se ingresaron comentarios.', 3, '2018-10-22', 1, NULL),
-(69, 1, 'No se ingresaron comentarios.', 6, '2018-10-22', 1, NULL),
-(70, 0, 'No se ingresaron comentarios.', 5, '2018-10-22', 1, NULL),
-(71, 1, 'No se ingresaron comentarios.', 7, '2018-10-22', 1, NULL),
-(72, 1, 'No se ingresaron comentarios.', 1, '2018-10-22', 1, NULL),
-(155, 1, 'No se ingresaron comentarios.', 1, '2018-10-26', 1, NULL),
-(156, 0, 'Por fea', 3, '2018-10-26', 1, 1),
-(157, 1, 'No se ingresaron comentarios.', 6, '2018-10-26', 1, NULL),
-(158, 0, 'Enfermo y playo', 5, '2018-10-26', 1, 1),
-(159, 0, 'No se ingresaron comentarios.', 7, '2018-10-26', 1, 0),
-(160, 1, 'No se ingresaron comentarios.', 1, '2018-10-27', 1, NULL),
-(161, 1, 'No se ingresaron comentarios.', 3, '2018-10-27', 1, NULL),
-(162, 1, 'No se ingresaron comentarios.', 6, '2018-10-27', 1, NULL),
-(163, 1, 'No se ingresaron comentarios.', 7, '2018-10-27', 1, NULL),
-(164, 1, 'No se ingresaron comentarios.', 5, '2018-10-27', 1, NULL),
-(165, 0, 'No se ingresaron comentarios.', 1, '2018-10-28', 1, 1),
-(166, 0, 'No quizo venir', 3, '2018-10-28', 1, 1),
-(167, 1, 'No se ingresaron comentarios.', 6, '2018-10-28', 1, NULL),
-(168, 0, 'No se ingresaron comentarios.', 5, '2018-10-28', 1, 1),
-(169, 0, 'No se ingresaron comentarios.', 7, '2018-10-28', 1, 0);
+INSERT INTO `asistencia` (`IDASISTENCIA`, `ESTADO`, `NOTA`, `IDALUMNO`, `FECHA`, `IDGRADO`, `AUSENCIA`, `idProfesor`) VALUES
+(155, 1, 'No se ingresaron comentarios.', 1, '2018-10-26', 1, NULL, NULL),
+(156, 0, 'Por fea', 3, '2018-10-26', 1, 1, NULL),
+(157, 1, 'No se ingresaron comentarios.', 6, '2018-10-26', 1, NULL, NULL),
+(158, 0, 'Enfermo y playo', 5, '2018-10-26', 1, 1, NULL),
+(159, 0, 'No se ingresaron comentarios.', 7, '2018-10-26', 1, 0, NULL),
+(160, 1, 'No se ingresaron comentarios.', 1, '2018-10-27', 1, NULL, NULL),
+(161, 1, 'No se ingresaron comentarios.', 3, '2018-10-27', 1, NULL, NULL),
+(162, 1, 'No se ingresaron comentarios.', 6, '2018-10-27', 1, NULL, NULL),
+(163, 1, 'No se ingresaron comentarios.', 7, '2018-10-27', 1, NULL, NULL),
+(164, 1, 'No se ingresaron comentarios.', 5, '2018-10-27', 1, NULL, NULL),
+(165, 0, 'No se ingresaron comentarios.', 1, '2018-10-28', 1, 1, NULL),
+(166, 0, 'No quizo venir', 3, '2018-10-28', 1, 1, NULL),
+(167, 1, 'No se ingresaron comentarios.', 6, '2018-10-28', 1, NULL, NULL),
+(168, 0, 'No se ingresaron comentarios.', 5, '2018-10-28', 1, 1, NULL),
+(169, 0, 'No se ingresaron comentarios.', 7, '2018-10-28', 1, 0, NULL);
 
 --
 -- Triggers `asistencia`
@@ -430,7 +413,10 @@ INSERT INTO `grado` (`idgrado`, `nombreGrado`, `annio`, `ciclo`) VALUES
 (3, 'Quinto', 2018, 1),
 (4, 'Sexto', 2018, 1),
 (5, 'Tercero', 2018, 0),
-(6, 'Cuarto', 2018, 1);
+(6, 'Cuarto', 2018, 1),
+(7, 'Primero-A', 2018, 0),
+(8, 'Primero-B', 2018, 0),
+(9, 'Segundo-B', 2018, 0);
 
 -- --------------------------------------------------------
 
@@ -495,7 +481,8 @@ INSERT INTO `materia` (`idmateria`, `nombre`, `estado`, `idTipoMateria`) VALUES
 (8, 'Matematicas', 1, 1),
 (9, 'Religion', 1, 3),
 (10, 'Educacion Musical', 1, 4),
-(11, 'Estudios Sociales', 1, 1);
+(11, 'Estudios Sociales', 1, 1),
+(12, 'Frances', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -604,7 +591,8 @@ INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`
 (97, '12', '12', '12', '12', '12', '12', '12', NULL, '12', 1, 1, 'Ninguno'),
 (98, '13', '13', '13', '13', '13', '13', '13', NULL, '13', 1, 1, 'Ninguno'),
 (99, '14', '14', '14', '14', '14', '14', '14', NULL, '14', 1, 1, 'Ninguno'),
-(100, '15', '15', '15', '15', '15', '15', '15', NULL, '15', 1, 1, 'Ninguno');
+(100, '15', '15', '15', '15', '15', '15', '15', NULL, '15', 1, 1, 'Ninguno'),
+(101, '16', '16', '16', '16', 'Masculino', '16', '16', NULL, '16@gmail.com', 1, 1, 'Ninguno');
 
 -- --------------------------------------------------------
 
@@ -646,7 +634,8 @@ INSERT INTO `profesor` (`idprofesor`, `Persona_idPersona`, `tipo`) VALUES
 (38, 97, 0),
 (39, 98, 0),
 (40, 99, 0),
-(41, 100, 0);
+(41, 100, 0),
+(42, 101, 1);
 
 -- --------------------------------------------------------
 
@@ -828,7 +817,8 @@ INSERT INTO `usuario` (`idUsuario`, `idPersona`, `idRol`, `password`, `cambio`) 
 (22, 97, 1, '$2y$09$wM2ozn/.RC9QoWiEDLmZ5.SzbjLC4xfD2j0uiROP5zZKQIwJLnkMa', 1),
 (23, 98, 1, '$2y$09$wM2ozn/.RC9QoWiEDLmZ5.SzbjLC4xfD2j0uiROP5zZKQIwJLnkMa', 1),
 (24, 99, 2, '$2y$09$wM2ozn/.RC9QoWiEDLmZ5.SzbjLC4xfD2j0uiROP5zZKQIwJLnkMa', 0),
-(25, 100, 1, '$2y$09$wM2ozn/.RC9QoWiEDLmZ5.SzbjLC4xfD2j0uiROP5zZKQIwJLnkMa', 0);
+(25, 100, 1, '$2y$09$wM2ozn/.RC9QoWiEDLmZ5.SzbjLC4xfD2j0uiROP5zZKQIwJLnkMa', 0),
+(26, 101, 1, '$2y$09$wM2ozn/.RC9QoWiEDLmZ5.SzbjLC4xfD2j0uiROP5zZKQIwJLnkMa', 1);
 
 -- --------------------------------------------------------
 
@@ -1043,7 +1033,8 @@ ALTER TABLE `alumno_encargado`
 ALTER TABLE `asistencia`
   ADD PRIMARY KEY (`IDASISTENCIA`),
   ADD KEY `FK_ASISTENCIA_ALUMNO` (`IDALUMNO`),
-  ADD KEY `FK_ASISTENCIA_GRADO` (`IDGRADO`);
+  ADD KEY `FK_ASISTENCIA_GRADO` (`IDGRADO`),
+  ADD KEY `FK_ASISTENCIA_PROFESOR` (`idProfesor`);
 
 --
 -- Indexes for table `beca`
@@ -1230,13 +1221,13 @@ ALTER TABLE `encargado`
 -- AUTO_INCREMENT for table `grado`
 --
 ALTER TABLE `grado`
-  MODIFY `idgrado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idgrado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `idmateria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idmateria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `nacionalidad`
@@ -1260,13 +1251,13 @@ ALTER TABLE `nota_constante`
 -- AUTO_INCREMENT for table `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `profesor`
 --
 ALTER TABLE `profesor`
-  MODIFY `idprofesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `idprofesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `puesto`
@@ -1290,7 +1281,7 @@ ALTER TABLE `tipo_materia`
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Constraints for dumped tables
@@ -1314,7 +1305,8 @@ ALTER TABLE `alumno_encargado`
 --
 ALTER TABLE `asistencia`
   ADD CONSTRAINT `FK_ASISTENCIA_ALUMNO` FOREIGN KEY (`IDALUMNO`) REFERENCES `alumno` (`idalumno`),
-  ADD CONSTRAINT `FK_ASISTENCIA_GRADO` FOREIGN KEY (`IDGRADO`) REFERENCES `grado` (`idgrado`);
+  ADD CONSTRAINT `FK_ASISTENCIA_GRADO` FOREIGN KEY (`IDGRADO`) REFERENCES `grado` (`idgrado`),
+  ADD CONSTRAINT `FK_ASISTENCIA_PROFESOR` FOREIGN KEY (`idProfesor`) REFERENCES `profesor` (`idprofesor`);
 
 --
 -- Constraints for table `beca`
