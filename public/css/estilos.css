@@ -18,6 +18,11 @@
 
 }
 
+.select-grupo option{
+  background-color: blue;
+
+
+}
 .bg-red .bg-green .bg-blue .bg-yellow:hover{
 	opacity: 0.5;
 
@@ -63,7 +68,7 @@ label{/*Label de buscar en el registro de estudiantes*/
 	font-size:18px;
 	font-weight: bold;
 	color:black;
-	
+
 
 }
 .tabla th{/* cambiar color a los atributos de la tabla*/
@@ -78,7 +83,7 @@ label{/*Label de buscar en el registro de estudiantes*/
 .dataTables_info, .dataTables_paginate{/*Paginación de la tabla*/
 	font-weight: bold;
 	font-size: 16px;
-	
+
 }
 
 
@@ -98,17 +103,17 @@ label{/*Label de buscar en el registro de estudiantes*/
 /*Opciones de registro de alumnos*/
 .mostrarEditar{/* Bóton de Editar*/
 	border: 2px solid dodgerblue;
-	background-color: white; 
+	background-color: white;
 }
 .mostrarBlock{/*Bóton de desactivar*/
 	border: 2px solid red;
-	background-color: white; 
+	background-color: white;
 }
 .mostrarCheck{/*Bóton de activar*/
 	border: 2px solid green;
-	background-color: white; 
+	background-color: white;
 }
-.mostrarEditar:hover, .mostrarBlock:hover 
+.mostrarEditar:hover, .mostrarBlock:hover
 , .mostrarCheck:hover{
 	background-color: white;
 }
@@ -136,9 +141,9 @@ label{/*Label de buscar en el registro de estudiantes*/
 
 .border{
 	border : 2px solid black;
-	
+
 	}
 	.full-with{
-	
+
 		width : 100%;
 	}
