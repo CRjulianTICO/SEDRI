@@ -93,7 +93,7 @@ function cargarGrados(){
          success: function(data)
          {
             if(data==0){
-            $("#divGrados").hide();
+            //$("#divGrados").hide();
              listar(-9);
             }else{
             $('#cbGrados').empty();

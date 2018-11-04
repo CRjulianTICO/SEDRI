@@ -141,12 +141,12 @@ switch ($_GET["opcion"]){
 		if($tipoP==0){
 				echo "0";
 			}else{
-				$rspta=$instAsistencia->listarAsistenciasActual($idgrado);
+		$rspta=$instAsistencia->listarGrados($idPe);
  		$data= Array();
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
- 				"0"=>$reg->id_grado,
- 				"1"=>$reg->nombreGrado
+ 				"id_grado"=>$reg->id_grado,
+ 				"nombreGrado"=>$reg->nombreGrado
 			);
 		 }
 		 echo json_encode($data);
