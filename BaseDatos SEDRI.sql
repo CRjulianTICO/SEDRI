@@ -181,7 +181,7 @@ IF VTIPO !=0 THEN
 SELECT MIN(idGrado), MAX(idGrado)
 INTO @min,@max
 FROM grado 
-WHERE LOWER(nombreGrado) NOT LIKE '%primero%';
+WHERE LOWER(nombreGrado) NOT LIKE '%primero%' and NOT LIKE '%1%';
 WHILE @min <= @max DO
     INSERT INTO profesor_materia_grado(profesor_idprofesor,materia_idmateria,id_grado)VALUES(@idP,VMAT,@min);
     SET @min=@min+1;
