@@ -140,13 +140,13 @@ function guardar(e)
 
 function desactivar(cedula)
 {
-        $.post("../controlador/profesor.php?opcion=desactivar", {cedula : cedula}, function(e){
+        $.post("../controlador/alumno.php?opcion=desactivar", {cedula : cedula}, function(e){
             tabla.ajax.reload();
         });
 }
 function activar(cedula)
 {
-        $.post("../controlador/profesor.php?opcion=activar", {cedula : cedula}, function(e){
+        $.post("../controlador/alumno.php?opcion=activar", {cedula : cedula}, function(e){
             tabla.ajax.reload();
         });
 }
