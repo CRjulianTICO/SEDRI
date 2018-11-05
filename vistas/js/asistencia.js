@@ -1,5 +1,6 @@
 var tabla;
 var count ;
+var idgrado;
 /*
 function mostrarFormulario(estado){
     if(estado){
@@ -46,11 +47,12 @@ function guardar(){
      
 for (index = 1; index <= count; index++) {
  var DATOS = ($("#frm"+index).serialize());
-    
+ //DATOS+$(".cbGrados").val();
+
  
     console.log("->"+DATOS+"<-");
   	$.ajax({
-  		url: "../controlador/asistencia.php?opcion=guardar",
+  		url: "../controlador/asistencia.php?opcion=guardar&grados="+idgrado,
         type: "POST",
           data: DATOS,
 
@@ -58,7 +60,7 @@ for (index = 1; index <= count; index++) {
   	    {
                 tabla.ajax.reload();
               //  limpiar();
-              mostrarFormulario(false);
+        //      mostrarFormulario(false);
               if(datos == 'Registrado'){
                   $('#divResp').show();
                   document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
@@ -92,18 +94,19 @@ function cargarGrados(){
          contentType: "application/json; charset=utf-8",
          success: function(data)
          {
-            if(data==0){
-            //$("#divGrados").hide();
+           if(data==0){
+            $("#divGrados").hide();
              listar(-9);
             }else{
-            $('#cbGrados').empty();
-             $('#cbGrados').append('<option value="'+data[1].id_grado+'" >Seleccionar Grado</option>');
+            $('.cbGrados').empty();
+             $('.cbGrados').append('<option value="'+data[0].id_grado+'" >Seleccionar Grado</option>');
              $.each(data,function(i,item){
-                 $('#cbGrados').append('<option value="'+data[i].id_grado+'">'+data[i].nombreGrado+'</option>');
+                 $('.cbGrados').append('<option value="'+data[i].id_grado+'">'+data[i].nombreGrado+'</option>');
              });
-             listar($("#cbGrados".val()));
+             listar($(".cbGrados").val());
             }
          }
+         
 
      });
 
@@ -146,18 +149,23 @@ document.getElementById('btnGuardar').onclick = function(){
 
 
 function INIT(){
-     
+       cargarGrados();
+       idgrado = $('#cbGrados').val();
      $('#divResp').hide();
      $('#divGrados').show();
 
-    $(function() {
+     if($('.cbGrados').is(":hidden") ){
+    listar(-9);
+  }
     $("#cbGrados").on('change', function() {
+        $('#divResp').hide();
         valor = $('#cbGrados').val();
         listar(valor);
+        idgrado = valor;
         });
-    });
+
      
-    cargarGrados();
+  
     
      $(".dropdown-content>li>a").css("color", "#000000");
 

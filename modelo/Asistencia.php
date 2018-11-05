@@ -32,6 +32,11 @@ require "../config/Conexion.php";
 		    return contarFilas($sql);
         }
 
+        public function contarEstudiantesGrado($idGrado){
+            $sql = "select count(DISTINCT(idEstudiante)) as cantidad FROM grado_estudiante_nota where idGrado =".$idGrado;
+            return consulta($sql);
+        }
+
         public function listarAsistencia($grado,$fecha){
            
             $sql="SELECT * FROM vista_asistencia where nombreGrado='$grado' and FECHA = '$fecha'";
