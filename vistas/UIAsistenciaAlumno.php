@@ -5,8 +5,8 @@ require 'header.php';
 <div id="content">
 <div class="container">
 <div class='row'>
-    <div class="col s6 offset-s9" id="divGrados">
-        <span class="flow-text">6-columns (offset-by-6)</span><select id="cbGrados"><option>asdawd</option><option>asdawd232423422</option><option>asdaw234d</option></select>
+    <div class="col s6 offset-s9" id="divGrados" >
+        <select id="cbGrados" class="cbGrados"><option>asdawd</option><option>asdawd232423422</option><option>asdaw234d</option></select>
     </div>
 </div>
 </div>

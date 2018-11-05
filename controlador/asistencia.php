@@ -3,6 +3,9 @@
 require_once "../modelo/Asistencia.php";
 $instAsistencia = new Asistencia();
 
+require_once "../modelo/Grado.php";
+$instaGrado = new Grado();
+
 
 
 session_start();
@@ -30,12 +33,14 @@ session_start();
 
 
 $cedula= isset($_POST["cedula"])?limpiarCadena($_POST["cedula"]):"";
-$idGrado= isset($_POST["grado"])?limparCadena($_POST["grado"]):"";
+//$IDgrado= isset($_POST["grados"])?limparCadena($_POST["grados"]):"";
+$Idgrado= isset($_GET["grados"])?limpiarCadena($_GET["grados"]):"";
 $nota = isset($_POST["nota"])?limpiarCadena($_POST["nota"]):"";
 $justificacion= isset($_POST["justificacion"])?limpiarCadena($_POST["justificacion"]):"";
 $estado= isset($_POST["estado"])?limpiarCadena($_POST["estado"]):"";
 $fecha= isset($_GET["fecha"])?limpiarCadena($_GET["fecha"]):"";
 $dia= isset($_POST["dia"])?limpiarCadena($_POST["dia"]):"";
+$idGrado=isset($_GET["grado"])? limpiarCadena($_GET["grado"]):"";
 date_default_timezone_set('America/Costa_Rica');
 $dtFecha =  date("Y/m/d");
 
@@ -49,12 +54,15 @@ switch ($_GET["opcion"]){
 			if($nota==null || $nota == ""){
 				$nota = 'No se ingresaron comentarios.';
 			}
-
-			$res=$instAsistencia->verificarAsistenciasActual($grado,$dtFecha);
+			$nombreG=$instaGrado->listarNombre($Idgrado);
+			$nombre = $nombreG["nombreGrado"];
 			
-			if($res<5){
-				$rspta=$instAsistencia->insertaAsistencia($estado,$nota,$cedula,$dtFecha,$idgrado,$idPe);
-				echo $rspta ? "Registrado" : "Error";
+			$res=$instAsistencia->verificarAsistenciasActual($nombre,$dtFecha);
+			$cantidad = $instAsistencia->contarEstudiantesGrado($Idgrado);
+			//echo $res;
+			if($res<$cantidad){
+				$rspta=$instAsistencia->insertaAsistencia($estado,$nota,$cedula,$dtFecha,$Idgrado,$idPe);
+				echo $rspta ? "Registrado" : "Error/".$estado."/".$nota."/".$cedula."/".$dtFecha."/*".$Idgrado."*/".$idPe;
 			}else{
 				echo "0";
 			}
@@ -74,8 +82,9 @@ switch ($_GET["opcion"]){
 	break;
 
 	case 'listar':
-		if($idGrado!=$idgrado){
-		$rspta=$instAsistencia->listarAsistenciasActual($idgrado);
+		if($tipoP!=0){
+			//echo "->".$idgrado."<-";
+		$rspta=$instAsistencia->listarAsistenciasActual($idGrado);
  		$data= Array();
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
@@ -105,7 +114,8 @@ switch ($_GET["opcion"]){
 		 echo json_encode($results);
 	
 		 }else{
-			 $rspta=$instAsistencia->listarAsistenciasActual($idGrado);
+			 //echo "->".$idgrado."<-";
+			 $rspta=$instAsistencia->listarAsistenciasActual($idgrado);
  		$data= Array();
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
@@ -160,15 +170,16 @@ switch ($_GET["opcion"]){
 		}else{
 			$date = $fecha;
 		}
-	
-	$res=$instAsistencia->verificarAsistenciasActual($grado,$date);
+	$nombreG=$instaGrado->listarNombre($Idgrado);
+	$nombre = $nombreG["nombreGrado"];
+	$res=$instAsistencia->verificarAsistenciasActual($nombre,$date);
 	//print_r($res);
 	if($res==0){
 		$date = date('Y/m/d',strtotime("-1 days"));
 	}
 	
-	
-	$rspta=$instAsistencia->listarAsistencia($grado,$date);
+	if($tipoP!=0){
+	$rspta=$instAsistencia->listarAsistencia($nombre,$date);
 		 $data= Array();
 		 $estado;
 		 $ausencia;
@@ -206,7 +217,47 @@ switch ($_GET["opcion"]){
  			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
  			"aaData"=>$data);
          echo json_encode($results);
-         //print_r($data);
+		 //print_r($data);
+		 }else{
+			 $rspta=$instAsistencia->listarAsistencia($grado,$date);
+		 $data= Array();
+		 $estado;
+		 $ausencia;
+		 $nota;
+ 		while ($reg=$rspta->fetch_object()){
+			if($reg->ESTADO==1){
+					$estado= "Presente";
+				}else{
+					$estado ="Ausente";
+				}
+			if($reg->AUSENCIA==null){
+					$ausencia= "Presente";
+					$nota ="<input value='".$reg->NOTA."' name='nota' type='text' class='' id='nota".$reg->cedula."' disabled>";
+				}elseif($reg->AUSENCIA==1){
+					$ausencia ="<p class='green-text'>Justificada</p>";
+					$nota ="<input value='".$reg->NOTA."' name='nota' type='text' class=''id='nota".$reg->cedula."' disabled>";
+				}else{
+					$ausencia = "<p class='red-text'>Injustificada</p>   "."<button class='btn waves-effect waves-light yellow' id='btnJust' onclick='justificar(".$reg->cedula.")'>Justificar</button>";
+					$nota ="<input value='".$reg->NOTA."' name='nota' type='text' class='input-field inline' id='nota".$reg->cedula."'>";
+				}	 
+ 			$data[]=array(
+ 				"0"=>$reg->cedula,
+ 				"1"=>$reg->nombre,
+                "2"=>$reg->apellido1." ".$reg->apellido2,
+				"3"=>$reg->nombreGrado,
+				"4"=>$estado,
+                "5"=>$nota,
+                "6"=>$reg->FECHA,
+                "7"=>$ausencia
+                         );
+ 		}
+ 		$results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+         echo json_encode($results);
+		 }
 		break;
 
 	}
