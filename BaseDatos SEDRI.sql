@@ -1,14 +1,11 @@
 -- phpMyAdmin SQL Dump
-
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 04-11-2018 a las 06:20:56
+-- Tiempo de generación: 04-11-2018 a las 16:58:47
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
-
-
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -22,14 +19,14 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `escuela`
+-- Base de datos: `escuela`
 --
 CREATE DATABASE IF NOT EXISTS `escuela` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE `escuela`;
 
 DELIMITER $$
 --
--- Procedures
+-- Procedimientos
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActivaBeca` (IN `VCED` VARCHAR(20))  BEGIN
 	SELECT idPersona
@@ -178,6 +175,21 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaBeca` (IN `VCED` VARCHAR(
     VALUES(VDES,VMON,@idA);
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaEncargado` (IN `VCED` VARCHAR(45), IN `VNOM` VARCHAR(45), IN `VAP1` VARCHAR(45), IN `VAP2` VARCHAR(45), IN `VSEXO` VARCHAR(45), IN `VDIR` VARCHAR(100), IN `VTEL` VARCHAR(45), IN `VTEL2` VARCHAR(45), IN `VNAC` VARCHAR(45))  NO SQL
+BEGIN
+ INSERT INTO persona( cedula, nombre, apellido1, apellido2, sexo, direccion,telefono,telefono_secundario,idNacionalidad)
+ VALUES(VCED,VNOM,VAP1,VAP2,VSEXO,VDIR,VTEL,VTEL2,VNAC);
+ 
+ SELECT idPersona
+ FROM persona
+ WHERE cedula = VCED
+ into @id;
+ 
+ 
+ INSERT INTO encargado(Persona_idPersona)VALUES(@id);
+ 
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaProfesor` (IN `VCED` VARCHAR(45), IN `VNOM` VARCHAR(45), IN `VAP1` VARCHAR(45), IN `VAP2` VARCHAR(45), IN `VSEXO` VARCHAR(20), IN `VDIR` VARCHAR(100), IN `VTEL` VARCHAR(45), IN `VEMAIL` VARCHAR(45), IN `VNAC` INT, IN `VGRADO` INT, IN `VPASS` VARCHAR(80), IN `VMAT` INT, IN `VTIPO` INT)  BEGIN
  INSERT INTO persona( cedula, nombre, apellido1, apellido2, sexo, direccion,telefono,email,idNacionalidad)
  VALUES(VCED,VNOM,VAP1,VAP2,VSEXO,VDIR,VTEL,VEMAIL,VNAC);
@@ -240,7 +252,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertarEmpleado` (IN `CED` VARC
 
 END$$
 
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Login` (OUT `pass` VARCHAR(150), IN `ced` VARCHAR(25), OUT `id` INT, OUT `rol` VARCHAR(50), OUT `nombre` VARCHAR(50), OUT `ocambio` INT, OUT `ogrupo` VARCHAR(80), OUT `idgrado` INT, OUT `oemail` VARCHAR(60), OUT `ogrado` VARCHAR(50), OUT `idtipo` INT, OUT `tipoPro` INT)  BEGIN
 select u.password,p.idPersona, r.tiporol ,CONCAT(p.nombre,' ',CONCAT(p.apellido1,' ',p.apellido2)) as nombre,u.cambio ,concat(gr.nombreGrado,' ',gr.annio) as grado,gr.idGrado,p.email,gr.nombreGrado,ti.idTipo,pro.tipo
 into pass,id,rol,nombre,ocambio,ogrupo,idgrado,oemail,ogrado,idtipo,tipoPro
@@ -269,7 +280,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `alumno`
+-- Estructura de tabla para la tabla `alumno`
 --
 
 CREATE TABLE `alumno` (
@@ -278,7 +289,7 @@ CREATE TABLE `alumno` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `alumno`
+-- Volcado de datos para la tabla `alumno`
 --
 
 INSERT INTO `alumno` (`idalumno`, `Persona_idPersona`) VALUES
@@ -299,11 +310,10 @@ INSERT INTO `alumno` (`idalumno`, `Persona_idPersona`) VALUES
 (15, 149),
 (16, 150);
 
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `alumno_encargado`
+-- Estructura de tabla para la tabla `alumno_encargado`
 --
 
 CREATE TABLE `alumno_encargado` (
@@ -314,9 +324,7 @@ CREATE TABLE `alumno_encargado` (
 -- --------------------------------------------------------
 
 --
-
 -- Estructura de tabla para la tabla `asistencia`
-
 --
 
 CREATE TABLE `asistencia` (
@@ -330,9 +338,7 @@ CREATE TABLE `asistencia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
-
 -- Volcado de datos para la tabla `asistencia`
-
 --
 
 INSERT INTO `asistencia` (`IDASISTENCIA`, `ESTADO`, `NOTA`, `IDALUMNO`, `FECHA`, `IDGRADO`, `AUSENCIA`) VALUES
@@ -374,7 +380,6 @@ INSERT INTO `asistencia` (`IDASISTENCIA`, `ESTADO`, `NOTA`, `IDALUMNO`, `FECHA`,
 
 --
 -- Disparadores `asistencia`
-
 --
 DELIMITER $$
 CREATE TRIGGER `trgg_ausencia` BEFORE INSERT ON `asistencia` FOR EACH ROW BEGIN
@@ -388,7 +393,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `beca`
+-- Estructura de tabla para la tabla `beca`
 --
 
 CREATE TABLE `beca` (
@@ -400,7 +405,7 @@ CREATE TABLE `beca` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `beca`
+-- Volcado de datos para la tabla `beca`
 --
 
 INSERT INTO `beca` (`idbeca`, `descripcion_beca`, `monto_beca`, `idAlumno`, `estado`) VALUES
@@ -410,7 +415,7 @@ INSERT INTO `beca` (`idbeca`, `descripcion_beca`, `monto_beca`, `idAlumno`, `est
 -- --------------------------------------------------------
 
 --
--- Table structure for table `director`
+-- Estructura de tabla para la tabla `director`
 --
 
 CREATE TABLE `director` (
@@ -421,7 +426,7 @@ CREATE TABLE `director` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `empleado`
+-- Estructura de tabla para la tabla `empleado`
 --
 
 CREATE TABLE `empleado` (
@@ -431,7 +436,7 @@ CREATE TABLE `empleado` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `empleado`
+-- Volcado de datos para la tabla `empleado`
 --
 
 INSERT INTO `empleado` (`idEmpleado`, `idPersona`, `idPuesto`) VALUES
@@ -440,7 +445,7 @@ INSERT INTO `empleado` (`idEmpleado`, `idPersona`, `idPuesto`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `encargado`
+-- Estructura de tabla para la tabla `encargado`
 --
 
 CREATE TABLE `encargado` (
@@ -451,7 +456,7 @@ CREATE TABLE `encargado` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `grado`
+-- Estructura de tabla para la tabla `grado`
 --
 
 CREATE TABLE `grado` (
@@ -462,7 +467,7 @@ CREATE TABLE `grado` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `grado`
+-- Volcado de datos para la tabla `grado`
 --
 
 INSERT INTO `grado` (`idgrado`, `nombreGrado`, `annio`, `ciclo`) VALUES
@@ -473,11 +478,10 @@ INSERT INTO `grado` (`idgrado`, `nombreGrado`, `annio`, `ciclo`) VALUES
 (5, 'Quinto', 2018, 0),
 (6, 'Sexto', 2018, 1);
 
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `grado_alumno`
+-- Estructura de tabla para la tabla `grado_alumno`
 --
 
 CREATE TABLE `grado_alumno` (
@@ -486,7 +490,7 @@ CREATE TABLE `grado_alumno` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `grado_alumno`
+-- Volcado de datos para la tabla `grado_alumno`
 --
 
 INSERT INTO `grado_alumno` (`grado_idgrado`, `alumno_idalumno`) VALUES
@@ -501,7 +505,7 @@ INSERT INTO `grado_alumno` (`grado_idgrado`, `alumno_idalumno`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `grado_estudiante_nota`
+-- Estructura de tabla para la tabla `grado_estudiante_nota`
 --
 
 CREATE TABLE `grado_estudiante_nota` (
@@ -511,7 +515,6 @@ CREATE TABLE `grado_estudiante_nota` (
   `idEstudiante` int(11) NOT NULL,
   `trimestre` int(11) DEFAULT NULL,
   `aprobado` tinyint(1) DEFAULT NULL
-
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -586,7 +589,7 @@ INSERT INTO `grado_estudiante_nota` (`idGrado`, `idMateria`, `idNota`, `idEstudi
 -- --------------------------------------------------------
 
 --
--- Table structure for table `materia`
+-- Estructura de tabla para la tabla `materia`
 --
 
 CREATE TABLE `materia` (
@@ -597,7 +600,7 @@ CREATE TABLE `materia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `materia`
+-- Volcado de datos para la tabla `materia`
 --
 
 INSERT INTO `materia` (`idmateria`, `nombre`, `estado`, `idTipoMateria`) VALUES
@@ -612,7 +615,7 @@ INSERT INTO `materia` (`idmateria`, `nombre`, `estado`, `idTipoMateria`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nacionalidad`
+-- Estructura de tabla para la tabla `nacionalidad`
 --
 
 CREATE TABLE `nacionalidad` (
@@ -621,7 +624,7 @@ CREATE TABLE `nacionalidad` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `nacionalidad`
+-- Volcado de datos para la tabla `nacionalidad`
 --
 
 INSERT INTO `nacionalidad` (`idNacionalidad`, `pais`) VALUES
@@ -631,7 +634,7 @@ INSERT INTO `nacionalidad` (`idNacionalidad`, `pais`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nota`
+-- Estructura de tabla para la tabla `nota`
 --
 
 CREATE TABLE `nota` (
@@ -715,7 +718,7 @@ INSERT INTO `nota` (`idnota`, `trabajo_cotidiano`, `asistencia`, `tareas`, `prue
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nota_constante`
+-- Estructura de tabla para la tabla `nota_constante`
 --
 
 CREATE TABLE `nota_constante` (
@@ -741,7 +744,7 @@ INSERT INTO `nota_constante` (`idnota_constante`, `nombre`, `trabajo_cotidiano`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `persona`
+-- Estructura de tabla para la tabla `persona`
 --
 
 CREATE TABLE `persona` (
@@ -761,7 +764,7 @@ CREATE TABLE `persona` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `persona`
+-- Volcado de datos para la tabla `persona`
 --
 
 INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`, `sexo`, `direccion`, `telefono`, `telefono_secundario`, `email`, `idNacionalidad`, `disponible`, `nota_medica`) VALUES
@@ -833,7 +836,7 @@ INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `profesor`
+-- Estructura de tabla para la tabla `profesor`
 --
 
 CREATE TABLE `profesor` (
@@ -843,9 +846,7 @@ CREATE TABLE `profesor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
-
 -- Volcado de datos para la tabla `profesor`
-
 --
 
 INSERT INTO `profesor` (`idprofesor`, `Persona_idPersona`, `tipo`) VALUES
@@ -891,15 +892,10 @@ INSERT INTO `profesor` (`idprofesor`, `Persona_idPersona`, `tipo`) VALUES
 (57, 142, 0),
 (58, 144, 1);
 
-
 -- --------------------------------------------------------
 
 --
-
 -- Estructura de tabla para la tabla `profesor_materia_grado`
-
---
--- Table structure for table `profesor_materia_grado`
 --
 
 CREATE TABLE `profesor_materia_grado` (
@@ -909,9 +905,7 @@ CREATE TABLE `profesor_materia_grado` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
-
 -- Volcado de datos para la tabla `profesor_materia_grado`
-
 --
 
 INSERT INTO `profesor_materia_grado` (`profesor_idprofesor`, `materia_idmateria`, `id_grado`) VALUES
@@ -1011,11 +1005,10 @@ INSERT INTO `profesor_materia_grado` (`profesor_idprofesor`, `materia_idmateria`
 (58, 9, 5),
 (58, 9, 6);
 
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `puesto`
+-- Estructura de tabla para la tabla `puesto`
 --
 
 CREATE TABLE `puesto` (
@@ -1025,7 +1018,7 @@ CREATE TABLE `puesto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `puesto`
+-- Volcado de datos para la tabla `puesto`
 --
 
 INSERT INTO `puesto` (`idPuesto`, `nombrePuesto`, `descrpcionPuesto`) VALUES
@@ -1035,7 +1028,7 @@ INSERT INTO `puesto` (`idPuesto`, `nombrePuesto`, `descrpcionPuesto`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rol`
+-- Estructura de tabla para la tabla `rol`
 --
 
 CREATE TABLE `rol` (
@@ -1044,7 +1037,7 @@ CREATE TABLE `rol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `rol`
+-- Volcado de datos para la tabla `rol`
 --
 
 INSERT INTO `rol` (`IDROL`, `tiporol`) VALUES
@@ -1054,9 +1047,7 @@ INSERT INTO `rol` (`IDROL`, `tiporol`) VALUES
 -- --------------------------------------------------------
 
 --
-
 -- Estructura de tabla para la tabla `tipo_materia`
-
 --
 
 CREATE TABLE `tipo_materia` (
@@ -1065,9 +1056,7 @@ CREATE TABLE `tipo_materia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
-
 -- Volcado de datos para la tabla `tipo_materia`
-
 --
 
 INSERT INTO `tipo_materia` (`idTipo`, `tipo`) VALUES
@@ -1079,7 +1068,7 @@ INSERT INTO `tipo_materia` (`idTipo`, `tipo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -1091,7 +1080,7 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Dumping data for table `usuario`
+-- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`idUsuario`, `idPersona`, `idRol`, `password`, `cambio`) VALUES
@@ -1113,7 +1102,6 @@ INSERT INTO `usuario` (`idUsuario`, `idPersona`, `idRol`, `password`, `cambio`) 
 (21, 96, 1, '$2y$09$wM2ozn/.RC9QoWiEDLmZ5.SzbjLC4xfD2j0uiROP5zZKQIwJLnkMa', 1),
 (22, 97, 1, '$2y$09$wM2ozn/.RC9QoWiEDLmZ5.SzbjLC4xfD2j0uiROP5zZKQIwJLnkMa', 1),
 (23, 98, 1, '$2y$09$wM2ozn/.RC9QoWiEDLmZ5.SzbjLC4xfD2j0uiROP5zZKQIwJLnkMa', 1),
-
 (24, 99, 1, '$2y$09$wM2ozn/.RC9QoWiEDLmZ5.SzbjLC4xfD2j0uiROP5zZKQIwJLnkMa', 0),
 (25, 100, 2, '$2y$09$wM2ozn/.RC9QoWiEDLmZ5.SzbjLC4xfD2j0uiROP5zZKQIwJLnkMa', 0),
 (26, 101, 1, '11', 1),
@@ -1134,13 +1122,11 @@ INSERT INTO `usuario` (`idUsuario`, `idPersona`, `idRol`, `password`, `cambio`) 
 (41, 142, 1, '$2y$09$wM2ozn/.RC9QoWiEDLmZ5.SzbjLC4xfD2j0uiROP5zZKQIwJLnkMa', 0),
 (42, 144, 1, '$2y$09$wM2ozn/.RC9QoWiEDLmZ5.SzbjLC4xfD2j0uiROP5zZKQIwJLnkMa', 0);
 
-
 -- --------------------------------------------------------
 
 --
 -- Estructura Stand-in para la vista `vbeca`
 -- (Véase abajo para la vista actual)
-
 --
 CREATE TABLE `vbeca` (
 `cedula` varchar(45)
@@ -1154,10 +1140,8 @@ CREATE TABLE `vbeca` (
 -- --------------------------------------------------------
 
 --
-
 -- Estructura Stand-in para la vista `vdirector`
 -- (Véase abajo para la vista actual)
-
 --
 CREATE TABLE `vdirector` (
 `CEDULA` varchar(45)
@@ -1174,10 +1158,8 @@ CREATE TABLE `vdirector` (
 -- --------------------------------------------------------
 
 --
-
 -- Estructura Stand-in para la vista `vista_alumno`
 -- (Véase abajo para la vista actual)
-
 --
 CREATE TABLE `vista_alumno` (
 `cedula` varchar(45)
@@ -1197,10 +1179,8 @@ CREATE TABLE `vista_alumno` (
 -- --------------------------------------------------------
 
 --
-
 -- Estructura Stand-in para la vista `vista_asistencia`
 -- (Véase abajo para la vista actual)
-
 --
 CREATE TABLE `vista_asistencia` (
 `cedula` varchar(45)
@@ -1217,31 +1197,46 @@ CREATE TABLE `vista_asistencia` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `vista_empleado`
+--
 
--- Estructura Stand-in para la vista `vista_empleado`
--- (Véase abajo para la vista actual)
+CREATE TABLE `vista_empleado` (
+  `cedula` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nombre` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `apellido1` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `apellido2` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sexo` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `direccion` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `telefono` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pais` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nombrePuesto` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `disponible` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
 
 --
-CREATE TABLE `vista_empleado` (
+-- Estructura Stand-in para la vista `vista_encargado`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `vista_encargado` (
 `cedula` varchar(45)
 ,`nombre` varchar(45)
 ,`apellido1` varchar(45)
 ,`apellido2` varchar(45)
-,`sexo` varchar(20)
-,`direccion` varchar(100)
 ,`telefono` varchar(45)
+,`telefono_secundario` varchar(45)
+,`direccion` varchar(100)
+,`sexo` varchar(20)
 ,`pais` varchar(45)
-,`nombrePuesto` varchar(45)
 ,`disponible` tinyint(1)
 );
 
 -- --------------------------------------------------------
 
 --
-
 -- Estructura Stand-in para la vista `vista_materia`
 -- (Véase abajo para la vista actual)
-
 --
 CREATE TABLE `vista_materia` (
 `idmateria` int(11)
@@ -1249,7 +1244,6 @@ CREATE TABLE `vista_materia` (
 ,`tipo` varchar(100)
 ,`estado` tinyint(1)
 );
-
 
 -- --------------------------------------------------------
 
@@ -1267,14 +1261,11 @@ CREATE TABLE `vista_nota` (
 ,`trimestre` int(11)
 );
 
-
 -- --------------------------------------------------------
 
 --
-
 -- Estructura Stand-in para la vista `vista_profesor`
 -- (Véase abajo para la vista actual)
-
 --
 CREATE TABLE `vista_profesor` (
 `CEDULA` varchar(45)
@@ -1295,9 +1286,7 @@ CREATE TABLE `vista_profesor` (
 -- --------------------------------------------------------
 
 --
-
 -- Estructura para la vista `vbeca`
-
 --
 DROP TABLE IF EXISTS `vbeca`;
 
@@ -1306,7 +1295,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `vdirector`
+-- Estructura para la vista `vdirector`
 --
 DROP TABLE IF EXISTS `vdirector`;
 
@@ -1315,14 +1304,16 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `vista_alumno`
+-- Estructura para la vista `vista_alumno`
 --
 DROP TABLE IF EXISTS `vista_alumno`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_alumno`  AS  select `p`.`cedula` AS `cedula`,`p`.`nombre` AS `nombre`,`p`.`apellido1` AS `apellido1`,`p`.`apellido2` AS `apellido2`,`p`.`sexo` AS `sexo`,`n`.`pais` AS `pais`,`g`.`nombreGrado` AS `nombreGrado`,`g`.`annio` AS `annio`,`p`.`direccion` AS `direccion`,`p`.`nota_medica` AS `nota_medica`,`p`.`disponible` AS `disponible`,`g`.`idgrado` AS `idgrado` from ((((`persona` `p` join `alumno` `a`) join `grado_estudiante_nota` `ga`) join `nacionalidad` `n`) join `grado` `g`) where ((`a`.`Persona_idPersona` = `p`.`idPersona`) and (`ga`.`idEstudiante` = `a`.`idalumno`) and (`p`.`idNacionalidad` = `n`.`idNacionalidad`) and (`ga`.`idGrado` = `g`.`idgrado`)) group by `p`.`cedula` ;
 
+-- --------------------------------------------------------
+
 --
--- Structure for view `vista_asistencia`
+-- Estructura para la vista `vista_asistencia`
 --
 DROP TABLE IF EXISTS `vista_asistencia`;
 
@@ -1331,43 +1322,45 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
+-- Estructura para la vista `vista_encargado`
+--
+DROP TABLE IF EXISTS `vista_encargado`;
 
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_encargado`  AS  select `p`.`cedula` AS `cedula`,`p`.`nombre` AS `nombre`,`p`.`apellido1` AS `apellido1`,`p`.`apellido2` AS `apellido2`,`p`.`telefono` AS `telefono`,`p`.`telefono_secundario` AS `telefono_secundario`,`p`.`direccion` AS `direccion`,`p`.`sexo` AS `sexo`,`n`.`pais` AS `pais`,`p`.`disponible` AS `disponible` from ((`persona` `p` join `encargado` `e`) join `nacionalidad` `n`) where ((`p`.`idPersona` = `e`.`Persona_idPersona`) and (`p`.`idNacionalidad` = `n`.`idNacionalidad`)) ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura para la vista `vista_materia`
 --
 DROP TABLE IF EXISTS `vista_materia`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_materia`  AS  select `m`.`idmateria` AS `idmateria`,`m`.`nombre` AS `nombre`,`t`.`tipo` AS `tipo`,`m`.`estado` AS `estado` from (`materia` `m` join `tipo_materia` `t`) where (`m`.`idTipoMateria` = `t`.`idTipo`) ;
 
-
 -- --------------------------------------------------------
 
 --
-
 -- Estructura para la vista `vista_nota`
 --
 DROP TABLE IF EXISTS `vista_nota`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_nota`  AS  select concat(`p`.`nombre`,' ',`p`.`apellido1`,' ',`p`.`apellido2`) AS `CONCAT(p.nombre,' ',p.apellido1,' ',p.apellido2)`,`m`.`nombre` AS `nombre`,`n`.`asistencia` AS `asistencia`,`n`.`pruebas` AS `pruebas`,`n`.`tareas` AS `tareas`,`n`.`trabajo_cotidiano` AS `trabajo_cotidiano`,`gdn`.`trimestre` AS `trimestre` from ((((`grado_estudiante_nota` `gdn` join `alumno` `a`) join `persona` `p`) join `materia` `m`) join `nota` `n`) where ((`a`.`Persona_idPersona` = `p`.`idPersona`) and (`a`.`idalumno` = `gdn`.`idEstudiante`) and (`gdn`.`idNota` = `n`.`idnota`)) group by `m`.`idmateria` ;
 
-
 -- --------------------------------------------------------
 
 --
-
 -- Estructura para la vista `vista_profesor`
-
 --
 DROP TABLE IF EXISTS `vista_profesor`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_profesor`  AS  select `p`.`cedula` AS `CEDULA`,`p`.`nombre` AS `NOMBRE`,`p`.`apellido1` AS `APELLIDO1`,`p`.`apellido2` AS `APELLIDO2`,`p`.`sexo` AS `SEXO`,`p`.`direccion` AS `DIRECCION`,`p`.`telefono` AS `TELEFONO`,`p`.`email` AS `EMAIL`,`n`.`pais` AS `PAIS`,`p`.`disponible` AS `DISPONIBLE`,`g`.`nombreGrado` AS `nombreGrado`,`g`.`annio` AS `annio`,`pe`.`tipo` AS `tipo` from ((((`persona` `p` join `profesor` `pe`) join `nacionalidad` `n`) join `grado` `g`) join `profesor_materia_grado` `pg`) where ((`p`.`idPersona` = `pe`.`Persona_idPersona`) and (`pe`.`idprofesor` = `pg`.`profesor_idprofesor`) and (`g`.`idgrado` = `pg`.`id_grado`) and (`p`.`idNacionalidad` = `n`.`idNacionalidad`)) ;
 
-
+--
 -- Índices para tablas volcadas
 --
 
 --
 -- Indices de la tabla `alumno`
-
 --
 ALTER TABLE `alumno`
   ADD PRIMARY KEY (`idalumno`,`Persona_idPersona`),
@@ -1375,16 +1368,14 @@ ALTER TABLE `alumno`
   ADD KEY `fk_alumno_Persona1_idx` (`Persona_idPersona`);
 
 --
--- Indexes for table `alumno_encargado`
+-- Indices de la tabla `alumno_encargado`
 --
 ALTER TABLE `alumno_encargado`
   ADD PRIMARY KEY (`ID_ALUMNO`,`ID_ENCARGADO`),
   ADD KEY `ID_ENCARGADO` (`ID_ENCARGADO`);
 
 --
-
 -- Indices de la tabla `asistencia`
-
 --
 ALTER TABLE `asistencia`
   ADD PRIMARY KEY (`IDASISTENCIA`),
@@ -1392,14 +1383,14 @@ ALTER TABLE `asistencia`
   ADD KEY `FK_ASISTENCIA_GRADO` (`IDGRADO`);
 
 --
--- Indexes for table `beca`
+-- Indices de la tabla `beca`
 --
 ALTER TABLE `beca`
   ADD PRIMARY KEY (`idbeca`),
   ADD KEY `fk_beca_alumno_idx` (`idAlumno`);
 
 --
--- Indexes for table `director`
+-- Indices de la tabla `director`
 --
 ALTER TABLE `director`
   ADD PRIMARY KEY (`idDirector`,`Persona_idPersona`),
@@ -1407,7 +1398,7 @@ ALTER TABLE `director`
   ADD KEY `fk_director_Persona1_idx` (`Persona_idPersona`);
 
 --
--- Indexes for table `empleado`
+-- Indices de la tabla `empleado`
 --
 ALTER TABLE `empleado`
   ADD PRIMARY KEY (`idEmpleado`),
@@ -1415,7 +1406,7 @@ ALTER TABLE `empleado`
   ADD KEY `FK_EMPLEADO_PERSONA` (`idPersona`);
 
 --
--- Indexes for table `encargado`
+-- Indices de la tabla `encargado`
 --
 ALTER TABLE `encargado`
   ADD PRIMARY KEY (`idencargado`,`Persona_idPersona`),
@@ -1423,13 +1414,13 @@ ALTER TABLE `encargado`
   ADD KEY `fk_encargado_Persona1_idx` (`Persona_idPersona`);
 
 --
--- Indexes for table `grado`
+-- Indices de la tabla `grado`
 --
 ALTER TABLE `grado`
   ADD PRIMARY KEY (`idgrado`);
 
 --
--- Indexes for table `grado_alumno`
+-- Indices de la tabla `grado_alumno`
 --
 ALTER TABLE `grado_alumno`
   ADD PRIMARY KEY (`grado_idgrado`,`alumno_idalumno`),
@@ -1437,7 +1428,7 @@ ALTER TABLE `grado_alumno`
   ADD KEY `fk_grado_has_alumno_grado1_idx` (`grado_idgrado`);
 
 --
--- Indexes for table `grado_estudiante_nota`
+-- Indices de la tabla `grado_estudiante_nota`
 --
 ALTER TABLE `grado_estudiante_nota`
   ADD PRIMARY KEY (`idGrado`,`idMateria`,`idNota`,`idEstudiante`),
@@ -1446,14 +1437,14 @@ ALTER TABLE `grado_estudiante_nota`
   ADD KEY `fk_materia_idx1` (`idMateria`);
 
 --
--- Indexes for table `materia`
+-- Indices de la tabla `materia`
 --
 ALTER TABLE `materia`
   ADD PRIMARY KEY (`idmateria`),
   ADD KEY `FK_MATERIA_TIPOMATERIA` (`idTipoMateria`);
 
 --
--- Indexes for table `nacionalidad`
+-- Indices de la tabla `nacionalidad`
 --
 ALTER TABLE `nacionalidad`
   ADD PRIMARY KEY (`idNacionalidad`),
@@ -1461,19 +1452,19 @@ ALTER TABLE `nacionalidad`
   ADD UNIQUE KEY `pais_UNIQUE` (`pais`);
 
 --
--- Indexes for table `nota`
+-- Indices de la tabla `nota`
 --
 ALTER TABLE `nota`
   ADD PRIMARY KEY (`idnota`);
 
 --
--- Indexes for table `nota_constante`
+-- Indices de la tabla `nota_constante`
 --
 ALTER TABLE `nota_constante`
   ADD PRIMARY KEY (`idnota_constante`);
 
 --
--- Indexes for table `persona`
+-- Indices de la tabla `persona`
 --
 ALTER TABLE `persona`
   ADD PRIMARY KEY (`idPersona`),
@@ -1482,7 +1473,7 @@ ALTER TABLE `persona`
   ADD KEY `idNacionalidad_idx` (`idNacionalidad`);
 
 --
--- Indexes for table `profesor`
+-- Indices de la tabla `profesor`
 --
 ALTER TABLE `profesor`
   ADD PRIMARY KEY (`idprofesor`,`Persona_idPersona`),
@@ -1490,9 +1481,7 @@ ALTER TABLE `profesor`
   ADD KEY `fk_profesor_Persona1_idx` (`Persona_idPersona`);
 
 --
-
 -- Indices de la tabla `profesor_materia_grado`
-
 --
 ALTER TABLE `profesor_materia_grado`
   ADD PRIMARY KEY (`profesor_idprofesor`,`materia_idmateria`,`id_grado`),
@@ -1501,29 +1490,25 @@ ALTER TABLE `profesor_materia_grado`
   ADD KEY `fk_profesor_materiagrado_idx` (`id_grado`);
 
 --
--- Indexes for table `puesto`
+-- Indices de la tabla `puesto`
 --
 ALTER TABLE `puesto`
   ADD PRIMARY KEY (`idPuesto`);
 
 --
--- Indexes for table `rol`
+-- Indices de la tabla `rol`
 --
 ALTER TABLE `rol`
   ADD PRIMARY KEY (`IDROL`);
 
 --
-
 -- Indices de la tabla `tipo_materia`
-
 --
 ALTER TABLE `tipo_materia`
   ADD PRIMARY KEY (`idTipo`);
 
 --
-
 -- Indices de la tabla `usuario`
-
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`idUsuario`),
@@ -1531,179 +1516,169 @@ ALTER TABLE `usuario`
   ADD KEY `fk_rol_usuario` (`idRol`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `alumno`
+-- AUTO_INCREMENT de la tabla `alumno`
 --
 ALTER TABLE `alumno`
-
   MODIFY `idalumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
-
 --
--- AUTO_INCREMENT for table `asistencia`
+-- AUTO_INCREMENT de la tabla `asistencia`
 --
 ALTER TABLE `asistencia`
   MODIFY `IDASISTENCIA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
 
 --
--- AUTO_INCREMENT for table `beca`
+-- AUTO_INCREMENT de la tabla `beca`
 --
 ALTER TABLE `beca`
   MODIFY `idbeca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `director`
+-- AUTO_INCREMENT de la tabla `director`
 --
 ALTER TABLE `director`
   MODIFY `idDirector` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `empleado`
+-- AUTO_INCREMENT de la tabla `empleado`
 --
 ALTER TABLE `empleado`
   MODIFY `idEmpleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `encargado`
+-- AUTO_INCREMENT de la tabla `encargado`
 --
 ALTER TABLE `encargado`
   MODIFY `idencargado` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `grado`
+-- AUTO_INCREMENT de la tabla `grado`
 --
 ALTER TABLE `grado`
   MODIFY `idgrado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `materia`
+-- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
   MODIFY `idmateria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `nacionalidad`
+-- AUTO_INCREMENT de la tabla `nacionalidad`
 --
 ALTER TABLE `nacionalidad`
   MODIFY `idNacionalidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `nota`
+-- AUTO_INCREMENT de la tabla `nota`
 --
 ALTER TABLE `nota`
   MODIFY `idnota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
--- AUTO_INCREMENT for table `nota_constante`
+-- AUTO_INCREMENT de la tabla `nota_constante`
 --
 ALTER TABLE `nota_constante`
   MODIFY `idnota_constante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `persona`
+-- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
   MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
 
-
 --
--- AUTO_INCREMENT for table `profesor`
+-- AUTO_INCREMENT de la tabla `profesor`
 --
 ALTER TABLE `profesor`
   MODIFY `idprofesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
-
 --
--- AUTO_INCREMENT for table `puesto`
+-- AUTO_INCREMENT de la tabla `puesto`
 --
 ALTER TABLE `puesto`
   MODIFY `idPuesto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `rol`
+-- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
   MODIFY `IDROL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
-
 -- AUTO_INCREMENT de la tabla `tipo_materia`
-
 --
 ALTER TABLE `tipo_materia`
   MODIFY `idTipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `usuario`
+-- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-
   MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
+--
+-- Restricciones para tablas volcadas
+--
 
 --
--- Constraints for dumped tables
---
-
---
--- Constraints for table `alumno`
+-- Filtros para la tabla `alumno`
 --
 ALTER TABLE `alumno`
   ADD CONSTRAINT `fk_alumno_Persona1` FOREIGN KEY (`Persona_idPersona`) REFERENCES `persona` (`idPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `alumno_encargado`
+-- Filtros para la tabla `alumno_encargado`
 --
 ALTER TABLE `alumno_encargado`
   ADD CONSTRAINT `alumno_encargado_ibfk_1` FOREIGN KEY (`ID_ALUMNO`) REFERENCES `alumno` (`idalumno`),
   ADD CONSTRAINT `alumno_encargado_ibfk_2` FOREIGN KEY (`ID_ENCARGADO`) REFERENCES `encargado` (`idencargado`);
 
 --
-
 -- Filtros para la tabla `asistencia`
-
 --
 ALTER TABLE `asistencia`
   ADD CONSTRAINT `FK_ASISTENCIA_ALUMNO` FOREIGN KEY (`IDALUMNO`) REFERENCES `alumno` (`idalumno`),
   ADD CONSTRAINT `FK_ASISTENCIA_GRADO` FOREIGN KEY (`IDGRADO`) REFERENCES `grado` (`idgrado`);
 
 --
--- Constraints for table `beca`
+-- Filtros para la tabla `beca`
 --
 ALTER TABLE `beca`
   ADD CONSTRAINT `fk_beca_alumno` FOREIGN KEY (`idAlumno`) REFERENCES `alumno` (`idalumno`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `director`
+-- Filtros para la tabla `director`
 --
 ALTER TABLE `director`
   ADD CONSTRAINT `fk_director_Persona1` FOREIGN KEY (`Persona_idPersona`) REFERENCES `persona` (`idPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `empleado`
+-- Filtros para la tabla `empleado`
 --
 ALTER TABLE `empleado`
   ADD CONSTRAINT `FK_EMPLEADO_PERSONA` FOREIGN KEY (`idPersona`) REFERENCES `persona` (`idPersona`),
   ADD CONSTRAINT `FK_EMPLEADO_PUESTO` FOREIGN KEY (`idPuesto`) REFERENCES `puesto` (`idPuesto`);
 
 --
--- Constraints for table `encargado`
+-- Filtros para la tabla `encargado`
 --
 ALTER TABLE `encargado`
   ADD CONSTRAINT `fk_encargado_Persona1` FOREIGN KEY (`Persona_idPersona`) REFERENCES `persona` (`idPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `grado_alumno`
+-- Filtros para la tabla `grado_alumno`
 --
 ALTER TABLE `grado_alumno`
   ADD CONSTRAINT `fk_grado_has_alumno_alumno1` FOREIGN KEY (`alumno_idalumno`) REFERENCES `alumno` (`idalumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_grado_has_alumno_grado1` FOREIGN KEY (`grado_idgrado`) REFERENCES `grado` (`idgrado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `grado_estudiante_nota`
+-- Filtros para la tabla `grado_estudiante_nota`
 --
 ALTER TABLE `grado_estudiante_nota`
   ADD CONSTRAINT `fk_alumno_materia_grado_nota` FOREIGN KEY (`idEstudiante`) REFERENCES `alumno` (`idalumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -1712,29 +1687,25 @@ ALTER TABLE `grado_estudiante_nota`
   ADD CONSTRAINT `fk_nota_estudiante_materia_grado` FOREIGN KEY (`idNota`) REFERENCES `nota` (`idnota`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
-
 -- Filtros para la tabla `materia`
-
 --
 ALTER TABLE `materia`
   ADD CONSTRAINT `FK_MATERIA_TIPOMATERIA` FOREIGN KEY (`idTipoMateria`) REFERENCES `tipo_materia` (`idTipo`);
 
 --
--- Constraints for table `persona`
+-- Filtros para la tabla `persona`
 --
 ALTER TABLE `persona`
   ADD CONSTRAINT `idNacionalidad` FOREIGN KEY (`idNacionalidad`) REFERENCES `nacionalidad` (`idNacionalidad`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `profesor`
+-- Filtros para la tabla `profesor`
 --
 ALTER TABLE `profesor`
   ADD CONSTRAINT `fk_profesor_Persona1` FOREIGN KEY (`Persona_idPersona`) REFERENCES `persona` (`idPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
-
 -- Filtros para la tabla `profesor_materia_grado`
-
 --
 ALTER TABLE `profesor_materia_grado`
   ADD CONSTRAINT `fk_profesor_has_materia_materia1` FOREIGN KEY (`materia_idmateria`) REFERENCES `materia` (`idmateria`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -1742,7 +1713,7 @@ ALTER TABLE `profesor_materia_grado`
   ADD CONSTRAINT `fk_profesor_materiagrado` FOREIGN KEY (`id_grado`) REFERENCES `grado` (`idgrado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `usuario`
+-- Filtros para la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `fk_persona_usuario` FOREIGN KEY (`idPersona`) REFERENCES `persona` (`idPersona`),
