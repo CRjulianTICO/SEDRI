@@ -3,6 +3,14 @@ require 'header.php';
 ?>
 
 <div id="content">
+<div class="container">
+<div class='row'>
+    <div class="col s6 offset-s9" id="divGrados" >
+        <select id="cbGrados" class="cbGrados"><option>asdawd</option><option>asdawd232423422</option><option>asdaw234d</option></select>
+    </div>
+</div>
+</div>
+
 <div class="card-panel blue darken-2 white-text lighten-2" data-error="credeciales malas" id="divResp"></div>
 <div id="tabla">
     <table id="tblAsistenciaActual" class="display responsive nowrap tabla highlight" style="width: 100%">
@@ -40,6 +48,9 @@ require 'header.php';
  });
  $(document).ready(function() {
     $('#estado').material_select();
+ });
+ $(document).ready(function() {
+    $('#cbGrados').material_select();
  });
 
  

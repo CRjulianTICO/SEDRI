@@ -1,11 +1,9 @@
-<?php
-
-require_once "../modelo/Asistencia.php";
-$instAsistencia = new Asistencia();
+<?php 
+require_once "../modelo/Notas.php";
+$instNotas = new Notas();
 
 require_once "../modelo/Grado.php";
 $instaGrado = new Grado();
-
 
 
 session_start();
@@ -25,24 +23,18 @@ session_start();
 	$grado = $dataToken["grado"];
 	$idgrado = $dataToken["idgrado"];
 	$tipoP = $dataToken["tipoProfesor"];
-	$idPe = $dataToken["id"];
-	
-    
-   
-	
-
+    $idPersona = $dataToken["id"];
+    $idTipoMateria = $dataToken["tipoMateria"];
 
 $cedula= isset($_POST["cedula"])?limpiarCadena($_POST["cedula"]):"";
 //$IDgrado= isset($_POST["grados"])?limparCadena($_POST["grados"]):"";
 $Idgrado= isset($_GET["grados"])?limpiarCadena($_GET["grados"]):"";
-$nota = isset($_POST["nota"])?limpiarCadena($_POST["nota"]):"";
-$justificacion= isset($_POST["justificacion"])?limpiarCadena($_POST["justificacion"]):"";
-$estado= isset($_POST["estado"])?limpiarCadena($_POST["estado"]):"";
-$fecha= isset($_GET["fecha"])?limpiarCadena($_GET["fecha"]):"";
-$dia= isset($_POST["dia"])?limpiarCadena($_POST["dia"]):"";
+$trabajo_cotidiano = isset($_POST["trabajo_cotidiano"])?limpiarCadena($_POST["trabajo_cotidiano"]):"";
+$trimestre= isset($_GET["trimestres"])?limpiarCadena($_GET["trimestres"]):"";
+$tareas= isset($_POST["tareas"])?limpiarCadena($_POST["tareas"]):"";
+$pruebas= isset($_POST["pruebas"])?limpiarCadena($_POST["pruebas"]):"";
+$asistencia= isset($_POST["asistencia"])?limpiarCadena($_POST["asistencia"]):"";
 $idGrado=isset($_GET["grado"])? limpiarCadena($_GET["grado"]):"";
-date_default_timezone_set('America/Costa_Rica');
-$dtFecha =  date("Y/m/d");
 
 $cont = 1;
 
@@ -50,20 +42,29 @@ $cont = 1;
 
 switch ($_GET["opcion"]){
 	case 'guardar':
-	
-			if($nota==null || $nota == ""){
-				$nota = 'No se ingresaron comentarios.';
-			}
+            $nota = '1';
+            if($trabajo_cotidiano==null || $trabajo_cotidiano == "0.00"
+            ||$asistencia=="0.00"||$asistencia==null||$tareas == "0.00"||$tareas == null
+            ||$pruebas=="0.00"||$pruebas==null){
+				$nota = '0';
+            }
+            
 			$nombreG=$instaGrado->listarNombre($Idgrado);
 			$nombre = $nombreG["nombreGrado"];
 			
-			$res=$instAsistencia->verificarAsistenciasActual($nombre,$dtFecha);
-			$cantidad = $instAsistencia->contarEstudiantesGrado($Idgrado);
-			//echo $res;
-			if($res<$cantidad){
-				$rspta=$instAsistencia->insertaAsistencia($estado,$nota,$cedula,$dtFecha,$Idgrado,$idPe);
-				echo $rspta ? "Registrado" : "Error/".$estado."/".$nota."/".$cedula."/".$dtFecha."/*".$Idgrado."*/".$idPe;
-			}else{
+			if($nota='1'){
+                if($tipoP!=0){
+                    $nombreM=$instNotas->listarMateriasEspecial($idTipoMateria,$idPersona);
+                    $idMateria = $nombreM["id"];
+				$rspta=$instNotas->insertaNotas($cedula,$idMateria,$Idgrado,$trabajo_cotidiano,$pruebas,$tareas,$asistencia,$trimestre);
+                echo $rspta ? "Registrado" : "Error/".$cedula."/Ma:".$idMateria."/Gr:".$Idgrado."/Co:".$trabajo_cotidiano."/Pr:".$pruebas."/Ta:".$tareas."/As:".$asistencia."/Tr:".$trimestre;
+                }else{
+                   $rspta=$instNotas->insertaNotas($cedula,$Idgrado,$idgrado,$trabajo_cotidiano,$pruebas,$tareas,$asistencia,$trimestre);
+                echo $rspta ? "Registrado" : "Error/".$cedula."/Ma:".$Idgrado."/Gr:".$idgrado."/Co:".$trabajo_cotidiano."/Pr:".$pruebas."/Ta:".$tareas."/As:".$asistencia."/Tr:".$trimestre;
+                 
+                }
+            
+            }else{
 				echo "0";
 			}
 			
@@ -83,8 +84,12 @@ switch ($_GET["opcion"]){
 
 	case 'listar':
 		if($tipoP!=0){
-			//echo "->".$idgrado."<-";
-		$rspta=$instAsistencia->listarAsistenciasActual($idGrado);
+        $nombreG=$instaGrado->listarNombre($Idgrado);
+        $nombreGrado = $nombreG["nombreGrado"];
+        
+        $nombreM=$instNotas->listarMateriasEspecial($idTipoMateria,$idPersona);
+        $nombreMater = $nombreM["nombre"];
+		$rspta=$instNotas->listarPorGrado($nombreGrado,$trimestre,"$nombreMater");
  		$data= Array();
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
@@ -93,16 +98,13 @@ switch ($_GET["opcion"]){
                 "2"=>$reg->apellido1,
 				"3"=>$reg->apellido2,
 				"4"=>$reg->nombreGrado,
-                "5"=>'<div>
-                        <select id="estado" name="estado" class="browser-default" form=frm'.$cont.'>
-                        <option value="1">Presente</option>
-                        <option value="0">Ausente</option>
-                      </select>
-                    </div>',
-				"6"=>"<div  class='input-field inline'>
-                        <input name='nota' id='txtNota' type='text' class='validate' form='frm".$cont."'>
-                        <label for='txtNota'>Nota</label>
-					  </div>"
+                "5"=>$reg->materia,
+                "6"=>"<input form='frm".$cont."' class='trabajo_cotidiano' name='trabajo_cotidiano' value='".$reg->trabajo_cotidiano."' > </input>",
+                "7"=>"<input form='frm".$cont."' class='pruebas' name='pruebas' value='".$reg->pruebas."' > </input>",
+                "8"=>"<input form='frm".$cont."' class='tareas' name='tareas' value='".$reg->tareas."' > </input>",
+                "9"=>"<input form='frm".$cont."' class='asistencia' name='asistencia' value='".$reg->asistencia."' > </input>",
+                "10"=>"<input form='frm".$cont."' class='total' name='total' value='".$reg->total."' disabled> </input>"
+                
 						 );
 						$cont++;
  		}
@@ -114,8 +116,12 @@ switch ($_GET["opcion"]){
 		 echo json_encode($results);
 	
 		 }else{
-			 //echo "->".$idgrado."<-";
-			 $rspta=$instAsistencia->listarAsistenciasActual($idgrado);
+        $nombreG=$instaGrado->listarNombre($idgrado);
+        $nombreGrado = $nombreG["nombreGrado"];
+        $nombreMat=$instNotas->nombreMaterias($Idgrado);
+        $nombreMateria = $nombreMat["nombre"];
+        
+		$rspta=$instNotas->listarPorMateria($nombreMateria,$trimestre,$nombreGrado);
  		$data= Array();
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
@@ -124,16 +130,13 @@ switch ($_GET["opcion"]){
                 "2"=>$reg->apellido1,
 				"3"=>$reg->apellido2,
 				"4"=>$reg->nombreGrado,
-                "5"=>'<div>
-                        <select id="estado" name="estado" class="browser-default" form=frm'.$cont.'>
-                        <option value="1">Presente</option>
-                        <option value="0">Ausente</option>
-                      </select>
-                    </div>',
-				"6"=>"<div  class='input-field inline'>
-                        <input name='nota' id='txtNota' type='text' class='validate' form='frm".$cont."'>
-                        <label for='txtNota'>Nota</label>
-					  </div>"
+                "5"=>$reg->materia,
+                "6"=>"<input form='frm".$cont."' class='trabajo_cotidiano' name='trabajo_cotidiano' value='".$reg->trabajo_cotidiano."' > </input>",
+                "7"=>"<input form='frm".$cont."' class='pruebas' name='pruebas' value='".$reg->pruebas."' > </input>",
+                "8"=>"<input form='frm".$cont."' class='tareas' name='tareas' value='".$reg->tareas."' > </input>",
+                "9"=>"<input form='frm".$cont."' class='asistencia' name='asistencia' value='".$reg->asistencia."' > </input>",
+                "10"=>"<input form='frm".$cont."' class='total' name='total' value='".$reg->total."' disabled> </input>"
+                
 						 );
 						$cont++;
  		}
@@ -149,20 +152,28 @@ switch ($_GET["opcion"]){
 
 	case 'cargar':
 		if($tipoP==0){
-				echo "0";
+                $rspta=$instNotas->listarMaterias($idTipoMateria,$idPersona);
+                $data= Array();
+                while ($reg=$rspta->fetch_object()){
+                    $data[]=array(
+                        "id_grado"=>$reg->id,
+                        "nombreGrado"=>$reg->nombre
+                    );
+                }
+		         echo json_encode($data);
 			}else{
-		$rspta=$instAsistencia->listarGrados($idPe);
- 		$data= Array();
- 		while ($reg=$rspta->fetch_object()){
- 			$data[]=array(
- 				"id_grado"=>$reg->id_grado,
- 				"nombreGrado"=>$reg->nombreGrado
-			);
-		 }
+                $rspta=$instNotas->listarGrados($idPersona);
+                $data= Array();
+                while ($reg=$rspta->fetch_object()){
+                    $data[]=array(
+                        "id_grado"=>$reg->id_grado,
+                        "nombreGrado"=>$reg->nombreGrado
+                    );
+                }
 		 echo json_encode($data);
 			}
 	break;
-
+/*S
     case 'mostrar':
 			
 		if($fecha==null || $fecha == ""){
@@ -259,10 +270,9 @@ switch ($_GET["opcion"]){
          echo json_encode($results);
 		 }
 		break;
-
+*/
 	}
-
-
+    
 
 
 
