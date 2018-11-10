@@ -5,6 +5,7 @@
 #content {
   padding: 20px;
  margin-left: 22%;
+ margin-right:2%;
 }
 
 @media only screen and (max-width : 992px) {

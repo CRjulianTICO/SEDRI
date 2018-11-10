@@ -32,7 +32,7 @@ function guardar(e){
 
             }else{
                 $('#resp').show();
-                document.getElementById('resp').innerHTML="<h5>Credenciales incorrectas! <br> Intente de nuevo.</h5>";
+                document.getElementById('resp').innerHTML="<h6 class='subtitle'>Credenciales incorrectas! <br> Intente de nuevo.</h6>";
             }
         }
           

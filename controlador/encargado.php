@@ -19,14 +19,8 @@ if(isset($_SESSION["token"])){
   }else{
 	  $idgrado = 0;
   }
- 
-
-
-}else
-{
-  header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
 }
-
+ 
 require_once "../modelo/Alumno.php";
 require_once "../modelo/Encargado.php";
 require_once "../modelo/Pais.php";

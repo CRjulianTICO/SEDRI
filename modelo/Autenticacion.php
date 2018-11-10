@@ -69,7 +69,6 @@
         $varP = 'false';
     
             if(password_verify($pass1,$pass2)){
-                echo "entre xd";
                 $varP = '1';
             }else{
             $varP= '0';

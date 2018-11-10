@@ -74,9 +74,9 @@
 			{
 
 					$sql="SELECT a.idalumno,concat(p.nombre,' ',p.apellido1,' ',p.apellido2) as nombre
-					FROM persona p,alumno a,grado_alumno ga
-					where p.idPersona = a.Persona_idPersona and a.idalumno = ga.alumno_idalumno and ga.grado_idgrado = $grado
-					;";
+					FROM persona p,alumno a,grado_estudiante_nota gen
+					where p.idPersona = a.Persona_idPersona and a.idalumno = gen.idEstudiante and gen.idGrado = $grado
+					GROUP BY gen.idEstudiante;";
 
 
 				return consulta($sql);

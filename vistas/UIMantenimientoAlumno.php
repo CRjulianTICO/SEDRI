@@ -106,7 +106,7 @@
           <div class="row">
 
             <div class="input-field col s12">
-              <textarea placeholder="Ingresa datos medicos que pueden ser relevantes" id="nota" class="materialize-textarea validate" name="nota" data-length="100" required></textarea>
+              <textarea placeholder="Ingresa datos medicos que pueden ser relevantes" id="nota" class="materialize-textarea validate" name="nota" data-length="100"></textarea>
               <label for="direccion">Nota médica</label>
             </div>
           </div>
