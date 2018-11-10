@@ -15,7 +15,7 @@
     $tipoProfe = $dataToken["tipoProfesor"];
   }else
   {
-    header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
+    header("Location: https://ssedri.herokuapp.com/SEDRI/vistas/Login.php");
   }
 ?>
 <!DOCTYPE html>
