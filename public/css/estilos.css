@@ -14,6 +14,7 @@
 .bg-red{
 	background-color:#F44336;
 	font-weight: bold;
+	border-style: none;
 
 
 }
@@ -41,11 +42,13 @@
 .bg-yellow{
 	background-color:#FFC107;
 	font-weight: bold;
+	border-style: none;
 
 }
 .btn-edita{
 color: yellow;
 background-color: white;
+
 }
 .border-grey{
     border-color:#616161;
@@ -70,6 +73,9 @@ label{/*Label de buscar en el registro de estudiantes*/
 	color:black;
 
 
+}
+i{
+    vertical-align: middle !important;
 }
 .tabla th{/* cambiar color a los atributos de la tabla*/
 	font-weight: bold;

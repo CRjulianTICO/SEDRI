@@ -86,18 +86,20 @@
     <select  name="estudiante[]" id="estudiante" class="js-example-responsive" multiple="multiple" style="width: 100%"></select>
     </select>
   </div>
-  
-<div class="row">
-<div class="col s12">
-<button class="btn btn_success botones" type="button" onclick="activarSelect();">Modificar</button>
+  <div class="row">
 </div>
+<div class="row">
+  <br>
+  <div class="center-align">
+  <button class="btn-floating btn-large waves-effect waves-light green" type="button" onclick="activarSelect();"><i class="material-icons center white-text">edit</i></button>
+  </div>
+     
 </div>
 
 <div class="row">
 <br>
 </div>
     <div class="input-field col s12">
-    
       <textarea placeholder="" id="direccion" class="materialize-textarea validate" name="direccion" data-length="100" required></textarea>
       <label for="direccion">Ingresa la Dirección</label>
     </div>

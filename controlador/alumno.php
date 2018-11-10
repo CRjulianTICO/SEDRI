@@ -75,8 +75,8 @@ switch ($_GET["opcion"]) {
         "8"=>$reg->direccion,
         "9"=>$reg->nota_medica,
 
-                "10"=>'<button class="btn  btn-small bg-yellow" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center white-text ">edit</i></button>
-					 <button class="btn btn-small bg-red" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center white-text ">block</i></button>'
+                "10"=>'<button class="bg-yellow" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center white-text">edit</i></button>
+                <button class="bg-red" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center white-text">block</i></button>'
                 );
         }
         $results = array(
@@ -102,8 +102,8 @@ switch ($_GET["opcion"]) {
     "8"=>$reg->direccion,
     "9"=>$reg->nota_medica,
 
-        "10"=>'<button class="btn  btn-small bg-yellow" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center white-text ">edit</i></button>
-           <button class="btn btn-small bg-red" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center white-text ">block</i></button>'
+        "10"=>'<button class="bg-yellow" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center white-text">edit</i></button>
+        <button class="bg-red" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center white-text">block</i></button>'
         );
         }
         $results = array(

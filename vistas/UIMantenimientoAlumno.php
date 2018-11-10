@@ -4,7 +4,7 @@
   <div class="tabla" id="tabla">
     <div class="container">
       <div class='row'>
-        <div class="col s6 offset-s7 divGrados" id="divGrados">
+        <div class="" id="divGrados">
           <select id="cbGrados" class="browser-default cbGrados">
             <option>asdawd</option>
             <option>asdawd232423422</option>
@@ -124,10 +124,10 @@
 
       <div class="row" id="botones">
         <div class="col s6">
-          <button name="editar" type="button" id="btnEditar" class="btn waves-effect waves-light blue editaEst">Editar<i class="material-icons right">edit</i></button>
+          <button name="editar" type="button" id="btnEditar" class="btn waves-effect waves-light blue editaEst full-with">Editar<i class="material-icons right">edit</i></button>
         </div>
         <div class="col s6">
-          <button class="btn waves-effect waves-light red cancelEst" name="eliminar" type="button" onclick="cancelarform();">Cancelar
+          <button class="btn waves-effect waves-light red cancelEst full-with" name="eliminar" type="button" onclick="cancelarform();">Cancelar
             <i class="material-icons right">clear</i><br></button>
         </div>
       </div>

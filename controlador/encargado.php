@@ -104,8 +104,8 @@ switch ($_GET["opcion"]){
 				"6"=>$reg->direccion,
 				"7"=>$reg->sexo,
 				"8"=>$reg->pais,
- 				"9"=>'<button class="mostrarEditar" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center blue-text ">edit</i></button>
-					 <button class="mostrarBlock" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center red-text ">block</i></button>'
+ 				"9"=>'<button class="bg-yellow" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center white-text">edit</i></button>
+					 <button class="bg-red" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center white-text">block</i></button>'
 					 
  				);
  		}
