@@ -1,7 +1,7 @@
 <?php 
 require_once "global.php";
 
-$conexion = new mysqli(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_NAME,null,'unix_socket=/cloudsql/onyx-descent-222103:us-east1:sedri');
+$conexion = new mysqli(null,DB_USERNAME,DB_PASSWORD,DB_NAME,null,'/cloudsql/onyx-descent-222103:us-east1:sedri');
 
 mysqli_query( $conexion, 'SET NAMES "'.DB_ENCODE.'"');
 
