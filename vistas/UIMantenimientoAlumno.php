@@ -1,10 +1,11 @@
 <?php require 'header.php' ?>
 <!--AQUI DEBERIA IR TODO EL CONTENIDO DE LA PAGINA-->
 <div id="content">
+
   <div class="tabla" id="tabla">
     <div class="container">
       <div class='row'>
-        <div class="" id="divGrados">
+        <div class=" divGrados" id="divGrados">
           <select id="cbGrados" class="browser-default cbGrados">
             <option>asdawd</option>
             <option>asdawd232423422</option>

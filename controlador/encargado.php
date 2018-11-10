@@ -68,9 +68,9 @@ switch ($_GET["opcion"]){
 	break;
 
 	case 'editar':
-			$rspta=$encargado->actualizar($cedula, $nombre, $apellido1, $apellido2, $sexo, $direccion,$telefono,$nacionalidad,$nacionalidad);
+			$rspta=$encargado->actualizar($cedula, $nombre, $apellido1, $apellido2, $sexo, $direccion,$telefono,$telefono2,$nacionalidad,$nacionalidad);
 			
-			if($rspta != null){
+			if($_POST['estudiante'] != null){
 				$resp = $encargado->consultaID($cedula);
 				$id = $resp['idencargado'];
 				echo 'id'.$id.'<br>';

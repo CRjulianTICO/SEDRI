@@ -63,8 +63,8 @@
         </div>
 
  <div class='row'><div class='input-field col s6'>
-  <input placeholder="Numero de telefono secundario" class='validate' type='text' name='telefono_secundario' id='tel_secundario' maxlength="30" required />
-          <label for='tel_secundario'>Secundario</label>
+  <input placeholder="Numero de telefono secundario" class='validate' type='text' name='telefono_secundario' id='telefono_secundario' maxlength="30" required />
+          <label for='telefono_secundario'>Secundario</label>
         </div>
         </div>
 <div class="row">
