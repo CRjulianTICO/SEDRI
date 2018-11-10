@@ -19,6 +19,7 @@
 <link href="../public/datatables/responsive.dataTables.min.css" rel="stylesheet"/>
 <link href="../public/css/estilos.css?hi" rel="stylesheet"/>
 <link href="../public/css/menuProfesor.css?ki" rel="stylesheet"/>
+	<link rel="shortcut icon" href=""/>
 
 
 </head>
