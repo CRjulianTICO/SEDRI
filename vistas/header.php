@@ -85,9 +85,9 @@
                   <a class="collapsible-header waves-effect">Asistencias<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">group</i></a>
                   <div class="collapsible-body">
                     <ul>
-                      <a href="#" class="waves-effect">Asistencia<i class="material-icons left pink-text registroIcono">content_paste</i></a>
+                      <a href="../vistas/UIAsistenciaAlumno.php" class="waves-effect">Asistencia<i class="material-icons left pink-text registroIcono">content_paste</i></a>
                       <li>
-                        <a onclick="" class="waves-effect">Registro<i class="material-icons left green-text agregarIcono">add_circle</i></a>
+                        <a href="../vistas/UIRegistroAsistencia.php" class="waves-effect">Registro<i class="material-icons left green-text agregarIcono">add_circle</i></a>
                       </li>
 
                     </ul>
@@ -107,11 +107,11 @@
                 </li>
 
                 <li>
-                  <a class="collapsible-header waves-effect">Notas<i class="material-icons right grey-text">arrow_drop_down</i><i class="material-icons left grey-text">description</i></a>
+                  <a  class="collapsible-header waves-effect">Notas<i class="material-icons right grey-text">arrow_drop_down</i><i class="material-icons left grey-text">description</i></a>
                   <div class="collapsible-body">
                     <ul>
 
-                      <a href="#" class="waves-effect">Registro<i class="material-icons left red-text registroIcono">grid_on</i></a>
+                      <a href="../vistas/UIMantenimientoNotas.php" class="waves-effect">Registro<i class="material-icons left red-text registroIcono">grid_on</i></a>
                       <li>
                         <a onclick="" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
                       </li>

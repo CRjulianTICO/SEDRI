@@ -44,30 +44,45 @@
     }
 
     public function recuperar($cedula){
-		$sql = "SELECT email,idUsuario
+		$sql = "SELECT email,idUsuario,password
         from persona p,usuario u
 		WHERE p.idPersona = u.idPersona and CEDULA = '".$cedula."'";
 	    return consultaSimple($sql);
+    }
+
+    public function historico($id,$correo,$pass){
+        $fecha =  date("Y/m/d");
+		$sql = "INSERT INTO historico_usuarios(idUsuario,email,pass,fecha) values($id,'$correo','$pass','$fecha')";
+	    return consulta($sql);
     }
     
     public function actualizar($id,$password,$cambio){
         $sql="UPDATE `usuario` SET `password` = '$password', `cambio` = '$cambio' where idUsuario='$id';";
 		return consulta($sql);
     }
+    public function mostrarHistorico($id){
+        $sql="select * from historico_usuarios where idUsuario = $id;";
+		return consulta($sql);
+    }
+
+     public function verificar($pass1,$pass2){
+        $varP = 'false';
+    
+            if(password_verify($pass1,$pass2)){
+                echo "entre xd";
+                $varP = '1';
+            }else{
+            $varP= '0';
+            }
+
+            return $varP;
+
+ }
+    
  }
 
-//  function verificar($pas1){
 
-    
-//     if(password_verify($pas1,'$2y$09$ftvdXgf9JdIUWzzRt9KeC.k/6TJcV67ADhq3cxLPONxKTnchR7Aky')){
-//         echo('si');
-      
 
-//     }else{
-//      echo('no');  
-//     }
-
-//  }
 //  verificar('12345678');
 
 /*

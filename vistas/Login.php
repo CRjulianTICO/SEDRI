@@ -61,7 +61,7 @@
               </div>
 
               <label style='float: right;'>
-								<a class='blue-text' href='RecuperarPassword.php'><b>Olvido su contraseña </b> <i class="material-icons prefix bot">help_outline</i></a>
+								<a class='blue-text' href='RecuperaPassword.php'><b>Olvido su contraseña</b> <i class="material-icons prefix bot">help_outline</i></a>
 							</label>
             </div>
 
@@ -71,7 +71,7 @@
                 <button name='btn_login' id="btn_login" class='col s12 btn btn-large waves-effect blue' >Iniciar Sesión <i class="material-icons prefix   center ">input</i></button>
               </div>
 
-              <div class="card-panel red darken-2 white-text lighten-2" data-error="credeciales malas"id="resp"></div>
+              <div class="card-panel red darken-2 white-text lighten-2" data-error="credenciales malas"id="resp"></div>
 
             </center>
           </form>

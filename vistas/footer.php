@@ -30,6 +30,9 @@ if ($tipoProfe == 1) {
 function redireccionarEncargado(){
     window.location.href = "../vistas/UIMantenimientoEncargado.php#mostrarform";
 }
+function redireccionarAsistencia(){
+    window.location.href = "../vistas/UIAsistenciaAlumno.php#mostrarform";
+}
 </script>
 <script type="text/javascript">
  $(document).ready(function() {
