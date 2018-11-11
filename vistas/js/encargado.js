@@ -281,8 +281,6 @@ function cargarAlumnos(bool, ced) {
   console.log(ced + 'cedula');
   $('.js-example-responsive').select2();
   $.ajax({
-    // url: bool? "../controlador/encargado.php?opcion=cargarEstudianteEncargado":"../controlador/encargado.php?opcion=cargarEstudiante",
-    // method: "POST",
     type: "GET",
     url: bool ? "../controlador/encargado.php?opcion=cargarEstudianteEncargado" : "../controlador/encargado.php?opcion=cargarEstudiante",
     data: {

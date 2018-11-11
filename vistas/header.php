@@ -114,9 +114,7 @@
                     <ul>
 
                       <a href="../vistas/UIMantenimientoNotas.php" class="waves-effect">Registro<i class="material-icons left red-text registroIcono">grid_on</i></a>
-                      <li>
-                        <a onclick="" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
-                      </li>
+                     
 
                     </ul>
                   </div>

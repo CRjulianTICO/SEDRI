@@ -1,6 +1,21 @@
 <?php require 'header.php' ?>
 <!--AQUI DEBERIA IR TODO EL CONTENIDO DE LA PAGINA-->
 <div id="content">
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Encargado</h4>
+    <br>
+    <div class="container" id="modal">
+
+
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="btn red modal-close text-white">Cerrar</a>
+  </div>
+</div>
+<!-- Finaliza Modal -->
 
   <div class="tabla" id="tabla">
     <div class="container">
@@ -142,6 +157,9 @@
 <?php require 'footer.php' ?>
 
 <script src="js/alumno.js"></script>
+<script>$(document).ready(function(){
+    $('.modal').modal();
+  });</script>
 
 </body>
 

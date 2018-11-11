@@ -280,6 +280,35 @@ function cargarGrados(){
 
 }
 
+function cargarEncargado(cedula) {
+ 
+ $('#modal').empty();
+  console.log("ESTOS SON LOS DATOS CARGADOS");
+  console.log(cedula + 'cedula');
+  $.ajax({
+    type: "POST",
+    url:  "../controlador/alumno.php?opcion=cargarEncargado&cedula="+cedula,
+    dataType: "json",
+    contentType: "application/json; charset=utf-8",
+    success: function (data) {
+            if(data!=""){
+              $.each(data, function (i, item) {
+                
+                //$('#modal').append("<hr> <table> <tbody> <tr><td>Cédula :</td><td>"+data[i].cedula+"</td> </tr> <tr><td>Nombre: </td><td>"+data[i].nombre+"</td></tr> <tr><td>Télefono: </td><td>"+data[i].telefono+" , "+data[i].telefono_secundario+"</td><tr><td>Dirección: </td><td>"+data[i].direccion+"</td></tr></tbody></table>");
+                $('#modal').append("<hr><b>Cédula</b> "+data[i].cedula+"<br><b>Nombre</b> "+data[i].nombre+"<br><b>Télefonos</b> "+data[i].telefono+" , "+data[i].telefono_secundario+"<br><b>Dirección</b> "+data[i].direccion+"<br>");
+              });
+            }else{
+              $('#modal').append("El estudiante seleccionado no tiene un encargado registrado.");
+            }
+            $('.modal').modal('open');         
+    }
+
+  });
+
+
+
+}
+
 
 
 init();

@@ -82,7 +82,11 @@
 				return consulta($sql);
 			}
 			public function listarAlumnosEncargado($cedula,$grado){
-				$sql="SELECT idalumno,nombre FROM vista_alumno_encargado where idGrado = $grado and cedula='$cedula';";
+				$sql="SELECT idalumno,nombre FROM vista_alumno_encargado where cedula='$cedula' GROUP BY idalumno;";
+				return consulta($sql);
+			}
+			public function mostrarEncargado($cedula){
+				$sql="SELECT * FROM mostrar_encargado where cedula_e = '$cedula';";
 				return consulta($sql);
 			}
 
