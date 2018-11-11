@@ -93,8 +93,8 @@
                     </ul>
                   </div>
                 </li>
-
-                <li>
+                
+                 <li id="divEncargado">
                   <a class="collapsible-header waves-effect">Encargado<i class="material-icons right grey-text">arrow_drop_down</i><i class="material-icons left grey-text">assignment_ind</i></a>
                   <div class="collapsible-body">
                     <ul>
@@ -105,6 +105,8 @@
                     </ul>
                   </div>
                 </li>
+               
+               
 
                 <li>
                   <a  class="collapsible-header waves-effect">Notas<i class="material-icons right grey-text">arrow_drop_down</i><i class="material-icons left grey-text">description</i></a>

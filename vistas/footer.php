@@ -7,7 +7,8 @@
 <?php
 if ($tipoProfe == 1) {
 	echo '<script type="text/javascript">',
- 'cargarMenu();',
+ 'cargarMenu();
+ $("#divEncargado").hide();',
  '</script>';
 }
 ?>

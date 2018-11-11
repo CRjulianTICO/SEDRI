@@ -296,7 +296,6 @@ function cargarAlumnos(bool, ced) {
       $.each(data, function (i, item) {
         if (bool) {
           $('#estudiante').append('<option value="' + data[i].idalumno + '" selected="selected">' + data[i].nombre + '</option>');
-          $("#estudiante").val(data[i].idalumno);
         } else {
           $('#estudiante').append('<option value="' + data[i].idalumno + '">' + data[i].nombre + '</option>');
         }

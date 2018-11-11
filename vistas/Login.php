@@ -47,7 +47,7 @@
             <img src="../public/images/gorro.png" class="img-inicio" alt="Imagen">
             <br>
             <div class='col s12'>
-              	<h6 class="subtitle">Iniciar Sesión</h6>
+              	
               </div>
               <br>
             <div class='row'>
