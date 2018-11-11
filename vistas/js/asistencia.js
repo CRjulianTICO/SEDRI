@@ -1,39 +1,7 @@
 var tabla;
 var count ;
 var idgrado;
-/*
-function mostrarFormulario(estado){
-    if(estado){
-        $('#tabla').hide();
-        $('#formulario').show();
-      
-    }else{
-        $('#tabla').show();
-        $('#formulario').hide();
-      //  limpiar();
-    }
-}
 
-function mostrarBotones(estado){
-    if(estado){
-        $('#btnGuardar').hide();
-        $('#btnEditar').show();
-        $('#btnCancelar').show();
-    }else{
-        $('#btnGuardar').show();
-        $('#btnEditar').hide();
-        $('#btnCancelar').hide();
-    }
-}
-
-
-function cancelarForm(){
-    mostrarFormulario(false);
-    mostrarBotones(false);
-    listar();
-}
-
-*/
 
 
 

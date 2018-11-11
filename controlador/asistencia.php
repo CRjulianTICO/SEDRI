@@ -77,11 +77,11 @@ switch ($_GET["opcion"]){
 				foreach ($respu as $key => $value) {
 					$num=$value;
 				}
-				echo "cantidad:->";
+				/*echo "cantidad:->";
 				print_r($num);
 				echo "<-<br>res:->";
 				print_r($res);
-				echo"<-";
+				echo"<-";*/
 			}
 			
 
@@ -91,7 +91,7 @@ switch ($_GET["opcion"]){
 					$rspta=$instAsistencia->insertaAsistencia($estado,$nota,$cedula,$dtFecha,$Idgrado,$idPe);
 				echo $rspta ? "Registrado" : "Error/".$estado."/".$nota."/".$cedula."/".$dtFecha."/*".$Idgrado."*/".$idPe;
 				}else{
-					$rspta=$instAsistencia->insertaAsistencia($estado,$nota,$cedula,$dtFecha,$idgrado,$idPea);
+					$rspta=$instAsistencia->insertaAsistencia($estado,$nota,$cedula,$dtFecha,$idgrado,$idPe);
 					echo $rspta ? "Registrado" : "Error/".$estado."/".$nota."/".$cedula."/".$dtFecha."/*".$Idgrado."*/".$idPe;
 				}
 				
@@ -202,6 +202,12 @@ switch ($_GET["opcion"]){
 		}else{
 			$date = $fecha;
 		}
+		/*echo "la fecha que llega por parametro:";
+		print_r($fecha);
+		echo "<br><br>";
+		echo "primer date:";
+		print_r($date);
+		echo "<br><br>";*/
 	if($tipoP!=0){
 		$nombreG=$instaGrado->listarNombre($Idgrado);
 		$nombre = $nombreG["nombreGrado"];
@@ -216,6 +222,12 @@ switch ($_GET["opcion"]){
 	if($res==0){
 		$date = date('Y/m/d',strtotime("-1 days"));
 	}
+
+	/*echo "res:";
+	print_r($res);
+		echo "<br><br>";
+		echo "segundo date que entra a consutla:";
+	print_r($date);*/
 	
 	if($tipoP!=0){
 	$rspta=$instAsistencia->listarAsistencia($nombre,$date);
