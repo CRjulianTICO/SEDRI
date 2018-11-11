@@ -26,6 +26,7 @@ session_start();
 	$idgrado = $dataToken["idgrado"];
 	$tipoP = $dataToken["tipoProfesor"];
 	$idPe = $dataToken["id"];
+	//$tipoP = $dataToken["tipoProfesor"];
 	
     
    
@@ -54,15 +55,46 @@ switch ($_GET["opcion"]){
 			if($nota==null || $nota == ""){
 				$nota = 'No se ingresaron comentarios.';
 			}
-			$nombreG=$instaGrado->listarNombre($Idgrado);
-			$nombre = $nombreG["nombreGrado"];
 			
-			$res=$instAsistencia->verificarAsistenciasActual($nombre,$dtFecha);
-			$cantidad = $instAsistencia->contarEstudiantesGrado($Idgrado);
-			//echo $res;
-			if($res<$cantidad){
-				$rspta=$instAsistencia->insertaAsistencia($estado,$nota,$cedula,$dtFecha,$Idgrado,$idPe);
+			
+			if($tipoP!=0){
+				$nombreG=$instaGrado->listarNombre($Idgrado);
+				$nombre = $nombreG["nombreGrado"];
+				$res=$instAsistencia->verificarAsistenciasActual($nombre,$dtFecha);
+				$cantidad = $instAsistencia->contarEstudiantesGrado($Idgrado);
+				$respu=$cantidad->fetch_object();
+				
+				foreach ($respu as $key => $value) {
+					$num=$value;
+				}
+			}else{
+				$nombreG=$instaGrado->listarNombre($idgrado);
+				$nombre = $nombreG["nombreGrado"];
+				$res=$instAsistencia->verificarAsistenciasActual($nombre,$dtFecha);
+				$cantidad = $instAsistencia->contarEstudiantesGrado($idgrado);
+				$respu=$cantidad->fetch_object();
+				
+				foreach ($respu as $key => $value) {
+					$num=$value;
+				}
+				echo "cantidad:->";
+				print_r($num);
+				echo "<-<br>res:->";
+				print_r($res);
+				echo"<-";
+			}
+			
+
+
+			if($res<$num){
+				if($tipoP!=0){
+					$rspta=$instAsistencia->insertaAsistencia($estado,$nota,$cedula,$dtFecha,$Idgrado,$idPe);
 				echo $rspta ? "Registrado" : "Error/".$estado."/".$nota."/".$cedula."/".$dtFecha."/*".$Idgrado."*/".$idPe;
+				}else{
+					$rspta=$instAsistencia->insertaAsistencia($estado,$nota,$cedula,$dtFecha,$idgrado,$idPea);
+					echo $rspta ? "Registrado" : "Error/".$estado."/".$nota."/".$cedula."/".$dtFecha."/*".$Idgrado."*/".$idPe;
+				}
+				
 			}else{
 				echo "0";
 			}
@@ -76,7 +108,7 @@ switch ($_GET["opcion"]){
 					$date = $dia;
 				}
 
-			echo $cedula."<br>".$justificacion."<br>".$nota."<br>".$date;
+			//echo $cedula."<br>".$justificacion."<br>".$nota."<br>".$date;
 			$rspta=$instAsistencia->actualizarAsistencia($cedula,$justificacion,$nota,$date);
 			echo $rspta ? "Registrado" : "Error" ;
 	break;
@@ -170,9 +202,16 @@ switch ($_GET["opcion"]){
 		}else{
 			$date = $fecha;
 		}
-	$nombreG=$instaGrado->listarNombre($Idgrado);
-	$nombre = $nombreG["nombreGrado"];
-	$res=$instAsistencia->verificarAsistenciasActual($nombre,$date);
+	if($tipoP!=0){
+		$nombreG=$instaGrado->listarNombre($Idgrado);
+		$nombre = $nombreG["nombreGrado"];
+		$res=$instAsistencia->verificarAsistenciasActual($nombre,$date);
+	}else{
+		$nombreG=$instaGrado->listarNombre($idgrado);
+		$nombre = $nombreG["nombreGrado"];
+		$res=$instAsistencia->verificarAsistenciasActual($nombre,$date);
+	}
+	
 	//print_r($res);
 	if($res==0){
 		$date = date('Y/m/d',strtotime("-1 days"));
