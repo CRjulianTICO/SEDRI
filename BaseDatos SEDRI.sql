@@ -31,7 +31,7 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActivaBeca` (IN `VCED` VARCHAR(20))  BEGIN
 	SELECT idPersona
     FROM persona
-    WHERE cedula = VCED
+    WHERE cedula = VCED LIMIT 1
     INTO @idP;
     SELECT idAlumno
     FROM alumno
@@ -45,7 +45,7 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActualizaAsistencia` (IN `VJUST` TINYINT, IN `VNOTA` VARCHAR(100), IN `VCED` VARCHAR(20), IN `VFECHA` DATE)  BEGIN
 	SELECT idPersona
     FROM persona
-    WHERE cedula = VCED
+    WHERE cedula = VCED LIMIT 1
     INTO @idP;
     SELECT idAlumno
     FROM alumno
@@ -60,7 +60,7 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActualizaBeca` (IN `VDESC` VARCHAR(500), IN `VMON` VARCHAR(40), IN `VCED` VARCHAR(20))  BEGIN
 	SELECT idPersona
     FROM persona
-    WHERE cedula = VCED
+    WHERE cedula = VCED LIMIT 1
     INTO @idP;
     SELECT idAlumno
     FROM alumno
@@ -83,10 +83,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActualizarEmpleado` (IN `CED` VA
  TELEFONO=TEL,
  idNacionalidad=NAC
  WHERE CEDULA = CED;
- 
+
  SELECT idPersona FROM persona WHERE CEDULA = CED INTO @id ;
- 
-UPDATE empleado SET 
+
+UPDATE empleado SET
 idPuesto = PUE
 WHERE idPersona = @id;
 
@@ -95,7 +95,7 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_DesactivaBeca` (IN `VCED` VARCHAR(20))  BEGIN
 	SELECT idPersona
     FROM persona
-    WHERE cedula = VCED
+    WHERE cedula = VCED LIMIT 1
     INTO @idP;
     SELECT idAlumno
     FROM alumno
@@ -109,27 +109,27 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaAlumno` (IN `VCED` VARCHAR(20), IN `VNOM` VARCHAR(40), IN `VAPE1` VARCHAR(40), IN `VAPE2` VARCHAR(40), IN `VSEX` VARCHAR(20), IN `VDIR` VARCHAR(50), IN `VNAC` INT, IN `VNOT` VARCHAR(650), IN `VGRA` INT)  BEGIN
  INSERT INTO persona( cedula, nombre, apellido1, apellido2, sexo, direccion,idNacionalidad,nota_medica)
  VALUES(VCED,VNOM,VAPE1,VAPE2,VSEX,VDIR,VNAC,VNOT);
- 
+
  SELECT idPersona
  FROM persona
  WHERE cedula = VCED
  INTO @id;
- 
+
  INSERT INTO alumno(Persona_idPersona)VALUES(@id);
- 
+
  SELECT idalumno
  FROM alumno
  WHERE persona_idPersona = @id
  INTO @id_alumno;
- 
+
  SELECT ciclo
- into @vciclo 
+ into @vciclo
  from grado
  where idgrado=VGRA;
 
 SELECT MIN(idmateria), MAX(idmateria)
 INTO @min,@max
-FROM materia; 
+FROM materia;
 
 WHILE @min <= @max DO
 SET @tri =1;
@@ -164,7 +164,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaAsistencia` (IN `VESTADO`
     FROM alumno
     WHERE Persona_idPersona = @id  COLLATE utf8mb4_unicode_ci
     INTO @idA;
-    INSERT INTO asistencia(ESTADO,NOTA,IDALUMNO,FECHA,IDGRADO,idProfesor) 
+    INSERT INTO asistencia(ESTADO,NOTA,IDALUMNO,FECHA,IDGRADO,idProfesor)
 	VALUES(VESTADO,VNOTA,@idA,VFECHA,VIDGR,@idPr);
 END$$
 
@@ -188,7 +188,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaEncargado` (IN `VCED` VAR
  FROM persona
  WHERE cedula = VCED
  into @id;
- 
+
 
  INSERT INTO encargado(Persona_idPersona)VALUES(@id);
 END$$
@@ -222,61 +222,61 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaProfesor` (IN `VCED` VARCHAR(45), IN `VNOM` VARCHAR(45), IN `VAP1` VARCHAR(45), IN `VAP2` VARCHAR(45), IN `VSEXO` VARCHAR(20), IN `VDIR` VARCHAR(100), IN `VTEL` VARCHAR(45), IN `VEMAIL` VARCHAR(45), IN `VNAC` INT, IN `VGRADO` INT, IN `VPASS` VARCHAR(80), IN `VMAT` INT, IN `VTIPO` INT)  BEGIN
  INSERT INTO persona( cedula, nombre, apellido1, apellido2, sexo, direccion,telefono,email,idNacionalidad)
  VALUES(VCED,VNOM,VAP1,VAP2,VSEXO,VDIR,VTEL,VEMAIL,VNAC);
- 
+
  SELECT idPersona
  FROM persona
  WHERE cedula = VCED
  INTO @id;
- 
+
 
  INSERT INTO profesor(Persona_idPersona,tipo)VALUES(@id,VTIPO);
 
- 
+
  SELECT idprofesor
  FROM profesor
  WHERE Persona_idPersona = @id
  INTO @idP;
- 
+
  INSERT INTO usuario(idPersona,idRol,password,cambio)
  VALUES (@id,1,VPASS,1);
- 
+
 IF VTIPO !=0 THEN
 SELECT MIN(idGrado), MAX(idGrado)
 INTO @min,@max
-FROM grado 
+FROM grado
 WHERE LOWER(nombreGrado) NOT LIKE '%primero%'and LOWER(nombreGrado) NOT LIKE '%1%';
 WHILE @min <= @max DO
     INSERT INTO profesor_materia_grado(profesor_idprofesor,materia_idmateria,id_grado)VALUES(@idP,VMAT,@min);
     SET @min=@min+1;
 END WHILE;
-ELSE  
-	SELECT MIN(mat.idmateria), MAX(mat.idmateria) 
+ELSE
+	SELECT MIN(mat.idmateria), MAX(mat.idmateria)
     INTO @minTipo,@maxTipo
     FROM materia mat;
-    
+
     WHILE @minTipo <= @maxTipo DO
     	SELECT ma.idmateria
         INTO @idMa
         FROM materia ma, tipo_materia ti
         WHERE LOWER(ti.tipo) LIKE '%basica%' AND ma.idTipoMateria = ti.idTipo AND ma.idmateria = @minTipo;
-       IF @idMa IS NOT NULL THEN 
+       IF @idMa IS NOT NULL THEN
         INSERT INTO profesor_materia_grado(profesor_idprofesor,materia_idmateria,id_grado)VALUES(@idP,@idMa,VGRADO);
         SET @idMa = NULL;
         END IF;
     	SET @minTipo=@minTipo+1;
-        
+
     END WHILE;
 END IF;
-        
-    
+
+
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertarEmpleado` (IN `CED` VARCHAR(20), IN `NOM` VARCHAR(35), IN `APE1` VARCHAR(35), IN `APE2` VARCHAR(35), IN `SEX` VARCHAR(20), IN `DIRECC` VARCHAR(50), IN `TEL` VARCHAR(25), IN `NAC` INT, IN `PUE` INT)  BEGIN
 
  INSERT INTO persona (CEDULA,NOMBRE,APELLIDO1,APELLIDO2,SEXO,DIRECCION,TELEFONO,idNacionalidad) VALUES(CED,NOM,APE1,APE2,SEX,DIRECC,TEL,NAC);
- 
+
  SELECT idPersona FROM persona WHERE CEDULA = CED  INTO @id ;
- 
+
  INSERT INTO empleado(idPersona,idPuesto) VALUES(@id,PUE);
 
 END$$
@@ -291,17 +291,17 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ModificarProfesor` (IN `VCED` VARCHAR(40), IN `VNOM` VARCHAR(40), IN `VAP1` VARCHAR(40), IN `VAP2` VARCHAR(40), IN `VEXO` VARCHAR(24), IN `VDIR` VARCHAR(100), IN `VTEL` VARCHAR(50), IN `VEMAIL` VARCHAR(50), IN `VNAC` INT, IN `VANNIO` INT, IN `VGRADO` INT)  NO SQL
 BEGIN
-UPDATE persona SET 
-nombre=VNOM, 
-apellido1=VAP1, 
-apellido2=VAP2, 
-sexo=VSEXO, 
+UPDATE persona SET
+nombre=VNOM,
+apellido1=VAP1,
+apellido2=VAP2,
+sexo=VSEXO,
 direccion=VDIR,
 telefono=VTEL,
 email=VEMAIL,
 idNacionalidad=VNAC
 WHERE cedula = VCED;
- 
+
 END$$
 
 DELIMITER ;
@@ -1237,6 +1237,27 @@ INSERT INTO `nota` (`idnota`, `trabajo_cotidiano`, `asistencia`, `tareas`, `prue
 (303, '0.00', '0.00', '0.00', '0.00', '0.00'),
 (304, '0.00', '0.00', '0.00', '0.00', '0.00');
 
+
+
+--
+-- Triggers `nota`
+--
+DELIMITER $$
+CREATE TRIGGER `trgg_TotalNotas` BEFORE UPDATE ON `nota`
+ FOR EACH ROW BEGIN
+  SET @total = 0;
+  SET @total = @total + NEW.trabajo_cotidiano;
+  SET @total = @total + NEW.asistencia;
+  SET @total = @total + NEW.pruebas;
+  SET @total = @total + NEW.tareas;
+    IF @total >= 100 THEN
+		SET NEW.total = 100;
+	ELSE
+		SET NEW.total = @total;
+    END IF;
+  END
+$$
+DELIMITER ;
 -- --------------------------------------------------------
 
 --
