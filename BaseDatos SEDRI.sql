@@ -242,7 +242,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaProfesor` (IN `VCED` VARC
 
  SELECT idPersona
  FROM persona
- WHERE cedula = VCED
+ WHERE cedula = VCED LIMIT 1
  INTO @id;
 
 
