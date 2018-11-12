@@ -1,39 +1,7 @@
 var tabla;
 var count ;
 var idgrado;
-/*
-function mostrarFormulario(estado){
-    if(estado){
-        $('#tabla').hide();
-        $('#formulario').show();
-      
-    }else{
-        $('#tabla').show();
-        $('#formulario').hide();
-      //  limpiar();
-    }
-}
 
-function mostrarBotones(estado){
-    if(estado){
-        $('#btnGuardar').hide();
-        $('#btnEditar').show();
-        $('#btnCancelar').show();
-    }else{
-        $('#btnGuardar').show();
-        $('#btnEditar').hide();
-        $('#btnCancelar').hide();
-    }
-}
-
-
-function cancelarForm(){
-    mostrarFormulario(false);
-    mostrarBotones(false);
-    listar();
-}
-
-*/
 
 
 
@@ -64,7 +32,7 @@ for (index = 1; index <= count; index++) {
               if(datos == 'Registrado'){
                   $('#divResp').show();
                   document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
-                  document.getElementById('divResp').innerHTML='<h5>Se registro exitosamente!</h5><br><h6>Si desea modificar alguna asistencia debe ir al Registro dentro de Asistencia.</h6>';
+                  document.getElementById('divResp').innerHTML='<h5>Se registró exitosamente!</h5><br><h6>Si desea modificar alguna asistencia debe ir al Registro dentro de Asistencia.</h6>';
                
               }else if (datos == 'Error'){
                   $('#divResp').show();

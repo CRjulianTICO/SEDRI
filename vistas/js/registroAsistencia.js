@@ -3,6 +3,7 @@ var idgrado;
 var date;
 
 function listar(fecha,idGrado){
+    console.log(fecha);
     tabla = $('#tblAsistencia').dataTable({
         "aProcessing": true,//Activamos el procesamiento del datatables
   	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
@@ -43,6 +44,8 @@ function mostrar(fecha){
 }
 */
 function cargarGrados(){
+    date=$('.datepicker').val();
+    idGrado = $('#cbGrados').val();
   $.ajax({
          url: "../controlador/asistencia.php?opcion=cargar",
          method: "POST",
@@ -52,7 +55,7 @@ function cargarGrados(){
          {
            if(data==0){
             $("#divGrados").hide();
-             listar(-9);
+             listar(date,idgrado);
             }else{
             $('.cbGrados').empty();
              $('.cbGrados').append('<option value="'+data[0].id_grado+'" >Seleccionar Grado</option>');
@@ -97,14 +100,15 @@ function justificar(cedula){
 
 
 function INIT(){
+    date = $('.datepicker').val();
     cargarGrados();
        idgrado = $('#cbGrados').val();
      $('#divResp').hide();
-    listar($('.datepicker').val());
+    listar($('.datepicker').val(),idgrado);
      $(".dropdown-content>li>a").css("color", "#000000");
 
      if($('.cbGrados').is(":hidden") ){
-    listar(-9);
+      listar(date,idgrado);
   }
     $("#cbGrados").on('change', function() {
         $('#divResp').hide();

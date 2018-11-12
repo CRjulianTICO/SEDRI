@@ -21,14 +21,14 @@ function listar(idGrado,trimestre){
   					type : "get",
   					dataType : "json",
   					error: function(e){
-                          
+
   						console.log(e.responseText);
   					}
   				},
   		"bDestroy": true,
   		"iDisplayLength": 10,
           "order": [[ 1, "asc" ]],//Ordenar (columna,orden),
-        
+
     }).DataTable();
 
 }
@@ -46,11 +46,11 @@ function cargarGrados(){
             $.each(data,function(i,item){
                 $('.cbGrados').append('<option value="'+data[i].id_grado+'">'+data[i].nombreGrado+'</option>');
             });
-            
+
             listar($(".cbGrados").val(),$("#cbTrimestre").val());
          }
-         
-         
+
+
 
      });
 
@@ -61,15 +61,15 @@ function cargarGrados(){
 
 function guardar(){
     //e.preventDefault();
-    count = $('#tblNotas tbody tr').length; 
-    
+    count = $('#tblNotas tbody tr').length;
+
      $(".ced").prop("disabled", false);
-     
+
 for (index = 1; index <= count; index++) {
  var DATOS = ($("#frm"+index).serialize());
  //DATOS+$(".cbGrados").val();
 
- 
+
     console.log("->"+DATOS+"<-");
   	$.ajax({
   		url: "../controlador/notas.php?opcion=guardar&grados="+idgrado+"&trimestres="+trimestre,
@@ -84,26 +84,26 @@ for (index = 1; index <= count; index++) {
               if(datos == 'Registrado'){
                   $('#divResp').show();
                   document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
-                  document.getElementById('divResp').innerHTML='<h5>Se registro exitosamente!</h5><br><h6>Si desea modificar alguna asistencia debe ir al Registro dentro de Asistencia.</h6>';
-               
+                  document.getElementById('divResp').innerHTML='<h5>Se registró exitosamente!</h5>';
+
               }else if (datos == 'Error'){
                   $('#divResp').show();
-                  
+
                   document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2 flow-text";
                   document.getElementById('divResp').innerHTML='<h5>Se produjo un error. Vuelva a Intentarlo.</h5>';
               }else{
                   $('#divResp').show();
-                  
+
                   document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2 flow-text";
                   document.getElementById('divResp').innerHTML='<h5>Llene los campos solicitados.</h5>';
               }
   	    }
 
-      });    
-    
+      });
+
 }
 
-         
+
 }
 
 
@@ -112,7 +112,7 @@ function INIT(){
        cargarGrados();
        trimestre = $("#cbTrimestre").val();
        listar($("#cbGrados").val(),$("#cbTrimestre").val());
-       
+
      idgrado = $('#cbGrados').val();
      $('#divResp').hide();
      $('#divGrados').show();
@@ -135,9 +135,9 @@ function INIT(){
         idgrado = valor;
         });
 
-     
-  
-    
+
+
+
      $(".dropdown-content>li>a").css("color", "#000000");
 
 }
