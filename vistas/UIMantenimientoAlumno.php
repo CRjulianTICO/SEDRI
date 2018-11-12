@@ -1,6 +1,7 @@
 <?php require 'header.php' ?>
 <!--AQUI DEBERIA IR TODO EL CONTENIDO DE LA PAGINA-->
 <div id="content">
+<div id="divResp"></div>
 <!-- Modal Structure -->
 <div id="modal1" class="modal">
   <div class="modal-content">
@@ -136,9 +137,7 @@
           </div>
         </div>
         <br>
-      </form>
-
-      <div class="row" id="botones">
+        <div class="row" id="botones">
         <div class="col s6">
           <button name="editar" type="button" id="btnEditar" class="btn waves-effect waves-light blue editaEst full-with">Editar<i class="material-icons right">edit</i></button>
         </div>
@@ -147,6 +146,9 @@
             <i class="material-icons right">clear</i><br></button>
         </div>
       </div>
+      </form>
+
+      
     </div>
 
   </div>

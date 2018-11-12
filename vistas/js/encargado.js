@@ -1,35 +1,7 @@
 var tabla;
-$(document).ready(function () {
-  init();
-  $("#btnEditar").on("click", editar);
-});
-
-
-function init() {
-  cargarAlumnos(false, 0);
-
-
-  limpiar();
-  mostrarform(false);
-  mostrarbotones(false);
-
-  $("#btnEditar").on("click", editar);
-  listar();
-  cargarPais();
-  cargarGrado();
-  $("#formEncargado").on("submit", function (e) {
-    guardarEncargado(e);
-  })
-}
-
-$(document).ready(function () {
-  if (window.location.hash === '#mostrarform') {
-    mostrarform(true);
-  }
-})
-
-
-
+document.getElementById('btnEditar').onclick = function(){
+  editar();
+};
 
 function mostrarform(bool) {
   if (bool) {
@@ -306,6 +278,24 @@ function cargarAlumnos(bool, ced) {
 
 }
 
+$(document).ready(function () {
+  if (window.location.hash === '#mostrarform') {
+    mostrarform(true);
+  }
+})
 
+function init() {
+  cargarAlumnos(false, 0);
+  limpiar();
+  mostrarform(false);
+  mostrarbotones(false);
+  cargarGrado();
+  listar();
+  cargarPais();
+  
+  $("#formEncargado").on("submit", function (e) {
+    guardarEncargado(e);
+  })
+}
 
 init();

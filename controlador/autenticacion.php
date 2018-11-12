@@ -89,7 +89,7 @@ switch ($_GET["opcion"]){
                     $hpass=$instLogin->hashPassword($pass);
                     $instLogin->actualizar($rspta["idUsuario"],$hpass,1);
                     
-                    $mail->enviarCorreo(1,$email,$pass);
+                    $mail->recuperarPassword(1,$email,$pass);
                     ob_end_clean();                 
                     echo '1';
 

@@ -85,7 +85,7 @@
                   <a class="collapsible-header waves-effect">Asistencias<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">group</i></a>
                   <div class="collapsible-body">
                     <ul>
-                      <a href="../vistas/UIAsistenciaAlumno.php" class="waves-effect">Asistencia<i class="material-icons left pink-text registroIcono">content_paste</i></a>
+                      <a href="../vistas/UIAsistenciaAlumno.php" class="waves-effect">Asistencia<i class="material-icons left red-text registroIcono">content_paste</i></a>
                       <li>
                         <a href="../vistas/UIRegistroAsistencia.php" class="waves-effect">Registro<i class="material-icons left green-text agregarIcono">add_circle</i></a>
                       </li>

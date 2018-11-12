@@ -49,7 +49,7 @@ switch ($_GET["opcion"]) {
           }else{
             $rspta=$alumno->insertar($cedula, $nombre, $apellido1, $apellido2, $sexo, $direccion, $nacionalidad, $nota, $idgrado);
           }
-            echo $rspta ? "Registrado" : "Error".$cedula. $nombre. $apellido1. $apellido2. $sexo. $direccion. $nacionalidad.$nota.$grado;
+            echo $rspta ? "Registrado" : "Error";
     break;
 
     case 'editar':

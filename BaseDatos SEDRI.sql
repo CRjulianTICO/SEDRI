@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-11-2018 a las 06:51:12
+-- Tiempo de generación: 12-11-2018 a las 03:52:53
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -104,6 +104,23 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_DesactivaBeca` (IN `VCED` VARCHA
     UPDATE beca
     SET estado = 0
     WHERE idAlumno = @idA;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_desactivarUsuario` (IN `VCED` VARCHAR(100))  NO SQL
+BEGIN
+
+UPDATE persona set disponible ='0' where cedula = VCED;
+
+ SELECT idPersona
+ FROM persona
+ WHERE cedula = VCED
+ INTO @id;
+ 
+ DELETE FROM usuario where idPersona = @id;
+ 
+
+        
+    
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaAlumno` (IN `VCED` VARCHAR(20), IN `VNOM` VARCHAR(40), IN `VAPE1` VARCHAR(40), IN `VAPE2` VARCHAR(40), IN `VSEX` VARCHAR(20), IN `VDIR` VARCHAR(50), IN `VNAC` INT, IN `VNOT` VARCHAR(650), IN `VGRA` INT)  BEGIN
@@ -339,7 +356,17 @@ INSERT INTO `alumno` (`idalumno`, `Persona_idPersona`) VALUES
 (15, 149),
 (16, 150),
 (27, 174),
-(28, 175);
+(28, 175),
+(29, 177),
+(30, 179),
+(31, 189),
+(32, 193),
+(33, 195),
+(34, 196),
+(35, 198),
+(36, 200),
+(37, 202),
+(38, 203);
 
 -- --------------------------------------------------------
 
@@ -351,6 +378,17 @@ CREATE TABLE `alumno_encargado` (
   `ID_ALUMNO` int(11) NOT NULL,
   `ID_ENCARGADO` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `alumno_encargado`
+--
+
+INSERT INTO `alumno_encargado` (`ID_ALUMNO`, `ID_ENCARGADO`) VALUES
+(16, 2),
+(16, 3),
+(28, 1),
+(29, 1),
+(34, 4);
 
 -- --------------------------------------------------------
 
@@ -485,6 +523,16 @@ CREATE TABLE `encargado` (
   `Persona_idPersona` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `encargado`
+--
+
+INSERT INTO `encargado` (`idencargado`, `Persona_idPersona`) VALUES
+(1, 184),
+(2, 185),
+(3, 191),
+(4, 204);
+
 -- --------------------------------------------------------
 
 --
@@ -509,30 +557,6 @@ INSERT INTO `grado` (`idgrado`, `nombreGrado`, `annio`, `ciclo`) VALUES
 (4, 'Cuarto', 2018, 1),
 (5, 'Quinto', 2018, 0),
 (6, 'Sexto', 2018, 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `grado_alumno`
---
-
-CREATE TABLE `grado_alumno` (
-  `grado_idgrado` int(11) NOT NULL,
-  `alumno_idalumno` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `grado_alumno`
---
-
-INSERT INTO `grado_alumno` (`grado_idgrado`, `alumno_idalumno`) VALUES
-(1, 1),
-(1, 3),
-(1, 5),
-(1, 6),
-(1, 7),
-(2, 2),
-(2, 4);
 
 -- --------------------------------------------------------
 
@@ -603,6 +627,27 @@ INSERT INTO `grado_estudiante_nota` (`idGrado`, `idMateria`, `idNota`, `idEstudi
 (3, 9, 48, 14, 1, 0),
 (3, 10, 49, 14, 1, 0),
 (3, 11, 50, 14, 1, 0),
+(4, 5, 389, 31, 1, 0),
+(4, 5, 390, 31, 2, 0),
+(4, 5, 391, 31, 3, 0),
+(4, 6, 392, 31, 1, 0),
+(4, 6, 393, 31, 2, 0),
+(4, 6, 394, 31, 3, 0),
+(4, 7, 395, 31, 1, 0),
+(4, 7, 396, 31, 2, 0),
+(4, 7, 397, 31, 3, 0),
+(4, 8, 398, 31, 1, 0),
+(4, 8, 399, 31, 2, 0),
+(4, 8, 400, 31, 3, 0),
+(4, 9, 401, 31, 1, 0),
+(4, 9, 402, 31, 2, 0),
+(4, 9, 403, 31, 3, 0),
+(4, 10, 404, 31, 1, 0),
+(4, 10, 405, 31, 2, 0),
+(4, 10, 406, 31, 3, 0),
+(4, 11, 407, 31, 1, 0),
+(4, 11, 408, 31, 2, 0),
+(4, 11, 409, 31, 3, 0),
 (5, 5, 51, 15, 1, 0),
 (5, 5, 58, 16, 1, 0),
 (5, 5, 305, 27, 1, 0),
@@ -611,6 +656,33 @@ INSERT INTO `grado_estudiante_nota` (`idGrado`, `idMateria`, `idNota`, `idEstudi
 (5, 5, 326, 28, 1, 0),
 (5, 5, 327, 28, 2, 0),
 (5, 5, 328, 28, 3, 0),
+(5, 5, 347, 29, 1, 0),
+(5, 5, 348, 29, 2, 0),
+(5, 5, 349, 29, 3, 0),
+(5, 5, 368, 30, 1, 0),
+(5, 5, 369, 30, 2, 0),
+(5, 5, 370, 30, 3, 0),
+(5, 5, 410, 32, 1, 0),
+(5, 5, 411, 32, 2, 0),
+(5, 5, 412, 32, 3, 0),
+(5, 5, 431, 33, 1, 0),
+(5, 5, 432, 33, 2, 0),
+(5, 5, 433, 33, 3, 0),
+(5, 5, 452, 34, 1, 0),
+(5, 5, 453, 34, 2, 0),
+(5, 5, 454, 34, 3, 0),
+(5, 5, 473, 35, 1, 0),
+(5, 5, 474, 35, 2, 0),
+(5, 5, 475, 35, 3, 0),
+(5, 5, 494, 36, 1, 0),
+(5, 5, 495, 36, 2, 0),
+(5, 5, 496, 36, 3, 0),
+(5, 5, 515, 37, 1, 0),
+(5, 5, 516, 37, 2, 0),
+(5, 5, 517, 37, 3, 0),
+(5, 5, 536, 38, 1, 0),
+(5, 5, 537, 38, 2, 0),
+(5, 5, 538, 38, 3, 0),
 (5, 6, 52, 15, 1, 0),
 (5, 6, 59, 16, 1, 0),
 (5, 6, 308, 27, 1, 0),
@@ -619,6 +691,33 @@ INSERT INTO `grado_estudiante_nota` (`idGrado`, `idMateria`, `idNota`, `idEstudi
 (5, 6, 329, 28, 1, 0),
 (5, 6, 330, 28, 2, 0),
 (5, 6, 331, 28, 3, 0),
+(5, 6, 350, 29, 1, 0),
+(5, 6, 351, 29, 2, 0),
+(5, 6, 352, 29, 3, 0),
+(5, 6, 371, 30, 1, 0),
+(5, 6, 372, 30, 2, 0),
+(5, 6, 373, 30, 3, 0),
+(5, 6, 413, 32, 1, 0),
+(5, 6, 414, 32, 2, 0),
+(5, 6, 415, 32, 3, 0),
+(5, 6, 434, 33, 1, 0),
+(5, 6, 435, 33, 2, 0),
+(5, 6, 436, 33, 3, 0),
+(5, 6, 455, 34, 1, 0),
+(5, 6, 456, 34, 2, 0),
+(5, 6, 457, 34, 3, 0),
+(5, 6, 476, 35, 1, 0),
+(5, 6, 477, 35, 2, 0),
+(5, 6, 478, 35, 3, 0),
+(5, 6, 497, 36, 1, 0),
+(5, 6, 498, 36, 2, 0),
+(5, 6, 499, 36, 3, 0),
+(5, 6, 518, 37, 1, 0),
+(5, 6, 519, 37, 2, 0),
+(5, 6, 520, 37, 3, 0),
+(5, 6, 539, 38, 1, 0),
+(5, 6, 540, 38, 2, 0),
+(5, 6, 541, 38, 3, 0),
 (5, 7, 53, 15, 1, 0),
 (5, 7, 60, 16, 1, 0),
 (5, 7, 311, 27, 1, 0),
@@ -627,6 +726,33 @@ INSERT INTO `grado_estudiante_nota` (`idGrado`, `idMateria`, `idNota`, `idEstudi
 (5, 7, 332, 28, 1, 0),
 (5, 7, 333, 28, 2, 0),
 (5, 7, 334, 28, 3, 0),
+(5, 7, 353, 29, 1, 0),
+(5, 7, 354, 29, 2, 0),
+(5, 7, 355, 29, 3, 0),
+(5, 7, 374, 30, 1, 0),
+(5, 7, 375, 30, 2, 0),
+(5, 7, 376, 30, 3, 0),
+(5, 7, 416, 32, 1, 0),
+(5, 7, 417, 32, 2, 0),
+(5, 7, 418, 32, 3, 0),
+(5, 7, 437, 33, 1, 0),
+(5, 7, 438, 33, 2, 0),
+(5, 7, 439, 33, 3, 0),
+(5, 7, 458, 34, 1, 0),
+(5, 7, 459, 34, 2, 0),
+(5, 7, 460, 34, 3, 0),
+(5, 7, 479, 35, 1, 0),
+(5, 7, 480, 35, 2, 0),
+(5, 7, 481, 35, 3, 0),
+(5, 7, 500, 36, 1, 0),
+(5, 7, 501, 36, 2, 0),
+(5, 7, 502, 36, 3, 0),
+(5, 7, 521, 37, 1, 0),
+(5, 7, 522, 37, 2, 0),
+(5, 7, 523, 37, 3, 0),
+(5, 7, 542, 38, 1, 0),
+(5, 7, 543, 38, 2, 0),
+(5, 7, 544, 38, 3, 0),
 (5, 8, 54, 15, 1, 0),
 (5, 8, 61, 16, 1, 0),
 (5, 8, 314, 27, 1, 0),
@@ -635,6 +761,33 @@ INSERT INTO `grado_estudiante_nota` (`idGrado`, `idMateria`, `idNota`, `idEstudi
 (5, 8, 335, 28, 1, 0),
 (5, 8, 336, 28, 2, 0),
 (5, 8, 337, 28, 3, 0),
+(5, 8, 356, 29, 1, 0),
+(5, 8, 357, 29, 2, 0),
+(5, 8, 358, 29, 3, 0),
+(5, 8, 377, 30, 1, 0),
+(5, 8, 378, 30, 2, 0),
+(5, 8, 379, 30, 3, 0),
+(5, 8, 419, 32, 1, 0),
+(5, 8, 420, 32, 2, 0),
+(5, 8, 421, 32, 3, 0),
+(5, 8, 440, 33, 1, 0),
+(5, 8, 441, 33, 2, 0),
+(5, 8, 442, 33, 3, 0),
+(5, 8, 461, 34, 1, 0),
+(5, 8, 462, 34, 2, 0),
+(5, 8, 463, 34, 3, 0),
+(5, 8, 482, 35, 1, 0),
+(5, 8, 483, 35, 2, 0),
+(5, 8, 484, 35, 3, 0),
+(5, 8, 503, 36, 1, 0),
+(5, 8, 504, 36, 2, 0),
+(5, 8, 505, 36, 3, 0),
+(5, 8, 524, 37, 1, 0),
+(5, 8, 525, 37, 2, 0),
+(5, 8, 526, 37, 3, 0),
+(5, 8, 545, 38, 1, 0),
+(5, 8, 546, 38, 2, 0),
+(5, 8, 547, 38, 3, 0),
 (5, 9, 55, 15, 1, 0),
 (5, 9, 62, 16, 1, 0),
 (5, 9, 317, 27, 1, 0),
@@ -643,6 +796,33 @@ INSERT INTO `grado_estudiante_nota` (`idGrado`, `idMateria`, `idNota`, `idEstudi
 (5, 9, 338, 28, 1, 0),
 (5, 9, 339, 28, 2, 0),
 (5, 9, 340, 28, 3, 0),
+(5, 9, 359, 29, 1, 0),
+(5, 9, 360, 29, 2, 0),
+(5, 9, 361, 29, 3, 0),
+(5, 9, 380, 30, 1, 0),
+(5, 9, 381, 30, 2, 0),
+(5, 9, 382, 30, 3, 0),
+(5, 9, 422, 32, 1, 0),
+(5, 9, 423, 32, 2, 0),
+(5, 9, 424, 32, 3, 0),
+(5, 9, 443, 33, 1, 0),
+(5, 9, 444, 33, 2, 0),
+(5, 9, 445, 33, 3, 0),
+(5, 9, 464, 34, 1, 0),
+(5, 9, 465, 34, 2, 0),
+(5, 9, 466, 34, 3, 0),
+(5, 9, 485, 35, 1, 0),
+(5, 9, 486, 35, 2, 0),
+(5, 9, 487, 35, 3, 0),
+(5, 9, 506, 36, 1, 0),
+(5, 9, 507, 36, 2, 0),
+(5, 9, 508, 36, 3, 0),
+(5, 9, 527, 37, 1, 0),
+(5, 9, 528, 37, 2, 0),
+(5, 9, 529, 37, 3, 0),
+(5, 9, 548, 38, 1, 0),
+(5, 9, 549, 38, 2, 0),
+(5, 9, 550, 38, 3, 0),
 (5, 10, 56, 15, 1, 0),
 (5, 10, 63, 16, 1, 0),
 (5, 10, 320, 27, 1, 0),
@@ -651,6 +831,33 @@ INSERT INTO `grado_estudiante_nota` (`idGrado`, `idMateria`, `idNota`, `idEstudi
 (5, 10, 341, 28, 1, 0),
 (5, 10, 342, 28, 2, 0),
 (5, 10, 343, 28, 3, 0),
+(5, 10, 362, 29, 1, 0),
+(5, 10, 363, 29, 2, 0),
+(5, 10, 364, 29, 3, 0),
+(5, 10, 383, 30, 1, 0),
+(5, 10, 384, 30, 2, 0),
+(5, 10, 385, 30, 3, 0),
+(5, 10, 425, 32, 1, 0),
+(5, 10, 426, 32, 2, 0),
+(5, 10, 427, 32, 3, 0),
+(5, 10, 446, 33, 1, 0),
+(5, 10, 447, 33, 2, 0),
+(5, 10, 448, 33, 3, 0),
+(5, 10, 467, 34, 1, 0),
+(5, 10, 468, 34, 2, 0),
+(5, 10, 469, 34, 3, 0),
+(5, 10, 488, 35, 1, 0),
+(5, 10, 489, 35, 2, 0),
+(5, 10, 490, 35, 3, 0),
+(5, 10, 509, 36, 1, 0),
+(5, 10, 510, 36, 2, 0),
+(5, 10, 511, 36, 3, 0),
+(5, 10, 530, 37, 1, 0),
+(5, 10, 531, 37, 2, 0),
+(5, 10, 532, 37, 3, 0),
+(5, 10, 551, 38, 1, 0),
+(5, 10, 552, 38, 2, 0),
+(5, 10, 553, 38, 3, 0),
 (5, 11, 57, 15, 1, 0),
 (5, 11, 64, 16, 1, 0),
 (5, 11, 323, 27, 1, 0),
@@ -658,7 +865,34 @@ INSERT INTO `grado_estudiante_nota` (`idGrado`, `idMateria`, `idNota`, `idEstudi
 (5, 11, 325, 27, 3, 0),
 (5, 11, 344, 28, 1, 0),
 (5, 11, 345, 28, 2, 0),
-(5, 11, 346, 28, 3, 0);
+(5, 11, 346, 28, 3, 0),
+(5, 11, 365, 29, 1, 0),
+(5, 11, 366, 29, 2, 0),
+(5, 11, 367, 29, 3, 0),
+(5, 11, 386, 30, 1, 0),
+(5, 11, 387, 30, 2, 0),
+(5, 11, 388, 30, 3, 0),
+(5, 11, 428, 32, 1, 0),
+(5, 11, 429, 32, 2, 0),
+(5, 11, 430, 32, 3, 0),
+(5, 11, 449, 33, 1, 0),
+(5, 11, 450, 33, 2, 0),
+(5, 11, 451, 33, 3, 0),
+(5, 11, 470, 34, 1, 0),
+(5, 11, 471, 34, 2, 0),
+(5, 11, 472, 34, 3, 0),
+(5, 11, 491, 35, 1, 0),
+(5, 11, 492, 35, 2, 0),
+(5, 11, 493, 35, 3, 0),
+(5, 11, 512, 36, 1, 0),
+(5, 11, 513, 36, 2, 0),
+(5, 11, 514, 36, 3, 0),
+(5, 11, 533, 37, 1, 0),
+(5, 11, 534, 37, 2, 0),
+(5, 11, 535, 37, 3, 0),
+(5, 11, 554, 38, 1, 0),
+(5, 11, 555, 38, 2, 0),
+(5, 11, 556, 38, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -687,7 +921,9 @@ INSERT INTO `historico_usuarios` (`idHistorico`, `idUsuario`, `email`, `pass`, `
 (6, 41, 'oscarsoto040797@gmail.com', '$2y$09$ccL9oKrlm2D9.QgGyfPbiOckjaDzcS.rkugkLl8nk8rHLAnYCCrBO', '2018-11-10'),
 (7, 41, 'oscarsoto040797@gmail.com', '$2y$09$OhDt/gDghRt0hAFjgTKwuurEx3uWhll3F/SavO6Wx5VyLuiGUZtTy', '2018-11-10'),
 (8, 41, 'oscarsoto040797@gmail.com', '$2y$09$tgzzlGdLJZELTYU1lwzfV.FTMkc459HO.MRwO5UVPsRjMejhtckaS', '2018-11-10'),
-(9, 41, 'oscarsoto040797@gmail.com', '$2y$09$5R7xpLY/Beu71VipmZFs7.eFijD30zEx4XJCbQ6SCaqppdE4BYabm', '2018-11-10');
+(9, 41, 'oscarsoto040797@gmail.com', '$2y$09$5R7xpLY/Beu71VipmZFs7.eFijD30zEx4XJCbQ6SCaqppdE4BYabm', '2018-11-10'),
+(10, 41, 'oscarsoto040797@gmail.com', '$2y$09$luizeMfMr/67CVM5obXaV.TL5WuGaa3qrbmU6eueR5MuUbDGPqP/2', '2018-11-10'),
+(11, 45, 'oscarsoto040797@gmail.com', '$2y$09$3.qUDCGulnpjBy7CCoTzou2WN07QDQyFJTUSIAX6.hgRqeJIv/WkC', '2018-11-12');
 
 -- --------------------------------------------------------
 
@@ -714,6 +950,21 @@ INSERT INTO `materia` (`idmateria`, `nombre`, `estado`, `idTipoMateria`) VALUES
 (9, 'Religion', 1, 3),
 (10, 'Educacion Musical', 1, 4),
 (11, 'Estudios Sociales', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `mostrar_encargado`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `mostrar_encargado` (
+`cedula_e` varchar(45)
+,`cedula` varchar(45)
+,`nombre` varchar(137)
+,`telefono` varchar(45)
+,`telefono_secundario` varchar(45)
+,`direccion` varchar(100)
+);
 
 -- --------------------------------------------------------
 
@@ -815,7 +1066,7 @@ INSERT INTO `nota` (`idnota`, `trabajo_cotidiano`, `asistencia`, `tareas`, `prue
 (59, '5.00', '0.00', '0.00', '0.00', '0.00'),
 (60, '0.00', '0.00', '0.00', '0.00', '0.00'),
 (61, '0.00', '0.00', '0.00', '0.00', '0.00'),
-(62, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(62, '5.00', '5.00', '1.00', '15.00', '0.00'),
 (63, '0.00', '0.00', '0.00', '0.00', '0.00'),
 (64, '0.00', '0.00', '0.00', '0.00', '0.00'),
 (305, '0.00', '0.00', '0.00', '0.00', '0.00'),
@@ -859,7 +1110,217 @@ INSERT INTO `nota` (`idnota`, `trabajo_cotidiano`, `asistencia`, `tareas`, `prue
 (343, '0.00', '0.00', '0.00', '0.00', '0.00'),
 (344, '0.00', '0.00', '0.00', '0.00', '0.00'),
 (345, '0.00', '0.00', '0.00', '0.00', '0.00'),
-(346, '0.00', '0.00', '0.00', '0.00', '0.00');
+(346, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(347, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(348, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(349, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(350, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(351, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(352, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(353, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(354, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(355, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(356, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(357, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(358, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(359, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(360, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(361, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(362, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(363, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(364, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(365, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(366, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(367, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(368, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(369, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(370, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(371, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(372, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(373, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(374, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(375, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(376, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(377, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(378, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(379, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(380, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(381, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(382, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(383, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(384, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(385, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(386, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(387, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(388, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(389, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(390, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(391, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(392, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(393, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(394, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(395, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(396, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(397, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(398, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(399, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(400, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(401, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(402, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(403, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(404, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(405, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(406, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(407, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(408, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(409, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(410, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(411, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(412, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(413, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(414, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(415, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(416, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(417, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(418, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(419, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(420, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(421, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(422, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(423, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(424, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(425, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(426, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(427, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(428, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(429, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(430, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(431, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(432, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(433, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(434, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(435, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(436, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(437, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(438, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(439, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(440, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(441, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(442, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(443, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(444, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(445, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(446, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(447, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(448, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(449, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(450, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(451, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(452, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(453, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(454, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(455, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(456, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(457, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(458, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(459, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(460, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(461, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(462, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(463, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(464, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(465, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(466, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(467, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(468, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(469, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(470, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(471, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(472, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(473, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(474, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(475, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(476, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(477, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(478, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(479, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(480, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(481, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(482, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(483, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(484, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(485, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(486, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(487, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(488, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(489, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(490, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(491, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(492, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(493, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(494, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(495, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(496, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(497, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(498, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(499, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(500, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(501, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(502, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(503, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(504, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(505, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(506, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(507, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(508, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(509, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(510, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(511, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(512, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(513, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(514, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(515, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(516, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(517, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(518, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(519, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(520, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(521, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(522, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(523, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(524, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(525, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(526, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(527, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(528, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(529, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(530, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(531, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(532, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(533, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(534, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(535, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(536, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(537, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(538, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(539, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(540, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(541, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(542, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(543, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(544, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(545, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(546, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(547, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(548, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(549, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(550, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(551, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(552, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(553, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(554, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(555, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(556, '0.00', '0.00', '0.00', '0.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -906,7 +1367,7 @@ CREATE TABLE `persona` (
   `email` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
   `idNacionalidad` int(11) NOT NULL,
   `disponible` tinyint(1) NOT NULL DEFAULT '1',
-  `nota_medica` varchar(650) COLLATE utf8mb4_unicode_ci DEFAULT 'Ninguno'
+  `nota_medica` varchar(650) COLLATE utf8mb4_unicode_ci DEFAULT 'Ninguna'
 ) ENGINE=InnoDB AVG_ROW_LENGTH=195 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -925,10 +1386,10 @@ INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`
 (39, '107680159', 'Carlos', 'Alfaro', 'Gonzales', 'Masculino', 'Heredia', '1111', NULL, 'asd@gmail.com', 1, 1, 'Ninguno'),
 (41, '507680129', 'Marta Francisco', 'Chinchilla', '.Saborio', 'Femenino', 'San Antonio de Desamparados', '24456767', NULL, 'mSaborio@gmail.com', 1, 1, 'Ninguno'),
 (44, '305080238', 'Francisco', 'Flores', 'Chacon', 'Masculino', 'De la escuela publica de Aserri 150 mts al sur', '60439934', NULL, 'julian4nite@gmail.com', 1, 1, 'Ninguno'),
-(69, '207680159', 'Oscar', 'Eduardo', 'Soto', 'Masculino', 'Alajuela, Atenas, Costa Rica', '63103970', NULL, 'oscarsoto0407ss97@gmail.com', 1, 1, 'Ninguno'),
+(69, '207680159', 'Oscar', 'Eduardo', 'Soto', 'Masculino', 'Alajuela, Atenas, Costa Rica', '63103970', NULL, 'oscarsoto0407ss97@gmail.com', 1, 0, 'Ninguno'),
 (75, '5', 'Ileana Patricia', 'Soto', 'Leon', 'Femenino', 'Alajuela , Atenas', '12', NULL, 'oscarsosato0407sa97@gmail.com', 1, 1, 'Ninguno'),
 (78, '1704', 'Prueba', 'Pruebs', 'Test', 'Masculino', 'ASD', '54544323', NULL, 'oscasasasrsoto0407sa97@gmail.com', 1, 1, 'Ninguno'),
-(79, '9904', 'Prueba', 'Prueba', 'Prueba', 'Femenino', 'Atenas\r\nCosta Rica', '63103970', NULL, 'oscarsoto04097@gmail.com', 1, 1, 'Ninguno'),
+(79, '9904', 'Prueba', 'Prueba', 'Prueba', 'Femenino', 'Atenas\r\nCosta Rica', '63103970', NULL, 'oscarsoto04097ssss@gmail.com', 1, 1, 'Ninguno'),
 (80, '208040404', 'Martin', 'Soto', 'Saborio', 'Masculino', 'Alajuela', NULL, NULL, NULL, 1, 0, 'Ninguno'),
 (81, '777', 'Julian', 'Perez ', 'Fernandez', 'Masculino', 'Heredia', NULL, NULL, NULL, 1, 1, 'Ninguna'),
 (82, '6765', 'Nombre', 'Ap1', 'Ap2', 'Masculino', 'Alajuela', NULL, NULL, NULL, 1, 1, 'Nota'),
@@ -948,13 +1409,13 @@ INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`
 (99, '14', '14', '14', '14', '14', '14', '14', NULL, '14', 1, 1, 'Ninguno'),
 (100, '15', '15', '15', '15', '15', '15', '15', NULL, '15', 1, 1, 'Ninguno'),
 (101, '2000', 'AAA', 'AAA', 'AAA', 'AAA', 'AAA', 'AAA', NULL, 'AAA', 1, 1, 'Ninguno'),
-(102, '123212', 'Oscar', 'Soto', 'Leon', 'Masculino', 'Alajuela', '24432321', NULL, 'osoto@email.net', 1, 1, 'Ninguno'),
+(102, '123212', 'OscarSL', 'Soto', '...Leon1', 'Masculino', 'Alajuela', '24432321', NULL, 'osotoppp@email.net', 1, 1, 'Ninguno'),
 (103, '2000', 'Nombre', 'Apellido1', 'Apellido2', 'Masculino', 'Direccion', 'Tel', NULL, 'Correo', 1, 1, 'Ninguno'),
 (105, '00001', 'Nombre', '1 Ap', '2 Ap', 'Masculino', 'Alajuela Atenas', '234', NULL, 'email', 1, 1, 'Ninguno'),
 (107, '2001', 'AAA', 'AAA', 'AAA', 'Masculino', 'AAAA', 'AAA', NULL, 'email1', 1, 1, 'Ninguno'),
 (109, '2002', 'OSCAR', 'LEON', 'LEON', 'Masculino', 'Atenas\r\nCosta Rica', '63103970', NULL, 'oscarsoto0407pp97@gmail.com', 1, 1, 'Ninguno'),
 (113, '20012', '200912', '200912', '20012', '20012', '20012', '20012', NULL, 'mailto', 1, 1, 'Ninguno'),
-(115, '2001112', '200912', '200912', '20012', '20012', '20012', '20012', NULL, 'mailzzaszto', 1, 1, 'Ninguno'),
+(115, '2001112', '200912', '200912', '20012', '20012', '20012', '20012', NULL, 'mailzzaszto', 1, 0, 'Ninguno'),
 (117, '2345', 'OSCAR', 'LEON', 'LEON', 'Femenino', 'Atenas\r\nCosta Rica', '63103970', NULL, '1111', 1, 1, 'Ninguno'),
 (119, '4001', 'OSCAR', 'LEON', 'LEON', 'Masculino', 'Atenas\r\nCosta Rica', '63103970', NULL, 'beca', 1, 1, 'Ninguno'),
 (121, '4003', 'OSCAR', 'LEON', 'LEON', 'Masculino', 'Atenas\r\nCosta Rica', '63103970', NULL, 'emailto.com', 1, 1, 'Ninguno'),
@@ -970,17 +1431,52 @@ INSERT INTO `persona` (`idPersona`, `cedula`, `nombre`, `apellido1`, `apellido2`
 (139, '9001', 'Mauro', 'Fran', 'Gutt', 'Masculino', 'Atenas\r\nCosta Rica', NULL, NULL, NULL, 2, 1, 'Alcohol'),
 (140, '9002', 'Patricio', 'Leon', 'Ramirez', 'Masculino', 'Heredia', NULL, NULL, NULL, 1, 1, 'Alcohol'),
 (141, '9002', 'Patricio', 'Leon', 'Ramirez', 'Masculino', 'Heredia', NULL, NULL, NULL, 1, 1, 'Alcohol'),
-(142, '8001', '8001', 'Ap', 'Ap', 'Masculino', 'Heredia', 'Tel', NULL, 'oscarsoto040797@gmail.com', 1, 1, 'Ninguno'),
-(144, '8002', '8002', 'Ap', 'Ap', 'Masculino', 'Heredia', '2446', NULL, 'mail;po', 1, 1, 'Ninguno'),
+(142, '8001', 'Alejandra', 'Camacho', '.Camacho', 'Femenino', 'Heredia', '25466789', '25467876', 'oscarsotoa0407s97@gmail.com', 1, 1, 'Ninguno'),
+(144, '8002', 'Dagoberto', 'Jiménez', 'Arias', 'Masculino', 'Heredia', '2446 6380', '2446 6380', 'mail;po', 1, 1, 'Ninguno'),
 (146, 'Prueba', 'Ejemplo', 'Test', 'xd', 'Masc', 'Alajuela', NULL, NULL, NULL, 1, 1, 'Nada'),
 (147, '6701', 'Juliano', 'Le pica', 'el ano', 'Masculino', 'Heredia', NULL, NULL, NULL, 1, 1, 'Gonorrea'),
 (148, '6701', 'Juliano', 'Le pica', 'el ano', 'Masculino', 'Heredia', NULL, NULL, NULL, 1, 1, 'Gonorrea'),
 (149, '9876', 'Alumno de Quinto', 'Ap1', 'Ap2', 'Masculino', 'Heredia', NULL, NULL, NULL, 1, 1, '1'),
 (150, '7615', 'Alumno 2', 'Ap', 'Ap', 'Masculino', 'Dir', NULL, NULL, NULL, 1, 1, 'Med'),
-(151, '7615', 'Alumno 2', 'Ap', 'Ap', 'Masculino', 'Dir', NULL, NULL, NULL, 1, 1, 'Med'),
 (174, '207655430', 'Ramiro', 'Alfonso', 'Alfonsa', 'Masculino', 'Alajuela', NULL, NULL, NULL, 1, 1, '1'),
 (175, '101', 'Eduardo', 'Piedra', 'Duarte', 'Masculino', 'Atenas\r\nCosta Rica', NULL, NULL, NULL, 1, 1, 'Ninguna'),
-(176, '101', 'Eduardo', 'Piedra', 'Duarte', 'Masculino', 'Atenas\r\nCosta Rica', NULL, NULL, NULL, 1, 1, 'Ninguna');
+(176, '101', 'Eduardo', 'Piedra', 'Duarte', 'Masculino', 'Atenas\r\nCosta Rica', NULL, NULL, NULL, 1, 1, 'Ninguna'),
+(177, '1001', 'Laura Moscoa', 'Chinchilla', 'Arias', 'Masculino', 'Heredia', NULL, NULL, NULL, 1, 1, 'Ninguna'),
+(178, '1001', 'Laura Moscoa', 'Chinchilla', 'Arias', 'Masculino', 'Heredia', NULL, NULL, NULL, 1, 1, 'Ninguna'),
+(179, '1002', 'Gabriela', 'Guillen', 'Guillen', 'Femenino', 'Heredia Centro, 150 metros este', NULL, NULL, NULL, 1, 1, 'Ninguna'),
+(180, '1002', 'Gabriela', 'Guillen', 'Guillen', 'Femenino', 'Heredia Centro, 150 metros este', NULL, NULL, NULL, 1, 1, 'Ninguna'),
+(181, '2001', 'Gabriel', 'Artavia', 'Guillen', 'Masculino', 'Heredia', '25465443', '25468781', NULL, 1, 1, 'Ninguna'),
+(182, '2001', 'Gabriel', 'Artavia', 'Guillen', 'Masculino', 'Heredia', '25465443', '25468781', NULL, 1, 1, 'Ninguna'),
+(183, '2001', 'Encargado de Prueba', 'Ap1', 'Ap 2', 'Masculino', 'Alajuela', '2', '2', NULL, 1, 1, 'Ninguna'),
+(184, '20010', 'Encargado de Prueba', 'Ap1', '....................Ap 2', 'Masculino', 'Alajuela', '24', '90', NULL, 1, 1, 'Ninguna'),
+(185, '781', 'Encargado 2', 'Apellido 1', '..................Apellido2', 'Masculino', 'Alajuela', '63108787', '80', NULL, 1, 1, 'Ninguna'),
+(186, '781', 'Encargado 2', 'Apellido 1', '..................Apellido2', 'Masculino', 'Alajuela', '63108787', '80', NULL, 1, 1, 'Ninguna'),
+(187, '4001', 'Alumno de 4to', 'Apellido 1', 'Apellido 2', 'Masculino', 'San Pedro', NULL, NULL, NULL, 1, 1, ''),
+(188, '4001', 'Alumno de 4to', 'Apellido 1', 'Apellido 2', 'Masculino', 'San Pedro', NULL, NULL, NULL, 1, 1, ''),
+(189, '541200', 'Alumno de 4to', 'Ap', 'AP', 'Masculino', 'Alajuela', NULL, NULL, NULL, 1, 1, 'Medica'),
+(190, '541200', 'Alumno de 4to', 'Ap', 'AP', 'Masculino', 'Alajuela', NULL, NULL, NULL, 1, 1, 'Medica'),
+(191, '98700', 'Mario', 'Vindas', '.Solis', 'Masculino', 'Heredia Centro', '25465710', '88932322', NULL, 1, 1, 'Ninguna'),
+(192, '98700', 'Mario', 'Vindas', '.Solis', 'Masculino', 'Heredia Centro', '25465710', '88932322', NULL, 1, 1, 'Ninguna'),
+(193, '3001', 'Maria', 'Pepa', 'Solorzano', 'Femenino', 'Alajuela, 150 metros este del Parque', NULL, NULL, NULL, 1, 1, 'Ninguna'),
+(194, '3001', 'Maria', 'Pepa', 'Solorzano', 'Femenino', 'Alajuela, 150 metros este del Parque', NULL, NULL, NULL, 1, 1, 'Ninguna'),
+(195, '3002', 'Jose', 'Maria', 'Figueres', 'Olsen', 'San Jose', NULL, NULL, NULL, 1, 1, 'No'),
+(196, '3003', 'Javaad', 'Meneses', 'Pellejo', 'Masculino', 'Heredia', NULL, NULL, NULL, 1, 1, 'Med'),
+(197, '3003', 'Javaad', 'Meneses', 'Pellejo', 'Masculino', 'Heredia', NULL, NULL, NULL, 1, 1, 'Med'),
+(198, '3004', 'Alexis', 'Moya', 'Oreamuno', 'Masculino', 'Prueba', NULL, NULL, NULL, 1, 1, 'Ninguna'),
+(199, '3004', 'Alexis', 'Moya', 'Oreamuno', 'Masculino', 'Prueba', NULL, NULL, NULL, 1, 1, 'Ninguna'),
+(200, '3005', 'Alumno 3005', 'Apeliido 1', 'Apellido 2', 'Masculino', 'Atenas', NULL, NULL, NULL, 1, 1, 'Ninguna'),
+(201, '3005', 'Alumno 3005', 'Apeliido 1', 'Apellido 2', 'Masculino', 'Atenas', NULL, NULL, NULL, 1, 1, 'Ninguna'),
+(202, '3006', 'Alumno 3006', 'Apellido 1', 'Apellido 2', 'Masculino', 'Heredia', NULL, NULL, NULL, 1, 1, '1'),
+(203, '8008', '8008', '8008', '8008', 'Masculino', '8008', NULL, NULL, NULL, 1, 1, '8008'),
+(204, '8009', '8009', '8009', '8009', 'Masculino', '8009', '8009', '8009', NULL, 1, 1, 'Ninguna'),
+(209, '4901', 'Oscar Eduardo', 'Soto', 'León', 'Masculino', 'Alajuela, Atenas Costa Rica', '24466380', NULL, '88923834', 1, 1, 'Ninguna'),
+(211, '8899', 'Oscar Eduardo', 'Soto', 'León', 'Masculino', 'Alajuela', '88923239', NULL, 'oscarsoto040797@gmail.com', 1, 1, 'Ninguna'),
+(213, '8898', 'Elvin', 'Martinez', '.Saborio', 'Masculino', 'Alajuela', '24467676', NULL, 'elsoto58@gmail.com', 1, 1, 'Ninguna'),
+(215, '8144', 'Elvin', 'Ramirez', 'Jimenez', 'Masculino', 'Alajuela Atenas Costa Rica', '22334455', NULL, 'elsoto57@gmail.com', 1, 1, 'Ninguna'),
+(217, '6192', 'Perestroika', 'Glasnot', '.Artavia', 'Masculino', 'Alajuela', '12343212', NULL, 'ileanassl30@gmail.com', 1, 1, 'Ninguna'),
+(219, '9156', 'Fernanda', 'Lopez', '.Porras', 'Masculino', 'Alajuela', '9999999', NULL, 'natalielopez08ss0597@gmail.com', 1, 1, 'Ninguna'),
+(221, '7854', 'Gabriel', 'Villalobos', '.Ramirez', 'Masculino', 'Alajuela', '2345432', NULL, 'natalielopezaa080597@gmail.com', 1, 1, 'Ninguna'),
+(225, '98764521', 'test', 'test', 'test', 'Masculino', 'test', 'test', NULL, 'natalielopez080597@gmail.com', 1, 1, 'Ninguna');
 
 -- --------------------------------------------------------
 
@@ -1039,7 +1535,15 @@ INSERT INTO `profesor` (`idprofesor`, `Persona_idPersona`, `tipo`) VALUES
 (55, 129, 1),
 (56, 131, 0),
 (57, 142, 0),
-(58, 144, 1);
+(58, 144, 1),
+(60, 209, 0),
+(61, 211, 0),
+(62, 213, 1),
+(63, 215, 1),
+(64, 217, 0),
+(65, 219, 1),
+(66, 221, 1),
+(67, 225, 1);
 
 -- --------------------------------------------------------
 
@@ -1152,7 +1656,44 @@ INSERT INTO `profesor_materia_grado` (`profesor_idprofesor`, `materia_idmateria`
 (58, 9, 3),
 (58, 9, 4),
 (58, 9, 5),
-(58, 9, 6);
+(58, 9, 6),
+(60, 6, 1),
+(60, 7, 1),
+(60, 8, 1),
+(60, 11, 1),
+(61, 6, 2),
+(61, 7, 2),
+(61, 8, 2),
+(61, 11, 2),
+(62, 5, 2),
+(62, 5, 3),
+(62, 5, 4),
+(62, 5, 5),
+(62, 5, 6),
+(63, 5, 2),
+(63, 5, 3),
+(63, 5, 4),
+(63, 5, 5),
+(63, 5, 6),
+(64, 6, 1),
+(64, 7, 1),
+(64, 8, 1),
+(64, 11, 1),
+(65, 5, 2),
+(65, 5, 3),
+(65, 5, 4),
+(65, 5, 5),
+(65, 5, 6),
+(66, 5, 2),
+(66, 5, 3),
+(66, 5, 4),
+(66, 5, 5),
+(66, 5, 6),
+(67, 9, 2),
+(67, 9, 3),
+(67, 9, 4),
+(67, 9, 5),
+(67, 9, 6);
 
 -- --------------------------------------------------------
 
@@ -1172,7 +1713,8 @@ CREATE TABLE `puesto` (
 
 INSERT INTO `puesto` (`idPuesto`, `nombrePuesto`, `descrpcionPuesto`) VALUES
 (1, 'Conserje', 'Encargado de la limpieza de la institucion y mucho mas'),
-(2, 'Guardia', 'Seguridad II');
+(2, 'Guardia', 'Seguridad II'),
+(3, 'Psicologa', 'Encargada de tratar con personal y niños');
 
 -- --------------------------------------------------------
 
@@ -1233,8 +1775,6 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idUsuario`, `idPersona`, `idRol`, `password`, `cambio`) VALUES
-(1, 38, 1, '$2y$09$MmyH9eXuU0kyGbfmlNV6ze4d7pBJr.cK0brq4P0R/rBMOG0pFQkh.', 0),
-(3, 69, 1, '$2y$09$VO0k5.zgyQILsqJfrRZy4eSRIm.LCRH/wRh5ZXi1ee/INLX/DgTcW', 1),
 (7, 75, 1, '$2y$09$9TL7z6JBchfWwnnp1afXEOFOTW.NeHNBMNXZ2khiIFMY/ItUVkrY2', 0),
 (9, 78, 2, '$2y$09$wM2ozn/.RC9QoWiEDLmZ5.SzbjLC4xfD2j0uiROP5zZKQIwJLnkMa', 0),
 (10, 79, 1, '$2y$09$wM2ozn/.RC9QoWiEDLmZ5.SzbjLC4xfD2j0uiROP5zZKQIwJLnkMa', 0),
@@ -1268,8 +1808,16 @@ INSERT INTO `usuario` (`idUsuario`, `idPersona`, `idRol`, `password`, `cambio`) 
 (38, 127, 1, '$2y$09$dFdKgjRGA0cMjTtzZO8n6u4WMKjg0AE4/Em.l8LcMqn84Eef/ZgbK', 1),
 (39, 129, 1, '$2y$09$.6d6wEIn25Rq9NkBksni8ulCWncH07jHj3yPLCrCHo2qtNQWuzOKG', 1),
 (40, 131, 1, '$2y$09$RZzexNQ0PwGnUyMShz1fYeVccAJed4h31ei29hyPCV7/64Q/fT5fS', 1),
-(41, 142, 1, '$2y$09$luizeMfMr/67CVM5obXaV.TL5WuGaa3qrbmU6eueR5MuUbDGPqP/2', 0),
-(42, 144, 1, '$2y$09$wM2ozn/.RC9QoWiEDLmZ5.SzbjLC4xfD2j0uiROP5zZKQIwJLnkMa', 0);
+(41, 142, 1, '$2y$09$l6TdXxei2cTql4u4RueXPOgMr3lV70H3AUJXtRw2v63V/z7Y9d07y', 0),
+(42, 144, 2, '$2y$09$wM2ozn/.RC9QoWiEDLmZ5.SzbjLC4xfD2j0uiROP5zZKQIwJLnkMa', 0),
+(44, 209, 1, '$2y$09$lpj.ZsYDnUGVCmNG9kdCO.BMdAg1d41OYAcT2GLH1bn24kZGd2j92', 1),
+(45, 211, 1, '$2y$09$lo96K5GCHDQ7zeaccKKdzuQUNxU5AUEWGb1sils6G0Pw34wBGye3G', 1),
+(46, 213, 1, '$2y$09$Q4O8Op5Cz21CqmD.yxITee/5HhVCOcXSntIRT.D3CTioqV8wqDpBW', 1),
+(47, 215, 1, '$2y$09$7Tp72WQZu5/DaNl24kg63.cAymd5HI4AVoI35aQefLY3ShcsS79DS', 1),
+(48, 217, 1, '$2y$09$FJu/cGeE0Ly94cotqI/k/OvAUA3Vj40.J93x4UHhQ/1MfxzorMLXW', 1),
+(49, 219, 1, '$2y$09$1h54n0Gfi0EaYf3ZrZTmw.l6zRz50IWxazYxhJeYk5PVjtwGywgcW', 1),
+(50, 221, 1, '$2y$09$UMkO3DZM1u6MBu7wTofAmeF8JkSTVg8Nis3KDEfqlz6I81R/9c4KK', 1),
+(51, 225, 1, '$2y$09$9zfLLAv9Xgi5fhOc7t6e2uIl9AcexkRNZdKTSE99g1ui.ds68MAY.', 1);
 
 -- --------------------------------------------------------
 
@@ -1323,6 +1871,19 @@ CREATE TABLE `vista_alumno` (
 ,`nota_medica` varchar(650)
 ,`disponible` tinyint(1)
 ,`idgrado` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `vista_alumno_encargado`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `vista_alumno_encargado` (
+`cedula` varchar(45)
+,`idalumno` int(11)
+,`nombre` varchar(137)
+,`idGrado` int(11)
 );
 
 -- --------------------------------------------------------
@@ -1456,6 +2017,15 @@ CREATE TABLE `vista_profesor` (
 -- --------------------------------------------------------
 
 --
+-- Estructura para la vista `mostrar_encargado`
+--
+DROP TABLE IF EXISTS `mostrar_encargado`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `mostrar_encargado`  AS  select `p2`.`cedula` AS `cedula_e`,`p`.`cedula` AS `cedula`,concat(`p`.`nombre`,' ',`p`.`apellido1`,' ',`p`.`apellido2`) AS `nombre`,`p`.`telefono` AS `telefono`,`p`.`telefono_secundario` AS `telefono_secundario`,`p`.`direccion` AS `direccion` from ((((`persona` `p` join `alumno` `a`) join `alumno_encargado` `ae`) join `encargado` `e`) join `persona` `p2`) where ((`p2`.`idPersona` = `a`.`Persona_idPersona`) and (`p`.`idPersona` = `e`.`Persona_idPersona`) and (`a`.`idalumno` = `ae`.`ID_ALUMNO`) and (`e`.`idencargado` = `ae`.`ID_ENCARGADO`)) ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura para la vista `vbeca`
 --
 DROP TABLE IF EXISTS `vbeca`;
@@ -1479,6 +2049,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vista_alumno`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_alumno`  AS  select `p`.`cedula` AS `cedula`,`p`.`nombre` AS `nombre`,`p`.`apellido1` AS `apellido1`,`p`.`apellido2` AS `apellido2`,`p`.`sexo` AS `sexo`,`n`.`pais` AS `pais`,`g`.`nombreGrado` AS `nombreGrado`,`g`.`annio` AS `annio`,`p`.`direccion` AS `direccion`,`p`.`nota_medica` AS `nota_medica`,`p`.`disponible` AS `disponible`,`g`.`idgrado` AS `idgrado` from ((((`persona` `p` join `alumno` `a`) join `grado_estudiante_nota` `ga`) join `nacionalidad` `n`) join `grado` `g`) where ((`a`.`Persona_idPersona` = `p`.`idPersona`) and (`ga`.`idEstudiante` = `a`.`idalumno`) and (`p`.`idNacionalidad` = `n`.`idNacionalidad`) and (`ga`.`idGrado` = `g`.`idgrado`)) group by `p`.`cedula` ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vista_alumno_encargado`
+--
+DROP TABLE IF EXISTS `vista_alumno_encargado`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_alumno_encargado`  AS  select `p2`.`cedula` AS `cedula`,`a`.`idalumno` AS `idalumno`,concat(`p`.`nombre`,' ',`p`.`apellido1`,' ',`p`.`apellido2`) AS `nombre`,`gen`.`idGrado` AS `idGrado` from (((((`persona` `p` join `alumno` `a`) join `grado_estudiante_nota` `gen`) join `alumno_encargado` `ae`) join `persona` `p2`) join `encargado` `e`) where ((`p`.`idPersona` = `a`.`Persona_idPersona`) and (`a`.`idalumno` = `gen`.`idEstudiante`) and (`ae`.`ID_ENCARGADO` = `e`.`idencargado`) and (`ae`.`ID_ALUMNO` = `a`.`idalumno`) and (`e`.`Persona_idPersona` = `p2`.`idPersona`)) ;
 
 -- --------------------------------------------------------
 
@@ -1600,14 +2179,6 @@ ALTER TABLE `grado`
   ADD PRIMARY KEY (`idgrado`);
 
 --
--- Indices de la tabla `grado_alumno`
---
-ALTER TABLE `grado_alumno`
-  ADD PRIMARY KEY (`grado_idgrado`,`alumno_idalumno`),
-  ADD KEY `fk_grado_has_alumno_alumno1_idx` (`alumno_idalumno`),
-  ADD KEY `fk_grado_has_alumno_grado1_idx` (`grado_idgrado`);
-
---
 -- Indices de la tabla `grado_estudiante_nota`
 --
 ALTER TABLE `grado_estudiante_nota`
@@ -1709,13 +2280,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `alumno`
 --
 ALTER TABLE `alumno`
-  MODIFY `idalumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `idalumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de la tabla `asistencia`
 --
 ALTER TABLE `asistencia`
-  MODIFY `IDASISTENCIA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
+  MODIFY `IDASISTENCIA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
 
 --
 -- AUTO_INCREMENT de la tabla `beca`
@@ -1739,25 +2310,25 @@ ALTER TABLE `empleado`
 -- AUTO_INCREMENT de la tabla `encargado`
 --
 ALTER TABLE `encargado`
-  MODIFY `idencargado` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idencargado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `grado`
 --
 ALTER TABLE `grado`
-  MODIFY `idgrado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idgrado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `historico_usuarios`
 --
 ALTER TABLE `historico_usuarios`
-  MODIFY `idHistorico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idHistorico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `idmateria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idmateria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `nacionalidad`
@@ -1769,7 +2340,7 @@ ALTER TABLE `nacionalidad`
 -- AUTO_INCREMENT de la tabla `nota`
 --
 ALTER TABLE `nota`
-  MODIFY `idnota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=347;
+  MODIFY `idnota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=557;
 
 --
 -- AUTO_INCREMENT de la tabla `nota_constante`
@@ -1781,19 +2352,19 @@ ALTER TABLE `nota_constante`
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
+  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=227;
 
 --
 -- AUTO_INCREMENT de la tabla `profesor`
 --
 ALTER TABLE `profesor`
-  MODIFY `idprofesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `idprofesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT de la tabla `puesto`
 --
 ALTER TABLE `puesto`
-  MODIFY `idPuesto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idPuesto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -1811,7 +2382,7 @@ ALTER TABLE `tipo_materia`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- Restricciones para tablas volcadas
@@ -1862,13 +2433,6 @@ ALTER TABLE `empleado`
 --
 ALTER TABLE `encargado`
   ADD CONSTRAINT `fk_encargado_Persona1` FOREIGN KEY (`Persona_idPersona`) REFERENCES `persona` (`idPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `grado_alumno`
---
-ALTER TABLE `grado_alumno`
-  ADD CONSTRAINT `fk_grado_has_alumno_alumno1` FOREIGN KEY (`alumno_idalumno`) REFERENCES `alumno` (`idalumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_grado_has_alumno_grado1` FOREIGN KEY (`grado_idgrado`) REFERENCES `grado` (`idgrado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `grado_estudiante_nota`

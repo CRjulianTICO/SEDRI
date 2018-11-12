@@ -53,15 +53,12 @@ switch ($_GET["opcion"]){
 		if($rspta != null){
 			$resp = $encargado->consultaID($cedula);
 			$id = $resp['idencargado'];
-			echo 'id'.$id.'<br>';
 			$array = $_POST['estudiante'];
-			echo '<hr>';
 			foreach($array as $value){
-				echo '<hr>'.$value.' '.$id;
 				$encargado->insertaAlumno($id,$value);
 				;
 			 }
-
+			 echo "Registrado";
 		}else{
 			echo 'Error';
 		}

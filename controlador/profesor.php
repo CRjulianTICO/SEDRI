@@ -28,10 +28,13 @@ switch ($_GET["opcion"]) {
     case 'guardar':
        $pass = $mail->generarPassword();
        $hpass = $auth->hashPassword($pass);
-       echo "Datos Materia ".$materia." Tipo: ".$tipo." Nac ".$nacionalidad." idGrad ".$idgrado;
        $rspta=$profesor->insertar($cedula,$nombre,$apellido1,$apellido2,$sexo,$direccion,$telefono, $email,$nacionalidad,$idgrado,$hpass,$materia,$tipo);
+       ob_start();
+       echo $rspta?$mail->enviarCorreo(1, $email, $pass): "Error".$rspta;
+       // some statement that removes all printed/echoed items
+       ob_end_clean();
+            echo $rspta?"Registrado": "Error".$rspta;
 
-            echo $rspta?$mail->enviarCorreo(1, $email, $pass): "Error".$rspta;
     break;
 
     case 'editar':
@@ -54,10 +57,10 @@ switch ($_GET["opcion"]) {
                 "6"=>$reg->TELEFONO,
                 "7"=>$reg->EMAIL,
                 "8"=>$reg->PAIS,
-                "9"=>($reg->DISPONIBLE)?'<span class="label bg-green">Activado</span>':
+                "9"=>($reg->DISPONIBLE)?'<span class="label green-text">Disponible</span>':
                 '<span class="label bg-red">Desactivado</span>',
-                "10"=>'<button class="mostrarEditar" onclick="mostrar('.$reg->CEDULA.')"><i class="material-icons center blue-text ">edit</i></button>
-					 <button class="mostrarBlock" onclick="desactivar('.$reg->CEDULA.')"><i class="material-icons center red-text ">block</i></button>',
+                "10"=>'<button class="bg-blue" onclick="mostrar('.$reg->CEDULA.')"><i class="material-icons center white-text ">edit</i></button>
+					 <button class="bg-red" onclick="desactivar('.$reg->CEDULA.')"><i class="material-icons center white-text ">block</i></button>',
                 "11"=>$reg->tipo == 1 ? "Grados equivalentes" : $reg->nombreGrado." ".$reg->annio,
                                 "12"=>$reg->tipo == 1 ? "Profesor Especial" : "Profesor Normal",
                 );
@@ -82,7 +85,6 @@ switch ($_GET["opcion"]) {
 
     case 'mostrar':
         $rspta=$profesor->cargar($cedula);
-        //Se cofifica para que quede en json
         echo json_encode($rspta);
         break;
 
