@@ -61,7 +61,6 @@ function listar(){
 function guardar(e){
     e.preventDefault(); 
     var DATOS = ($("#formPuesto").serialize());
-    console.log(DATOS);
   	$.ajax({
   		url: "../controlador/puesto.php?opcion=guardar",
   	    method: "POST",

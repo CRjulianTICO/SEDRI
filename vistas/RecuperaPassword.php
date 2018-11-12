@@ -12,6 +12,7 @@
 <link href="../public/css/menuProfesor.css?ki" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.4/dist/sweetalert2.all.min.js"></script>
 <link href="../public/css/estilos.css?hi" rel="stylesheet"/>
+<link href="../public/css/login.css?hi" rel="stylesheet"/>
 
 
 </head>
@@ -27,12 +28,12 @@
       <div class="section"></div>
 
       <div class="container">
-        <div class="z-depth-1 white lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+        <div class=" white  row caja" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
 
           <form class="col s12" id="formRecupera" method="post">
             <div class='row'>
               <div class='col s12'>
-              	<h6 class="blue-text">Recuperar contraseña</h6>
+              	<h5 class="title">Recuperar contraseña</h5>
               </div>
             </div>
 
@@ -44,10 +45,10 @@
                 <label for='cedula'>Ingrese su número de cédula</label>
               </div>
              
-              <label style='float: left;'>
-								<a class='blue-text' href='inicio.html'><b>
-              <i class="material-icons prefix bot">arrow_back</i> Volver a inicio</b></a>
-							</label>
+             
+								<a class='subtitle' href='Login.php'><b>
+              <i class="material-icons">arrow_back</i> Volver a inicio</b></a>
+							
             </div>
 
             

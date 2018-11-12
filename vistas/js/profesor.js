@@ -47,6 +47,9 @@ function mostrarform(bool) {
     cargarPais();
     $("#tabla").hide();
     $("#formulario").show();
+    $('#divMateria').show();
+    $('#divTipo').show();
+
   } else {
     limpiar();
     mostrarbotones(false);
@@ -172,10 +175,13 @@ function mostrar(cedula) {
     $("#apellido2").val(data.APELLIDO2);
     $("#cedula").val(data.CEDULA);
     $("#telefono").val(data.TELEFONO);
-    $("#email").val(data.EMAIL);
+    $("#correo").val(data.EMAIL);
     $("#direccion").val(data.DIRECCION);
     $("#sexo").val(data.SEXO);
-    $("#nacionalidad").val(data.PAIS); /*SE PUEDE ARREGLAR CON UN APPEND TAL VEZ UNA VISTA NUEVA O CURSOR */
+    $("#nacionalidad").val(data.PAIS);
+    $('#divGrado').hide();
+    $('#divMateria').hide();
+    $('#divTipo').hide(); /*SE PUEDE ARREGLAR CON UN APPEND TAL VEZ UNA VISTA NUEVA O CURSOR */
   })
 }
 
@@ -200,16 +206,13 @@ function cargarPais() {
 }
 
 function editar() {
-  //No se activará la acción predeterminada del evento
+  
   var DATOS = ($("#formProfesor").serialize());
   $.ajax({
     url: "../controlador/profesor.php?opcion=editar",
     method: "POST",
     data: DATOS,
-
-
-
-      success: function(datos)
+    success: function(datos)
       {
         if(datos=="Registrado"){
                   $('#divResp').show();

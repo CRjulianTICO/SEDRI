@@ -74,20 +74,19 @@
 			{
 
 					$sql="SELECT a.idalumno,concat(p.nombre,' ',p.apellido1,' ',p.apellido2) as nombre
-					FROM persona p,alumno a,grado_alumno ga
-					where p.idPersona = a.Persona_idPersona and a.idalumno = ga.alumno_idalumno and ga.grado_idgrado = $grado
-					;";
+					FROM persona p,alumno a,grado_estudiante_nota gen
+					where p.idPersona = a.Persona_idPersona and a.idalumno = gen.idEstudiante and gen.idGrado = $grado
+					GROUP BY gen.idEstudiante;";
 
 
 				return consulta($sql);
 			}
 			public function listarAlumnosEncargado($cedula,$grado){
-				$sql="SELECT a.idalumno,concat(p.nombre,' ',p.apellido1,' ',p.apellido2) as nombre
-				FROM persona p,alumno a,grado_alumno ga,alumno_encargado ae,persona p2,encargado e
-				where p.idPersona = a.Persona_idPersona and a.idalumno = ga.alumno_idalumno and ga.grado_idgrado = $grado
-				and ae.ID_ENCARGADO = e.idencargado and ae.ID_ALUMNO = a.idalumno and e.Persona_idPersona = p2.idPersona
-				and p2.cedula = '$cedula'
-				;";
+				$sql="SELECT idalumno,nombre FROM vista_alumno_encargado where cedula='$cedula' GROUP BY idalumno;";
+				return consulta($sql);
+			}
+			public function mostrarEncargado($cedula){
+				$sql="SELECT * FROM mostrar_encargado where cedula_e = '$cedula';";
 				return consulta($sql);
 			}
 

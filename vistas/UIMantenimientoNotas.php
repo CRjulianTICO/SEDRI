@@ -5,10 +5,10 @@
 <div class="container">
 <div id="divResp"></div>
 <div class='row'>
-    <div class="col s6 offset-s7" id="divGrados" >
+    <div class="col s6" id="divGrados" >
         <select id="cbGrados" class="cbGrados browser-default"><option>asdawd</option><option>asdawd232423422</option><option>asdaw234d</option></select>
     </div>
-    <div class="col s6 offset-s7" id="divGrados" >
+    <div class="col s6" id="divGrados" >
         <select id="cbTrimestre" class="cbTrimestre browser-default">
         <option value="1">Seleccione el Trimestre</option>
         <option value="1">Primer Trimestre</option>

@@ -19,14 +19,8 @@ if(isset($_SESSION["token"])){
   }else{
 	  $idgrado = 0;
   }
- 
-
-
-}else
-{
-  header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
 }
-
+ 
 require_once "../modelo/Alumno.php";
 require_once "../modelo/Encargado.php";
 require_once "../modelo/Pais.php";
@@ -59,24 +53,21 @@ switch ($_GET["opcion"]){
 		if($rspta != null){
 			$resp = $encargado->consultaID($cedula);
 			$id = $resp['idencargado'];
-			echo 'id'.$id.'<br>';
 			$array = $_POST['estudiante'];
-			echo '<hr>';
 			foreach($array as $value){
-				echo '<hr>'.$value.' '.$id;
 				$encargado->insertaAlumno($id,$value);
 				;
 			 }
-
+			 echo "Registrado";
 		}else{
 			echo 'Error';
 		}
 	break;
 
 	case 'editar':
-			$rspta=$encargado->actualizar($cedula, $nombre, $apellido1, $apellido2, $sexo, $direccion,$telefono,$nacionalidad,$nacionalidad);
+			$rspta=$encargado->actualizar($cedula, $nombre, $apellido1, $apellido2, $sexo, $direccion,$telefono,$telefono2,$nacionalidad,$nacionalidad);
 			
-			if($rspta != null){
+			if($_POST['estudiante'] != null){
 				$resp = $encargado->consultaID($cedula);
 				$id = $resp['idencargado'];
 				echo 'id'.$id.'<br>';
@@ -110,8 +101,8 @@ switch ($_GET["opcion"]){
 				"6"=>$reg->direccion,
 				"7"=>$reg->sexo,
 				"8"=>$reg->pais,
- 				"9"=>'<button class="mostrarEditar" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center blue-text ">edit</i></button>
-					 <button class="mostrarBlock" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center red-text ">block</i></button>'
+ 				"9"=>'<button class="bg-yellow" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center white-text">edit</i></button>
+					 <button class="bg-red" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center white-text">block</i></button>'
 					 
  				);
  		}

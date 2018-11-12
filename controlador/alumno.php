@@ -36,7 +36,7 @@ $grado=new Grado();
     $nota=isset($_POST["nota"])? limpiarCadena($_POST["nota"]):"";
     $grado=isset($_POST["grado"])? limpiarCadena($_POST["grado"]):"";
   $idGrado=isset($_GET["grado"])? limpiarCadena($_GET["grado"]):"";
-
+  $ced=isset($_GET['cedula'])? limpiarCadena($_GET['cedula']):"";
 
 
 
@@ -49,7 +49,7 @@ switch ($_GET["opcion"]) {
           }else{
             $rspta=$alumno->insertar($cedula, $nombre, $apellido1, $apellido2, $sexo, $direccion, $nacionalidad, $nota, $idgrado);
           }
-            echo $rspta ? "Registrado" : "Error".$cedula. $nombre. $apellido1. $apellido2. $sexo. $direccion. $nacionalidad.$nota.$grado;
+            echo $rspta ? "Registrado" : "Error";
     break;
 
     case 'editar':
@@ -75,8 +75,9 @@ switch ($_GET["opcion"]) {
         "8"=>$reg->direccion,
         "9"=>$reg->nota_medica,
 
-                "10"=>'<button class="btn  btn-small bg-yellow" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center white-text ">edit</i></button>
-					 <button class="btn btn-small bg-red" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center white-text ">block</i></button>'
+                "10"=>'<button class="bg-yellow" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center white-text">edit</i></button>
+                <button class="bg-red" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center white-text">block</i></button>
+                <button class="bg-blue" onclick="cargarEncargado('.$reg->cedula.')"><i class="material-icons center white-text">assignment_ind</i></button>'
                 );
         }
         $results = array(
@@ -102,8 +103,10 @@ switch ($_GET["opcion"]) {
     "8"=>$reg->direccion,
     "9"=>$reg->nota_medica,
 
-        "10"=>'<button class="btn  btn-small bg-yellow" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center white-text ">edit</i></button>
-           <button class="btn btn-small bg-red" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center white-text ">block</i></button>'
+        "10"=>'<button class="bg-yellow" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center white-text">edit</i></button>
+        <button class="bg-red" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center white-text">block</i></button>
+        <button class="bg-blue" onclick="cargarEncargado('.$reg->cedula.')"><i class="material-icons center white-text">assignment_ind</i></button>'
+        
         );
         }
         $results = array(
@@ -148,21 +151,39 @@ switch ($_GET["opcion"]) {
     break;
 
   case 'cargar':
-  if ($tipoP==0) {
-      echo "0";
-  } else {
-      $rspta=$alumno->listarGrados($idPe);
-      $data= array();
-      while ($reg=$rspta->fetch_object()) {
-          $data[]=array(
-      "id_grado"=>$reg->id_grado,
-      "nombreGrado"=>$reg->nombreGrado
-    );
-      }
-        echo json_encode($data);
-  }
+    if ($tipoP==0) {
+        echo "0";
+    } else {
+        $rspta=$alumno->listarGrados($idPe);
+        $data= array();
+        while ($reg=$rspta->fetch_object()) {
+            $data[]=array(
+        "id_grado"=>$reg->id_grado,
+        "nombreGrado"=>$reg->nombreGrado
+        );
+        }
+            echo json_encode($data);
+    }
 
- break;
+    break;
+
+    case 'cargarEncargado':
+    
+        $rspta=$alumno->mostrarEncargado($ced);
+        $data= array();
+        while ($reg=$rspta->fetch_object()) {
+            $data[]=array(
+        "cedula"=>$reg->cedula,
+        "nombre"=>$reg->nombre,
+        "telefono"=>$reg->telefono,
+        "telefono_secundario"=>$reg->telefono_secundario,
+        "direccion"=>$reg->direccion
+        );
+        }
+            echo json_encode($data);
+    
+
+    break;
 
 
 }

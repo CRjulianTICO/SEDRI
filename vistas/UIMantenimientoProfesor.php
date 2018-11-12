@@ -2,6 +2,7 @@
 <!--AQUI DEBERIA IR TODO EL CONTENIDO DE LA PAGINA-->
 
 <div id="content">
+<div id="divResp"></div>
   <div class="tabla" id="tabla">
     <table id="tbProfesor" class="display responsive nowrap tabla" style="width: 100%">
       <thead>
@@ -14,7 +15,7 @@
         <th>Telefono</th>
         <th>Correo</th>
         <th>Nacionalidad</th>
-        <th>Disponible</th>
+        <th>Estado</th>
         <th>Opciones</th>
         <th>Grado</th>
         <th>Tipo de Profesor</th>
@@ -65,7 +66,7 @@
 
               <div class='row'>
                 <div class='input-field col s6'>
-                  <input placeholder="Email" class='validate' type='text' name='email' id='email' maxlength="30" required />
+                  <input placeholder="Email" class='validate' type='text' name='email' id='correo' maxlength="30" required />
                   <label for='email'>Ingresar Correo Electronico</label>
                 </div>
               </div>
@@ -86,7 +87,7 @@
               <br>
 
               <div class="row">
-                <div class="col s6">
+                <div class="col s6" id="divTipo">
                   <select name="tipo" id="tipo" class="browser-default" required>
                     <option value="1">Profesor Especial</option>
                     <option value="0">Profesor de Materias</option>
@@ -96,6 +97,7 @@
                   <select name="idgrado" id="idgrado" class="browser-default" required>
                   </select>
                 </div>
+                
                 <div class="col s6" id="divMateria">
                   <select name="materia" id="materia" class="browser-default" required>
                   </select>
@@ -114,8 +116,8 @@
 
               <br><br>
               <div class="row">
-                <div class="col s4">
-                  <button class="btn waves-effect waves-light green guardaEst" type="submit" name="Guardar" id="btnguardar">Guardar
+                <div class="col s12">
+                  <button class="btn waves-effect waves-light green guardaEst full-with" type="submit" name="Guardar" id="btnguardar">Guardar
                     <i class="material-icons right">done</i><br></button></div>
               </div>
             </div>
@@ -124,10 +126,10 @@
 
       <div class="row" id="botones">
         <div class="col s6">
-          <button name="editar" type="button" id="btnEditar" class="btn waves-effect waves-light blue editaEst">Editar<i class="material-icons right">edit</i></button>
+          <button name="editar" type="button" id="btnEditar" class="btn waves-effect waves-light blue editaEst full-with">Editar<i class="material-icons right">edit</i></button>
         </div>
         <div class="col s6">
-          <button class="btn waves-effect waves-light red cancelEst" name="eliminar" type="button" onclick="cancelarform();">Cancelar
+          <button class="btn waves-effect waves-light red cancelEst full-with" name="eliminar" type="button" onclick="cancelarform();">Cancelar
             <i class="material-icons right">clear</i><br></button>
         </div>
       </div>
@@ -137,7 +139,6 @@
 </div>
 <!-- FINALIZA EL CONTENIDO-->
 <?php require 'footerDirector.php' ?>
-6
 <script src="js/profesor.js?new"></script>
 </body>
 
