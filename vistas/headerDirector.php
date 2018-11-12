@@ -15,10 +15,10 @@
     $nombre = $dataToken["nombre"];
     $rol = $dataToken["rol"];
     if($rol!="Director"){
-      header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
+      header("Location: http://localhost:8080/SEDRI/vistas/Login.php");
     }
   }else{
-    header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
+    header("Location: http://localhost:8080/SEDRI/vistas/Login.php");
   }
 ?>
 
@@ -39,7 +39,7 @@
 <link href="../public/datatables/responsive.dataTables.min.css" rel="stylesheet"/>
 <link href="../public/css/estilos.css?hi" rel="stylesheet"/>
 <link href="../public/css/menuProfesor.css?ki" rel="stylesheet"/>
-
+<link rel="shortcut icon" href="#"/>
 
 
 

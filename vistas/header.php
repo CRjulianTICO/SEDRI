@@ -15,7 +15,7 @@
     $tipoProfe = $dataToken["tipoProfesor"];
   }else
   {
-    header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
+    header("Location: http://localhost:8080/SEDRI/vistas/Login.php");
   }
 ?>
 <!DOCTYPE html>
@@ -35,8 +35,7 @@
   <link href="../public/datatables/responsive.dataTables.min.css" rel="stylesheet" />
   <link href="../public/css/menuProfesor.css?ki" rel="stylesheet" />
   <link href="../public/css/estilos.css" rel="stylesheet" />
-
-
+<link rel="shortcut icon" href="#"/>
 
 
 </head>
@@ -98,7 +97,7 @@
                   <a class="collapsible-header waves-effect">Encargado<i class="material-icons right grey-text">arrow_drop_down</i><i class="material-icons left grey-text">assignment_ind</i></a>
                   <div class="collapsible-body">
                     <ul>
-                      <a href="UiMantenimientoEncargado.php" class="waves-effect">Registro<i class="material-icons left red-text registroIcono">folder_shared</i></a>
+                      <a href="UIMantenimientoEncargado.php" class="waves-effect">Registro<i class="material-icons left red-text registroIcono">folder_shared</i></a>
                       <li>
                         <a onclick="redireccionarEncargado();" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
                       </li>

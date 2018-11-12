@@ -1,7 +1,7 @@
 <?php 
   session_start();
   if(isset($_SESSION["token"])){
-    header("Location: http://localhost:8888/SEDRI/controlador/autenticacionTokens.php");
+    header("Location: http://localhost:8080/SEDRI/controlador/autenticacionTokens.php");
     exit();
   }
 ?>
@@ -19,7 +19,7 @@
 <link href="../public/datatables/responsive.dataTables.min.css" rel="stylesheet"/>
 <link href="../public/css/estilos.css?hi" rel="stylesheet"/>
 <link href="../public/css/menuProfesor.css?ki" rel="stylesheet"/>
-
+<link rel="shortcut icon" href="#"/>
 
 </head>
 
@@ -89,7 +89,7 @@
 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
   
-   <script src="/vistas/js/login.js?new"></script>
+   <script src="vistas/js/login.js?new"></script>
 
 </body>
 

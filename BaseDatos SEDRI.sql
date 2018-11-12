@@ -82,7 +82,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActualizarEmpleado` (IN `CED` VA
  DIRECCION =DIRECC,
  TELEFONO=TEL,
  idNacionalidad=NAC
- WHERE CEDULA = CED;
+ WHERE CEDULA = CED LIMIT 1;
 
  SELECT idPersona FROM persona WHERE CEDULA = CED INTO @id ;
 
@@ -113,7 +113,7 @@ UPDATE persona set disponible ='0' where cedula = VCED;
 
  SELECT idPersona
  FROM persona
- WHERE cedula = VCED
+ WHERE cedula = VCED LIMIT 1 
  INTO @id;
  
  DELETE FROM usuario where idPersona = @id;
@@ -136,7 +136,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaAlumno` (IN `VCED` VARCHA
 
  SELECT idalumno
  FROM alumno
- WHERE persona_idPersona = @id
+ WHERE persona_idPersona = @id LIMIT 1
  INTO @id_alumno;
 
  SELECT ciclo
@@ -203,7 +203,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaEncargado` (IN `VCED` VAR
  VALUES(VCED,VNOM,VAP1,VAP2,VSEXO,VDIR,VTEL,VTEL2,VNAC);
  SELECT idPersona
  FROM persona
- WHERE cedula = VCED
+ WHERE cedula = VCED LIMIT 1
  into @id;
 
 
@@ -251,7 +251,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaProfesor` (IN `VCED` VARC
 
  SELECT idprofesor
  FROM profesor
- WHERE Persona_idPersona = @id
+ WHERE Persona_idPersona = @id LIMIT 1
  INTO @idP;
 
  INSERT INTO usuario(idPersona,idRol,password,cambio)
@@ -292,7 +292,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertarEmpleado` (IN `CED` VARC
 
  INSERT INTO persona (CEDULA,NOMBRE,APELLIDO1,APELLIDO2,SEXO,DIRECCION,TELEFONO,idNacionalidad) VALUES(CED,NOM,APE1,APE2,SEX,DIRECC,TEL,NAC);
 
- SELECT idPersona FROM persona WHERE CEDULA = CED  INTO @id ;
+ SELECT idPersona FROM persona WHERE CEDULA = CED LIMIT 1 INTO @id ;
 
  INSERT INTO empleado(idPersona,idPuesto) VALUES(@id,PUE);
 
@@ -317,7 +317,7 @@ direccion=VDIR,
 telefono=VTEL,
 email=VEMAIL,
 idNacionalidad=VNAC
-WHERE cedula = VCED;
+WHERE cedula = VCED LIMIT 1;
 
 END$$
 

@@ -21,7 +21,7 @@ Class Profesor
 
 	public function actualizar($cedula,$nombre,$apellido1,$apellido2,$sexo,$direccion,$telefono,$email,$nacionalidad)
 	{
-		$sql="UPDATE `persona` SET `cedula` = '$cedula', `nombre` = '$nombre', `apellido1` = '$apellido1', `apellido2` = '.$apellido2', `sexo` = '$sexo', `direccion` = '$direccion', `telefono` = '$telefono' , `email` = '$email'where cedula='$cedula';";
+		$sql="UPDATE `persona` SET `cedula` = '$cedula', `nombre` = '$nombre', `apellido1` = '$apellido1', `apellido2` = '.$apellido2', `sexo` = '$sexo', `direccion` = '$direccion', `telefono` = '$telefono' , `email` = '$email'where cedula='$cedula'";
 
 		return consulta($sql);
 	}
@@ -38,14 +38,14 @@ Class Profesor
 	}
 
 	public function activar($cedula){
-		$sql = "UPDATE persona set disponible = '1' where cedula='".$cedula."';";
+		$sql = "UPDATE persona set disponible = '1' where cedula='".$cedula."'";
 		return consulta($sql);
 	}
 
 	public function cargar($cedula){
-		$sql = "SELECT CEDULA,NOMBRE,APELLIDO1,APELLIDO2, SEXO,DIRECCION,TELEFONO,EMAIL,PAIS,n.idNacionalidad,DISPONIBLE,g.idGrado,g.nombreGrado,g.annio
-		FROM PERSONA P, PROFESOR PE, NACIONALIDAD N,grado g,profesor_materia_grado pg
-		WHERE CEDULA = '".$cedula."' AND P.idPersona = PE.Persona_idPersona AND pe.idprofesor = pg.profesor_idprofesor AND g.idgrado = pg.id_grado AND P.idNacionalidad = N.idNacionalidad;";
+		$sql = "SELECT p.CEDULA, p.NOMBRE, p.APELLIDO1, p.APELLIDO2, p.SEXO, p. DIRECCION, p.TELEFONO, p.EMAIL, p.PAIS,n.idNacionalidad,p.DISPONIBLE,g.idGrado,g.nombreGrado,g.annio
+		FROM persona p, profesor pe, nacionalidad n,grado g,profesor_materia_grado pg
+		WHERE p.CEDULA = '".$cedula."' AND p.idPersona = pe.Persona_idPersona AND pe.idprofesor = pg.profesor_idprofesor AND g.idgrado = pg.id_grado AND p.idNacionalidad = n.idNacionalidad";
 	    return consultaSimple($sql);
 	}
 }

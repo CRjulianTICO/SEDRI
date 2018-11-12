@@ -2,7 +2,7 @@
   session_start();
   if(isset($_SESSION["token"])){
 
-    header("Location: http://localhost:8888/SEDRI/controlador/autenticacionTokens.php");
+    header("Location: http://localhost:8080/SEDRI/controlador/autenticacionTokens.php");
     exit();
   }
 ?>
@@ -21,7 +21,7 @@
 <link href="../public/css/estilos.css?hi" rel="stylesheet"/>
 <link href="../public/css/menuProfesor.css?ki" rel="stylesheet"/>
 <link href="../public/css/login.css?hi" rel="stylesheet"/>
-
+<link rel="shortcut icon" href="#"/>
 
 </head>
 
