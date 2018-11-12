@@ -1,28 +1,45 @@
 <?php require 'header.php' ?>
 
 <div id="content">
- <h5 class="center-align"><?php echo( $grupo);?></h5>
+
+<div class="container">
+<div id="divResp"></div>
+<div class='row'>
+    <div class="col s6" id="divGrados" >
+        <select id="cbGrados" class="cbGrados browser-default"><option>asdawd</option><option>asdawd232423422</option><option>asdaw234d</option></select>
+    </div>
+    <div class="col s6" id="divGrados" >
+        <select id="cbTrimestre" class="cbTrimestre browser-default">
+        <option value="1">Seleccione el Trimestre</option>
+        <option value="1">Primer Trimestre</option>
+        <option value="2">Segundo Trimestre</option>
+        <option value="3">Tercer Trimestre</option>
+        </select>
+    </div>
+</div>
+</div>
 
 
    <div class="tabla" id="tabla">
-        <table id="tbEncargado" class="display responsive nowrap tabla" style="width: 100%">
+        <table id="tblNotas" class="display responsive nowrap tabla" style="width: 100%">
         <thead>
           <th data-priority="1">Cedula</th>
           <th data-priority="2">Nombre</th>
           <th data-priority="3">Primer Apellido</th>
-          <th data-priority="4">Segundo Apellido</th>
-          <th data-priority="5">Telefono</th>
-          <th data-priority="6">Telefono Secundario</th>
-          <th>Direccion</th>
-          <th>Sexo</th>
-          <th>Nacionalidad</th>
-          <th>Opciones</th>
+          <th data-priority="3">Segundo Apellido</th>
+          <th >Grado</th>
+          <th >Materia</th>
+          <th data-priority="4">Trabajo Cotidiano</th>
+          <th data-priority="5">Pruebas</th>
+          <th data-priority="6">Tareas</th>
+          <th data-priority="7">Asistencia</th>
+          <th>Total</th>
         </thead>
         <tbody>
         </tbody>
       </table>
       </div>
-
+<!--
 <div id="formulario">
 
 <h6>Agregar un encargado</h6>
@@ -126,7 +143,12 @@
 
 
 </div>
-  
+  -->
+
+  <button class="btn waves-effect waves-light green guardaEst" type="submit" name="Guardar" id="btnGuardar">Guardar
+                        <i class="material-icons right">done</i>
+                        <br>
+                    </button>
 </div>
 
 
@@ -134,7 +156,7 @@
 <?php require 'footer.php' ?>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-<script src="js/encargado.js"></script>
+<script src="js/notas.js"></script>
 
 </body>
 

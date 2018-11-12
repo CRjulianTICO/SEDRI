@@ -8,9 +8,14 @@ require "../config/Conexion.php";
 
         }
         
-        public function insertaAsistencia($estado,$nota,$cedula,$fecha,$idGrado){
-                $sql="CALL `sp_InsertaAsistencia`($estado,'$nota','$cedula','$fecha',$idGrado)";
+        public function insertaAsistencia($estado,$nota,$cedula,$fecha,$idGrado,$idP){
+                $sql="CALL `sp_InsertaAsistencia`($estado,'$nota','$cedula','$fecha',$idGrado,$idP)";
                 return consulta($sql);
+        }
+
+        public function listarGrados($idP){
+            $sql = "SELECT pmg.id_grado,g.nombreGrado from profesor_materia_grado pmg, grado g, persona p, profesor pr WHERE p.idPersona = pr.Persona_idPersona and pr.idprofesor = pmg.profesor_idprofesor and g.idgrado = pmg.id_grado and p.idPersona = ".$idP;
+            return consulta($sql);
         }
 
         public function listarAsistenciasActual($idgrado){
@@ -25,6 +30,11 @@ require "../config/Conexion.php";
 			$sql="SELECT * FROM vista_asistencia where nombreGrado='$grado' and FECHA = '$fecha'";
             
 		    return contarFilas($sql);
+        }
+
+        public function contarEstudiantesGrado($idGrado){
+            $sql = "select COUNT(DISTINCT(gen.idEstudiante)) FROM grado_estudiante_nota gen, alumno a, persona p where  gen.idEstudiante = a.idalumno and a.Persona_idPersona = p.idPersona and gen.idGrado =".$idGrado;
+            return consulta($sql);
         }
 
         public function listarAsistencia($grado,$fecha){

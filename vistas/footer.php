@@ -7,7 +7,8 @@
 <?php
 if ($tipoProfe == 1) {
 	echo '<script type="text/javascript">',
- 'cargarMenu();',
+ 'cargarMenu();
+ $("#divEncargado").hide();',
  '</script>';
 }
 ?>
@@ -29,6 +30,9 @@ if ($tipoProfe == 1) {
 }
 function redireccionarEncargado(){
     window.location.href = "../vistas/UIMantenimientoEncargado.php#mostrarform";
+}
+function redireccionarAsistencia(){
+    window.location.href = "../vistas/UIAsistenciaAlumno.php#mostrarform";
 }
 </script>
 <script type="text/javascript">

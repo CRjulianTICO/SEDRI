@@ -49,7 +49,7 @@
 
 <!--PRINCIPIO DEL MENU-->
 <nav>
-<div class="nav-wrapper blue">
+<div class="nav-wrapper bg-blue">
 
 <!--ESTE CONTAINER TIENE LA PARTE DEL MENU LATERAL Y EL FRONTAL-->
 <div id="container">
@@ -59,15 +59,15 @@
   <div id="menu">
 
     <ul id="slide-out" class="side-nav fixed show-on-large-only">
-      <li><a href="#" class="waves-effect"><?php $nombre ?> <i class="material-icons left blue-grey-text">account_circle</i>  </a></li>
-      <li> <div class="divider"></div></li>
+      <li><a href="#" class="waves-effect"><?php echo $nombre; ?> <i class="material-icons left grey-grey-text">account_circle</i>  </a></li>
+      <li><div class="border-grey"></div></li>
       <li class="no-padding">
         <ul class="collapsible collapsible-accordion">
           <li>
-            <a class="collapsible-header waves-effect">Alumnos<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">face</i></a>
+            <a class="collapsible-header waves-effect">Alumnos<i class="material-icons right grey-text">arrow_drop_down</i><i class="material-icons left grey-text">face</i></a>
             <div class="collapsible-body">
               <ul>
-                <a href="../vistas/UIListaAlumno.php" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_shared</i></a>
+                <a href="../vistas/UIListaAlumno.php" class="waves-effect">Registro<i class="material-icons left red-text registroIcono">folder_shared</i></a>
                 <!--
                 <li>
                 <a onclick="mostrarform(true)" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
@@ -78,10 +78,10 @@
           </li>
 
            <li>
-            <a class="collapsible-header waves-effect">Docentes<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">group</i></a>
+            <a class="collapsible-header waves-effect">Docentes<i class="material-icons right grey-text">arrow_drop_down</i><i class="material-icons left grey-text">group</i></a>
             <div class="collapsible-body">
               <ul>
-                <a href="../vistas/UIMantenimientoProfesor.php" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_shared</i></a>
+                <a href="../vistas/UIMantenimientoProfesor.php" class="waves-effect">Registro<i class="material-icons left red-text registroIcono">folder_shared</i></a>
                 <li>
                 <a onclick="redireccionarProfesor(); mostrarform(true);" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
                 </li>
@@ -90,10 +90,10 @@
           </li>
 
           <li>
-            <a class="collapsible-header waves-effect">Personal<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">assignment_ind</i></a>
+            <a class="collapsible-header waves-effect">Personal<i class="material-icons right grey-text">arrow_drop_down</i><i class="material-icons left grey-text">assignment_ind</i></a>
             <div class="collapsible-body">
               <ul>
-                <a href="../vistas/UIMantenimientoEmpleado.php" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_shared</i></a>
+                <a href="../vistas/UIMantenimientoEmpleado.php" class="waves-effect">Registro<i class="material-icons left red-text registroIcono">folder_shared</i></a>
                 <li>
                 <a onclick="redireccionarEmpleado(); mostrarFormulario(true);"  class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
                 </li>
@@ -102,11 +102,11 @@
           </li>
 
            <li>
-            <a class="collapsible-header waves-effect">Becas<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">description</i></a>
+            <a class="collapsible-header waves-effect">Becas<i class="material-icons right grey-text">arrow_drop_down</i><i class="material-icons left grey-text">description</i></a>
             <div class="collapsible-body">
               <ul>
 
-                 <a href="../vistas/UIMantenimientoBeca.php" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_special</i></a>
+                 <a href="../vistas/UIMantenimientoBeca.php" class="waves-effect">Registro<i class="material-icons left red-text registroIcono">folder_special</i></a>
                 <li>
                 <a onclick="redireccionarBeca(); mostrarFormularioBeca(true);" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
 		</li>
@@ -118,10 +118,10 @@
 
 
              <li>
-            <a class="collapsible-header waves-effect">Materias<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">import_contacts</i></a>
+            <a class="collapsible-header waves-effect">Materias<i class="material-icons right grey-text">arrow_drop_down</i><i class="material-icons left grey-text">import_contacts</i></a>
             <div class="collapsible-body">
               <ul>
-                <a href="../vistas/UIMantenimientoMateria.php" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_shared</i></a>
+                <a href="../vistas/UIMantenimientoMateria.php" class="waves-effect">Registro<i class="material-icons left red-text registroIcono">folder_shared</i></a>
                 <li>
                 <a onclick="redireccionarMateria(); mostrarFormularioMateria(true);" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
                 </li>
@@ -131,10 +131,10 @@
 
 
       <li>
-         <a class="collapsible-header waves-effect">Puestos<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">business_center</i></a>
+         <a class="collapsible-header waves-effect">Puestos<i class="material-icons right grey-text">arrow_drop_down</i><i class="material-icons left grey-text">business_center</i></a>
             <div class="collapsible-body">
               <ul>
-                <a href="../vistas/UIMantenimientoPuesto.php"  class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_shared</i></a>
+                <a href="../vistas/UIMantenimientoPuesto.php"  class="waves-effect">Registro<i class="material-icons left red-text registroIcono">folder_shared</i></a>
                 <li>
                 <a onclick="redireccionarPuesto(); mostrarFormulario(true);" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
                 </li>
@@ -145,10 +145,10 @@
 
 
          <li>
-            <a class="collapsible-header waves-effect" >Grados<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">filter_1</i></a>
+            <a class="collapsible-header waves-effect" >Grados<i class="material-icons right grey-text">arrow_drop_down</i><i class="material-icons left grey-text">filter_1</i></a>
             <div class="collapsible-body">
               <ul>
-                <a href="../vistas/UIMantenimientoGrado.php" class="waves-effect">Registro<i class="material-icons left pink-text registroIcono">folder_shared</i></a>
+                <a href="../vistas/UIMantenimientoGrado.php" class="waves-effect">Registro<i class="material-icons left red-text registroIcono">folder_shared</i></a>
                 <li>
                 <a  onclick="redireccionarGrado(); mostrarFormulario(true);" class="waves-effect formulario">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
                 </li>

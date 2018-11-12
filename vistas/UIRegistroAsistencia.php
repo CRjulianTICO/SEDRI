@@ -10,6 +10,9 @@ require 'header.php';
                 <input id="fecha" type="text"  name="idate" class="datepicker" >
                 <label for="fecha">Fecha:</label>
             </div>
+            <div class="col s6 " id="divGrados" >
+                <select id="cbGrados" class="cbGrados browser-default"><option>asdawd</option><option>asdawd232423422</option><option>asdaw234d</option></select>
+            </div>
             <div class="input-field col s12">
                 <button class="btn waves-effect waves-light green guardaEst" type="submit" name="Guardar" id="btnBuscar">Buscar
                     <i class="material-icons right">search</i>

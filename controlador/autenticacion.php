@@ -82,11 +82,14 @@ switch ($_GET["opcion"]){
                 }else{
                     ob_start();
                     $email = $rspta["email"];
+                    $passActual = $rspta["password"];
+                    $id = $rspta["idUsuario"];
+                    $instLogin->historico($id,$email,$passActual);
                     $pass = $mail->generarPassword();
                     $hpass=$instLogin->hashPassword($pass);
                     $instLogin->actualizar($rspta["idUsuario"],$hpass,1);
                     
-                    $mail->enviarCorreo(1,$email,$pass);
+                    $mail->recuperarPassword(1,$email,$pass);
                     ob_end_clean();                 
                     echo '1';
 
@@ -94,17 +97,31 @@ switch ($_GET["opcion"]){
     break;
     
     case 'cambiar':   
-   $rspta=$instLogin->recuperar($cedula); 
+   $rspta=$instLogin->recuperar($cedula);
+   $var = '0';
+   $varP = false; 
                 if($rspta==null){
-                    echo '0';
+                    $var = '0';
                 }else{
-                    
                     $hpass=$instLogin->hashPassword($pass);
-                    $instLogin->actualizar($rspta["idUsuario"],$hpass,0);
-                                 
-                    echo '1';
+                    $id=$rspta["idUsuario"];
+                    $historico = $instLogin->mostrarHistorico($id);
+
+                    while ($reg=$historico->fetch_object()) {
+                        $varP = $instLogin->verificar($pass,$reg->pass);
+                        if($varP == '1'){
+                            $var = '2';
+                           break;
+                        }
+                        
+                    }
+                     if($varP == '0'){
+                        $instLogin->actualizar($rspta["idUsuario"],$hpass,0);  
+                        $var = '1';
+                     }       
 
                 }
+                echo $var;
     break;
 
 	

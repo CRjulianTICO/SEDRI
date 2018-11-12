@@ -32,7 +32,7 @@ function guardar(e){
 
             }else{
                 $('#resp').show();
-                document.getElementById('resp').innerHTML="<h5>Credenciales incorrectas! <br> Intente de nuevo.</h5>";
+                document.getElementById('resp').innerHTML="<h6 class='subtitle'>Credenciales incorrectas! <br> Intente de nuevo.</h6>";
             }
         }
           
@@ -48,6 +48,7 @@ function enviar(){
     
     xhttp.open("POST", "../controlador/autenticacion.php?opcion=login", true);
     xhttp.onreadystatechange = function() {
+*/
 
 function recupera(e){
     e.preventDefault();
@@ -120,11 +121,18 @@ function cambio(e){
                 });
                   
                   $('#aviso').css({display:'none'});               
-            }else{
+            }else if(datos==0){
                 
                 swal(
                     'Recuperación de Contraseña',
                     'No se encontraron datos',
+                    'error'
+                  );
+                  $('#aviso').css({display:'none'});
+            }else{
+                swal(
+                    'Ya había utilizado esta contraseña',
+                    'Por su seguridad le solicitamos ingresar una contraseña nueva',
                     'error'
                   );
                   $('#aviso').css({display:'none'});

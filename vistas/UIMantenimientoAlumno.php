@@ -1,10 +1,27 @@
 <?php require 'header.php' ?>
 <!--AQUI DEBERIA IR TODO EL CONTENIDO DE LA PAGINA-->
 <div id="content">
+<div id="divResp"></div>
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Encargado</h4>
+    <br>
+    <div class="container" id="modal">
+
+
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="btn red modal-close text-white">Cerrar</a>
+  </div>
+</div>
+<!-- Finaliza Modal -->
+
   <div class="tabla" id="tabla">
     <div class="container">
       <div class='row'>
-        <div class="col s6 offset-s9 divGrados" id="divGrados">
+        <div class=" divGrados" id="divGrados">
           <select id="cbGrados" class="browser-default cbGrados">
             <option>asdawd</option>
             <option>asdawd232423422</option>
@@ -106,7 +123,7 @@
           <div class="row">
 
             <div class="input-field col s12">
-              <textarea placeholder="Ingresa datos medicos que pueden ser relevantes" id="nota" class="materialize-textarea validate" name="nota" data-length="100" required></textarea>
+              <textarea placeholder="Ingresa datos medicos que pueden ser relevantes" id="nota" class="materialize-textarea validate" name="nota" data-length="100"></textarea>
               <label for="direccion">Nota médica</label>
             </div>
           </div>
@@ -120,17 +137,18 @@
           </div>
         </div>
         <br>
-      </form>
-
-      <div class="row" id="botones">
+        <div class="row" id="botones">
         <div class="col s6">
-          <button name="editar" type="button" id="btnEditar" class="btn waves-effect waves-light blue editaEst">Editar<i class="material-icons right">edit</i></button>
+          <button name="editar" type="button" id="btnEditar" class="btn waves-effect waves-light blue editaEst full-with">Editar<i class="material-icons right">edit</i></button>
         </div>
         <div class="col s6">
-          <button class="btn waves-effect waves-light red cancelEst" name="eliminar" type="button" onclick="cancelarform();">Cancelar
+          <button class="btn waves-effect waves-light red cancelEst full-with" name="eliminar" type="button" onclick="cancelarform();">Cancelar
             <i class="material-icons right">clear</i><br></button>
         </div>
       </div>
+      </form>
+
+      
     </div>
 
   </div>
@@ -141,6 +159,9 @@
 <?php require 'footer.php' ?>
 
 <script src="js/alumno.js"></script>
+<script>$(document).ready(function(){
+    $('.modal').modal();
+  });</script>
 
 </body>
 

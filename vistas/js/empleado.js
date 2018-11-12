@@ -114,6 +114,7 @@ function mostrar(cedula){
 
     })
 }
+
 function cargarPais(){
   $.ajax({
          url: "../controlador/empleado.php?opcion=cargarPais",

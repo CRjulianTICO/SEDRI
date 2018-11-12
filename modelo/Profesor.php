@@ -33,8 +33,8 @@ Class Profesor
 	}
 
 	public function desactivar($cedula){
-		$sql = "UPDATE persona set disponible = '0' where cedula='".$cedula."';";
-		return consulta($sql);
+		$sql="CALL `sp_desactivarUsuario`('$cedula')";
+			return consulta($sql);
 	}
 
 	public function activar($cedula){
@@ -43,9 +43,9 @@ Class Profesor
 	}
 
 	public function cargar($cedula){
-		$sql = "SELECT CEDULA,NOMBRE,APELLIDO1,APELLIDO2, SEXO,DIRECCION,TELEFONO,EMAIL,PAIS,n.idNacionalidad,DISPONIBLE,g.idGrado,g.nombreGrado,pg.annio
-		FROM PERSONA P, PROFESOR PE, NACIONALIDAD N,grado g,profesor_grado pg
-		WHERE CEDULA = '".$cedula."' AND P.idPersona = PE.Persona_idPersona AND pe.idprofesor = pg.idProfesor AND g.idgrado = pg.idGrado AND P.idNacionalidad = N.idNacionalidad;";
+		$sql = "SELECT CEDULA,NOMBRE,APELLIDO1,APELLIDO2, SEXO,DIRECCION,TELEFONO,EMAIL,PAIS,n.idNacionalidad,DISPONIBLE,g.idGrado,g.nombreGrado,g.annio
+		FROM PERSONA P, PROFESOR PE, NACIONALIDAD N,grado g,profesor_materia_grado pg
+		WHERE CEDULA = '".$cedula."' AND P.idPersona = PE.Persona_idPersona AND pe.idprofesor = pg.profesor_idprofesor AND g.idgrado = pg.id_grado AND P.idNacionalidad = N.idNacionalidad;";
 	    return consultaSimple($sql);
 	}
 }

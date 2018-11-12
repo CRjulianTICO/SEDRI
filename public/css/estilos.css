@@ -14,7 +14,8 @@
 .bg-red{
 	background-color:#F44336;
 	font-weight: bold;
-
+	border-style: none;
+	padding: 1px;
 
 }
 
@@ -36,16 +37,22 @@
 .bg-blue{
 	background-color:#1565c0;
 	font-weight: bold;
+	border-style: none;
+	padding: 1px;
+
 }
 
 .bg-yellow{
 	background-color:#FFC107;
 	font-weight: bold;
+	border-style: none;
+	padding: 1px;
 
 }
 .btn-edita{
 color: yellow;
 background-color: white;
+
 }
 .border-grey{
     border-color:#616161;
@@ -71,6 +78,9 @@ label{/*Label de buscar en el registro de estudiantes*/
 
 
 }
+i{
+    vertical-align: middle !important;
+}
 .tabla th{/* cambiar color a los atributos de la tabla*/
 	font-weight: bold;
 	color:black;
@@ -85,7 +95,41 @@ label{/*Label de buscar en el registro de estudiantes*/
 	font-size: 16px;
 
 }
-
+.modal {
+ 
+	left: 0;
+   
+	right: 0;
+   
+	background-color:white;
+   
+	padding: 0;
+   
+	max-height: 60%;
+   
+	width: 35%;
+   
+	will-change: top, opacity;
+   
+  }
+   
+   
+   
+  .modal .modal-footer {
+   
+	border-radius: 0 0 2px 2px;
+   
+	background-color: #dce1e5;
+   
+	padding: 4px 6px;
+   
+	height: 60px;
+   
+	width: 100%;
+   
+	text-align: right;
+   
+  }
 
 
 
