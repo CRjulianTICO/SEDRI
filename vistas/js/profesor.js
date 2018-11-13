@@ -111,11 +111,11 @@ function guardar(e) {
       success: function(datos)
       {
         if(datos=="Registrado"){
-                  $('#divResp').show();
+                  //$('#divResp').show();
                   document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
                   document.getElementById('divResp').innerHTML='<h5>Se guardo exitosamente!</h5>';
                 }else{
-                  $('#divResp').show();
+                 // $('#divResp').show();
                   document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
                   document.getElementById('divResp').innerHTML='<h5>Ocurrio un Error!</h5>';
                 
