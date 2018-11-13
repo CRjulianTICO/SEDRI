@@ -99,7 +99,7 @@ function guardar(e) {
       }else{
         $('#divResp').show();
         document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
-        document.getElementById('divResp').innerHTML='<h5>Ocurrio un Error!</h5>';
+        document.getElementById('divResp').innerHTML='<h5>Ocurrio un Error!</h5><br><h6>No puede crear Alumnos que ya se han registrado con el mismo correo electronico o cedula.</h6';
       
       }
       limpiar();
