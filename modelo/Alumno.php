@@ -66,7 +66,7 @@
 			}
 
 			public function cargar($cedula){
-				$sql = "SELECT * FROM vista_alumno WHERE cedula='".$cedula."'";
+				$sql = "SELECT * FROM `vista_alumno` WHERE cedula = '".$cedula."';";
 				return consultaSimple($sql);
 			}
 

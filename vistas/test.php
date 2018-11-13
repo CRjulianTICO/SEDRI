@@ -229,11 +229,11 @@
 </div>
 <div class="row">
 <div class="col s6">
-<button class="btn waves-effect waves-light green full-with" type="submit" name="Guardar" id="btnguardar">Guardar
+<button class="btn waves-effect waves-light green full-width" type="submit" name="Guardar" id="btnguardar">Guardar
 <i class="material-icons right">done</i><br></button>
 </div>
 <div class="col s6">
-<button class="btn waves-effect waves-light red full-with" type="button" name="cancelar" id="btncancelar">Cancelar
+<button class="btn waves-effect waves-light red full-width" type="button" name="cancelar" id="btncancelar">Cancelar
 <i class="material-icons right">cancel</i><br></button></div>
 </div>
 </div>

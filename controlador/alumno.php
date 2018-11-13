@@ -130,6 +130,7 @@ switch ($_GET["opcion"]) {
         break;
 
     case 'mostrar':
+      
         $rspta=$alumno->cargar($cedula);
         //Se cofifica para que quede en json
         echo json_encode($rspta);

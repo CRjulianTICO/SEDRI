@@ -122,17 +122,17 @@
 </div>
 <div class="row">
 <div class="col s12">
-<button class="btn waves-effect waves-light green full-with" type="submit" name="Guardar" id="btnguardar">Guardar
+<button class="btn waves-effect waves-light green full-width" type="submit" name="Guardar" id="btnguardar">Guardar
 <i class="material-icons right">done</i><br></button>
 </div>
 
  <div class="col s6">
-                        <button name="editar" type="button" id="btnEditar" class="btn waves-effect waves-light blue full-with botones">Editar
+                        <button name="editar" type="button" id="btnEditar" class="btn waves-effect waves-light blue full-width botones">Editar
                             <i class="material-icons right">edit</i>
                         </button>
                     </div>
                     <div class="col s6">
-                        <button class="btn waves-effect waves-light red full-with botones" name="eliminar" id="btnCancelar" type="button" onclick="mostrarform(false);">Cancelar
+                        <button class="btn waves-effect waves-light red full-width botones" name="eliminar" id="btnCancelar" type="button" onclick="mostrarform(false);">Cancelar
                             <i class="material-icons right">clear</i>
                         </button>
                     </div>

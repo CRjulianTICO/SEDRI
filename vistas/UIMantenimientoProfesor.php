@@ -117,7 +117,7 @@
               <br><br>
               <div class="row">
                 <div class="col s12">
-                  <button class="btn waves-effect waves-light green guardaEst full-with" type="submit" name="Guardar" id="btnguardar">Guardar
+                  <button class="btn waves-effect waves-light green guardaEst full-width" type="submit" name="Guardar" id="btnguardar">Guardar
                     <i class="material-icons right">done</i><br></button></div>
               </div>
             </div>
@@ -126,10 +126,10 @@
 
       <div class="row" id="botones">
         <div class="col s6">
-          <button name="editar" type="button" id="btnEditar" class="btn waves-effect waves-light blue editaEst full-with">Editar<i class="material-icons right">edit</i></button>
+          <button name="editar" type="button" id="btnEditar" class="btn waves-effect waves-light blue editaEst full-width">Editar<i class="material-icons right">edit</i></button>
         </div>
         <div class="col s6">
-          <button class="btn waves-effect waves-light red cancelEst full-with" name="eliminar" type="button" onclick="cancelarform();">Cancelar
+          <button class="btn waves-effect waves-light red cancelEst full-width" name="eliminar" type="button" onclick="cancelarform();">Cancelar
             <i class="material-icons right">clear</i><br></button>
         </div>
       </div>

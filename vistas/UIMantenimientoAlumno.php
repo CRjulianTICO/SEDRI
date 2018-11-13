@@ -1,7 +1,7 @@
 <?php require 'header.php' ?>
 <!--AQUI DEBERIA IR TODO EL CONTENIDO DE LA PAGINA-->
 <div id="content">
-<div id="divResp"></div>
+
 <!-- Modal Structure -->
 <div id="modal1" class="modal">
   <div class="modal-content">
@@ -19,6 +19,7 @@
 <!-- Finaliza Modal -->
 
   <div class="tabla" id="tabla">
+  <div id="divRespE"></div>
     <div class="container">
       <div class='row'>
         <div class=" divGrados" id="divGrados">
@@ -52,6 +53,7 @@
   <div class="container">
 
     <div id="formulario">
+    <div id="divResp"></div>
       <form method="POST" id="formAlumno" name="formAlumno">
 
         <div class='row'>
@@ -123,7 +125,7 @@
           <div class="row">
 
             <div class="input-field col s12">
-              <textarea placeholder="Ingresa datos medicos que pueden ser relevantes" id="nota" class="materialize-textarea validate" name="nota" data-length="100"></textarea>
+              <textarea placeholder="" id="nota" class="materialize-textarea validate" name="nota" data-length="100"></textarea>
               <label for="direccion">Nota médica</label>
             </div>
           </div>
@@ -131,18 +133,18 @@
 
           <br><br>
           <div class="row">
-            <div class="col s4">
-              <button class="btn waves-effect waves-light green guardaEst" type="submit" name="Guardar" id="btnguardar">Guardar
+            <div class="col s12">
+              <button class="btn waves-effect waves-light green guardaEst full-width" type="submit" name="Guardar" id="btnguardar">Guardar
                 <i class="material-icons right">done</i><br></button></div>
           </div>
         </div>
         <br>
         <div class="row" id="botones">
         <div class="col s6">
-          <button name="editar" type="button" id="btnEditar" class="btn waves-effect waves-light blue editaEst full-with">Editar<i class="material-icons right">edit</i></button>
+          <button name="editar" type="button" id="btnEditar" class="btn waves-effect waves-light blue editaEst full-width">Editar<i class="material-icons right">edit</i></button>
         </div>
         <div class="col s6">
-          <button class="btn waves-effect waves-light red cancelEst full-with" name="eliminar" type="button" onclick="cancelarform();">Cancelar
+          <button class="btn waves-effect waves-light red cancelEst full-width" name="eliminar" type="button" onclick="cancelarform();">Cancelar
             <i class="material-icons right">clear</i><br></button>
         </div>
       </div>
