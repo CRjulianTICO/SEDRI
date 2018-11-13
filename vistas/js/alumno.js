@@ -20,6 +20,7 @@ function tipoProfesor() {
 
 function mostrarform(bool) {
   if (bool) {
+    $('#divResp').hide();
     cargarPais();
     $("#tabla").hide();
     $("#formulario").show();
@@ -91,7 +92,7 @@ function guardar(e) {
 
     success: function (datos) {
       tabla.ajax.reload();
-      if(datos=="Registrado"){
+      if(datos=="		Registrado"){
         $('#divResp').show();
         document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
         document.getElementById('divResp').innerHTML='<h5>Se guardo exitosamente!</h5>';
@@ -162,6 +163,7 @@ function mostrar(cedula) {
     $("#nota").val(data.nota_medica);
 
   })
+  $('#divResp').hide();
 }
 
 function cargarPais() {

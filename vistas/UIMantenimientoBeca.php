@@ -26,14 +26,14 @@
 <div class='row'>
     <div class='input-field col s6'>
         <input placeholder="Cedula" class='validate' type='text' name='cedula' id='cedula' min="1000000" max="9999999"  />
-            <label for='cedula'>Ingrese la Cedula del estudiante</label>
+            <label for='cedula'>Ingrese la Cédula del estudiante</label>
     </div>
 </div>
 
 <div class="row">
     <div class="input-field col s12">
         <textarea placeholder="Descripcion..." id="descripcionBeca" name="descripcionBeca" class="materialize-textarea" class="validate"></textarea>
-            <label for="descripcionBeca">Ingresar la Descripcion de la Beca</label>
+            <label for="descripcionBeca">Ingresar la Descripción de la Beca</label>
     </div>
 </div>
 

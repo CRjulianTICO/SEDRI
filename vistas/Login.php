@@ -21,7 +21,9 @@
 <link href="../public/css/estilos.css?hi" rel="stylesheet"/>
 <link href="../public/css/menuProfesor.css?ki" rel="stylesheet"/>
 <link href="../public/css/login.css?hi" rel="stylesheet"/>
-<link rel="shortcut icon" href="#"/>
+<link rel="icon" 
+        type="image/png" 
+        href="../public/images/favicon.ico">
 
 </head>
 

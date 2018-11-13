@@ -7,7 +7,7 @@
 
     <table id="tblPuesto" class="display responsive nowrap tabla" style="width: 100%">
       <thead>
-        <th data-priority="1">Codigo</th>
+        <th data-priority="1">Código</th>
         <th data-priority="2">Puesto</th>
         <th data-priority="3">Descripcion</th>
         <th data-priority="4">Editar</th>
@@ -23,7 +23,7 @@
 
         <div class="row">
           <div class="input-field col s6">
-            <label for="idPuesto">Codigo del Puesto</label>
+            <label for="idPuesto">Código del Puesto</label>
             <input placeholder="Codigo" class="validate" type="text" name="idPuesto" id="idPuesto" readonly="true" />
 
           </div>
@@ -42,7 +42,7 @@
           <div class="input-field col s12">
 
             <textarea placeholder="Descripcion..." id="descripcionPuesto" name="descripcionPuesto" class="materialize-textarea" class="validate"></textarea>
-            <label for="descripcionPuesto">Ingresar la Descripcion del Puesto</label>
+            <label for="descripcionPuesto">Ingresar la Descripción del Puesto</label>
           </div>
         </div>
         <div class="row">

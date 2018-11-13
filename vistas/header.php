@@ -22,7 +22,7 @@
 <html>
 
 <head>
-  <title></title>
+  <title>Profesor</title>
   <!-- JQuery / Materialize CSS + JavaScript imports -->
 
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -35,7 +35,9 @@
   <link href="../public/datatables/responsive.dataTables.min.css" rel="stylesheet" />
   <link href="../public/css/menuProfesor.css?ki" rel="stylesheet" />
   <link href="../public/css/estilos.css" rel="stylesheet" />
-<link rel="shortcut icon" href="#"/>
+  <link rel="icon" 
+        type="image/png" 
+        href="../public/images/favicon.ico">
 
 
 </head>
@@ -128,7 +130,7 @@
 
 
 
-            <li><a href="../controlador/Logout.php">Cerrar Sesion<i class="material-icons left">exit_to_app</i></a></li>
+            <li><a href="../controlador/Logout.php">Cerrar Sesión<i class="material-icons left">exit_to_app</i></a></li>
           </ul>
           <!--fin del menu frontal-->
         </div>

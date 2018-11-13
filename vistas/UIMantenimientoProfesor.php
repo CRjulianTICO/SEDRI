@@ -6,13 +6,13 @@
   <div class="tabla" id="tabla">
     <table id="tbProfesor" class="display responsive nowrap tabla" style="width: 100%">
       <thead>
-        <th data-priority="1">Cedula</th>
+        <th data-priority="1">Cédula</th>
         <th data-priority="2">Nombre</th>
         <th data-priority="3">Primer Apellido</th>
         <th data-priority="4">Segundo Apellido</th>
         <th>Sexo</th>
-        <th>Direccion</th>
-        <th>Telefono</th>
+        <th>Dirección</th>
+        <th>Teléfono</th>
         <th>Correo</th>
         <th>Nacionalidad</th>
         <th>Estado</th>
@@ -34,7 +34,7 @@
         <div class='row'>
           <div class='input-field col s6'>
             <input placeholder="Cédula" class='validate' type='text' name='cedula' id='cedula' min="1000000" max="9999999" required />
-            <label for='cedula'>Ingresa la Cédula</label>
+            <label for='cedula'>Ingresar la Cédula</label>
           </div>
 
 
@@ -61,19 +61,19 @@
             <div class='row'>
               <div class='input-field col s6'>
                 <input placeholder="Numero de Telefono" class='validate' type='text' name='telefono' id='telefono' maxlength="30" required />
-                <label for='telefono'>Ingresar Numero de Telefono</label>
+                <label for='telefono'>Ingresar Número de Teléfono</label>
               </div>
 
               <div class='row'>
                 <div class='input-field col s6'>
                   <input placeholder="Email" class='validate' type='text' name='email' id='correo' maxlength="30" required />
-                  <label for='email'>Ingresar Correo Electronico</label>
+                  <label for='email'>Ingresar Correo Electrónico</label>
                 </div>
               </div>
               <div class="row">
                 <div class="col s6">
                   <select name="sexo" id="sexo" class="browser-default " required>
-                    <option value="" disabled selected hidden>Seleccionar el Género</option>
+                    <option value="Masculino" disabled selected hidden>Seleccionar el Género</option>
                     <option value="Masculino">Masculino</option>
                     <option value="Femenino">Femenino</option>
                   </select>
@@ -90,7 +90,7 @@
                 <div class="col s6" id="divTipo">
                   <select name="tipo" id="tipo" class="browser-default" required>
                     <option value="1">Profesor Especial</option>
-                    <option value="0">Profesor de Materias</option>
+                    <option value="0">Profesor General</option>
                   </select>
                 </div>
                 <div class="col s6" id="divGrado">
@@ -109,7 +109,7 @@
 
                 <div class="input-field col s12">
                   <textarea placeholder="" id="direccion" class="materialize-textarea validate" name="direccion" data-length="100" required></textarea>
-                  <label for="direccion">Ingresa la Dirección</label>
+                  <label for="direccion">Ingresar la Dirección</label>
                 </div>
               </div>
               <br>
