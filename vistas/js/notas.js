@@ -4,8 +4,29 @@ var idgrado;
 var trimestre;
 
 
+function contarEstudiantes(idGrado){
+    
+    $.ajax({
+         url: "../controlador/asistencia.php?opcion=contar&grados="+idGrado,
+         method: "POST",
+         dataType : "json",
+         contentType: "application/json; charset=utf-8",
+         success: function(data)
+         {
+           
+           console.log(data);
+           guardar(data);
+           
+         }
+         
+
+     });
+     
+     
+}
+
 document.getElementById('btnGuardar').onclick = function(){
-    guardar();
+    contarEstudiantes(idgrado);
     $(".ced").prop("disabled", true);
 };
 
@@ -26,7 +47,7 @@ function listar(idGrado,trimestre){
   					}
   				},
   		"bDestroy": true,
-  		"iDisplayLength": 10,
+  		"iDisplayLength": 100,
           "order": [[ 1, "asc" ]],//Ordenar (columna,orden),
 
     }).DataTable();
@@ -59,9 +80,8 @@ function cargarGrados(){
 
 
 
-function guardar(){
+function guardar(count){
     //e.preventDefault();
-    count = $('#tblNotas tbody tr').length;
 
      $(".ced").prop("disabled", false);
 

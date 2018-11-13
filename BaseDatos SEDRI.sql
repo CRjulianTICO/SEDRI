@@ -129,7 +129,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaAlumno` (IN `VCED` VARCHA
 
  SELECT idPersona
  FROM persona
- WHERE cedula = VCED
+ WHERE cedula = VCED LIMIT 1
  INTO @id;
 
  INSERT INTO alumno(Persona_idPersona)VALUES(@id);
@@ -171,11 +171,11 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaAsistencia` (IN `VESTADO` TINYINT, IN `VNOTA` VARCHAR(100), IN `VCED` VARCHAR(25), IN `VFECHA` DATE, IN `VIDGR` INT, IN `VID` INT)  BEGIN
     SELECT idPersona
     FROM persona
-    WHERE cedula = VCED  COLLATE utf8mb4_unicode_ci
+    WHERE cedula = VCED  COLLATE utf8mb4_unicode_ci LIMIT 1
     INTO @id;
     SELECT idProfesor
     from profesor
-    WHERE Persona_idPersona = VID
+    WHERE Persona_idPersona = VID LIMIT 1
     INTO @idPr;
     SELECT idAlumno
     FROM alumno
@@ -188,11 +188,11 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaBeca` (IN `VCED` VARCHAR(50) COLLATE utf8mb4_unicode_ci, IN `VDES` VARCHAR(500) COLLATE utf8mb4_unicode_ci, IN `VMON` VARCHAR(45) COLLATE utf8mb4_unicode_ci)  BEGIN
     SELECT idPersona
     FROM persona
-    WHERE cedula = VCED  COLLATE utf8mb4_unicode_ci
+    WHERE cedula = VCED  COLLATE utf8mb4_unicode_ci LIMIT 1
     INTO @id;
     SELECT idAlumno
     FROM alumno
-    WHERE Persona_idPersona = @id  COLLATE utf8mb4_unicode_ci
+    WHERE Persona_idPersona = @id  COLLATE utf8mb4_unicode_ci LIMIT 1 
     INTO @idA;
     INSERT INTO BECA(descripcion_beca,monto_beca,idAlumno)
     VALUES(VDES,VMON,@idA);
@@ -219,7 +219,7 @@ INTO @idPer;
 
 SELECT a.idalumno
 FROM alumno a
-WHERE a.Persona_idPersona = @idPer
+WHERE a.Persona_idPersona = @idPer LIMIT 1
 INTO @idAlumno;
 
 SELECT gan.idNota
