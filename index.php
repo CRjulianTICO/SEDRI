@@ -1,6 +1,7 @@
 <?php 
   session_start();
   if(isset($_SESSION["token"])){
+
     header("Location: http://localhost:8888/SEDRI/controlador/autenticacionTokens.php");
     exit();
   }
@@ -19,6 +20,7 @@
 <link href="../public/datatables/responsive.dataTables.min.css" rel="stylesheet"/>
 <link href="../public/css/estilos.css?hi" rel="stylesheet"/>
 <link href="../public/css/menuProfesor.css?ki" rel="stylesheet"/>
+<link href="../public/css/login.css?hi" rel="stylesheet"/>
 
 
 </head>
@@ -34,20 +36,25 @@
       <div class="section"></div>
 
       <div class="container">
-        <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+        <div class="white  row caja" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
 
           <form class="col s12" method="POST" id="formLogin">
             <div class='row'>
               <div class='col s12'>
-              	<h5 class="blue-text">Inicia sesión </h5>
+              	<h5 class="title">Bienvenido a SEDRI</h5>
               </div>
             </div>
-
+            <img src="../public/images/gorro.png" class="img-inicio" alt="Imagen">
+            <br>
+            <div class='col s12'>
+              	
+              </div>
+              <br>
             <div class='row'>
               <div class='input-field col s12'>
                 	
              <i class="material-icons prefix ">account_circle</i>
-                <input class='validate' type='text' name='user' id='user' min="100000" max="9999999" required />
+                <input class='validate' type='text' name='user' id='user' min="100000" max="9999999" placeholder="" required />
                 <label for='cedula'>Ingresa la Cédula</label>
               </div>
             </div>
@@ -55,21 +62,25 @@
             <div class='row'>
               <div class='input-field col s12'>
               	<i class="material-icons prefix">lock</i>
-                <input class='validate' type='password' name='pass' id='pass' pattern=".{6,}" title="Debe tener 6-10 caracteres" required />
+                <input class='validate' type='password' name='pass' id='pass' pattern=".{6,}" title="Debe tener 6-10 caracteres" placeholder="" required />
                 <label for='password'>Digita la contraseña</label>
               </div>
 
-              <label style='float: right;'>
-								<a class='blue-text' href='recupera.html'><b>Olvido su contraseña </b> <i class="material-icons prefix bot">help_outline</i></a>
-							</label>
+             
+              <a class='blue-text subtitle' href='RecuperaPassword.php'><b>Olvido su contraseña</b> <i class="material-icons">help</i></a>
+							
+            
+							
             </div>
 
             <br/>
             <center>
               <div class='row'>
-                <button name='btn_login' id="btn_login" class='col s12 btn btn-large waves-effect blue' >Iniciar Sesión <i class="material-icons prefix   center ">input</i></button>
+                <button name='btn_login' id="btn_login" class='col s12 btn btn-large waves-effect bg-green' >Iniciar Sesión</button>
               </div>
-              <div class="card-panel red white-text" data-error="credeciales malas"id="resp"></div>
+
+              <div class="card-panel red darken-2 white-text lighten-2" data-error="credenciales malas"id="resp"></div>
+
             </center>
           </form>
         </div>
@@ -89,7 +100,7 @@
 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
   
-   <script src="/vistas/js/login.js?new"></script>
+   <script src="js/login.js?new"></script>
 
 </body>
 
