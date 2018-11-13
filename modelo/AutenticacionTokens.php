@@ -55,12 +55,12 @@ class Auth
         try {
             $decoded = JWT::decode($token, self::$secret_key,self::$encrypt);
         } catch (Exception $e) {
-           header("Location: http://localhost:8080/SEDRI/controlador/Logout.php");
+           header("Location: http://localhost:8888/SEDRI/controlador/Logout.php");
             echo 'Exception catched: ',  $e->getMessage(), "\n";  
         }
         if(empty($token))
         {
-           header("Location: http://localhost:8080/SEDRI/controlador/Logout.php");
+           header("Location: http://localhost:8888/SEDRI/controlador/Logout.php");
             throw new Exception("Invalid token supplied.");
             echo "<br>nop. Token dado invalido<br>";
         }
@@ -73,7 +73,7 @@ class Auth
         
         if($decode->aud !== self::Aud())
         {
-            header("Location: http://localhost:8080/SEDRI/controlador/Logout.php");
+            header("Location: http://localhost:8888/SEDRI/controlador/Logout.php");
             throw new Exception("Invalid user logged in.");
            print_r('Usuario Invalido Porfavor vuelva a Iniciar Sesion');
         }

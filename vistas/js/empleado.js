@@ -145,7 +145,7 @@ function cargarPuesto(){
          success: function(data)
          {
              $('#idPuesto').empty();
-             $('#idPuesto').append("<option>Seleccionar Puesto</option>");
+             $('#idPuesto').append("<option value="+data[0].idPuesto+" >Seleccionar Puesto</option>");
              $.each(data,function(i,item){
 
                  $('#idPuesto').append('<option value="'+data[i].idPuesto+'">'+data[i].nombrePuesto+'</option>');

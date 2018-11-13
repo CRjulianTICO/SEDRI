@@ -92,7 +92,7 @@ switch ($_GET["opcion"]){
 				echo $rspta ? "Registrado" : "Error/".$estado."/".$nota."/".$cedula."/".$dtFecha."/*".$Idgrado."*/".$idPe;
 				}else{
 					$rspta=$instAsistencia->insertaAsistencia($estado,$nota,$cedula,$dtFecha,$idgrado,$idPe);
-					echo $rspta ? "Registrado" : "Error/".$estado."/".$nota."/".$cedula."/".$dtFecha."/*".$Idgrado."*/".$idPe;
+					echo $rspta ? "Registrado" : "Error/".$estado."/".$nota."/".$cedula."/".$dtFecha."/*".$idgrado."*/".$idPe;
 				}
 				
 			}else{
@@ -192,6 +192,32 @@ switch ($_GET["opcion"]){
 			);
 		 }
 		 echo json_encode($data);
+			}
+	break;
+
+	case 'contar':
+		if($tipoP!=0){
+				$nombreG=$instaGrado->listarNombre($Idgrado);
+				$nombre = $nombreG["nombreGrado"];
+				$res=$instAsistencia->verificarAsistenciasActual($nombre,$dtFecha);
+				$cantidad = $instAsistencia->contarEstudiantesGrado($Idgrado);
+				$respu=$cantidad->fetch_object();
+				
+				foreach ($respu as $key => $value) {
+					$num=$value;
+				}
+				echo json_encode($num);
+			}else{
+				$nombreG=$instaGrado->listarNombre($idgrado);
+				$nombre = $nombreG["nombreGrado"];
+				$res=$instAsistencia->verificarAsistenciasActual($nombre,$dtFecha);
+				$cantidad = $instAsistencia->contarEstudiantesGrado($idgrado);
+				$respu=$cantidad->fetch_object();
+				
+				foreach ($respu as $key => $value) {
+					$num=$value;
+				}
+				echo json_encode($num);
 			}
 	break;
 

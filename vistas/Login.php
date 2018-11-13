@@ -2,13 +2,14 @@
   session_start();
   if(isset($_SESSION["token"])){
 
-    header("Location: http://localhost:8080/SEDRI/controlador/autenticacionTokens.php");
+    header("Location: http://localhost:8888/SEDRI/controlador/autenticacionTokens.php");
     exit();
   }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
+<title>SEDRI</title>
   <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 

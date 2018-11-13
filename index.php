@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>SEDRI</title>
   <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -58,7 +59,7 @@
                 	
              <i class="material-icons prefix ">account_circle</i>
                 <input class='validate' type='text' name='user' id='user' min="100000" max="9999999" placeholder="" required />
-                <label for='cedula'>Ingresa la Cédula</label>
+                <label for='cedula'>Ingresar la Cédula</label>
               </div>
             </div>
 
@@ -66,11 +67,11 @@
               <div class='input-field col s12'>
               	<i class="material-icons prefix">lock</i>
                 <input class='validate' type='password' name='pass' id='pass' pattern=".{6,}" title="Debe tener 6-10 caracteres" placeholder="" required />
-                <label for='password'>Digita la contraseña</label>
+                <label for='password'>Digitar la contraseña</label>
               </div>
 
              
-              <a class='blue-text subtitle' href='RecuperaPassword.php'><b>Olvido su contraseña</b> <i class="material-icons">help</i></a>
+              <a class='blue-text subtitle' href='vistas/RecuperaPassword.php'><b>Olvidó su contraseña</b> <i class="material-icons">help</i></a>
 							
             
 							

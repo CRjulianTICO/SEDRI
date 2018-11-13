@@ -193,7 +193,7 @@ function cargarPais() {
     contentType: "application/json; charset=utf-8",
     success: function(data) {
       $('#nacionalidad').empty();
-      $('#nacionalidad').append("<option disabled selected>Seleccionar Pais</option>");
+      $('#nacionalidad').append("<option disabled selected value=" + data[i].idNacionalidad +">Seleccionar Pais</option>");
       $.each(data, function(i, item) {
 
         $('#nacionalidad').append('<option value="' + data[i].idNacionalidad + '">' + data[i].pais + '</option>');
@@ -245,10 +245,10 @@ function cargarGrado() {
     contentType: "application/json; charset=utf-8",
     success: function(data) {
       $('#idgrado').empty();
-      $('#idgrado').append("<option value='1'>Seleccionar Grado</option>");
+      $('#idgrado').append("<option value=" + data[0].ID_GRADO + ">Seleccionar Grado</option>");
       $.each(data, function(i, item) {
 
-        $('#idgrado').append('<option value="' + data[i].ID_GRADO + '">' + data[i].NOMBRE_GRADO + ' ' + data[i].ANNIO + '</option>');
+        $('#idgrado').append('<option value="' + data[i].ID_GRADO + '">' + data[i].NOMBRE_GRADO + '</option>');
 
       });
     }
@@ -266,7 +266,7 @@ function listarMaterias() {
     contentType: "application/json; charset=utf-8",
     success: function(data) {
       $('#materia').empty();
-      $('#materia').append("<option value='5'>Seleccionar Materia</option>");
+      $('#materia').append("<option value="+ data[0].idmateria + ">Seleccionar Materia</option>");
       $.each(data, function(i, item) {
 
         $('#materia').append('<option value="' + data[i].idmateria + '">' + data[i].nombre + '</option>');

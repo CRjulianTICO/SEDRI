@@ -174,7 +174,7 @@ function cargarPais() {
     contentType: "application/json; charset=utf-8",
     success: function (data) {
       $('#nacionalidad').empty();
-      $('#nacionalidad').append("<option disabled selected>Seleccionar Pais</option>");
+      $('#nacionalidad').append("<option disabled selected value=" + data[0].idNacionalidad +">Seleccionar Pais</option>");
       $.each(data, function (i, item) {
 
         $('#nacionalidad').append('<option value="' + data[i].idNacionalidad + '">' + data[i].pais + '</option>');
@@ -217,7 +217,7 @@ function cargarGrupo() {
     contentType: "application/json; charset=utf-8",
     success: function (data) {
       $('#idgrado').empty();
-      $('#idgrado').append("<option>Seleccionar Grado</option>");
+      $('#idgrado').append("<option value=" + data[0].ID_GRADO + ">Seleccionar Grado</option>");
       $.each(data, function (i, item) {
 
         $('#idgrado').append('<option value="' + data[i].ID_GRADO + '">' + data[i].NOMBRE_GRADO + ' ' + data[i].ANNIO + '</option>');
@@ -237,7 +237,7 @@ function cargarGrado() {
     contentType: "application/json; charset=utf-8",
     success: function (data) {
       $('#idgrado').empty();
-      $('#idgrado').append("<option>Seleccionar Grado</option>");
+      $('#idgrado').append("<option value="+ data[i].ID_GRADO + ">Seleccionar Grado</option>");
       $.each(data, function (i, item) {
 
         $('#idgrado').append('<option value="' + data[i].ID_GRADO + '">' + data[i].NOMBRE_GRADO + ' ' + data[i].ANNIO + '</option>');
@@ -262,7 +262,7 @@ function cargarAlumnos(bool, ced) {
     contentType: "application/json; charset=utf-8",
     success: function (data) {
       $('#estudiante').empty();
-      $('#estudiante').append("<option>Seleccione un estudiante</option>");
+      $('#estudiante').append("<option value=" + data[0].idalumno + ">Seleccione un estudiante</option>");
       $.each(data, function (i, item) {
         if (bool) {
           $('#estudiante').append('<option value="' + data[i].idalumno + '" selected="selected">' + data[i].nombre + '</option>');

@@ -88,7 +88,7 @@
                     <ul>
                       <a href="../vistas/UIAsistenciaAlumno.php" class="waves-effect">Asistencia<i class="material-icons left red-text registroIcono">content_paste</i></a>
                       <li>
-                        <a href="../vistas/UIRegistroAsistencia.php" class="waves-effect">Registro<i class="material-icons left green-text agregarIcono">add_circle</i></a>
+                        <a href="../vistas/UIRegistroAsistencia.php" class="waves-effect">Registro<i class="material-icons left green-text agregarIcono">chrome_reader_mode</i></a>
                       </li>
 
                     </ul>
