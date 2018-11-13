@@ -4897,6 +4897,7 @@ ALTER TABLE `persona`
   ADD PRIMARY KEY (`idPersona`),
   ADD UNIQUE KEY `idPersona_UNIQUE` (`idPersona`),
   ADD UNIQUE KEY `email_UNIQUE` (`email`),
+  ADD UNIQUE KEY `cedula_UNIQUE` (`cedula`),
   ADD KEY `idNacionalidad_idx` (`idNacionalidad`);
 
 --
