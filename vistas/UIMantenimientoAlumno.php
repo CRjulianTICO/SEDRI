@@ -1,7 +1,7 @@
 <?php require 'header.php' ?>
 <!--AQUI DEBERIA IR TODO EL CONTENIDO DE LA PAGINA-->
 <div id="content">
-<div id="divResp"></div>
+
 <!-- Modal Structure -->
 <div id="modal1" class="modal">
   <div class="modal-content">
@@ -19,6 +19,7 @@
 <!-- Finaliza Modal -->
 
   <div class="tabla" id="tabla">
+  <div id="divRespE"></div>
     <div class="container">
       <div class='row'>
         <div class=" divGrados" id="divGrados">
@@ -32,7 +33,7 @@
     </div>
     <table id="tbAlumno" class="display responsive nowrap tabla" style="width: 100%">
       <thead>
-        <th data-priority="1">Cédula</th>
+        <th data-priority="1">Cedula</th>
         <th data-priority="2">Nombre</th>
         <th data-priority="3">Primer Apellido</th>
         <th data-priority="4">Segundo Apellido</th>
@@ -52,19 +53,20 @@
   <div class="container">
 
     <div id="formulario">
+    <div id="divResp"></div>
       <form method="POST" id="formAlumno" name="formAlumno">
 
         <div class='row'>
           <div class='input-field col s6'>
             <input placeholder="Cédula" class='validate' type='text' name='cedula' id='cedula' min="1000000" max="9999999" required />
-            <label for='cedula'>Ingresar la Cédula</label>
+            <label for='cedula'>Ingresa la Cédula</label>
           </div>
 
 
           <div class='row'>
             <div class='input-field col s6'>
               <input placeholder="Nombre" class='validate' type='text' name='nombre' id='nombre' maxlength="30" required />
-              <label for='nombre'>Ingresar el Nombre</label>
+              <label for='nombre'>Ingresa el Nombre</label>
             </div>
           </div>
 
@@ -84,7 +86,7 @@
 
             <div class="col s6">
               <select name="sexo" id="sexo" class="browser-default " required>
-                <option value="Masculino" disabled selected hidden>Seleccionar el Género</option>
+                <option value="" disabled selected hidden>Seleccionar el Género</option>
                 <option value="Masculino">Masculino</option>
                 <option value="Femenino">Femenino</option>
               </select>
@@ -115,7 +117,7 @@
 
             <div class="input-field col s12">
               <textarea placeholder="" id="direccion" class="materialize-textarea validate" name="direccion" data-length="100" required></textarea>
-              <label for="direccion">Ingresar la Dirección</label>
+              <label for="direccion">Ingresa la Dirección</label>
             </div>
           </div>
 
@@ -123,7 +125,7 @@
           <div class="row">
 
             <div class="input-field col s12">
-              <textarea placeholder="Ingresa datos medicos que pueden ser relevantes" id="nota" class="materialize-textarea validate" name="nota" data-length="100"></textarea>
+              <textarea placeholder="" id="nota" class="materialize-textarea validate" name="nota" data-length="100"></textarea>
               <label for="direccion">Nota médica</label>
             </div>
           </div>
@@ -131,18 +133,18 @@
 
           <br><br>
           <div class="row">
-            <div class="col s4">
-              <button class="btn waves-effect waves-light green guardaEst" type="submit" name="Guardar" id="btnguardar">Guardar
+            <div class="col s12">
+              <button class="btn waves-effect waves-light green guardaEst full-width" type="submit" name="Guardar" id="btnguardar">Guardar
                 <i class="material-icons right">done</i><br></button></div>
           </div>
         </div>
         <br>
         <div class="row" id="botones">
         <div class="col s6">
-          <button name="editar" type="button" id="btnEditar" class="btn waves-effect waves-light blue editaEst full-with">Editar<i class="material-icons right">edit</i></button>
+          <button name="editar" type="button" id="btnEditar" class="btn waves-effect waves-light blue editaEst full-width">Editar<i class="material-icons right">edit</i></button>
         </div>
         <div class="col s6">
-          <button class="btn waves-effect waves-light red cancelEst full-with" name="eliminar" type="button" onclick="cancelarform();">Cancelar
+          <button class="btn waves-effect waves-light red cancelEst full-width" name="eliminar" type="button" onclick="cancelarform();">Cancelar
             <i class="material-icons right">clear</i><br></button>
         </div>
       </div>
