@@ -57,20 +57,20 @@
               <div class='input-field col s12'>
                 	
              <i class="material-icons prefix ">account_circle</i>
-                <input class='validate' type='text' name='user' id='user' min="100000" max="9999999" placeholder="" required />
-                <label for='cedula'>Ingresa la Cédula</label>
+                <input class='validate' type='text' name='user' id='user' placeholder="" required pattern="^[^0][0-9]{9,10}" title="Solo puede insertar numeros y una longitud minima de 9 digitos" />
+                <label for='cedula'>Ingresar la Cédula</label>
               </div>
             </div>
 
             <div class='row'>
               <div class='input-field col s12'>
               	<i class="material-icons prefix">lock</i>
-                <input class='validate' type='password' name='pass' id='pass' pattern=".{6,}" title="Debe tener 6-10 caracteres" placeholder="" required />
-                <label for='password'>Digita la contraseña</label>
+                <input class='validate' type='password' name='pass' id='pass' pattern="[A-Za-z0-9]{6,20}" title="Debe tener 6-20 caracteres" placeholder="" required />
+                <label for='password'>Digitar la contraseña</label>
               </div>
 
              
-              <a class='blue-text subtitle' href='RecuperaPassword.php'><b>Olvido su contraseña</b> <i class="material-icons">help</i></a>
+              <a class='blue-text subtitle' href='RecuperaPassword.php'><b>Olvidó su contraseña</b> <i class="material-icons">help</i></a>
 							
             
 							

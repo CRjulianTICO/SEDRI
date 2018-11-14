@@ -124,7 +124,7 @@ function cargarPais(){
          success: function(data)
          {
              $('#idNacionalidad').empty();
-             $('#idNacionalidad').append("<option>Seleccionar Pais</option>");
+             $('#idNacionalidad').append("<option value="+data[0].idNacionalidad+">Seleccionar Pais</option>");
              $.each(data,function(i,item){
 
                  $('#idNacionalidad').append('<option value="'+data[i].idNacionalidad+'">'+data[i].pais+'</option>');

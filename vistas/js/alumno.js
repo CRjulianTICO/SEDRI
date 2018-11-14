@@ -227,7 +227,7 @@ function cargarGrupo() {
     contentType: "application/json; charset=utf-8",
     success: function (data) {
       $('#idgrado').empty();
-      $('#idgrado').append("<option>Seleccionar Grado</option>");
+      $('#idgrado').append("<optionvalue=" + data[0].ID_GRADO + ">Seleccionar Grado</option>");
       $.each(data, function (i, item) {
 
         $('#idgrado').append('<option value="' + data[i].ID_GRADO + '">' + data[i].NOMBRE_GRADO + ' ' + data[i].ANNIO + '</option>');

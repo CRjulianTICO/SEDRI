@@ -32,7 +32,7 @@
         <div class="row">
           <div class="input-field col s6">
 
-            <input placeholder="Nombre" class="validate" type="text" name="nombrePuesto" id="nombrePuesto" />
+            <input placeholder="Nombre" class="validate" type="text" name="nombrePuesto" id="nombrePuesto" required maxlength="25" pattern="[A-Za-z]{1,25}" title="No se pueden introducir caracteres especiales. O un largo maximo de 25 caracteres"/>
             <label for="nombrePuesto">Ingresar el Nombre del Puesto</label>
 
           </div>
@@ -41,7 +41,7 @@
         <div class="row">
           <div class="input-field col s12">
 
-            <textarea placeholder="Descripcion..." id="descripcionPuesto" name="descripcionPuesto" class="materialize-textarea" class="validate"></textarea>
+            <textarea placeholder="Descripcion..." id="descripcionPuesto" name="descripcionPuesto" class="materialize-textarea" class="validate" data-length="100" required pattern="[A-Za-z0-9]{1,100}" title="No se pueden introducir caracteres especiales"></textarea>
             <label for="descripcionPuesto">Ingresar la Descripción del Puesto</label>
           </div>
         </div>
