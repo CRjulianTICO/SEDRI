@@ -29,24 +29,24 @@
             <div class="row">
                 <div class="input-field col s6">
                     <label for ="cedula">Ingresar Cédula del Empleado</label>
-                    <input placeholder="Cedula" class="validate" type="text" name="cedula" id="cedula"/>
+                    <input placeholder="Cedula" class="validate" type="text" name="cedula" id="cedula" pattern="^[^0][0-9]{9,10}" title="Solo puede insertar numeros con un minimo de 9 digitos" required/>
 
                 </div>
                 <div class="input-field col s6">
                     <label for ="nombre">Nombre del Empleado</label>
-                    <input placeholder="Nombre" class="validate" type="text" name="nombre" id="nombre"/>
+                    <input placeholder="Nombre" class="validate" type="text" name="nombre" id="nombre" required pattern="[A-Za-z]{1,25}" title="No se pueden introducir caracteres especiales"/>
 
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
                     <label for ="apellido1">Primer apellido</label>
-                    <input placeholder="Primer Apellido" class="validate" type="text" name="apellido1" id="apellido1"/>
+                    <input placeholder="Primer Apellido" class="validate" type="text" name="apellido1" id="apellido1" required pattern="[A-Za-z]{1,25}" title="No se pueden introducir caracteres especiales"/>
 
                 </div>
                 <div class="input-field col s6">
                     <label for ="apellido2">Segundo apellido</label>
-                    <input placeholder="Segundo Apellido" class="validate" type="text" name="apellido2" id="apellido2"/>
+                    <input placeholder="Segundo Apellido" class="validate" type="text" name="apellido2" id="apellido2" required pattern="[A-Za-z]{1,25}" title="No se pueden introducir caracteres especiales"/>
 
                 </div>
             </div>
@@ -54,14 +54,14 @@
             <div class="row">
                 <div class="input-field col s6">
                     <label for ="telefono">Teléfono</label>
-                    <input placeholder="Telefono" class="validate" type="text" name="telefono" id="telefono" />
+                    <input placeholder="Telefono" class="validate" type="text" name="telefono" id="telefono" pattern="^[^0][0-9]{8,10}" title="Solo puede insertar numeros con un minimo de 8 digitos" required/>
 
                 </div>
 
                 <div class="input-field col s6">
-                    <select id="sexo" name="sexo" class="browser-default">
-                        <option value="masculino">Masculino</option>
-                        <option value="femenino">Femenino</option>
+                    <select id="sexo" name="sexo" class="browser-default" value="Masculino">
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
                       </select>
 
                 </div>
@@ -70,7 +70,7 @@
 
             <div class="row">
                 <div class="input-field col s12">
-                    <textarea placeholder="Direccion" id="direccion" name="direccion" class="materialize-textarea" class="validate"></textarea>
+                    <textarea placeholder="Direccion" id="direccion" name="direccion" class="materialize-textarea" class="validate" required pattern="[A-Za-z0-9]{1,100}" title="No se pueden introducir caracteres especiales"></textarea>
                     <label for="direccion">Ingresar la Dirección del Empleado</label>
                 </div>
             </div>

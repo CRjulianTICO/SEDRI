@@ -64,7 +64,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActualizaBeca` (IN `VDESC` VARCH
     INTO @idP;
     SELECT idAlumno
     FROM alumno
-    WHERE Persona_idPersona = @idP
+    WHERE Persona_idPersona = @idP LIMIT 1
     INTO @idA;
     UPDATE beca
     SET descripcion_beca = VDESC,
@@ -84,7 +84,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActualizarEmpleado` (IN `CED` VA
  idNacionalidad=NAC
  WHERE CEDULA = CED LIMIT 1;
 
- SELECT idPersona FROM persona WHERE CEDULA = CED INTO @id ;
+ SELECT idPersona FROM persona WHERE CEDULA = CED LIMIT 1 INTO @id ;
 
 UPDATE empleado SET
 idPuesto = PUE
@@ -99,7 +99,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_DesactivaBeca` (IN `VCED` VARCHA
     INTO @idP;
     SELECT idAlumno
     FROM alumno
-    WHERE Persona_idPersona = @idP
+    WHERE Persona_idPersona = @idP LIMIT 1
     INTO @idA;
     UPDATE beca
     SET estado = 0
@@ -179,7 +179,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InsertaAsistencia` (IN `VESTADO`
     INTO @idPr;
     SELECT idAlumno
     FROM alumno
-    WHERE Persona_idPersona = @id  COLLATE utf8mb4_unicode_ci
+    WHERE Persona_idPersona = @id  COLLATE utf8mb4_unicode_ci LIMIT 1
     INTO @idA;
     INSERT INTO asistencia(ESTADO,NOTA,IDALUMNO,FECHA,IDGRADO,idProfesor)
 	VALUES(VESTADO,VNOTA,@idA,VFECHA,VIDGR,@idPr);
@@ -1385,7 +1385,7 @@ CREATE TABLE `persona` (
   `direccion` varchar(100) CHARACTER SET utf8 NOT NULL,
   `telefono` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
   `telefono_secundario` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
-  `email` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
+  `email` varchar(45) CHARACTER SET utf8 DEFAULT NOT NULL,
   `idNacionalidad` int(11) NOT NULL,
   `disponible` tinyint(1) NOT NULL DEFAULT '1',
   `nota_medica` varchar(650) COLLATE utf8mb4_unicode_ci DEFAULT 'Ninguna'

@@ -4,7 +4,7 @@
 <head>
 	<title></title>
 	<meta charset="utf-8">
-  
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="../public/datatables/jquery.dataTables.min.css">
@@ -41,7 +41,7 @@
               <div class='input-field col s12'>
                 	
 <i class="material-icons prefix ">person</i>
-                <input class='validate' type='text' name='cedula' id='cedula' required maxlength="20"  />
+                <input class='validate' type='text' name='cedula' id='cedula' required maxlength="20" pattern="^[^0][0-9]{9,10}" title="Solo puede insertar numeros y una longitud minima de 9 digitos" />
                 <label for='cedula'>Ingrese su número de cédula</label>
               </div>
              

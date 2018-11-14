@@ -33,40 +33,40 @@
 
         <div class='row'>
           <div class='input-field col s6'>
-            <input placeholder="Cédula" class='validate' type='text' name='cedula' id='cedula' min="1000000" max="9999999" required />
+            <input placeholder="Cédula" class='validate' type='text' name='cedula' id='cedula' pattern="^[^0][0-9]{9,10}"  title="Solo puede insertar numeros con un minimo de 9 digitos" required />
             <label for='cedula'>Ingresar la Cédula</label>
           </div>
 
 
           <div class='row'>
             <div class='input-field col s6'>
-              <input placeholder="Nombre" class='validate' type='text' name='nombre' id='nombre' maxlength="30" required />
-              <label for='nombre'>Ingresa el Nombre</label>
+              <input placeholder="Nombre" class='validate' type='text' name='nombre' id='nombre' maxlength="25" required pattern="[A-Za-z]{1,25}" title="No se pueden introducir caracteres especiales. O un largo maximo de 25 caracteres" />
+              <label for='nombre'>Ingresar el Nombre</label>
             </div>
           </div>
 
           <div class='row'>
             <div class='input-field col s6'>
-              <input placeholder="Primer Apellido" class='validate' type='text' name='apellido1' id='apellido1' maxlength="30" required />
+              <input placeholder="Primer Apellido" class='validate' type='text' name='apellido1' id='apellido1' maxlength="25" required pattern="[A-Za-z]{1,25}" title="No se pueden introducir caracteres especiales. O un largo maximo de 25 caracteres" />
               <label for='apellido1'>Ingresar el Primer Apellido</label>
             </div>
 
             <div class='row'>
               <div class='input-field col s6'>
-                <input placeholder="Segundo Apellido" class='validate' type='text' name='apellido2' id='apellido2' maxlength="30" required />
+                <input placeholder="Segundo Apellido" class='validate' type='text' name='apellido2' id='apellido2' maxlength="25" required pattern="[A-Za-z]{1,25}" title="No se pueden introducir caracteres especiales. O un largo maximo de 25 caracteres"  />
                 <label for='apellido2'>Ingresar Segundo Apellido</label>
               </div>
             </div>
 
             <div class='row'>
               <div class='input-field col s6'>
-                <input placeholder="Numero de Telefono" class='validate' type='text' name='telefono' id='telefono' maxlength="30" required />
+                <input placeholder="Numero de Telefono" class='validate' type='text' name='telefono' id='telefono' pattern="^[^0][0-9]{8,12}" title="Solo puede insertar numeros con un minimo de 9 digitos" maxlength="12" required />
                 <label for='telefono'>Ingresar Número de Teléfono</label>
               </div>
 
               <div class='row'>
                 <div class='input-field col s6'>
-                  <input placeholder="Email" class='validate' type='text' name='email' id='correo' maxlength="30" required />
+                  <input placeholder="Email" class='validate' type='email' name='email' id='correo' maxlength="30" required pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}" title="El correo debe tener un formato valido"/>
                   <label for='email'>Ingresar Correo Electrónico</label>
                 </div>
               </div>
@@ -108,7 +108,7 @@
               <div class="row">
 
                 <div class="input-field col s12">
-                  <textarea placeholder="" id="direccion" class="materialize-textarea validate" name="direccion" data-length="100" required></textarea>
+                  <textarea placeholder="" id="direccion" class="materialize-textarea validate" name="direccion" data-length="100" required pattern="[A-Za-z0-9]{1,100}" title="No se pueden introducir caracteres especiales"></textarea>
                   <label for="direccion">Ingresar la Dirección</label>
                 </div>
               </div>

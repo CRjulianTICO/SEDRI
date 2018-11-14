@@ -32,7 +32,7 @@
 
                 <div class="row">
                     <div class="input-field col s6">
-                        <input placeholder="Nombre" class="validate" type="text" name="nombreMateria" id="nombreMateria" />
+                        <input placeholder="Nombre" class="validate" type="text" name="nombreMateria" id="nombreMateria" required pattern="[A-Za-z0-9]{1,25}" title="No se pueden introducir caracteres especiales" />
                         <label for ="nombreMateria">Ingresar el Nombre de la Materia</label>
                     </div>
                     <div class="input-field col s6">

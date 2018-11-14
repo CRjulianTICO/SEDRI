@@ -24,14 +24,14 @@ $fecha =  date("Y"); ?>
 
  <div class='row'>
  <div class='input-field col s6'>
-   <input placeholder="Codigo" class='validate' type='text' name='idgrado' id='idgrado' min="1000000" max="9999999"  readonly="true"/>
+   <input placeholder="Codigo" class='validate' type='text' name='idgrado' id='idgrado'  readonly="true"/>
            <label for='idgrado'>Código del Grado</label>
          </div>
 </div> 
 
 <div class='row'>
   <div class='input-field col s6'>
-    <input placeholder="Nombre" class='validate' type='text' name='nombreGrado' id='nombreGrado' maxlength="30" required/>
+    <input placeholder="Nombre" class='validate' type='text' name='nombreGrado' id='nombreGrado' maxlength="25" required pattern="[A-Za-z0-9\-]{1,25}" title="No se pueden introducir caracteres especiales"/>
     <label for='nombreGrado'>Ingresar el Nombre</label>
     </div>
     <div class="input-field col s6">
@@ -39,6 +39,7 @@ $fecha =  date("Y"); ?>
           <option value="<?php $fecha ?>" disabled selected hidden>Seleccionar el Año del grado</option>
           <option value="2018">2018</option>
           <option value="2019">2019</option>
+          <option value="2020">2020</option>
           </select>
     </div>
     </div>

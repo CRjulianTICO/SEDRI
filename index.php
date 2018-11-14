@@ -66,7 +66,7 @@
             <div class='row'>
               <div class='input-field col s12'>
               	<i class="material-icons prefix">lock</i>
-                <input class='validate' type='password' name='pass' id='pass' pattern=".{6,}" title="Debe tener 6-10 caracteres" placeholder="" required />
+                <input class='validate' type='password' name='pass' id='pass' pattern=".{6,}" title="Debe tener 6-10 caracteres" required pattern="^[^0][0-9]{9,10}"/>
                 <label for='password'>Digitar la contraseña</label>
               </div>
 
