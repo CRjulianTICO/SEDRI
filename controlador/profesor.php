@@ -105,3 +105,4 @@ switch ($_GET["opcion"]) {
 
 
 }
+?>

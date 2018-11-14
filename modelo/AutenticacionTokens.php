@@ -1,113 +1,114 @@
-<?php   
-
-require_once 'jwt/vendor/autoload.php';
-require 'jwt/vendor/firebase/php-jwt/src/ExpiredException.php';
-use Firebase\JWT\JWT;
-
-/*
-$time = time();
-$key = 'my_secret_key';
-
-$token = array(
-    'iat' => $time, // Tiempo que inició el token
-    'exp' => $time + (60*60), // Tiempo que expirará el token (+1 hora)
-    'data' => [ // información del usuario
-        'id' => 1,
-        'name' => 'Eduardo'
-    ]
-);
-
-$jwt = JWT::encode($token, $key);
-
-$data = JWT::decode($jwt, $key, array('HS256'));
-print_r($jwt);
-echo "<br><br>";
-var_dump($data);
-*/
-
-
-class Auth
-{
-    private static $secret_key = 'Sdw1s9x8@';
-    private static $encrypt = ['HS256'];
-    private static $aud = null;
+<?php 
+    require_once "../config/Conexion.php";
+ Class Autenticacion{
 
     public function __constructor(){
 
     }
-    
-    public static function SignIn($data)
-    {
-        $time = time();
-        
-        $token = array(
-            'exp' => $time + (60*60),
-            'aud' => self::Aud(),
-            'data' => $data
-        );
 
-        return JWT::encode($token, self::$secret_key);
+    public function hashPassword($pass){
+        $opciones = [   'cost' => 9,
+                        'salt' => random_bytes(22)
+                    ];
+        $value = password_hash($pass, PASSWORD_BCRYPT, $opciones);
+        return $value;
+    }
+
+    public function verifyPassword($ced,$pass){
+        $result = consultaSalida($ced);
+        $valores;
+        $password = $result["@pass"];
+        $id = $result["@id"];
+        $rol = $result["@rol"];
+        $nombre = $result["@nombre"];
+        $cambio = $result["@ocambio"];
+        $grupo = $result["@ogrupo"];
+        $idgrado = $result["@idgrado"];
+        $email = $result["@oemail"];
+        $grado = $result["@ogrado"];
+        $idtipo = $result["@idtipo"];
+        $tipoP = $result["@tipoPro"];
+
+        if(password_verify($pass,$password)){
+
+
+            $valores = array("id"=>$id,"rol"=>$rol,"nombre"=>$nombre,"cambio"=>$cambio,"grupo"=>$grupo,"email"=>$email,"idgrado"=>$idgrado,"grado"=>$grado,"tipoMateria"=>$idtipo,"tipoProfesor"=>$tipoP);
+
+
+
+        }else{
+         $valores = null;   
+        }
+
+        return $valores;
+    }
+
+    public function recuperar($cedula){
+		$sql = "SELECT email,idUsuario,password
+        from persona p,usuario u
+		WHERE p.idPersona = u.idPersona and CEDULA = '".$cedula."'";
+	    return consultaSimple($sql);
+    }
+
+    public function historico($id,$correo,$pass){
+        $fecha =  date("Y/m/d");
+		$sql = "INSERT INTO historico_usuarios(idUsuario,email,pass,fecha) values($id,'$correo','$pass','$fecha')";
+	    return consulta($sql);
     }
     
-    public static function Check($token)
-    {
-
-        try {
-            $decoded = JWT::decode($token, self::$secret_key,self::$encrypt);
-        } catch (Exception $e) {
-           header("Location: http://localhost:8888/SEDRI/controlador/Logout.php");
-            echo 'Exception catched: ',  $e->getMessage(), "\n";  
-        }
-        if(empty($token))
-        {
-           header("Location: http://localhost:8888/SEDRI/controlador/Logout.php");
-            throw new Exception("Invalid token supplied.");
-            echo "<br>nop. Token dado invalido<br>";
-        }
-        
-        $decode = JWT::decode(
-            $token,
-            self::$secret_key,
-            self::$encrypt
-        );
-        
-        if($decode->aud !== self::Aud())
-        {
-            header("Location: http://localhost:8888/SEDRI/controlador/Logout.php");
-            throw new Exception("Invalid user logged in.");
-           print_r('Usuario Invalido Porfavor vuelva a Iniciar Sesion');
-        }
-        //return $decode;
+    public function actualizar($id,$password,$cambio){
+        $sql="UPDATE `usuario` SET `password` = '$password', `cambio` = '$cambio' where idUsuario='$id';";
+		return consulta($sql);
     }
+    public function mostrarHistorico($id){
+        $sql="select * from historico_usuarios where idUsuario = $id;";
+		return consulta($sql);
+    }
+
+     public function verificar($pass1,$pass2){
+        $varP = 'false';
     
-    public static function GetData($token)
-    {
-        return JWT::decode(
-            $token,
-            self::$secret_key,
-            self::$encrypt
-        )->data;
-    }
+            if(password_verify($pass1,$pass2)){
+                $varP = '1';
+            }else{
+            $varP= '0';
+            }
+
+            return $varP;
+
+ }
     
-    private static function Aud()
-    {
-        $aud = '';
-        
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-            $aud = $_SERVER['HTTP_CLIENT_IP'];
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $aud = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        } else {
-            $aud = $_SERVER['REMOTE_ADDR'];
-        }
-        
-        $aud .= @$_SERVER['HTTP_USER_AGENT'];
-        $aud .= gethostname();
-        
-        return sha1($aud);
+ }
+
+
+
+//  verificar('12345678');
+
+/*
+ function hashPassword($pass){
+        $opciones = [   'cost' => 9,
+                        'salt' => random_bytes(22)
+                    ];
+        $value = password_hash($pass, PASSWORD_BCRYPT, $opciones);
+        return $value;
     }
-}
+    /*
+    function verif(){
+        $hash = '$2y$09$gRCjdn8/pKx6hMM4JqfHcur3JOh18PxYj5Bzp5o5tf0NYeEphYJMW';
+        $pas = "caca";
 
- 
+        if(password_verify($pas,$hash)){
+            echo "<br>si";
+        }else{
+            echo "<br>nop";
+        }
+    }
+*//*
+   echo hashPassword("caca");
+/*
+    verif();
 
+*/
+
+   
 ?>

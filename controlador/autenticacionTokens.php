@@ -26,11 +26,11 @@ foreach ($dataTokenEncrip as $key => $value) {
 //Se verifica si el rol es de Profesor en caso que no pasa al lado de director
 if($dataToken["rol"]=="Profesor"){
     header("HTTP/1.1 301 Moved Permanently"); 
-    header("Location: http://localhost:8080/SEDRI/vistas/UIMantenimientoAlumno.php"); 
+    header("Location: http://ssedri.herokuapp.com/vistas/UIMantenimientoAlumno.php"); 
     exit();
 }else{
     header("HTTP/1.1 301 Moved Permanently"); 
-    header("Location: http://localhost:8080/SEDRI/vistas/UIListaAlumno.php"); 
+    header("Location: http://ssedri.herokuapp.com/vistas/UIListaAlumno.php"); 
     exit();
 }
 

@@ -4,29 +4,11 @@ var idgrado;
 var trimestre;
 
 
-function contarEstudiantes(idGrado){
-    
-    $.ajax({
-         url: "../controlador/asistencia.php?opcion=contar&grados="+idGrado,
-         method: "POST",
-         dataType : "json",
-         contentType: "application/json; charset=utf-8",
-         success: function(data)
-         {
-           
-           console.log(data);
-           guardar(data);
-           
-         }
-         
 
-     });
-     
-     
-}
 
 document.getElementById('btnGuardar').onclick = function(){
-    contarEstudiantes(idgrado);
+    idGrado = $('#cbGrados').val();
+    guardar(idGrado);
     $(".ced").prop("disabled", true);
 };
 
@@ -80,9 +62,9 @@ function cargarGrados(){
 
 
 
-function guardar(count){
+function guardar(idgrado){
     //e.preventDefault();
-
+count = $('#tblNotas tbody tr').length;
      $(".ced").prop("disabled", false);
 
 for (index = 1; index <= count; index++) {

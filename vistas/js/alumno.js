@@ -251,7 +251,7 @@ function cargarGrados() {
         listar(-9);
       } else {
         $('.cbGrados').empty();
-        $('.cbGrados').append('<option value="' + data[1].id_grado + '" >Seleccionar Grado</option>');
+        $('.cbGrados').append('<option value="' + data[0].id_grado + '" >Seleccionar Grado</option>');
         $.each(data, function (i, item) {
           $('.cbGrados').append('<option value="' + data[i].id_grado + '">' + data[i].nombreGrado + '</option>');
         });

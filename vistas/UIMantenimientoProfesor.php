@@ -33,7 +33,7 @@
 
         <div class='row'>
           <div class='input-field col s6'>
-            <input placeholder="Cédula" class='validate' type='text' name='cedula' id='cedula' pattern="^[^0][0-9]{9,10}"  title="Solo puede insertar numeros con un minimo de 9 digitos" required />
+            <input placeholder="Cédula" class='validate' type='text' name='cedula' id='cedula' pattern="^[^0][0-9]{8,10}"  title="Solo puede insertar numeros con un minimo de 9 digitos" required />
             <label for='cedula'>Ingresar la Cédula</label>
 
           </div>
@@ -41,7 +41,7 @@
 
           <div class='row'>
             <div class='input-field col s6'>
-              <input placeholder="Nombre" class='validate' type='text' name='nombre' id='nombre' maxlength="25" required pattern="[A-Za-z]{1,25}" title="No se pueden introducir caracteres especiales. O un largo maximo de 25 caracteres" />
+              <input placeholder="Nombre" class='validate' type='text' name='nombre' id='nombre' maxlength="25" required pattern="[A-Za-z ]{1,25}" title="No se pueden introducir caracteres especiales. O un largo maximo de 25 caracteres" />
               <label for='nombre'>Ingresar el Nombre</label>
             </div>
           </div>
@@ -61,7 +61,7 @@
 
             <div class='row'>
               <div class='input-field col s6'>
-                <input placeholder="Numero de Telefono" class='validate' type='text' name='telefono' id='telefono' pattern="^[^0][0-9]{8,12}" title="Solo puede insertar numeros con un minimo de 9 digitos" maxlength="12" required />
+                <input placeholder="Numero de Telefono" class='validate' type='text' name='telefono' id='telefono' pattern="^[^0][0-9]{7,9}" title="Solo puede insertar numeros con un minimo de 9 digitos" maxlength="12" required />
                 <label for='telefono'>Ingresar Número de Teléfono</label>
 
               </div>
@@ -76,7 +76,7 @@
               <div class="row">
                 <div class="col s6">
                   <select name="sexo" id="sexo" class="browser-default " required>
-                    <option value="" disabled selected hidden>Seleccionar el Género</option>
+                    <option value="Masculino" disabled selected hidden>Seleccionar el Género</option>
                     <option value="Masculino">Masculino</option>
                     <option value="Femenino">Femenino</option>
                   </select>
@@ -93,7 +93,7 @@
                 <div class="col s6" id="divTipo">
                   <select name="tipo" id="tipo" class="browser-default" required>
                     <option value="1">Profesor Especial</option>
-                    <option value="0">Profesor de Materias</option>
+                    <option value="0">Profesor General</option>
                   </select>
                 </div>
                 <div class="col s6" id="divGrado">
@@ -113,7 +113,7 @@
                 <div class="input-field col s12">
                   <textarea placeholder="" id="direccion" class="materialize-textarea validate" name="direccion" data-length="100" required pattern="[A-Za-z0-9]{1,100}" title="No se pueden introducir caracteres especiales"></textarea>
                   <label for="direccion">Ingresar la Dirección</label>
-/div>
+
               </div>
               <br>
 

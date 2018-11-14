@@ -56,6 +56,33 @@ switch ($_GET["opcion"]) {
             $rspta=$alumno->actualizar($cedula, $nombre, $apellido1, $apellido2, $sexo, $direccion, $nacionalidad, $nota);
             echo $rspta ? "Registrado" : "Error";
     break;
+    
+        case 'todo':
+    
+        $rspta=$alumno->listarTodosAlumnos();
+        $data= array();
+        while ($reg=$rspta->fetch_object()) {
+            $data[]=array(
+
+        "0"=>$reg->cedula,
+        "1"=>$reg->nombre,
+        "2"=>$reg->apellido1,
+        "3"=>$reg->apellido2,
+        "4"=>$reg->sexo,
+        "5"=>$reg->pais,
+        "6"=>$reg->nombreGrado,
+        "7"=>$reg->direccion
+                );
+        }
+        $results = array(
+            "sEcho"=>1, //Información para el datatables
+            "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+            "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+            "aaData"=>$data);
+        echo json_encode($results);
+    
+    break;
+
 
     case 'listar':
     if ($tipoP!=0) {

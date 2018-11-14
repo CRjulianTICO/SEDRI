@@ -20,14 +20,14 @@ Class Encargado
 
 		public function consultaID($cedula){
 				
-				$sql='SELECT idencargado 
+				$sql="SELECT idencargado 
 				from persona p,encargado e
-				where p.idPersona = e.Persona_idPersona and p.cedula = '.$cedula."'";
+				where p.idPersona = e.Persona_idPersona and p.cedula = '".$cedula."' LIMIT 1";
 				return consultaSimple($sql);
 		}
 
 		public function borrarAlumno($id){
-			$sql="DELETE FROM `alumno_encargado` WHERE ID_ENCARGADO = $id";
+			$sql="DELETE FROM `alumno_encargado` WHERE ID_ENCARGADO = $id LIMIT 1";
 		    return consulta($sql);
 
 		}
@@ -43,7 +43,7 @@ Class Encargado
 		$sql="UPDATE `persona` SET 
 		`nombre` = '$nombre', 
 		`apellido1` = '$apellido1', 
-		`apellido2` = '.$apellido2', 
+		`apellido2` = '$apellido2', 
 		`sexo` = '$sexo', 
 		`direccion` = '$direccion', 
 		`telefono` = '$telefono' , 
@@ -72,7 +72,7 @@ Class Encargado
 	public function cargar($cedula){
 		$sql = "SELECT CEDULA,NOMBRE,APELLIDO1,APELLIDO2, SEXO,DIRECCION,TELEFONO,TELEFONO_SECUNDARIO,PAIS,n.idNacionalidad,DISPONIBLE
 		FROM persona p,nacionalidad n
-		WHERE CEDULA = '".$cedula."' AND p.idNacionalidad = n.idNacionalidad";
+		WHERE CEDULA = '".$cedula."' AND p.idNacionalidad = n.idNacionalidad LIMIT 1";
 	    return consultaSimple($sql);
 	}
 }

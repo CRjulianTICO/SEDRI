@@ -42,17 +42,17 @@ require_once "../modelo/Autenticacion.php";
                 $mail->Encoding = 'base64';
                 try {
                 //Server settings
-                $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+                $mail->SMTPDebug = 0;                                 // Enable verbose debug output
                 $mail->isSMTP();                                      // Set mailer to use SMTP
                 $mail->Host = 'mx1.hostinger.com';  // Specify main and backup SMTP servers
                 $mail->SMTPAuth = true;                               // Enable SMTP authentication
-                $mail->Username = 'soporte@sedricr.com';                 // SMTP username
+                $mail->Username = 'soporte@ssedri.herokuapp.com';                 // SMTP username
                 $mail->Password = '@sedri123';                           // SMTP password
-                $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+                                           // Enable TLS encryption, `ssl` also accepted
                 $mail->Port = 587;                                    // TCP port to connect to
 
                 //Recipients
-                $mail->setFrom('soporte@sedricr.com', 'SEDRI');
+                $mail->setFrom('soporte@ssedri.herokuapp.com', 'SEDRI');
                 $mail->addAddress($destinatario);     // Add a recipient
                 // Name is optional
 
@@ -395,7 +395,7 @@ a[x-apple-data-detectors=true] {
                     
 <div align="center" class="button-container center " style="padding-right: 10px; padding-left: 10px; padding-top:10px; padding-bottom:10px;">
   <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top:10px; padding-bottom:10px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="sedri.com" style="height:31pt; v-text-anchor:middle; width:78pt;" arcsize="10%" strokecolor="#1DCA82" fillcolor="#1DCA82"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:Arial,sans-serif; font-size:16px;"><![endif]-->
-    <a href="http://sedricr.com/" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #ffffff; background-color: #1DCA82; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; max-width: 105px; width: 65px;width: auto; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent; padding-top: 5px; padding-right: 20px; padding-bottom: 5px; padding-left: 20px; font-family: Arial, \'Helvetica Neue\', Helvetica, sans-serif;mso-border-alt: none">
+    <a href="http://ssedri.herokuapp.com/" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #ffffff; background-color: #1DCA82; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; max-width: 105px; width: 65px;width: auto; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent; padding-top: 5px; padding-right: 20px; padding-bottom: 5px; padding-left: 20px; font-family: Arial, \'Helvetica Neue\', Helvetica, sans-serif;mso-border-alt: none">
       <span style="font-family:Arial, \'Helvetica Neue\', Helvetica, sans-serif;font-size:16px;line-height:32px;">Ingresar</span>
     </a>
   <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
@@ -445,17 +445,17 @@ a[x-apple-data-detectors=true] {
       $mail->Encoding = 'base64';
       try {
       //Server settings
-      $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+      $mail->SMTPDebug = 0;                                 // Enable verbose debug output
       $mail->isSMTP();                                      // Set mailer to use SMTP
       $mail->Host = 'mx1.hostinger.com';  // Specify main and backup SMTP servers
       $mail->SMTPAuth = true;                               // Enable SMTP authentication
-      $mail->Username = 'soporte@sedricr.com';                 // SMTP username
+      $mail->Username = 'soporte@ssedri.herokuapp.com';                 // SMTP username
       $mail->Password = '@sedri123';                           // SMTP password
       $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
       $mail->Port = 587;                                    // TCP port to connect to
 
       //Recipients
-      $mail->setFrom('soporte@sedricr.com', 'SEDRI');
+      $mail->setFrom('soporte@ssedri.herokuapp.com', 'SEDRI');
       $mail->addAddress($destinatario);     // Add a recipient
 
       //Attachments
@@ -797,7 +797,7 @@ a[x-apple-data-detectors=true] {
                     
 <div align="center" class="button-container center " style="padding-right: 10px; padding-left: 10px; padding-top:10px; padding-bottom:10px;">
   <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top:10px; padding-bottom:10px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="sedri.com" style="height:31pt; v-text-anchor:middle; width:78pt;" arcsize="10%" strokecolor="#1DCA82" fillcolor="#1DCA82"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:Arial,sans-serif; font-size:16px;"><![endif]-->
-    <a href="http://sedricr.com/" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #ffffff; background-color: #1DCA82; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; max-width: 105px; width: 65px;width: auto; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent; padding-top: 5px; padding-right: 20px; padding-bottom: 5px; padding-left: 20px; font-family: Arial, \'Helvetica Neue\', Helvetica, sans-serif;mso-border-alt: none">
+    <a href="http://ssedri.herokuapp.com/" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #ffffff; background-color: #1DCA82; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; max-width: 105px; width: 65px;width: auto; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent; padding-top: 5px; padding-right: 20px; padding-bottom: 5px; padding-left: 20px; font-family: Arial, \'Helvetica Neue\', Helvetica, sans-serif;mso-border-alt: none">
       <span style="font-family:Arial, \'Helvetica Neue\', Helvetica, sans-serif;font-size:16px;line-height:32px;">Ingresar</span>
     </a>
   <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
@@ -839,3 +839,6 @@ a[x-apple-data-detectors=true] {
 
 
  }
+
+
+ ?>

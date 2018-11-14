@@ -22,7 +22,7 @@ require 'headerDirector.php';
 </div>
 
 <?php require 'footerDirector.php' ?>
-<script src="js/alumno.js"></script>
+<script src="js/director.js"></script>
 </body>
 
 </html>

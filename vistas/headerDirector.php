@@ -15,10 +15,10 @@
     $nombre = $dataToken["nombre"];
     $rol = $dataToken["rol"];
     if($rol!="Director"){
-      header("Location: http://localhost:8080/SEDRI/vistas/Login.php");
+      header("Location: http://ssedri.herokuapp.com/vistas/Login.php");
     }
   }else{
-    header("Location: http://localhost:8080/SEDRI/vistas/Login.php");
+    header("Location: http://ssedri.herokuapp.com/vistas/Login.php");
   }
 ?>
 

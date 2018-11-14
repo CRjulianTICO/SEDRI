@@ -31,7 +31,7 @@ $fecha =  date("Y"); ?>
 
 <div class='row'>
   <div class='input-field col s6'>
-    <input placeholder="Nombre" class='validate' type='text' name='nombreGrado' id='nombreGrado' maxlength="25" required pattern="[A-Za-z0-9\-]{1,25}" title="No se pueden introducir caracteres especiales"/>
+    <input placeholder="Nombre" class='validate' type='text' name='nombreGrado' id='nombreGrado' maxlength="25" required pattern="[A-Za-z0-9\- ]{1,25}" title="No se pueden introducir caracteres especiales"/>
     <label for='nombreGrado'>Ingresar el Nombre</label>
     </div>
     <div class="input-field col s6">

@@ -14,7 +14,7 @@
           <th data-priority="8">Teléfono</th>
           <th data-priority="9">Nacionalidad</th>
           <th data-priority="4">Puesto</th>
-          <th data-priority="11">Disponible</th>
+          <th data-priority="11">Estado</th>
           <th data-priority="10">Opciones</th>
         </thead>
         <tbody>
@@ -29,24 +29,24 @@
             <div class="row">
                 <div class="input-field col s6">
                     <label for ="cedula">Ingresar Cédula del Empleado</label>
-                    <input placeholder="Cedula" class="validate" type="text" name="cedula" id="cedula" pattern="^[^0][0-9]{9,10}" title="Solo puede insertar numeros con un minimo de 9 digitos" required/>
+                    <input placeholder="Cedula" class="validate" type="text" name="cedula" id="cedula" pattern="^[^0][0-9]{8,10}" title="Solo puede insertar numeros con un minimo de 9 digitos" required/>
 
                 </div>
                 <div class="input-field col s6">
                     <label for ="nombre">Nombre del Empleado</label>
-                    <input placeholder="Nombre" class="validate" type="text" name="nombre" id="nombre" required pattern="[A-Za-z]{1,25}" title="No se pueden introducir caracteres especiales"/>
+                    <input placeholder="Nombre" class="validate" type="text" name="nombre" id="nombre" required pattern="[A-Za-z ]{1,25}" title="No se pueden introducir caracteres especiales"/>
 
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
                     <label for ="apellido1">Primer apellido</label>
-                    <input placeholder="Primer Apellido" class="validate" type="text" name="apellido1" id="apellido1" required pattern="[A-Za-z]{1,25}" title="No se pueden introducir caracteres especiales"/>
+                    <input placeholder="Primer Apellido" class="validate" type="text" name="apellido1" id="apellido1" required pattern="[A-Za-z ]{1,25}" title="No se pueden introducir caracteres especiales"/>
 
                 </div>
                 <div class="input-field col s6">
                     <label for ="apellido2">Segundo apellido</label>
-                    <input placeholder="Segundo Apellido" class="validate" type="text" name="apellido2" id="apellido2" required pattern="[A-Za-z]{1,25}" title="No se pueden introducir caracteres especiales"/>
+                    <input placeholder="Segundo Apellido" class="validate" type="text" name="apellido2" id="apellido2" required pattern="[A-Za-z ]{1,25}" title="No se pueden introducir caracteres especiales"/>
 
                 </div>
             </div>
@@ -54,7 +54,7 @@
             <div class="row">
                 <div class="input-field col s6">
                     <label for ="telefono">Teléfono</label>
-                    <input placeholder="Telefono" class="validate" type="text" name="telefono" id="telefono" pattern="^[^0][0-9]{8,10}" title="Solo puede insertar numeros con un minimo de 8 digitos" required/>
+                    <input placeholder="Telefono" class="validate" type="text" name="telefono" id="telefono" pattern="^[^0][0-9]{7,9}" title="Solo puede insertar numeros con un minimo de 8 digitos" required/>
 
                 </div>
 
@@ -89,18 +89,18 @@
 
 
             <div class="row">
-                <div class="col s4">
-                    <button class="btn waves-effect waves-light green guardaEst" type="submit" name="Guardar" id="btnGuardar">Guardar
+                <div class="col s12">
+                    <button class="btn waves-effect waves-light green guardaEst full-width" type="submit" name="Guardar" id="btnGuardar">Guardar
                         <i class="material-icons right">done</i>
                         <br>
                     </button>
                 </div>
 
-                <div class="col s4">
-                    <button name="editar" type="button" id="btnEditar" class="btn waves-effect waves-light blue editaEst">Editar<i class="material-icons right">edit</i></button>
+                <div class="col s6">
+                    <button name="editar" type="button" id="btnEditar" class="btn waves-effect waves-light blue editaEst full-width">Editar<i class="material-icons right">edit</i></button>
                 </div>
-                <div class="col s4">
-                    <button class="btn waves-effect waves-light red cancelEst" name="eliminar" id="btnCancelar" type="button" onclick="cancelarForm();">Cancelar
+                <div class="col s6">
+                    <button class="btn waves-effect waves-light red cancelEst full-width" name="eliminar" id="btnCancelar" type="button" onclick="cancelarForm();">Cancelar
                         <i class="material-icons right">clear</i>
                     </button>
                 </div>

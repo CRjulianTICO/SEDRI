@@ -25,14 +25,14 @@
 
 <div class='row'>
     <div class='input-field col s6'>
-        <input placeholder="Cedula" class='validate' type='text' name='cedula' id='cedula' pattern="^[^0][0-9]{9,10}" title="Solo puede insertar numeros y una longitud minima de 9 digitos" required />
+        <input placeholder="Cedula" class='validate' type='text' name='cedula' id='cedula' pattern="^[^0][0-9]{8,10}" title="Solo puede insertar numeros y una longitud minima de 9 digitos" required />
             <label for='cedula'>Ingrese la Cédula del estudiante</label>
     </div>
 </div>
 
 <div class="row">
     <div class="input-field col s12">
-        <textarea placeholder="Descripcion..." id="descripcionBeca" name="descripcionBeca" class="materialize-textarea" class="validate" required pattern="[A-Za-z0-9]{1,500}" title="No se pueden introducir caracteres especiales"></textarea>
+        <textarea placeholder="Descripcion..." id="descripcionBeca" name="descripcionBeca" class="materialize-textarea" class="validate" required pattern="[A-Za-z0-9\- ]{1,500}" title="No se pueden introducir caracteres especiales"></textarea>
             <label for="descripcionBeca">Ingresar la Descripción de la Beca</label>
     </div>
 </div>

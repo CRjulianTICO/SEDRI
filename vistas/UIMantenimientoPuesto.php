@@ -2,7 +2,9 @@
 
 <div id="content">
 
-
+<div class="container">
+    <div id="divResp"></div>
+</div>
   <div id="tabla">
 
     <table id="tblPuesto" class="display responsive nowrap tabla" style="width: 100%">

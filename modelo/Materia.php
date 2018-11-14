@@ -52,3 +52,4 @@ class Materia
         return consultaSimple($sql);
     }
 }
+?>

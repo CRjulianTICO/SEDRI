@@ -5,6 +5,7 @@ function mostrarFormularioBeca(estado){
         $('#formulario').show();
         mostrarBotones(false);
     }else{
+        $('#divResp').hide();
         $('#tabla').show();
         $('#formulario').hide();
         limpiar();

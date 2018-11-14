@@ -38,12 +38,9 @@ switch ($_GET["opcion"]){
 				"6"=>$reg->telefono,
 				"7"=>$reg->pais,
 				"8"=>$reg->nombrePuesto,
-				"9"=>($reg->disponible)?'<span class="label bg-green">Activado</span>':
- 				'<span class="label bg-red">Desactivado</span>',
- 				"10"=>($reg->disponible)?'<button class="mostrarEditar" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center blue-text ">edit</i></button>'.
- 					' <button class="mostrarBlock" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center red-text ">block</i></button>':
- 					'<button class="mostrarEditar" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center blue-text ">edit</i></button>'.
- 					' <button class="mostrarCheck" onclick="activar('.$reg->cedula.')"><i class="material-icons center green-text">check</i></button>',
+				"9"=>($reg->disponible)?'<span class="label green-text">Disponible</span>':'<span class="label red-text">Inactivo</span>',
+ 				"10"=>'<button class="bg-blue" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center white-text ">edit</i></button>
+					 <button class="bg-red" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center white-text ">block</i></button>'
  				);
  		}
  		$results = array(
