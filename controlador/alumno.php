@@ -46,12 +46,10 @@ switch ($_GET["opcion"]) {
     case 'guardar':
             if ($tipoP!=0) {
             $rspta=$alumno->insertar($cedula, $nombre, $apellido1, $apellido2, $sexo, $direccion, $nacionalidad, $nota, $grado);
-            echo $rspta ? "Registrado" : "Error";
           }else{
             $rspta=$alumno->insertar($cedula, $nombre, $apellido1, $apellido2, $sexo, $direccion, $nacionalidad, $nota, $idgrado);
-            echo $rspta ? "Registrado" : "Error";
           }
-            
+            echo $rspta ? "Registrado" : "Error";
     break;
 
     case 'editar':
@@ -132,6 +130,7 @@ switch ($_GET["opcion"]) {
         break;
 
     case 'mostrar':
+      
         $rspta=$alumno->cargar($cedula);
         //Se cofifica para que quede en json
         echo json_encode($rspta);
