@@ -1,16 +1,36 @@
 var tabla;
 var count ;
 var idgrado;
+var cantidad;
 
 
 
-
-
-
-function guardar(){
-    //e.preventDefault();
-    count = $('#tblAsistenciaActual tbody tr').length; 
+function contarEstudiantes(idGrado){
     
+    $.ajax({
+         url: "../controlador/asistencia.php?opcion=contar&grados="+idGrado,
+         method: "POST",
+         dataType : "json",
+         contentType: "application/json; charset=utf-8",
+         success: function(data)
+         {
+           
+           console.log(data);
+           guardar(data);
+           
+         }
+         
+
+     });
+     
+     
+}
+
+
+function guardar(count){
+    //e.preventDefault();
+    
+    console.log(count);
      $(".ced").prop("disabled", false);
      
 for (index = 1; index <= count; index++) {
@@ -77,7 +97,6 @@ function cargarGrados(){
          
 
      });
-
 }
 
 function listar(idGrado){
@@ -94,24 +113,18 @@ function listar(idGrado){
                           
   						console.log(e.responseText);
   					}
-  				},
+                  },
   		"bDestroy": true,
-  		"iDisplayLength": 10,
-          "order": [[ 1, "asc" ]],//Ordenar (columna,orden),
-          /* "createdRow": function ( row, data, index ) {
-        $('td', row).eq(0).attr('id',  index ),
-        $('td', row).eq(0).attr('name',  "cedula")
-        $('td', row).eq(5).attr('id',  index ),
-        $('td', row).eq(5).attr('name',  "estado" ),
-        $('td', row).eq(6).attr('id',  index ),
-        $('td', row).eq(6).attr('name',  "nota")
-          } */
+  		"iDisplayLength": 100,
+        "order": [[ 1, "asc" ]],//Ordenar (columna,orden),
+          
     }).DataTable();
 
 }
 
 document.getElementById('btnGuardar').onclick = function(){
-    guardar();
+    idgrado = $('#cbGrados').val();
+    contarEstudiantes(idgrado);
     $(".ced").prop("disabled", true);
 };
 

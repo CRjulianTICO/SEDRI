@@ -6,6 +6,7 @@ function mostrarFormulario(estado){
     }else{
         $('#tabla').show();
         $('#formulario').hide();
+        mostrarBotones(false);
         limpiar();
     }
 }

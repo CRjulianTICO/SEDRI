@@ -28,7 +28,8 @@ switch ($_GET["opcion"]){
  				"0"=>$reg->idPuesto,
  				"1"=>$reg->nombrePuesto,
                 "2"=>$reg->descrpcionPuesto,
- 				"3"=>'<button class="mostrarEditar" onclick="mostrar('.$reg->idPuesto.');"><i class="material-icons center blue-text ">edit</i></button>'
+ 				"3"=>'<button class="bg-blue" onclick="mostrar('.$reg->idPuesto.')"><i class="material-icons center white-text ">edit</i></button>'
+ 				
  				);
  		}
  		$results = array(

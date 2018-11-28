@@ -8,7 +8,7 @@
           <th data-priority="0">Cedula</th>
           <th data-priority="1">Nombre</th>
           <th data-priority="4">Apellidos</th>
-          <th data-priority="2">Descripcion</th>
+          <th data-priority="2">Descripción</th>
           <th data-priority="3">Monto</th>
           <th data-priority="5">Estado</th>
           <th data-priority="6">Editar</th>
@@ -25,22 +25,22 @@
 
 <div class='row'>
     <div class='input-field col s6'>
-        <input placeholder="Cedula" class='validate' type='text' name='cedula' id='cedula' min="1000000" max="9999999"  />
-            <label for='cedula'>Ingrese la Cedula del estudiante</label>
+        <input placeholder="Cedula" class='validate' type='text' name='cedula' id='cedula' pattern="^[^0][0-9]{8,10}" title="Solo puede insertar numeros y una longitud minima de 9 digitos" required />
+            <label for='cedula'>Ingrese la Cédula del estudiante</label>
     </div>
 </div>
 
 <div class="row">
     <div class="input-field col s12">
-        <textarea placeholder="Descripcion..." id="descripcionBeca" name="descripcionBeca" class="materialize-textarea" class="validate"></textarea>
-            <label for="descripcionBeca">Ingresar la Descripcion de la Beca</label>
+        <textarea placeholder="Descripcion..." id="descripcionBeca" name="descripcionBeca" class="materialize-textarea" class="validate" required pattern="[A-Za-z0-9\- ]{1,500}" title="No se pueden introducir caracteres especiales"></textarea>
+            <label for="descripcionBeca">Ingresar la Descripción de la Beca</label>
     </div>
 </div>
 
 
 <div class='row'>
     <div class='input-field col s6'>
-        <input placeholder="Monto" class='validate' type='text' name='monto' id='monto' min="1000000" max="9999999" />
+        <input placeholder="Monto" class='validate' type='text' name='monto' id='monto' pattern="^[^0][0-9]{3,10}" title="Solo puede insertar numeros que tengan una longitud minima de 3 digitos y un maximo de 10" required />
             <label for='monto'>Ingrese el Monto de la Beca</label>
     </div>
 </div>

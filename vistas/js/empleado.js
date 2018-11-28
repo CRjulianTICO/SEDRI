@@ -123,8 +123,12 @@ function cargarPais(){
          contentType: "application/json; charset=utf-8",
          success: function(data)
          {
+            $("#sexo").empty();
+        
+            $("#sexo").append("<option value='Masculino' disabled selected hidden>Seleccionar el Género</option><option value='Masculino'>Masculino</option><option value='Femenino'>Femenino</option>");
+
              $('#idNacionalidad').empty();
-             $('#idNacionalidad').append("<option>Seleccionar Pais</option>");
+             $('#idNacionalidad').append("<option value="+data[0].idNacionalidad+">Seleccionar Pais</option>");
              $.each(data,function(i,item){
 
                  $('#idNacionalidad').append('<option value="'+data[i].idNacionalidad+'">'+data[i].pais+'</option>');
@@ -145,7 +149,7 @@ function cargarPuesto(){
          success: function(data)
          {
              $('#idPuesto').empty();
-             $('#idPuesto').append("<option>Seleccionar Puesto</option>");
+             $('#idPuesto').append("<option value="+data[0].idPuesto+" >Seleccionar Puesto</option>");
              $.each(data,function(i,item){
 
                  $('#idPuesto').append('<option value="'+data[i].idPuesto+'">'+data[i].nombrePuesto+'</option>');

@@ -20,21 +20,21 @@ Class Encargado
 
 		public function consultaID($cedula){
 				
-				$sql='SELECT idencargado 
+				$sql="SELECT idencargado 
 				from persona p,encargado e
-				where p.idPersona = e.Persona_idPersona and p.cedula = '.$cedula.';';
+				where p.idPersona = e.Persona_idPersona and p.cedula = '".$cedula."' LIMIT 1";
 				return consultaSimple($sql);
 		}
 
 		public function borrarAlumno($id){
-			$sql="DELETE FROM `alumno_encargado` WHERE ID_ENCARGADO = $id;";
+			$sql="DELETE FROM `alumno_encargado` WHERE ID_ENCARGADO = $id LIMIT 1";
 		    return consulta($sql);
 
 		}
 
 		public function insertaAlumno($id,$alumno){
 			$sql="INSERT INTO `alumno_encargado` (`ID_ALUMNO`, `ID_ENCARGADO`)
-    		VALUES ('$alumno',$id);";
+    		VALUES ('$alumno',$id)";
 		return consulta($sql);
 		}
 
@@ -43,12 +43,12 @@ Class Encargado
 		$sql="UPDATE `persona` SET 
 		`nombre` = '$nombre', 
 		`apellido1` = '$apellido1', 
-		`apellido2` = '.$apellido2', 
+		`apellido2` = '$apellido2', 
 		`sexo` = '$sexo', 
 		`direccion` = '$direccion', 
 		`telefono` = '$telefono' , 
 		`telefono_secundario` = '$telefono2'
-		where cedula='$cedula';";
+		where cedula='$cedula'";
 
 		return consulta($sql);
 	}
@@ -60,19 +60,19 @@ Class Encargado
 	}
 
 	public function desactivar($cedula){
-		$sql = "UPDATE persona set disponible = '0' where cedula='".$cedula."';";
+		$sql = "UPDATE persona set disponible = '0' where cedula='".$cedula."'";
 		return consulta($sql);
 	}
 
 	public function activar($cedula){
-		$sql = "UPDATE persona set disponible = '1' where cedula='".$cedula."';";
+		$sql = "UPDATE persona set disponible = '1' where cedula='".$cedula."'";
 		return consulta($sql);
 	}
 
 	public function cargar($cedula){
 		$sql = "SELECT CEDULA,NOMBRE,APELLIDO1,APELLIDO2, SEXO,DIRECCION,TELEFONO,TELEFONO_SECUNDARIO,PAIS,n.idNacionalidad,DISPONIBLE
-		FROM PERSONA P,NACIONALIDAD N 
-		WHERE CEDULA = '".$cedula."' AND P.idNacionalidad = N.idNacionalidad;";
+		FROM persona p,nacionalidad n
+		WHERE CEDULA = '".$cedula."' AND p.idNacionalidad = n.idNacionalidad LIMIT 1";
 	    return consultaSimple($sql);
 	}
 }

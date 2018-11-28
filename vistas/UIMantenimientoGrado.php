@@ -1,11 +1,13 @@
-<?php require 'headerDirector.php' ?>
+<?php require 'headerDirector.php';
+date_default_timezone_set('America/Costa_Rica');
+$fecha =  date("Y"); ?>
 <!--AQUI DEBERIA IR TODO EL CONTENIDO DE LA PAGINA-->
  <div id="content">
  <div id="divResp"></div>
    <div class="tabla" id="tabla">
         <table id="tblGrado" class="display responsive nowrap tabla" style="width: 100%">
         <thead>
-          <th data-priority="1">Codigo</th>
+          <th data-priority="1">Código</th>
           <th data-priority="2">Grado</th>
           <th data-priority="3">Año</th>
           <th data-priority="4">Opciones</th>
@@ -22,21 +24,22 @@
 
  <div class='row'>
  <div class='input-field col s6'>
-   <input placeholder="Codigo" class='validate' type='text' name='idgrado' id='idgrado' min="1000000" max="9999999"  readonly="true"/>
-           <label for='idgrado'>Codigo del Grado</label>
+   <input placeholder="Codigo" class='validate' type='text' name='idgrado' id='idgrado'  readonly="true"/>
+           <label for='idgrado'>Código del Grado</label>
          </div>
 </div> 
 
 <div class='row'>
   <div class='input-field col s6'>
-    <input placeholder="Nombre" class='validate' type='text' name='nombreGrado' id='nombreGrado' maxlength="30" required/>
-    <label for='nombreGrado'>Ingresa el Nombre</label>
+    <input placeholder="Nombre" class='validate' type='text' name='nombreGrado' id='nombreGrado' maxlength="25" required pattern="[A-Za-z0-9\- ]{1,25}" title="No se pueden introducir caracteres especiales"/>
+    <label for='nombreGrado'>Ingresar el Nombre</label>
     </div>
     <div class="input-field col s6">
      <select  name="annio" id="annio" class="browser-default " required>
-          <option value="" disabled selected hidden>Seleccionar el Año del grado</option>
+          <option value="<?php $fecha ?>" disabled selected hidden>Seleccionar el Año del grado</option>
           <option value="2018">2018</option>
           <option value="2019">2019</option>
+          <option value="2020">2020</option>
           </select>
     </div>
     </div>

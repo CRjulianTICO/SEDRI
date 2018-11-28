@@ -24,11 +24,13 @@ function mostrarform(bool) {
     $("#tabla").hide();
     $("#formulario").show();
     cargarGrados();
+    $('#divResp').empty();
   } else {
     limpiar();
     mostrarbotones(false);
     $("#tabla").show();
     $("#formulario").hide();
+    $('#divResp').empty();
   }
 }
 
@@ -83,7 +85,6 @@ function listar(idGrado) {
 function guardar(e) {
   e.preventDefault();
   var DATOS = ($("#formAlumno").serialize());
-  console.log('Datos de formulario' + DATOS);
   $.ajax({
     url: "../controlador/alumno.php?opcion=guardar",
     method: "POST",
@@ -91,22 +92,23 @@ function guardar(e) {
 
     success: function (datos) {
       tabla.ajax.reload();
-      if(datos=="Registrado"){
+      console.log("Datos"+datos)
+      if(datos.includes("Registrado")){
         $('#divResp').show();
-        document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
-        document.getElementById('divResp').innerHTML='<h5>Se guardo exitosamente!</h5>';
+        document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2 full-width";
+        document.getElementById('divResp').innerHTML='<h6>Se registro un nuevo alumno</h6>';
       }else{
         $('#divResp').show();
         document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
-        document.getElementById('divResp').innerHTML='<h5>Ocurrio un Error!</h5>';
+        document.getElementById('divResp').innerHTML='<h6>Ocurrió un error</h6>';
       
       }
       limpiar();
-      mostrarform(false);
+      cargarPais();
     }
     
   });
-  limpiar();
+
 }
 
 function desactivar(cedula) {
@@ -136,7 +138,7 @@ function limpiar() {
   $("#correo").val("");
   $("#sexo").val("");
   $("#nacionalidad").text("");
-  $("#nota").text("");
+  $("#nota").val("");
 
 
 
@@ -148,7 +150,7 @@ function mostrar(cedula) {
   }, function (data, status) {
     limpiar();
     cargarPais();
-    console.log(data);
+    console.log("Hola"+data);
     mostrarform(true);
     mostrarbotones(true);
     data = JSON.parse(data);
@@ -195,6 +197,16 @@ function editar() {
 
 
     success: function (datos) {
+      if(datos.includes("Registrado")){
+        $('#divResp').show();
+        document.getElementById("divRespE").className = "card-panel green darken-2 white-text lighten-2 full-width";
+        document.getElementById('divRespE').innerHTML='<h6>Se edito un estudiante</h6>';
+      }else{
+        $('#divResp').show();
+        document.getElementById("divRespE").className = "card-panel red darken-2 white-text lighten-2";
+        document.getElementById('divRespE').innerHTML='<h6>Ocurrió un error al acutalizar los datos</h6>';
+      
+      }
       tabla.ajax.reload();
       limpiar();
       mostrarform(false);
@@ -215,7 +227,7 @@ function cargarGrupo() {
     contentType: "application/json; charset=utf-8",
     success: function (data) {
       $('#idgrado').empty();
-      $('#idgrado').append("<option>Seleccionar Grado</option>");
+      $('#idgrado').append("<optionvalue=" + data[0].ID_GRADO + ">Seleccionar Grado</option>");
       $.each(data, function (i, item) {
 
         $('#idgrado').append('<option value="' + data[i].ID_GRADO + '">' + data[i].NOMBRE_GRADO + ' ' + data[i].ANNIO + '</option>');
@@ -239,7 +251,7 @@ function cargarGrados() {
         listar(-9);
       } else {
         $('.cbGrados').empty();
-        $('.cbGrados').append('<option value="' + data[1].id_grado + '" >Seleccionar Grado</option>');
+        $('.cbGrados').append('<option value="' + data[0].id_grado + '" >Seleccionar Grado</option>');
         $.each(data, function (i, item) {
           $('.cbGrados').append('<option value="' + data[i].id_grado + '">' + data[i].nombreGrado + '</option>');
         });
@@ -301,7 +313,6 @@ $( "#btnEditar" ).click(function() {
   });
   cargarPais();
   $("#formAlumno").on("submit", function (e) {
-    console.log("SE REAlIZO UN LLAMADO DESDE SUBMIT");
     guardar(e);
   })
 

@@ -6,7 +6,7 @@ require 'header.php';
 <div class="container">
 <div class='row'>
     <div class="col s6 offset-s7" id="divGrados" >
-        <select id="cbGrados" class="cbGrados"><option>asdawd</option><option>asdawd232423422</option><option>asdaw234d</option></select>
+        <select id="cbGrados" class="cbGrados browser-default"><option>asdawd</option><option>asdawd232423422</option><option>asdaw234d</option></select>
     </div>
 </div>
 </div>
@@ -16,7 +16,7 @@ require 'header.php';
     <table id="tblAsistenciaActual" class="display responsive nowrap tabla highlight" style="width: 100%">
     
         <thead>
-          <th >Cedula</th>
+          <th >Cédula</th>
           <th >Nombre</th>
           <th >Primer Apellido</th>
           <th >Segundo Apellido</th>
@@ -43,15 +43,6 @@ require 'header.php';
 
 <script>
 
-  $(document).ready(function() {
-    $('select').material_select();
- });
- $(document).ready(function() {
-    $('#estado').material_select();
- });
- $(document).ready(function() {
-    $('#cbGrados').material_select();
- });
 
  
 </script>

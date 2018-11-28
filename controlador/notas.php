@@ -43,9 +43,9 @@ $cont = 1;
 switch ($_GET["opcion"]){
 	case 'guardar':
             $nota = '1';
-            if($trabajo_cotidiano==null || $trabajo_cotidiano == "0.00"
-            ||$asistencia=="0.00"||$asistencia==null||$tareas == "0.00"||$tareas == null
-            ||$pruebas=="0.00"||$pruebas==null){
+            if($trabajo_cotidiano==null || $trabajo_cotidiano == 0.00
+            ||$asistencia==0.00||$asistencia==null||$tareas == 0.00||$tareas == null
+            ||$pruebas==0.00||$pruebas==null){
 				$nota = '0';
             }
             
@@ -57,10 +57,10 @@ switch ($_GET["opcion"]){
                     $nombreM=$instNotas->listarMateriasEspecial($idTipoMateria,$idPersona);
                     $idMateria = $nombreM["id"];
 				$rspta=$instNotas->insertaNotas($cedula,$idMateria,$Idgrado,$trabajo_cotidiano,$pruebas,$tareas,$asistencia,$trimestre);
-                echo $rspta ? "Registrado" : "Error/".$cedula."/Ma:".$idMateria."/Gr:".$Idgrado."/Co:".$trabajo_cotidiano."/Pr:".$pruebas."/Ta:".$tareas."/As:".$asistencia."/Tr:".$trimestre;
+                echo $rspta ? "Registrado" : "Error/"."Ce:".$cedula."/Ma:".$idMateria."/Gr:".$Idgrado."/Co:".$trabajo_cotidiano."/Pr:".$pruebas."/Ta:".$tareas."/As:".$asistencia."/Tr:".$trimestre;
                 }else{
                    $rspta=$instNotas->insertaNotas($cedula,$Idgrado,$idgrado,$trabajo_cotidiano,$pruebas,$tareas,$asistencia,$trimestre);
-                echo $rspta ? "Registrado" : "Error/".$cedula."/Ma:".$Idgrado."/Gr:".$idgrado."/Co:".$trabajo_cotidiano."/Pr:".$pruebas."/Ta:".$tareas."/As:".$asistencia."/Tr:".$trimestre;
+                echo $rspta ? "Registrado" : "Error/"."Ce:".$cedula."/Ma:".$Idgrado."/Gr:".$idgrado."/Co:".$trabajo_cotidiano."/Pr:".$pruebas."/Ta:".$tareas."/As:".$asistencia."/Tr:".$trimestre;
                  
                 }
             
@@ -99,10 +99,10 @@ switch ($_GET["opcion"]){
 				"3"=>$reg->apellido2,
 				"4"=>$reg->nombreGrado,
                 "5"=>$reg->materia,
-                "6"=>"<input form='frm".$cont."' class='trabajo_cotidiano' name='trabajo_cotidiano' value='".$reg->trabajo_cotidiano."' > </input>",
-                "7"=>"<input form='frm".$cont."' class='pruebas' name='pruebas' value='".$reg->pruebas."' > </input>",
-                "8"=>"<input form='frm".$cont."' class='tareas' name='tareas' value='".$reg->tareas."' > </input>",
-                "9"=>"<input form='frm".$cont."' class='asistencia' name='asistencia' value='".$reg->asistencia."' > </input>",
+                "6"=>"<input pattern=".'^[^0][0-9]{1,2}'."  title=".'Solo puede insertar numeros con un maximo de 2 digitos'."  form='frm".$cont."' class='trabajo_cotidiano' name='trabajo_cotidiano' value='".$reg->trabajo_cotidiano."' > </input>",
+                "7"=>"<input pattern=".'^[^0][0-9]{1,2}'."  title=".'Solo puede insertar numeros con un maximo de 2 digitos'."  form='frm".$cont."' class='pruebas' name='pruebas' value='".$reg->pruebas."' > </input>",
+                "8"=>"<input pattern=".'^[^0][0-9]{1,2}'."  title=".'Solo puede insertar numeros con un maximo de 2 digitos'."  form='frm".$cont."' class='tareas' name='tareas' value='".$reg->tareas."' > </input>",
+                "9"=>"<input pattern=".'^[^0][0-9]{1,2}'."  title=".'Solo puede insertar numeros con un maximo de 2 digitos'."  form='frm".$cont."' class='asistencia' name='asistencia' value='".$reg->asistencia."' > </input>",
                 "10"=>"<input form='frm".$cont."' class='total' name='total' value='".$reg->total."' disabled> </input>"
                 
 						 );
@@ -116,6 +116,7 @@ switch ($_GET["opcion"]){
 		 echo json_encode($results);
 	
 		 }else{
+		  
         $nombreG=$instaGrado->listarNombre($idgrado);
         $nombreGrado = $nombreG["nombreGrado"];
         $nombreMat=$instNotas->nombreMaterias($Idgrado);

@@ -29,10 +29,10 @@ switch ($_GET["opcion"]) {
        $pass = $mail->generarPassword();
        $hpass = $auth->hashPassword($pass);
        $rspta=$profesor->insertar($cedula,$nombre,$apellido1,$apellido2,$sexo,$direccion,$telefono, $email,$nacionalidad,$idgrado,$hpass,$materia,$tipo);
-       ob_start();
+       
        echo $rspta?$mail->enviarCorreo(1, $email, $pass): "Error".$rspta;
        // some statement that removes all printed/echoed items
-       ob_end_clean();
+     
             echo $rspta?"Registrado": "Error".$rspta;
 
     break;

@@ -56,6 +56,33 @@ switch ($_GET["opcion"]) {
             $rspta=$alumno->actualizar($cedula, $nombre, $apellido1, $apellido2, $sexo, $direccion, $nacionalidad, $nota);
             echo $rspta ? "Registrado" : "Error";
     break;
+    
+        case 'todo':
+    
+        $rspta=$alumno->listarTodosAlumnos();
+        $data= array();
+        while ($reg=$rspta->fetch_object()) {
+            $data[]=array(
+
+        "0"=>$reg->cedula,
+        "1"=>$reg->nombre,
+        "2"=>$reg->apellido1,
+        "3"=>$reg->apellido2,
+        "4"=>$reg->sexo,
+        "5"=>$reg->pais,
+        "6"=>$reg->nombreGrado,
+        "7"=>$reg->direccion
+                );
+        }
+        $results = array(
+            "sEcho"=>1, //Información para el datatables
+            "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+            "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+            "aaData"=>$data);
+        echo json_encode($results);
+    
+    break;
+
 
     case 'listar':
     if ($tipoP!=0) {
@@ -76,8 +103,13 @@ switch ($_GET["opcion"]) {
         "9"=>$reg->nota_medica,
 
                 "10"=>'<button class="bg-yellow" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center white-text">edit</i></button>
-                <button class="bg-red" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center white-text">block</i></button>
-                <button class="bg-blue" onclick="cargarEncargado('.$reg->cedula.')"><i class="material-icons center white-text">assignment_ind</i></button>'
+        <button class="bg-red" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center white-text">block</i></button>
+        <button class="bg-blue" onclick="cargarEncargado('.$reg->cedula.')"><i class="material-icons center white-text">assignment_ind</i></button>
+        
+        <form action="../controlador/pdf/crearPDF.php" method="post">
+        <input type="hidden" id="cedula" name="cedula" value="'.$reg->cedula.'">
+        <button class="bg-blue white-text"><i class="material-icons center white-text">grid_on</i></button>
+        </form>'
                 );
         }
         $results = array(
@@ -103,9 +135,14 @@ switch ($_GET["opcion"]) {
     "8"=>$reg->direccion,
     "9"=>$reg->nota_medica,
 
-        "10"=>'<button class="bg-yellow" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center white-text">edit</i></button>
+         "10"=>'<button class="bg-yellow" onclick="mostrar('.$reg->cedula.')"><i class="material-icons center white-text">edit</i></button>
         <button class="bg-red" onclick="desactivar('.$reg->cedula.')"><i class="material-icons center white-text">block</i></button>
-        <button class="bg-blue" onclick="cargarEncargado('.$reg->cedula.')"><i class="material-icons center white-text">assignment_ind</i></button>'
+        <button class="bg-blue" onclick="cargarEncargado('.$reg->cedula.')"><i class="material-icons center white-text">assignment_ind</i></button>
+        
+        <form action="../controlador/pdf/crearPDF.php" method="post">
+        <input type="hidden" id="cedula" name="cedula" value="'.$reg->cedula.'">
+        <button class="bg-blue white-text"><i class="material-icons center white-text">grid_on</i></button>
+        </form>'
         
         );
         }
@@ -130,6 +167,7 @@ switch ($_GET["opcion"]) {
         break;
 
     case 'mostrar':
+      
         $rspta=$alumno->cargar($cedula);
         //Se cofifica para que quede en json
         echo json_encode($rspta);

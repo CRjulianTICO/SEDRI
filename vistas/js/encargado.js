@@ -1,7 +1,7 @@
 var tabla;
-document.getElementById('btnEditar').onclick = function(){
+$( "#btnEditar" ).click(function() {
   editar();
-};
+});
 
 function mostrarform(bool) {
   if (bool) {
@@ -12,6 +12,7 @@ function mostrarform(bool) {
   } else {
     limpiar();
     mostrarbotones(false);
+    $(".btn-floating").hide();
     $("#tabla").show();
     $("#formulario").hide();
   }
@@ -19,6 +20,7 @@ function mostrarform(bool) {
 
 function mostrarbotones(bool) {
   if (bool) {
+      $(".btn-floating").show();
     $('.botones').show();
     $('#btnguardar').hide();
   } else {
@@ -78,7 +80,7 @@ function guardarEncargado(e) {
 }
 
 function desactivar(cedula) {
-  $.post("../controlador/profesor.php?opcion=desactivar", {
+  $.post("../controlador/encargado.php?opcion=desactivar", {
     cedula: cedula
   }, function (e) {
     tabla.ajax.reload();
@@ -86,7 +88,7 @@ function desactivar(cedula) {
 }
 
 function activar(cedula) {
-  $.post("../controlador/profesor.php?opcion=activar", {
+  $.post("../controlador/encargado.php?opcion=activar", {
     cedula: cedula
   }, function (e) {
     tabla.ajax.reload();
@@ -104,13 +106,14 @@ function limpiar() {
   $("#correo").val("");
   $("#sexo").val("");
   $("#nacionalidad").text("");
-  $("#nota").text("");
-
+  $("#telefono_secundario").text("");
+  $("#estudiante").text("");
 
 
 }
 
 function mostrar(cedula) {
+    $(".btn-floating").show();
   $.post("../controlador/encargado.php?opcion=mostrar", {
     cedula: cedula
   }, function (data, status) {
@@ -173,8 +176,12 @@ function cargarPais() {
     dataType: "json",
     contentType: "application/json; charset=utf-8",
     success: function (data) {
+    
+        $("#sexo").empty();
+        $("#sexo").append("<option value='Masculino' disabled selected hidden>Seleccionar el Género</option><option value='Masculino'>Masculino</option><option value='Femenino'>Femenino</option>");
+        
       $('#nacionalidad').empty();
-      $('#nacionalidad').append("<option disabled selected>Seleccionar Pais</option>");
+      $('#nacionalidad').append("<option disabled selected value=" + data[0].idNacionalidad +">Seleccionar Pais</option>");
       $.each(data, function (i, item) {
 
         $('#nacionalidad').append('<option value="' + data[i].idNacionalidad + '">' + data[i].pais + '</option>');
@@ -217,7 +224,7 @@ function cargarGrupo() {
     contentType: "application/json; charset=utf-8",
     success: function (data) {
       $('#idgrado').empty();
-      $('#idgrado').append("<option>Seleccionar Grado</option>");
+      $('#idgrado').append("<option value=" + data[0].ID_GRADO + ">Seleccionar Grado</option>");
       $.each(data, function (i, item) {
 
         $('#idgrado').append('<option value="' + data[i].ID_GRADO + '">' + data[i].NOMBRE_GRADO + ' ' + data[i].ANNIO + '</option>');
@@ -237,7 +244,7 @@ function cargarGrado() {
     contentType: "application/json; charset=utf-8",
     success: function (data) {
       $('#idgrado').empty();
-      $('#idgrado').append("<option>Seleccionar Grado</option>");
+      $('#idgrado').append("<option value="+ data[0].ID_GRADO + ">Seleccionar Grado</option>");
       $.each(data, function (i, item) {
 
         $('#idgrado').append('<option value="' + data[i].ID_GRADO + '">' + data[i].NOMBRE_GRADO + ' ' + data[i].ANNIO + '</option>');
@@ -262,7 +269,7 @@ function cargarAlumnos(bool, ced) {
     contentType: "application/json; charset=utf-8",
     success: function (data) {
       $('#estudiante').empty();
-      $('#estudiante').append("<option>Seleccione un estudiante</option>");
+      $('#estudiante').append("<option value=" + data[0].idalumno + ">Seleccione un estudiante</option>");
       $.each(data, function (i, item) {
         if (bool) {
           $('#estudiante').append('<option value="' + data[i].idalumno + '" selected="selected">' + data[i].nombre + '</option>');

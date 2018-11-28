@@ -25,14 +25,14 @@ require 'header.php';
     <table id="tblAsistencia" class="display responsive nowrap tabla highlight" style="width: 100%">
     
         <thead>
-          <th data-priority="1">Cedula</th>
+          <th data-priority="1">Cédula</th>
           <th data-priority="2">Nombre</th>
           <th data-priority="3">Apellidos</th>
           <th >Grado</th>
           <th data-priority="4">Estado</th>
           <th data-priority="5">Nota</th>
           <th >Fecha</th>
-          <th >Justificacion</th>
+          <th >Justificación</th>
         </thead>
         <tbody>
         </tbody>
