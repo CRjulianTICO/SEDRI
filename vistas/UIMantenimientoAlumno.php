@@ -54,11 +54,12 @@
 
     <div id="formulario">
     <div id="divResp"></div>
+    
       <form method="POST" id="formAlumno" name="formAlumno">
 
         <div class='row'>
           <div class='input-field col s6'>
-            <input placeholder="Cédula" class='validate' type='text' name='cedula' id='cedula' pattern="^[^0\-][0-9+]{8,10}" title="Solo puede insertar numeros con un minimo de 9 digitos" required />
+            <input placeholder="Cédula" class='validate' type='text' name='cedula' id='cedula' title="Este campo es requerido" required />
             <label for='cedula'>Ingresar la Cédula</label>
 
           </div>
@@ -66,7 +67,7 @@
 
           <div class='row'>
             <div class='input-field col s6'>
-              <input placeholder="Nombre" class='validate' type='text' name='nombre' id='nombre' maxlength="25" required pattern="[ a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+{1,25}" title="No se pueden introducir caracteres especiales. O un largo maximo de 25 caracteres" />
+              <input placeholder="Nombre" class='validate' type='text' name='nombre' id='nombre' maxlength="25" required title="Este campo es requerido."  />
               <label for='nombre'>Ingresar el Nombre</label>
 
             </div>
@@ -74,13 +75,13 @@
 
           <div class='row'>
             <div class='input-field col s6'>
-              <input placeholder="Primer Apellido" class='validate' type='text' name='apellido1' id='apellido1' maxlength="25" required pattern="[ a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]+{1,25}" title="No se pueden introducir caracteres especiales. O un largo maximo de 25 caracteres"  />
+              <input placeholder="Primer Apellido" class='validate' type='text' name='apellido1' id='apellido1' maxlength="25" required title="Este campo es requerido"  />
               <label for='apellido1'>Ingresar el Primer Apellido</label>
             </div>
 
             <div class='row'>
               <div class='input-field col s6'>
-                <input placeholder="Segundo Apellido" class='validate' type='text' name='apellido2' id='apellido2' maxlength="25" required pattern="[ a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+{1,25}" title="No se pueden introducir caracteres especiales. O un largo maximo de 25 caracteres"  />
+                <input placeholder="Segundo Apellido" class='validate' type='text' name='apellido2' id='apellido2' maxlength="25" required  title="Este campo es requerido"  />
                 <label for='apellido2'>Ingresar Segundo Apellido</label>
               </div>
             </div>
@@ -88,7 +89,7 @@
 
             <div class="col s6">
               <select name="sexo" id="sexo" class="browser-default " required>
-                <option value="" disabled selected hidden>Seleccionar el Género</option>
+                <option value="Masculino" disabled selected hidden>Seleccionar el Género</option>
                 <option value="Masculino">Masculino</option>
                 <option value="Femenino">Femenino</option>
               </select>
@@ -118,7 +119,7 @@
           <div class="row">
 
             <div class="input-field col s12">
-              <textarea placeholder="" id="direccion" class="materialize-textarea validate" name="direccion" data-length="100" required pattern="[ a-zA-ZñÑáéíóúÁÉÍÓÚ\s -]+{1,100}" title="No se pueden introducir caracteres especiales"></textarea>
+              <textarea placeholder="" id="direccion" class="materialize-textarea validate" name="direccion" data-length="100" required title="No se pueden introducir caracteres especiales"></textarea>
               <label for="direccion">Ingresar la Dirección</label>
 
             </div>

@@ -65,9 +65,9 @@ switch ($_GET["opcion"]){
                 //         document.getElementById("contenido").innerHTML="";
                 //       </script>'; 
                 // header("HTTP/1.1 301 Moved Permanently"); 
-                // header("Location: http://sedricr.com/vistas/UIListaAlumno.php",TRUE,301); 
+                // header("Location: http://localhost:8888/SEDRI/vistas/UIListaAlumno.php",TRUE,301); 
                 // exit();
-                // header('Location: http://sedricr.com/vistas/UIListaAlumno.php');
+                // header('Location: http://localhost:8888/SEDRI/vistas/UIListaAlumno.php');
                 //  echo "<script  type='text/javascript'>window.location='../vistas/UIMantenimientoBeca.php';</script>" ;
                 // echo '<script type="text/javascript">alert("hello!");</script>'; 
             }
