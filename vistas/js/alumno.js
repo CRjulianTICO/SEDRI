@@ -8,12 +8,15 @@ function validar(){
 
   var nombre = document.getElementById("nombre").value;
   var cedula  = document.getElementById("cedula").value;
+  //var cedulaaawda  = document.getElementsById("cedula").value;
   var apellido1 = document.getElementById("apellido1").value;
   var apellido2 = document.getElementById("apellido2").value;
 
-  if (expRegCedula.test(cedula)) {
+  
     if (expRegNombre.test(nombre)) {
+      console.log("Nombre validacion");
       if (expRegNombre.test(apellido1)==true && expRegNombre.test(apellido2)==true) {
+        console.log("Apellidos validacion");
         estado = true;
       }else{
         estado = false;
@@ -22,10 +25,10 @@ function validar(){
     }else{
       estado = false;
     }
-  }else{
-    estado = false;
-  }  
-  console.log("estado: "+estado)
+ //console.log(cedulaaawda);
+  console.log(cedula);
+  console.log(expRegCedula.test(cedula));
+  console.log("estado: "+estado);
   return estado;
 }
 
@@ -112,8 +115,9 @@ function listar(idGrado) {
 //Función para guardar o editar
 
 function guardar(e) {
+  var resp = true;
   if (validar()) {
-   /* e.preventDefault();
+    e.preventDefault();
     var DATOS = ($("#formAlumno").serialize());
     $.ajax({
       url: "../controlador/alumno.php?opcion=guardar",
@@ -137,13 +141,14 @@ function guardar(e) {
         cargarPais();
       }
       
-    });*/
+    });
   }else{
     $('#divResp').show();
-          document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2 full-width";
-          document.getElementById('divResp').innerHTML='<h6>No se llenaron los datos correspondientes o tienen el formato adecuado</h6>';
+    document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2 full-width";
+    document.getElementById('divResp').innerHTML='<h6>No se llenaron los datos correspondientes o no tienen el formato adecuado</h6>';
+    resp = false;
   }
- 
+ return resp;
 
 }
 
@@ -164,7 +169,7 @@ function activar(cedula) {
 }
 
 function limpiar() {
-
+  
   $("#nombre").val("");
   $("#apellido1").val("");
   $("#apellido2").val("");
@@ -345,14 +350,7 @@ function init() {
   listar();
 
 $( "#btnEditar" ).click(function() {
-  if (validar()) {
-    editar();
-  }else{
-    document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2 full-width";
-      document.getElementById('divResp').innerHTML='<h6>No se llenaron los datos correspondientes o tienen el formato adecuado</h6>';
-    
-  }
-  
+  editar();
 });
 
   if ($('.cbGrados').is(":hidden")) {
@@ -364,13 +362,7 @@ $( "#btnEditar" ).click(function() {
   });
   cargarPais();
   $("#formAlumno").on("submit", function (e) {
-    if (validar()) {
       guardar(e);
-    }else{
-      $('#divResp').show();
-      document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2 full-width";
-      document.getElementById('divResp').innerHTML='<h6>No se llenaron los datos correspondientes o tienen el formato adecuado</h6>';
-    }
     
   })
 

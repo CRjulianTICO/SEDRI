@@ -36,14 +36,14 @@
     <form method="post" id="formEncargado">
       <div class='row'>
         <div class='input-field col s6'>
-          <input placeholder="Cédula" class='validate' type='text' name='cedula' id='cedula' required pattern="^[^0][0-9]{8,10}" title="Solo puede insertar numeros con un minimo de 9 digitos"/>
+          <input placeholder="Cédula" class='validate' type='text' name='cedula' id='cedula' required />
           <label for='cedula'>Ingresar la Cédula</label>
         </div>
 
 
         <div class='row'>
           <div class='input-field col s6'>
-            <input placeholder="Nombre" class='validate' type='text' name='nombre' id='nombre' maxlength="25" required  pattern="[A-Za-z ]{1,25}" title="No se pueden introducir caracteres especiales"/>
+            <input placeholder="Nombre" class='validate' type='text' name='nombre' id='nombre' maxlength="25" required  />
             <label for='nombre'>Ingresar el Nombre</label>
           </div>
         </div>
@@ -51,14 +51,14 @@
         <div class='row'>
           <div class='input-field col s6'>
             <input placeholder="Primer Apellido" class='validate' type='text' name='apellido1' id='apellido1' maxlength="25"
-              required  pattern="[A-Za-z ]{1,25}" title="No se pueden introducir caracteres especiales"/>
+              required />
             <label for='apellido1'>Ingresar el Primer Apellido</label>
           </div>
 
           <div class='row'>
             <div class='input-field col s6'>
               <input placeholder="Segundo Apellido" class='validate' type='text' name='apellido2' id='apellido2'
-                maxlength="25" required pattern="[A-Za-z ]{1,25}" title="No se pueden introducir caracteres especiales"/>
+                maxlength="25" required />
               <label for='apellido2'>Ingresar Segundo Apellido</label>
             </div>
           </div>
@@ -66,14 +66,14 @@
           <div class='row'>
             <div class='input-field col s6'>
               <input placeholder="Numero de Telefono" class='validate' type='text' name='telefono' id='telefono'
-                 required pattern="^[^0][0-9]{7,8}" title="Solo puede insertar numeros con un minimo de 8 digitos"/>
+                 required />
               <label for='telefono'>Ingresar Número de Teléfono</label>
             </div>
 
             <div class='row'>
               <div class='input-field col s6'>
                 <input placeholder="Numero de telefono secundario" class='validate' type='text' name='telefono_secundario'
-                  id='telefono_secundario' pattern="^[^0][0-9]{0,8}" title="Solo puede insertar numeros con un minimo de 8 digitos" />
+                  id='telefono_secundario'  />
                 <label for='telefono_secundario'>Telefono Secundario</label>
               </div>
             </div>
@@ -120,7 +120,7 @@
           </div>
           <div class="row">
             <div class="col s12">
-              <button class="btn waves-effect waves-light green full-width" type="submit" name="Guardar" id="btnguardar">Guardar
+              <button class="btn waves-effect waves-light green full-width" type="submit" name="Guardar" id="btnguardar" onclick="return guardarEncargado(this);">Guardar
                 <i class="material-icons right">done</i><br></button>
             </div>
 

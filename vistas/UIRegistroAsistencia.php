@@ -61,7 +61,19 @@ require 'header.php';
  $('.datepicker').pickadate({
   selectMonths: true,// Creates a dropdown to control month
   selectYears: 15, // Creates a dropdown of 15 years to control year,
-  format: 'yyyy/mm/dd'
+  format: 'yyyy/mm/dd',
+  labelMonthNext: 'Siguiente Mes',
+  labelMonthPrev: 'Mes Anterior',
+  labelMonthSelect: 'Selecione un Mes',
+  labelYearSelect: 'Seleccione un Año',
+  monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
+  monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Agos', 'Sep', 'Oct', 'Nov', 'Dec' ],
+  weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado' ],
+  weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
+  weekdaysLetter: [ 'D', 'L', 'K', 'M', 'J', 'V', 'S' ],
+  today: 'Hoy',
+  clear: 'Limpiar',
+  close: 'Cerrar'
 });
 
  

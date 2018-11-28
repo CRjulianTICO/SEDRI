@@ -59,7 +59,7 @@
 
         <div class='row'>
           <div class='input-field col s6'>
-            <input placeholder="Cédula" class='validate' type='text' name='cedula' id='cedula' title="Este campo es requerido" required />
+            <input placeholder="Cédula" class='validate incedula' type='text' name='cedula' id="cedula" title="Este campo es requerido" required />
             <label for='cedula'>Ingresar la Cédula</label>
 
           </div>
@@ -140,14 +140,14 @@
           <br><br>
           <div class="row">
             <div class="col s12">
-              <button class="btn waves-effect waves-light green guardaEst full-width" type="submit" name="Guardar" id="btnguardar">Guardar
+              <button class="btn waves-effect waves-light green guardaEst full-width" type="submit" onclick="return guardar(this);" name="Guardar" id="btnguardar">Guardar
                 <i class="material-icons right">done</i><br></button></div>
           </div>
         </div>
         <br>
         <div class="row" id="botones">
         <div class="col s6">
-          <button name="editar" type="button" id="btnEditar" class="btn waves-effect waves-light blue editaEst full-width">Editar<i class="material-icons right">edit</i></button>
+          <button name="editar" type="button" id="btnEditar" onclick="return editar(this)" class="btn waves-effect waves-light blue editaEst full-width">Editar<i class="material-icons right">edit</i></button>
         </div>
         <div class="col s6">
           <button class="btn waves-effect waves-light red cancelEst full-width" name="eliminar" type="button" onclick="cancelarform();">Cancelar

@@ -70,8 +70,11 @@
               </div>
 
              
-              <a class='blue-text subtitle' href='RecuperaPassword.php'><b>Olvidó su contraseña</b> <i class="material-icons">help</i></a>
-							
+              <button  name="VerClave" type="button" id="btn_VC" class="btn waves-effect blue ">
+              <i class="material-icons white-text">visibility</i></button>
+             
+              <a class='blue-text subtitle ' href='RecuperaPassword.php'><b>Olvidó su contraseña</b> <i class="material-icons">help</i></a>
+						
             
 							
             </div>
