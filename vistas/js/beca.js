@@ -1,4 +1,40 @@
 var tabla;
+var estado;
+
+
+function validar(){
+  
+  var expRegCedula = new RegExp("^[^0\-][0-9+]{1,9}");
+  var expRegNombre = new RegExp("[ a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+");
+
+  var descripcion = document.getElementById("descripcionBeca").value;
+  var cedula  = document.getElementById("cedula").value;
+  //var cedulaaawda  = document.getElementsById("cedula").value;
+  var monto = document.getElementById("monto").value;
+
+  
+    if (expRegCedula.test(cedula)) {
+      console.log("Nombre validacion");
+      if (expRegNombre.test(descripcion)==true && expRegCedula.test(monto)==true) {
+        console.log("descripcion y monto validacion");
+        estado = true;
+      }else{
+        estado = false;
+      }
+      
+    }else{
+      estado = false;
+    }
+ //console.log(cedulaaawda);
+  console.log(cedula);
+  console.log(expRegCedula.test(cedula));
+  console.log("estado: "+estado);
+  return estado;
+}
+
+
+
+
 function mostrarFormularioBeca(estado){
     if(estado){
         $('#tabla').hide();
@@ -60,7 +96,9 @@ function listar(){
 }
 
 function guardar(e){
-    e.preventDefault();
+    var resp = true;
+    if (validar()) {
+        e.preventDefault();
     var DATOS = ($("#formBeca").serialize());
     console.log(DATOS);
   	$.ajax({
@@ -70,13 +108,15 @@ function guardar(e){
 
   	    success: function(datos)
   	    {
-                tabla.ajax.reload();
                 
+                tabla.ajax.reload();
                 if(datos=="Registrado"){
+                  
                   $('#divResp').show();
                   document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
                   document.getElementById('divResp').innerHTML='<h5>Se guardo exitosamente!</h5>';
                 }else{
+                    
                   $('#divResp').show();
                   document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
                   document.getElementById('divResp').innerHTML='<h5>Ocurrio un Error!</h5>';
@@ -90,6 +130,13 @@ function guardar(e){
 
       });
       limpiar();
+    }else{
+        $('#divResp').show();
+        document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+        document.getElementById('divResp').innerHTML='<h5>Debe llenar los campos en el formato requerido!</h5>';
+        resp = false;
+    }
+    return resp;
 }
 
 function mostrar(id){
@@ -107,8 +154,10 @@ function mostrar(id){
     })
 }
 
-function editar(){
-    var DATOS = ($("#formBeca").serialize());
+function editar(e){
+    var resp = true;
+    if (validar()) {
+       var DATOS = ($("#formBeca").serialize());
     $.ajax({
         url: "../controlador/beca.php?opcion=editar",
         method: "POST",
@@ -122,6 +171,7 @@ function editar(){
                   $('#divResp').show();
                   document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
                   document.getElementById('divResp').innerHTML='<h5>Se actualizo exitosamente!</h5>';
+                  mostrarFormularioBeca(false);
                 }else{
                   $('#divResp').show();
                   document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
@@ -134,7 +184,14 @@ function editar(){
 
         }
 
-    });
+    }); 
+    }else{
+        $('#divResp').show();
+        document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+        document.getElementById('divResp').innerHTML='<h5>Debe llenar los campos en el formato requerido!</h5>';
+        resp = false;
+    }
+    return resp;
 
 }
 
@@ -168,6 +225,7 @@ function INIT(){
     $('#divResp').hide();
 
      $("#formBeca").on("submit",function(e){
+
   		guardar(e);
   	 })
 }

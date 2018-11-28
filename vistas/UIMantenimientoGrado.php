@@ -31,7 +31,7 @@ $fecha =  date("Y"); ?>
 
 <div class='row'>
   <div class='input-field col s6'>
-    <input placeholder="Nombre" class='validate' type='text' name='nombreGrado' id='nombreGrado' maxlength="25" required pattern="[A-Za-z0-9\- ]{1,25}" title="No se pueden introducir caracteres especiales"/>
+    <input placeholder="Nombre" class='validate' type='text' name='nombreGrado' id='nombreGrado' maxlength="25" required/>
     <label for='nombreGrado'>Ingresar el Nombre</label>
     </div>
     <div class="input-field col s6">
@@ -40,6 +40,9 @@ $fecha =  date("Y"); ?>
           <option value="2018">2018</option>
           <option value="2019">2019</option>
           <option value="2020">2020</option>
+          <option value="2020">2021</option>
+          <option value="2020">2022</option>
+
           </select>
     </div>
     </div>
@@ -51,7 +54,7 @@ $fecha =  date("Y"); ?>
 
 <div class="row">
   <div class="col s4">
-    <button class="btn waves-effect waves-light green guardaEst" type="submit" name="Guardar" id="btnGuardar">Guardar
+    <button class="btn waves-effect waves-light green guardaEst" type="submit" name="Guardar" id="btnGuardar" onclick="return guardar(this);">Guardar
 <i class="material-icons right">done</i><br></button></div>
 </div>
 </div>
