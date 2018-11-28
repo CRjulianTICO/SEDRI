@@ -33,7 +33,7 @@
 
         <div class='row'>
           <div class='input-field col s6'>
-            <input placeholder="Cédula" class='validate' type='text' name='cedula' id='cedula' pattern="^[^0][0-9]{8,10}"  title="Solo puede insertar numeros con un minimo de 9 digitos" required />
+            <input placeholder="Cédula" class='validate' type='text' name='cedula' id='cedula' pattern="^[^0][0-9]{8,9}"  title="Solo puede insertar numeros con un minimo de 9 digitos" required />
             <label for='cedula'>Ingresar la Cédula</label>
 
           </div>
