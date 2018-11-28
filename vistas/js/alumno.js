@@ -1,4 +1,36 @@
 var tabla;
+var estado;
+
+function validar(){
+  
+  var expRegCedula = new RegExp("^[^0\-][0-9+]{8,9}");
+  var expRegNombre = new RegExp("[ a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+");
+
+  var nombre = document.getElementById("nombre").value;
+  var cedula  = document.getElementById("cedula").value;
+  //var cedulaaawda  = document.getElementsById("cedula").value;
+  var apellido1 = document.getElementById("apellido1").value;
+  var apellido2 = document.getElementById("apellido2").value;
+
+  
+    if (expRegNombre.test(nombre)) {
+      console.log("Nombre validacion");
+      if (expRegNombre.test(apellido1)==true && expRegNombre.test(apellido2)==true) {
+        console.log("Apellidos validacion");
+        estado = true;
+      }else{
+        estado = false;
+      }
+      
+    }else{
+      estado = false;
+    }
+ //console.log(cedulaaawda);
+  console.log(cedula);
+  console.log(expRegCedula.test(cedula));
+  console.log("estado: "+estado);
+  return estado;
+}
 
 
 $(document).ready(function () {
@@ -83,31 +115,40 @@ function listar(idGrado) {
 //Función para guardar o editar
 
 function guardar(e) {
-  e.preventDefault();
-  var DATOS = ($("#formAlumno").serialize());
-  $.ajax({
-    url: "../controlador/alumno.php?opcion=guardar",
-    method: "POST",
-    data: DATOS,
+  var resp = true;
+  if (validar()) {
+    e.preventDefault();
+    var DATOS = ($("#formAlumno").serialize());
+    $.ajax({
+      url: "../controlador/alumno.php?opcion=guardar",
+      method: "POST",
+      data: DATOS,
 
-    success: function (datos) {
-      tabla.ajax.reload();
-      console.log("Datos"+datos)
-      if(datos.includes("Registrado")){
-        $('#divResp').show();
-        document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2 full-width";
-        document.getElementById('divResp').innerHTML='<h6>Se registro un nuevo alumno</h6>';
-      }else{
-        $('#divResp').show();
-        document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
-        document.getElementById('divResp').innerHTML='<h6>Ocurrió un error</h6>';
-      
+      success: function (datos) {
+        tabla.ajax.reload();
+        console.log("Datos"+datos)
+        if(datos.includes("Registrado")){
+          $('#divResp').show();
+          document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2 full-width";
+          document.getElementById('divResp').innerHTML='<h6>Se registro un nuevo alumno</h6>';
+        }else{
+          $('#divResp').show();
+          document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+          document.getElementById('divResp').innerHTML='<h6>Ocurrió un error</h6>';
+        
+        }
+        limpiar();
+        cargarPais();
       }
-      limpiar();
-      cargarPais();
-    }
-    
-  });
+      
+    });
+  }else{
+    $('#divResp').show();
+    document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2 full-width";
+    document.getElementById('divResp').innerHTML='<h6>No se llenaron los datos correspondientes o no tienen el formato adecuado</h6>';
+    resp = false;
+  }
+ return resp;
 
 }
 
@@ -128,7 +169,7 @@ function activar(cedula) {
 }
 
 function limpiar() {
-
+  
   $("#nombre").val("");
   $("#apellido1").val("");
   $("#apellido2").val("");
@@ -187,36 +228,44 @@ function cargarPais() {
 }
 
 function editar() {
-  //No se activará la acción predeterminada del evento
-  var DATOS = ($("#formAlumno").serialize());
-  console.log('DATOS ENVIADOS CON JS' + DATOS);
-  $.ajax({
-    url: "../controlador/alumno.php?opcion=editar",
-    method: "POST",
-    data: DATOS,
+  if (validar()) {
+      //No se activará la acción predeterminada del evento
+    var DATOS = ($("#formAlumno").serialize());
+    console.log('DATOS ENVIADOS CON JS' + DATOS);
+    $.ajax({
+      url: "../controlador/alumno.php?opcion=editar",
+      method: "POST",
+      data: DATOS,
 
 
-    success: function (datos) {
-      if(datos.includes("Registrado")){
-        $('#divResp').show();
-        document.getElementById("divRespE").className = "card-panel green darken-2 white-text lighten-2 full-width";
-        document.getElementById('divRespE').innerHTML='<h6>Se edito un estudiante</h6>';
-      }else{
-        $('#divResp').show();
-        document.getElementById("divRespE").className = "card-panel red darken-2 white-text lighten-2";
-        document.getElementById('divRespE').innerHTML='<h6>Ocurrió un error al acutalizar los datos</h6>';
-      
+      success: function (datos) {
+        if(datos.includes("Registrado")){
+          $('#divResp').show();
+          document.getElementById("divRespE").className = "card-panel green darken-2 white-text lighten-2 full-width";
+          document.getElementById('divRespE').innerHTML='<h6>Se edito un estudiante</h6>';
+        }else{
+          $('#divResp').show();
+          document.getElementById("divRespE").className = "card-panel red darken-2 white-text lighten-2";
+          document.getElementById('divRespE').innerHTML='<h6>Ocurrió un error al acutalizar los datos</h6>';
+        
+        }
+        tabla.ajax.reload();
+        limpiar();
+        mostrarform(false);
+
       }
-      tabla.ajax.reload();
-      limpiar();
-      mostrarform(false);
-
-    }
 
 
-  });
-  //limpiar
+    });
+    //limpiar
 
+  }else{
+      $('#divResp').show();
+      document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2 full-width";
+      document.getElementById('divResp').innerHTML='<h6>No se llenaron los datos correspondientes o tienen el formato adecuado</h6>';
+  
+  }
+ 
 }
 
 function cargarGrupo() {
@@ -313,7 +362,8 @@ $( "#btnEditar" ).click(function() {
   });
   cargarPais();
   $("#formAlumno").on("submit", function (e) {
-    guardar(e);
+      guardar(e);
+    
   })
 
 }

@@ -1,4 +1,41 @@
 var tabla;
+function validar(){
+  
+  var expRegCedula = new RegExp("^[^0\-][0-9+]{8,9}");
+  var expRegNombre = new RegExp("[ a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+");
+  var expRegTelefono = new RegExp("^[^01359][0-9]{7,8}");
+
+  var nombre = document.getElementById("nombre").value;
+  var cedula  = document.getElementById("cedula").value;
+  var telefono = document.getElementById("telefono").value;
+  var apellido1 = document.getElementById("apellido1").value;
+  var apellido2 = document.getElementById("apellido2").value;
+
+  
+    if (expRegNombre.test(nombre)) {
+      console.log("Nombre validacion");
+      if (expRegNombre.test(apellido1)==true && expRegNombre.test(apellido2)==true) {
+        console.log("Apellidos validacion");
+        if (expRegCedula.test(cedula) && expRegTelefono.test(telefono)) {
+          console.log("Apellidos validacion");
+          estado = true;
+        }else{
+          estado = false;
+        }
+      }else{
+        estado = false;
+      }
+    }else{
+      estado = false;
+    }
+ //console.log(cedulaaawda);
+  console.log(cedula);
+  console.log(expRegCedula.test(cedula));
+  console.log("estado: "+estado);
+  return estado;
+}
+
+
 $( "#btnEditar" ).click(function() {
   editar();
 });
@@ -59,7 +96,9 @@ function listar() {
 //Función para guardar o editar
 
 function guardarEncargado(e) {
-  console.log('ENTRANDO 2...');
+  var resp = true;
+  if (validar()) {
+    console.log('ENTRANDO 2...');
   e.preventDefault(); //No se activará la acción predeterminada del evento
   var DATOS = ($("#formEncargado").serialize());
   console.log('Datos de formulario' + DATOS);
@@ -77,6 +116,13 @@ function guardarEncargado(e) {
 
   });
   //limpiar
+  }else{
+     $('#divResp').show();
+    document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2 full-width";
+    document.getElementById('divResp').innerHTML='<h6>No se llenaron los datos correspondientes o no tienen el formato adecuado</h6>';
+    resp = false;
+  }
+  return resp;
 }
 
 function desactivar(cedula) {
@@ -299,7 +345,7 @@ function init() {
   cargarGrado();
   listar();
   cargarPais();
-  
+  $('#divResp').hide();
   $("#formEncargado").on("submit", function (e) {
     guardarEncargado(e);
   })
