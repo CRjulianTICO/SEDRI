@@ -2,13 +2,14 @@
   session_start();
   if(isset($_SESSION["token"])){
 
-    header("Location: http://localhost:8888/SEDRI/controlador/autenticacionTokens.php");
+    header("Location: http://sedricr.com/controlador/autenticacionTokens.php");
     exit();
   }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
+<title>SEDRI</title>
   <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -21,6 +22,9 @@
 <link href="../public/css/estilos.css?hi" rel="stylesheet"/>
 <link href="../public/css/menuProfesor.css?ki" rel="stylesheet"/>
 <link href="../public/css/login.css?hi" rel="stylesheet"/>
+<link rel="icon" 
+        type="image/png" 
+        href="../public/images/favicon.ico">
 
 
 </head>
@@ -55,19 +59,20 @@
                 	
              <i class="material-icons prefix ">account_circle</i>
                 <input class='validate' type='text' name='user' id='user' min="100000" max="9999999" placeholder="" required />
-                <label for='cedula'>Ingresa la Cédula</label>
+                <label for='cedula'>Ingresar la Cédula</label>
               </div>
             </div>
 
             <div class='row'>
               <div class='input-field col s12'>
               	<i class="material-icons prefix">lock</i>
-                <input class='validate' type='password' name='pass' id='pass' pattern=".{6,}" title="Debe tener 6-10 caracteres" placeholder="" required />
-                <label for='password'>Digita la contraseña</label>
+                <input class='validate' type='password' name='pass' id='pass' pattern=".{6,}" title="Debe tener 6-10 caracteres" required pattern="^[^0][0-9]{9,10}"/>
+                <label for='password'>Digitar la contraseña</label>
               </div>
-
+              <button  name="VerClave" type="button" id="btn_VC" class="btn-small waves blue ">
+  <i class="material-icons white-text">visibility</i></button>
              
-              <a class='blue-text subtitle' href='RecuperaPassword.php'><b>Olvido su contraseña</b> <i class="material-icons">help</i></a>
+              <a class='blue-text subtitle' href='vistas/RecuperaPassword.php'><b>Olvidó su contraseña</b> <i class="material-icons">help</i></a>
 							
             
 							
@@ -100,7 +105,7 @@
 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
   
-   <script src="js/login.js?new"></script>
+   <script src="vistas/js/login.js"></script>
 
 </body>
 

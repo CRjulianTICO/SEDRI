@@ -15,14 +15,14 @@
     $tipoProfe = $dataToken["tipoProfesor"];
   }else
   {
-    header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
+    header("Location: http://sedricr.com/vistas/Login.php");
   }
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-  <title></title>
+  <title>Profesor</title>
   <!-- JQuery / Materialize CSS + JavaScript imports -->
 
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -35,8 +35,9 @@
   <link href="../public/datatables/responsive.dataTables.min.css" rel="stylesheet" />
   <link href="../public/css/menuProfesor.css?ki" rel="stylesheet" />
   <link href="../public/css/estilos.css" rel="stylesheet" />
-
-
+  <link rel="icon" 
+        type="image/png" 
+        href="../public/images/favicon.ico">
 
 
 </head>
@@ -82,12 +83,12 @@
 
 
                 <li>
-                  <a class="collapsible-header waves-effect">Asistencias<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left blue-text">group</i></a>
+                  <a class="collapsible-header waves-effect">Asistencias<i class="material-icons right blue-text">arrow_drop_down</i><i class="material-icons left grey-text">group</i></a>
                   <div class="collapsible-body">
                     <ul>
                       <a href="../vistas/UIAsistenciaAlumno.php" class="waves-effect">Asistencia<i class="material-icons left red-text registroIcono">content_paste</i></a>
                       <li>
-                        <a href="../vistas/UIRegistroAsistencia.php" class="waves-effect">Registro<i class="material-icons left green-text agregarIcono">add_circle</i></a>
+                        <a href="../vistas/UIRegistroAsistencia.php" class="waves-effect">Registro<i class="material-icons left green-text agregarIcono">chrome_reader_mode</i></a>
                       </li>
 
                     </ul>
@@ -98,9 +99,9 @@
                   <a class="collapsible-header waves-effect">Encargado<i class="material-icons right grey-text">arrow_drop_down</i><i class="material-icons left grey-text">assignment_ind</i></a>
                   <div class="collapsible-body">
                     <ul>
-                      <a href="UiMantenimientoEncargado.php" class="waves-effect">Registro<i class="material-icons left red-text registroIcono">folder_shared</i></a>
+                      <a href="UIMantenimientoEncargado.php" class="waves-effect">Registro<i class="material-icons left red-text registroIcono">folder_shared</i></a>
                       <li>
-                        <a onclick="redireccionarEncargado();" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
+                        <a onclick="redireccionarEncargado(); mostrarform(true);" class="waves-effect">Agregar<i class="material-icons left green-text agregarIcono">add_circle</i></a>
                       </li>
                     </ul>
                   </div>
@@ -129,7 +130,7 @@
 
 
 
-            <li><a href="../controlador/Logout.php">Cerrar Sesion<i class="material-icons left">exit_to_app</i></a></li>
+            <li><a href="../controlador/Logout.php">Cerrar Sesión<i class="material-icons left">exit_to_app</i></a></li>
           </ul>
           <!--fin del menu frontal-->
         </div>

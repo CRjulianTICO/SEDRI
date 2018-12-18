@@ -1,4 +1,32 @@
 var tabla;
+
+
+
+
+function validar(){
+  
+  var expRegCedula = new RegExp("^[^0\-][0-9+]{8,9}");
+  var expRegNombre = new RegExp("[ 1-9a-zA-ZñÑáéíóúÁÉÍÓÚ\s\-]+");
+
+  var nombre = document.getElementById("nombreGrado").value;
+  
+
+  
+    if (expRegNombre.test(nombre)) {
+      console.log("Nombre validacion");
+      
+        estado = true;
+    }else{
+        estado = false;
+    }
+
+ //console.log(cedulaaawda);
+  
+  console.log("estado: "+estado);
+  return estado;
+}
+
+
 function mostrarFormulario(estado){
     if(estado){
         $('#tabla').hide();
@@ -6,6 +34,7 @@ function mostrarFormulario(estado){
     }else{
         $('#tabla').show();
         $('#formulario').hide();
+        mostrarBotones(false);
         limpiar();
     }
 }
@@ -55,7 +84,9 @@ function listar(){
 }
 
 function guardar(e){
-    e.preventDefault();
+    var resp = true;
+    if (validar()) {
+    //e.preventDefault();
     var DATOS = ($("#formGrado").serialize());
     console.log(DATOS);
   	$.ajax({
@@ -65,7 +96,9 @@ function guardar(e){
 
   	    success: function(datos)
   	    {
+              
               if(datos=="Registrado"){
+                  tabla.ajax.reload();
                   $('#divResp').show();
                   document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
                   document.getElementById('divResp').innerHTML='<h5>Se guardo exitosamente!</h5>';
@@ -75,7 +108,7 @@ function guardar(e){
                   document.getElementById('divResp').innerHTML='<h5>Ocurrio un Error!</h5>';
                 
                 }
-                tabla.ajax.reload();
+                
                 
                 limpiar();
               mostrarFormulario(false);
@@ -83,6 +116,14 @@ function guardar(e){
 
       });
       limpiar();
+    }else{
+        $('#divResp').show();
+                  document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+                  document.getElementById('divResp').innerHTML='<h5>Debe llenar los campos en el formato solicitado!</h5>';
+        resp= false;
+    }
+    return resp;
+    
 }
 
 function mostrar(id){
@@ -99,7 +140,9 @@ function mostrar(id){
 }
 
 function editar(){
-    var DATOS = ($("#formGrado").serialize());
+    var resp = true;
+    if (validar()) {
+         var DATOS = ($("#formGrado").serialize());
     $.ajax({
         url: "../controlador/grado.php?opcion=editar",
         method: "POST",
@@ -114,6 +157,14 @@ function editar(){
         }
 
     });
+    }else{
+        $('#divResp').show();
+        document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+        document.getElementById('divResp').innerHTML='<h5>Debe llenar los campos en el formato solicitado!</h5>';
+        resp = false;
+    }
+    return false;
+   
 
 }
 

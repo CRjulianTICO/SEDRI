@@ -69,6 +69,11 @@
 				$sql = "SELECT * FROM vista_alumno WHERE cedula='".$cedula."'";
 				return consultaSimple($sql);
 			}
+			
+			public function listarTodosAlumnos(){
+				$sql = "SELECT * FROM vista_alumno";
+				return consulta($sql);
+			}
 
 			public function listarAlumnos($grado)
 			{

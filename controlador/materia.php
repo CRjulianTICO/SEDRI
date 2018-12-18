@@ -28,12 +28,10 @@ switch ($_GET["opcion"]){
  				"0"=>$reg->idmateria,
 				 "1"=>$reg->nombre,
 				 "2"=>$reg->tipo,
- 				"3"=>($reg->estado)?'<span class="label bg-green">Activado</span>':
+ 				"3"=>($reg->estado)?'<span class="label green-text">Disponible</span>':
  				'<span class="label bg-red">Desactivado</span>',
- 				"4"=>($reg->estado)?'<button class="mostrarEditar" onclick="mostrar('.$reg->idmateria.')"><i class="material-icons center blue-text ">edit</i></button>'.
- 					' <button class="mostrarBlock" onclick="desactivar('.$reg->idmateria.')"><i class="material-icons center red-text ">block</i></button>':
- 					'<button class="mostrarEditar" onclick="mostrar('.$reg->idmateria.')"><i class="material-icons center blue-text ">edit</i></button>'.
- 					' <button class="mostrarCheck" onclick="activar('.$reg->idmateria.')"><i class="material-icons center green-text">check</i></button>',
+ 				"4"=>'<button class="bg-blue" onclick="mostrar('.$reg->idmateria.')"><i class="material-icons center white-text ">edit</i></button>
+					 <button class="bg-red" onclick="desactivar('.$reg->idmateria.')"><i class="material-icons center white-text ">block</i></button>'
  				);
  		}
  		$results = array(

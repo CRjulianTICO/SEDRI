@@ -53,6 +53,7 @@ function mostrarform(bool) {
   } else {
     limpiar();
     mostrarbotones(false);
+    $('#divGrado').hide();
     $("#tabla").show();
     $("#formulario").hide();
   }
@@ -110,7 +111,7 @@ function guardar(e) {
 
       success: function(datos)
       {
-        if(datos=="Registrado"){
+        if(datos.includes("Registrado")){
                   $('#divResp').show();
                   document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2";
                   document.getElementById('divResp').innerHTML='<h5>Se guardo exitosamente!</h5>';
@@ -170,15 +171,15 @@ function mostrar(cedula) {
     mostrarform(true);
     mostrarbotones(true);
     data = JSON.parse(data);
-    $("#nombre").val(data.NOMBRE);
-    $("#apellido1").val(data.APELLIDO1);
-    $("#apellido2").val(data.APELLIDO2);
-    $("#cedula").val(data.CEDULA);
-    $("#telefono").val(data.TELEFONO);
-    $("#correo").val(data.EMAIL);
-    $("#direccion").val(data.DIRECCION);
-    $("#sexo").val(data.SEXO);
-    $("#nacionalidad").val(data.PAIS);
+    $("#nombre").val(data.nombre);
+    $("#apellido1").val(data.apellido1);
+    $("#apellido2").val(data.apellido2);
+    $("#cedula").val(data.cedula);
+    $("#telefono").val(data.telefono);
+    $("#correo").val(data.email);
+    $("#direccion").val(data.direccion);
+    $("#sexo").val(data.sexo);
+    $("#nacionalidad").val(data.pais);
     $('#divGrado').hide();
     $('#divMateria').hide();
     $('#divTipo').hide(); /*SE PUEDE ARREGLAR CON UN APPEND TAL VEZ UNA VISTA NUEVA O CURSOR */
@@ -192,8 +193,12 @@ function cargarPais() {
     dataType: "json",
     contentType: "application/json; charset=utf-8",
     success: function(data) {
+        $("#sexo").empty();
+        
+        $("#sexo").append("<option value='Masculino' disabled selected hidden>Seleccionar el Género</option><option value='Masculino'>Masculino</option><option value='Femenino'>Femenino</option>");
+
       $('#nacionalidad').empty();
-      $('#nacionalidad').append("<option disabled selected>Seleccionar Pais</option>");
+      $('#nacionalidad').append("<option disabled selected value=" + data[0].idNacionalidad +">Seleccionar Pais</option>");
       $.each(data, function(i, item) {
 
         $('#nacionalidad').append('<option value="' + data[i].idNacionalidad + '">' + data[i].pais + '</option>');
@@ -221,7 +226,7 @@ function editar() {
                 }else{
                   $('#divResp').show();
                   document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
-                  document.getElementById('divResp').innerHTML='<h5>Ocurrio un Error!</h5>';
+                  document.getElementById('divResp').innerHTML='<h5>Ocurrio un Error!</h5><br><h6>No puede crear Profesores que ya se han registrado con el mismo correo electronico o cedula.</h6>';
                 
                 }
             tabla.ajax.reload();
@@ -245,10 +250,10 @@ function cargarGrado() {
     contentType: "application/json; charset=utf-8",
     success: function(data) {
       $('#idgrado').empty();
-      $('#idgrado').append("<option value='1'>Seleccionar Grado</option>");
+      $('#idgrado').append("<option value=" + data[0].ID_GRADO + ">Seleccionar Grado</option>");
       $.each(data, function(i, item) {
 
-        $('#idgrado').append('<option value="' + data[i].ID_GRADO + '">' + data[i].NOMBRE_GRADO + ' ' + data[i].ANNIO + '</option>');
+        $('#idgrado').append('<option value="' + data[i].ID_GRADO + '">' + data[i].NOMBRE_GRADO + '</option>');
 
       });
     }
@@ -266,7 +271,7 @@ function listarMaterias() {
     contentType: "application/json; charset=utf-8",
     success: function(data) {
       $('#materia').empty();
-      $('#materia').append("<option value='5'>Seleccionar Materia</option>");
+      $('#materia').append("<option value="+ data[0].idmateria + ">Seleccionar Materia</option>");
       $.each(data, function(i, item) {
 
         $('#materia').append('<option value="' + data[i].idmateria + '">' + data[i].nombre + '</option>');

@@ -4,8 +4,11 @@ var idgrado;
 var trimestre;
 
 
+
+
 document.getElementById('btnGuardar').onclick = function(){
-    guardar();
+    idGrado = $('#cbGrados').val();
+    guardar(idGrado);
     $(".ced").prop("disabled", true);
 };
 
@@ -26,7 +29,7 @@ function listar(idGrado,trimestre){
   					}
   				},
   		"bDestroy": true,
-  		"iDisplayLength": 10,
+  		"iDisplayLength": 100,
           "order": [[ 1, "asc" ]],//Ordenar (columna,orden),
 
     }).DataTable();
@@ -59,10 +62,9 @@ function cargarGrados(){
 
 
 
-function guardar(){
+function guardar(idgrado){
     //e.preventDefault();
-    count = $('#tblNotas tbody tr').length;
-
+count = $('#tblNotas tbody tr').length;
      $(".ced").prop("disabled", false);
 
 for (index = 1; index <= count; index++) {

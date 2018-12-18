@@ -1,7 +1,44 @@
 var tabla;
-document.getElementById('btnEditar').onclick = function(){
+function validar(){
+  
+  var expRegCedula = new RegExp("^[^0\-][0-9+]{8,9}");
+  var expRegNombre = new RegExp("[ a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+");
+  var expRegTelefono = new RegExp("^[^01359][0-9]{7,8}");
+
+  var nombre = document.getElementById("nombre").value;
+  var cedula  = document.getElementById("cedula").value;
+  var telefono = document.getElementById("telefono").value;
+  var apellido1 = document.getElementById("apellido1").value;
+  var apellido2 = document.getElementById("apellido2").value;
+
+  
+    if (expRegNombre.test(nombre)) {
+      console.log("Nombre validacion");
+      if (expRegNombre.test(apellido1)==true && expRegNombre.test(apellido2)==true) {
+        console.log("Apellidos validacion");
+        if (expRegCedula.test(cedula) && expRegTelefono.test(telefono)) {
+          console.log("Apellidos validacion");
+          estado = true;
+        }else{
+          estado = false;
+        }
+      }else{
+        estado = false;
+      }
+    }else{
+      estado = false;
+    }
+ //console.log(cedulaaawda);
+  console.log(cedula);
+  console.log(expRegCedula.test(cedula));
+  console.log("estado: "+estado);
+  return estado;
+}
+
+
+$( "#btnEditar" ).click(function() {
   editar();
-};
+});
 
 function mostrarform(bool) {
   if (bool) {
@@ -12,6 +49,7 @@ function mostrarform(bool) {
   } else {
     limpiar();
     mostrarbotones(false);
+    $(".btn-floating").hide();
     $("#tabla").show();
     $("#formulario").hide();
   }
@@ -19,6 +57,7 @@ function mostrarform(bool) {
 
 function mostrarbotones(bool) {
   if (bool) {
+      $(".btn-floating").show();
     $('.botones').show();
     $('#btnguardar').hide();
   } else {
@@ -57,7 +96,9 @@ function listar() {
 //Función para guardar o editar
 
 function guardarEncargado(e) {
-  console.log('ENTRANDO 2...');
+  var resp = true;
+  if (validar()) {
+    console.log('ENTRANDO 2...');
   e.preventDefault(); //No se activará la acción predeterminada del evento
   var DATOS = ($("#formEncargado").serialize());
   console.log('Datos de formulario' + DATOS);
@@ -75,10 +116,17 @@ function guardarEncargado(e) {
 
   });
   //limpiar
+  }else{
+     $('#divResp').show();
+    document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2 full-width";
+    document.getElementById('divResp').innerHTML='<h6>No se llenaron los datos correspondientes o no tienen el formato adecuado</h6>';
+    resp = false;
+  }
+  return resp;
 }
 
 function desactivar(cedula) {
-  $.post("../controlador/profesor.php?opcion=desactivar", {
+  $.post("../controlador/encargado.php?opcion=desactivar", {
     cedula: cedula
   }, function (e) {
     tabla.ajax.reload();
@@ -86,7 +134,7 @@ function desactivar(cedula) {
 }
 
 function activar(cedula) {
-  $.post("../controlador/profesor.php?opcion=activar", {
+  $.post("../controlador/encargado.php?opcion=activar", {
     cedula: cedula
   }, function (e) {
     tabla.ajax.reload();
@@ -104,13 +152,14 @@ function limpiar() {
   $("#correo").val("");
   $("#sexo").val("");
   $("#nacionalidad").text("");
-  $("#nota").text("");
-
+  $("#telefono_secundario").text("");
+  $("#estudiante").text("");
 
 
 }
 
 function mostrar(cedula) {
+    $(".btn-floating").show();
   $.post("../controlador/encargado.php?opcion=mostrar", {
     cedula: cedula
   }, function (data, status) {
@@ -173,8 +222,12 @@ function cargarPais() {
     dataType: "json",
     contentType: "application/json; charset=utf-8",
     success: function (data) {
+    
+        $("#sexo").empty();
+        $("#sexo").append("<option value='Masculino' disabled selected hidden>Seleccionar el Género</option><option value='Masculino'>Masculino</option><option value='Femenino'>Femenino</option>");
+        
       $('#nacionalidad').empty();
-      $('#nacionalidad').append("<option disabled selected>Seleccionar Pais</option>");
+      $('#nacionalidad').append("<option disabled selected value=" + data[0].idNacionalidad +">Seleccionar Pais</option>");
       $.each(data, function (i, item) {
 
         $('#nacionalidad').append('<option value="' + data[i].idNacionalidad + '">' + data[i].pais + '</option>');
@@ -217,7 +270,7 @@ function cargarGrupo() {
     contentType: "application/json; charset=utf-8",
     success: function (data) {
       $('#idgrado').empty();
-      $('#idgrado').append("<option>Seleccionar Grado</option>");
+      $('#idgrado').append("<option value=" + data[0].ID_GRADO + ">Seleccionar Grado</option>");
       $.each(data, function (i, item) {
 
         $('#idgrado').append('<option value="' + data[i].ID_GRADO + '">' + data[i].NOMBRE_GRADO + ' ' + data[i].ANNIO + '</option>');
@@ -237,7 +290,7 @@ function cargarGrado() {
     contentType: "application/json; charset=utf-8",
     success: function (data) {
       $('#idgrado').empty();
-      $('#idgrado').append("<option>Seleccionar Grado</option>");
+      $('#idgrado').append("<option value="+ data[0].ID_GRADO + ">Seleccionar Grado</option>");
       $.each(data, function (i, item) {
 
         $('#idgrado').append('<option value="' + data[i].ID_GRADO + '">' + data[i].NOMBRE_GRADO + ' ' + data[i].ANNIO + '</option>');
@@ -262,7 +315,7 @@ function cargarAlumnos(bool, ced) {
     contentType: "application/json; charset=utf-8",
     success: function (data) {
       $('#estudiante').empty();
-      $('#estudiante').append("<option>Seleccione un estudiante</option>");
+      $('#estudiante').append("<option value=" + data[0].idalumno + ">Seleccione un estudiante</option>");
       $.each(data, function (i, item) {
         if (bool) {
           $('#estudiante').append('<option value="' + data[i].idalumno + '" selected="selected">' + data[i].nombre + '</option>');
@@ -292,7 +345,7 @@ function init() {
   cargarGrado();
   listar();
   cargarPais();
-  
+  $('#divResp').hide();
   $("#formEncargado").on("submit", function (e) {
     guardarEncargado(e);
   })

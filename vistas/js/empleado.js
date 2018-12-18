@@ -1,5 +1,43 @@
 var tabla;
 
+function validar(){
+  
+  var expRegCedula = new RegExp("^[^0\-][0-9+]{8,9}");
+  var expRegNombre = new RegExp("[ a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+");
+  var expRegTelefono = new RegExp("^[^01359][0-9]{7,8}");
+
+  var nombre = document.getElementById("nombre").value;
+  var cedula  = document.getElementById("cedula").value;
+  var telefono = document.getElementById("telefono").value;
+  var apellido1 = document.getElementById("apellido1").value;
+  var apellido2 = document.getElementById("apellido2").value;
+
+  
+    if (expRegNombre.test(nombre)) {
+      console.log("Nombre validacion");
+      if (expRegNombre.test(apellido1)==true && expRegNombre.test(apellido2)==true) {
+        console.log("Apellidos validacion");
+        if (expRegCedula.test(cedula) && expRegTelefono.test(telefono)) {
+          console.log("Apellidos validacion");
+          estado = true;
+        }else{
+          estado = false;
+        }
+      }else{
+        estado = false;
+      }
+    }else{
+      estado = false;
+    }
+ //console.log(cedulaaawda);
+  console.log(cedula);
+  console.log(expRegCedula.test(cedula));
+  console.log("estado: "+estado);
+  return estado;
+}
+
+
+
 
 function mostrarFormulario(estado){
     if(estado){
@@ -66,7 +104,9 @@ function listar(){
 }
 
 function guardar(e){
-    e.preventDefault();
+    var resp = true;
+    if (validar()) {
+        e.preventDefault();
     var DATOS = ($("#formEmpleado").serialize());
     console.log(DATOS);
   	$.ajax({
@@ -93,6 +133,13 @@ function guardar(e){
 
       });
       limpiar();
+    }else{
+         $('#divResp').show();
+         document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+         document.getElementById('divResp').innerHTML='<h5>Debe llenar los campos en el formato solicitado!</h5>';
+         resp = false;
+    }
+    return resp;
 }
 
 function mostrar(cedula){
@@ -123,8 +170,12 @@ function cargarPais(){
          contentType: "application/json; charset=utf-8",
          success: function(data)
          {
+            $("#sexo").empty();
+        
+            $("#sexo").append("<option value='Masculino' disabled selected hidden>Seleccionar el Género</option><option value='Masculino'>Masculino</option><option value='Femenino'>Femenino</option>");
+
              $('#idNacionalidad').empty();
-             $('#idNacionalidad').append("<option>Seleccionar Pais</option>");
+             $('#idNacionalidad').append("<option value="+data[0].idNacionalidad+">Seleccionar Pais</option>");
              $.each(data,function(i,item){
 
                  $('#idNacionalidad').append('<option value="'+data[i].idNacionalidad+'">'+data[i].pais+'</option>');
@@ -145,7 +196,7 @@ function cargarPuesto(){
          success: function(data)
          {
              $('#idPuesto').empty();
-             $('#idPuesto').append("<option>Seleccionar Puesto</option>");
+             $('#idPuesto').append("<option value="+data[0].idPuesto+" >Seleccionar Puesto</option>");
              $.each(data,function(i,item){
 
                  $('#idPuesto').append('<option value="'+data[i].idPuesto+'">'+data[i].nombrePuesto+'</option>');
@@ -170,7 +221,9 @@ function activar(cedula)
 }
 
 function editar(){
-    var DATOS = ($("#formEmpleado").serialize());
+    var resp = true;
+    if (validar()) {
+        var DATOS = ($("#formEmpleado").serialize());
     console.log(DATOS);
     $.ajax({
         url: "../controlador/empleado.php?opcion=editar",
@@ -196,6 +249,15 @@ function editar(){
         }
 
     });
+    }else{
+        $('#divResp').show();
+        document.getElementById("divResp").className = "card-panel red darken-2 white-text lighten-2";
+        document.getElementById('divResp').innerHTML='<h5>Debe llenar los campos en el formato solicitado!</h5>';
+        resp = false;
+                
+    }
+    return resp;
+    
 
 }
 
