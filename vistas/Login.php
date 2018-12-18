@@ -2,7 +2,7 @@
   session_start();
   if(isset($_SESSION["token"])){
 
-    header("Location: http://sedricr.com/controlador/autenticacionTokens.php");
+    header("Location: http://localhost:8888/SEDRI//controlador/autenticacionTokens.php");
     exit();
   }
 ?>
@@ -57,7 +57,7 @@
               <div class='input-field col s12'>
                 	
              <i class="material-icons prefix ">account_circle</i>
-                <input class='validate' type='text' name='user' id='user' placeholder="" required pattern="^[^0][0-9]{8,10}" title="Solo puede insertar numeros y una longitud minima de 9 digitos" />
+                <input class='validate' type='text' name='user' id='user' placeholder="" maxlength="10" required pattern="^[^0\-][0-9+]{8,9}" title="Solo puede insertar numeros y una longitud minima de 9 digitos" />
                 <label for='cedula'>Ingresar la Cédula</label>
               </div>
             </div>
@@ -65,7 +65,7 @@
             <div class='row'>
               <div class='input-field col s12'>
               	<i class="material-icons prefix">lock</i>
-                <input class='validate' type='password' name='pass' id='pass' pattern="[A-Za-z0-9 ]{4,15}" title="Debe tener 6-15 caracteres" placeholder="" required />
+                <input class='validate' type='password' name='pass' id='pass' minlength="5" maxlength="15" pattern="[ a-zA-ZñÑáéíóúÁÉÍÓÚ\s1-9]+" title="Debe tener 5-15 caracteres" placeholder="" required />
                 <label for='password'>Digitar la contraseña</label>
               </div>
 
