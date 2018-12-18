@@ -15,7 +15,7 @@ function validar(){
   
     if (expRegNombre.test(nombre)) {
       console.log("Nombre validacion");
-      if (expRegNombre.test(apellido1)==true && expRegNombre.test(apellido2)==true) {
+      if (expRegNombre.test(apellido1)===true && expRegNombre.test(apellido2)===true) {
         console.log("Apellidos validacion");
         estado = true;
       }else{
@@ -117,7 +117,7 @@ function listar(idGrado) {
 function guardar(e) {
   var resp = true;
   if (validar()) {
-    e.preventDefault();
+   // e.preventDefault();
     var DATOS = ($("#formAlumno").serialize());
     $.ajax({
       url: "../controlador/alumno.php?opcion=guardar",
@@ -126,7 +126,7 @@ function guardar(e) {
 
       success: function (datos) {
         tabla.ajax.reload();
-        console.log("Datos"+datos)
+        console.log("Datos"+datos);
         if(datos.includes("Registrado")){
           $('#divResp').show();
           document.getElementById("divResp").className = "card-panel green darken-2 white-text lighten-2 full-width";

@@ -69,8 +69,8 @@
                 <input class='validate' type='password' name='pass' id='pass' pattern=".{6,}" title="Debe tener 6-10 caracteres" required pattern="^[^0][0-9]{9,10}"/>
                 <label for='password'>Digitar la contraseña</label>
               </div>
-              <button  name="VerClave" type="button" id="btn_VC" class="btn-small waves blue ">
-  <i class="material-icons white-text">visibility</i></button>
+              <button  name="VerClave" type="button" id="btn_VC" class="btn waves-effect blue ">
+              <i class="material-icons white-text">visibility</i></button>
              
               <a class='blue-text subtitle' href='vistas/RecuperaPassword.php'><b>Olvidó su contraseña</b> <i class="material-icons">help</i></a>
 							
