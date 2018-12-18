@@ -7,8 +7,7 @@ $cedula=$_POST["cedula"];
 
 	$usuario = 'select vn1.cedula,vn1.materia,concat(vn1.nombre," ",vn1.apellido1," ",vn1.apellido2) as nombre,vn1.total as total1,vn2.total as total2,vn3.total as total3 
 from vista_notas vn1,vista_notas vn2,vista_notas vn3 
-where vn1.trimestre = 1 and vn2.trimestre = 2 and vn3.trimestre = 3 and vn1.cedula = "'.$cedula.'" and vn1.cedula = vn2.cedula and vn2.cedula = vn3.cedula
-GROUP BY vn1.materia;';	
+where vn1.trimestre = 1 and vn2.trimestre = 2 and vn3.trimestre = 3 and vn1.cedula = "'.$cedula.'"  and vn1.cedula = vn2.cedula and vn1.cedula = vn3.cedula and vn1.materia = vn2.materia and vn2.materia = vn3.materia';	
 $usuarios=$mysqli->query($usuario);
 
 $alumno = $mysqli->query("
