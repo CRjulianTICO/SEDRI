@@ -15,10 +15,10 @@
     $nombre = $dataToken["nombre"];
     $rol = $dataToken["rol"];
     if($rol!="Director"){
-      header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
+      header("Location: http://localhost:8888/SEDRI//vistas/Login.php");
     }
   }else{
-    header("Location: http://localhost:8888/SEDRI/vistas/Login.php");
+    header("Location: http://localhost:8888/SEDRI//vistas/Login.php");
   }
 ?>
 
@@ -26,7 +26,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Director</title>
 	<!-- JQuery / Materialize CSS + JavaScript imports -->
 
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -39,7 +39,9 @@
 <link href="../public/datatables/responsive.dataTables.min.css" rel="stylesheet"/>
 <link href="../public/css/estilos.css?hi" rel="stylesheet"/>
 <link href="../public/css/menuProfesor.css?ki" rel="stylesheet"/>
-
+<link rel="icon" 
+        type="image/png" 
+        href="../public/images/favicon.ico">
 
 
 
@@ -166,7 +168,7 @@
     <!--menu frontal-->
       <ul id="nav-mobile" class="right ">
 
-        <li><a href="../controlador/Logout.php">Cerrar Sesion<i class="material-icons left">exit_to_app</i></a></li>
+        <li><a href="../controlador/Logout.php">Cerrar Sesión<i class="material-icons left">exit_to_app</i></a></li>
       </ul>
 <!--fin del menu frontal-->
   </div>

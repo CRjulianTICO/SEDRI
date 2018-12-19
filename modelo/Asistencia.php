@@ -33,7 +33,7 @@ require "../config/Conexion.php";
         }
 
         public function contarEstudiantesGrado($idGrado){
-            $sql = "select COUNT(DISTINCT(gen.idEstudiante)) FROM grado_estudiante_nota gen, alumno a, persona p where  gen.idEstudiante = a.idalumno and a.Persona_idPersona = p.idPersona and gen.idGrado =".$idGrado;
+            $sql = "select COUNT(DISTINCT(gen.idEstudiante)) FROM grado_estudiante_nota gen, alumno a, persona p where  gen.idEstudiante = a.idalumno and a.Persona_idPersona = p.idPersona and p.disponible = 1 and gen.idGrado =".$idGrado;
             return consulta($sql);
         }
 

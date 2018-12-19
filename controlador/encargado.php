@@ -48,15 +48,29 @@ $alumno=new Alumno();
 switch ($_GET["opcion"]){
 	
 	case 'guardar':
+	    echo "cedula: ".$cedula;
+	    echo "/No:".$nombre;
+	    echo "/Ap1:".$apellido1;
+	    echo "/Ap2:".$apellido2;
+	    echo "/Se:".$sexo;
+	    echo "/Di:".$direccion;
+	    echo "/Te:".$telefono;
+	    echo "/Te2:".$telefono2;
+	    echo "/Na:".$nacionalidad."<br>";
+	    
 		$rspta=$encargado->insertar($cedula, $nombre, $apellido1, $apellido2, $sexo, $direccion,$telefono,$telefono2,$nacionalidad);
+		
+		print_r($rspta);
 
 		if($rspta != null){
+		    echo "POR AQUIII";
 			$resp = $encargado->consultaID($cedula);
 			$id = $resp['idencargado'];
+			 echo "<br> ID".$id;
 			$array = $_POST['estudiante'];
 			foreach($array as $value){
 				$encargado->insertaAlumno($id,$value);
-				;
+				
 			 }
 			 echo "Registrado";
 		}else{

@@ -2,12 +2,14 @@
 
 <div id="content">
 
-
+<div class="container">
+    <div id="divResp"></div>
+</div>
   <div id="tabla">
 
     <table id="tblPuesto" class="display responsive nowrap tabla" style="width: 100%">
       <thead>
-        <th data-priority="1">Codigo</th>
+        <th data-priority="1">Código</th>
         <th data-priority="2">Puesto</th>
         <th data-priority="3">Descripcion</th>
         <th data-priority="4">Editar</th>
@@ -23,7 +25,7 @@
 
         <div class="row">
           <div class="input-field col s6">
-            <label for="idPuesto">Codigo del Puesto</label>
+            <label for="idPuesto">Código del Puesto</label>
             <input placeholder="Codigo" class="validate" type="text" name="idPuesto" id="idPuesto" readonly="true" />
 
           </div>
@@ -32,7 +34,7 @@
         <div class="row">
           <div class="input-field col s6">
 
-            <input placeholder="Nombre" class="validate" type="text" name="nombrePuesto" id="nombrePuesto" />
+            <input placeholder="Nombre" class="validate" type="text" name="nombrePuesto" id="nombrePuesto"  minlength="3" maxlength="20" pattern="[ a-zA-ZñÑáéíóúÁÉÍÓÚ\s1-9]+" title="Solo puede insertar un maximo de 20 caracteres y un minimo de 3 letras" required/>
             <label for="nombrePuesto">Ingresar el Nombre del Puesto</label>
 
           </div>
@@ -41,8 +43,8 @@
         <div class="row">
           <div class="input-field col s12">
 
-            <textarea placeholder="Descripcion..." id="descripcionPuesto" name="descripcionPuesto" class="materialize-textarea" class="validate"></textarea>
-            <label for="descripcionPuesto">Ingresar la Descripcion del Puesto</label>
+            <textarea placeholder="Descripcion..." id="descripcionPuesto" name="descripcionPuesto" class="materialize-textarea" class="validate" data-length="100" required maxlength="150" minlength="3" pattern="[ a-zA-ZñÑáéíóúÁÉÍÓÚ\s1-9]+" title="Solo puede insertar un maximo de 100 caracteres." ></textarea>
+            <label for="descripcionPuesto">Ingresar la Descripción del Puesto</label>
           </div>
         </div>
         <div class="row">

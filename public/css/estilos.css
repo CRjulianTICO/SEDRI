@@ -107,7 +107,7 @@ i{
    
 	max-height: 60%;
    
-	width: 35%;
+	
    
 	will-change: top, opacity;
    
@@ -187,7 +187,7 @@ i{
 	border : 2px solid black;
 
 	}
-	.full-with{
+	.full-width{
 
 		width : 100%;
 	}

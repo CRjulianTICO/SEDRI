@@ -6,7 +6,7 @@
     <div id="tabla">
         <table id="tblMateria" class="display responsive nowrap tabla" style="width: 100%">
             <thead>
-            <th data-priority="1">Codigo</th>
+            <th data-priority="1">Código</th>
             <th data-priority="2">Materia</th>
             <th data-priority="2">Tipo de Materia</th>
             <th data-priority="3">Estado</th>
@@ -25,14 +25,14 @@
             
                 <div class="row">
                     <div class="input-field col s6">
-                        <label for ="idMateria">Codigo de la Materia</label>
+                        <label for ="idMateria">Código de la Materia</label>
                         <input placeholder="Codigo" class="validate" type="text" name="idmateria" id="idmateria" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="input-field col s6">
-                        <input placeholder="Nombre" class="validate" type="text" name="nombreMateria" id="nombreMateria" />
+                        <input placeholder="Nombre" class="validate" type="text" name="nombreMateria" id="nombreMateria" minlength="3" maxlength="20" pattern="[ a-zA-ZñÑáéíóúÁÉÍÓÚ\s1-9]+" title="Solo puede insertar un maximo de 20 caracteres y un minimo de 3 letras" required/>
                         <label for ="nombreMateria">Ingresar el Nombre de la Materia</label>
                     </div>
                     <div class="input-field col s6">

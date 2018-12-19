@@ -1,4 +1,12 @@
-
+$(document).ready(function () {
+   $('#btn_VC').click(function () {
+    if ($('#pass').attr('type') === 'text') {
+     $('#pass').attr('type', 'password');
+    } else {
+     $('#pass').attr('type', 'text');
+    }
+   });
+  });
 
 function guardar(e){
    

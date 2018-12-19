@@ -23,7 +23,7 @@
    <div class="tabla" id="tabla">
         <table id="tblNotas" class="display responsive nowrap tabla" style="width: 100%">
         <thead>
-          <th data-priority="1">Cedula</th>
+          <th data-priority="1">Cédula</th>
           <th data-priority="2">Nombre</th>
           <th data-priority="3">Primer Apellido</th>
           <th data-priority="3">Segundo Apellido</th>
