@@ -41,7 +41,7 @@
               <div class='input-field col s12'>
                 	
 <i class="material-icons prefix ">person</i>
-                <input class='validate' type='text' name='cedula' id='cedula' required maxlength="20" pattern="^[^0][0-9]{8,10}" title="Solo puede insertar numeros y una longitud minima de 9 digitos" />
+                <input class='validate' type='text' name='cedula' id='cedula' maxlength="10" required pattern="^[^0\-][0-9+]{8,9}" title="Solo puede insertar numeros y una longitud minima de 9 digitos"/>
                 <label for='cedula'>Ingrese su número de cédula</label>
               </div>
              

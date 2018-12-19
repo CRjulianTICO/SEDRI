@@ -31,7 +31,7 @@ $fecha =  date("Y"); ?>
 
 <div class='row'>
   <div class='input-field col s6'>
-    <input placeholder="Nombre" class='validate' type='text' name='nombreGrado' id='nombreGrado' maxlength="25" required/>
+    <input placeholder="Nombre" class='validate' type='text' name='nombreGrado' id='nombreGrado' minlength="2" maxlength="20" pattern="[ a-zA-ZñÑáéíóúÁÉÍÓÚ\s1-9\-]+" title="Solo puede insertar un maximo de 20 caracteres y un minimo de 2 letras" required/>
     <label for='nombreGrado'>Ingresar el Nombre</label>
     </div>
     <div class="input-field col s6">
@@ -40,8 +40,11 @@ $fecha =  date("Y"); ?>
           <option value="2018">2018</option>
           <option value="2019">2019</option>
           <option value="2020">2020</option>
-          <option value="2020">2021</option>
-          <option value="2020">2022</option>
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
+          <option value="2025">2025</option>
 
           </select>
     </div>

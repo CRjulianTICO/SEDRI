@@ -27,14 +27,14 @@
 
 <div class='row'>
     <div class='input-field col s6'>
-        <input placeholder="Cedula" class='validate' type='text' name='cedula' id='cedula' required />
+        <input placeholder="Cedula" class='validate' type='text' name='cedula' id='cedula' maxlength="10" required pattern="^[^0\-][0-9+]{8,9}" title="Solo puede insertar numeros y una longitud minima de 9 digitos" />
             <label for='cedula'>Ingrese la Cédula del estudiante</label>
     </div>
 </div>
 
 <div class="row">
     <div class="input-field col s12">
-        <textarea placeholder="Descripcion..." id="descripcionBeca" name="descripcionBeca" class="materialize-textarea" class="validate" required ></textarea>
+        <textarea placeholder="Descripcion..." id="descripcionBeca" name="descripcionBeca" class="materialize-textarea" class="validate" minlength="5" maxlength="500" pattern="[ a-zA-ZñÑáéíóúÁÉÍÓÚ\s1-9]+" title="Debe tener 5 caracteres minimo" ></textarea>
             <label for="descripcionBeca">Ingresar la Descripción de la Beca</label>
     </div>
 </div>
@@ -42,7 +42,7 @@
 
 <div class='row'>
     <div class='input-field col s6'>
-        <input placeholder="Monto" class='validate' type='text' name='monto' id='monto'  required />
+        <input placeholder="Monto" class='validate' type='text' name='monto' id='monto' minlength="3" maxlength="7" required pattern="^[^0\-][0-9+]" title="Solo puede insertar numeros y con un minimo de 3 digitos"  />
             <label for='monto'>Ingrese el Monto de la Beca</label>
     </div>
 </div>
