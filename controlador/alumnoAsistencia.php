@@ -29,7 +29,7 @@
 
 
   }else{
-    header("Location: http://sedricr.com/vistas/Login.php");
+    header("Location: http://localhost:8888/SEDRI//vistas/Login.php");
   }
 
 require_once "../modelo/Alumno.php";

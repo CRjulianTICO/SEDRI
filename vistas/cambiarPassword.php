@@ -43,7 +43,7 @@ $user=isset($_GET['cedula'])?($_GET['cedula']):0;
               <div class='input-field col s12'>
                 	
               <i class="material-icons prefix">lock</i>
-                <input class='validate' type='password' name='pass' id='pass' required maxlength="20"  />
+                <input class='validate' type='password' name='pass' id='pass'  minlength="5" maxlength="15" pattern="[ a-zA-ZñÑáéíóúÁÉÍÓÚ\s1-9]+" title="Debe tener 5-15 caracteres" placeholder="" required  />
                 <label for='pass'>Por favor ingrese su nueva contraseña</label>
               </div>
              

@@ -89,10 +89,10 @@
 
             <div class="col s6">
               <select name="sexo" id="sexo" class="browser-default " required>
-                <option value="Masculino" disabled selected hidden>Seleccionar el Género</option>
-                <option value="Masculino">Masculino</option>
-                <option value="Femenino">Femenino</option>
-              </select>
+                    <option value="Masculino" disabled selected hidden>Seleccionar el Género</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                  </select>
             </div>
             <div class="col s6">
               <select name="nacionalidad" id="nacionalidad" class="browser-default" required>

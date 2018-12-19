@@ -2,7 +2,7 @@
   session_start();
   if(isset($_SESSION["token"])){
 
-    header("Location: http://sedricr.com/controlador/autenticacionTokens.php");
+    header("Location: http://localhost:8888/SEDRI//controlador/autenticacionTokens.php");
     exit();
   }
 ?>
@@ -58,7 +58,7 @@
               <div class='input-field col s12'>
                 	
              <i class="material-icons prefix ">account_circle</i>
-                <input class='validate' type='text' name='user' id='user' min="100000" max="9999999" placeholder="" required />
+                <input class='validate' type='text' name='user' id='user' placeholder="" maxlength="10" required pattern="^[^0\-][0-9+]{8,9}" title="Solo puede insertar numeros y una longitud minima de 9 digitos"/>
                 <label for='cedula'>Ingresar la Cédula</label>
               </div>
             </div>
@@ -66,11 +66,11 @@
             <div class='row'>
               <div class='input-field col s12'>
               	<i class="material-icons prefix">lock</i>
-                <input class='validate' type='password' name='pass' id='pass' pattern=".{6,}" title="Debe tener 6-10 caracteres" required pattern="^[^0][0-9]{9,10}"/>
+                <input class='validate' type='password' name='pass' id='pass' minlength="5" maxlength="15" pattern="[ a-zA-ZñÑáéíóúÁÉÍÓÚ\s1-9]+" title="Debe tener 5-15 caracteres" placeholder="" required/>
                 <label for='password'>Digitar la contraseña</label>
               </div>
-              <button  name="VerClave" type="button" id="btn_VC" class="btn-small waves blue ">
-  <i class="material-icons white-text">visibility</i></button>
+              <button  name="VerClave" type="button" id="btn_VC" class="btn waves-effect blue ">
+              <i class="material-icons white-text">visibility</i></button>
              
               <a class='blue-text subtitle' href='vistas/RecuperaPassword.php'><b>Olvidó su contraseña</b> <i class="material-icons">help</i></a>
 							
